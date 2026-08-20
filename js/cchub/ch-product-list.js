@@ -119,8 +119,11 @@
 
   function renderBreadcrumb() {
     const parts = [
-      { label: "Home", href: "index.html" },
-      { label: CATEGORY_LABELS[state.cat] || state.cat, href: `product-list.html?cat=${encodeURIComponent(state.cat)}` },
+      { label: "Home", href: "ch-trading.html" },
+      {
+        label: CATEGORY_LABELS[state.cat] || state.cat,
+        href: `product-list.html?cat=${encodeURIComponent(state.cat)}`,
+      },
     ];
     if (state.group) {
       parts.push({
