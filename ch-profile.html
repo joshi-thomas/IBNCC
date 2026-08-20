@@ -324,6 +324,365 @@
     .page-profile .profile-cover {
       height: 228px;
     }
+
+    /* ---------- Messages panel + chat ---------- */
+    .page-profile .msg-panel-root[hidden] {
+      display: none !important;
+    }
+    .page-profile .msg-panel-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      background: rgba(7, 17, 31, 0.35);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+    .page-profile .msg-panel {
+      position: fixed;
+      top: calc(var(--header-h) + 92px);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1201;
+      width: min(100% - 1.5rem, 400px);
+      height: min(560px, calc(100vh - var(--header-h) - 120px));
+      display: flex;
+      flex-direction: column;
+      background: #0a0a0a;
+      color: #f5f5f5;
+      border-radius: 18px;
+      box-shadow: 0 24px 60px rgba(7, 17, 31, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      font-family: var(--font-sans);
+      animation: msgPanelIn 0.28s var(--ease);
+    }
+    @keyframes msgPanelIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(-10px) scale(0.98); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+    }
+    .page-profile .msg-panel-view {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 0;
+    }
+    .page-profile .msg-panel-view[hidden] {
+      display: none !important;
+    }
+    .page-profile .msg-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 1rem 1rem 0.75rem;
+      flex-shrink: 0;
+    }
+    .page-profile .msg-panel-header h2 {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+    .page-profile .msg-panel-close,
+    .page-profile .msg-chat-back,
+    .page-profile .msg-icon-btn {
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s ease;
+    }
+    .page-profile .msg-panel-close:hover,
+    .page-profile .msg-chat-back:hover,
+    .page-profile .msg-icon-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+    .page-profile .msg-list {
+      list-style: none;
+      margin: 0;
+      padding: 0.25rem 0 0.75rem;
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    }
+    .page-profile .msg-row {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s ease;
+    }
+    .page-profile .msg-row:hover,
+    .page-profile .msg-row:focus-visible {
+      background: rgba(255, 255, 255, 0.06);
+      outline: none;
+    }
+    .page-profile .msg-avatar-wrap {
+      position: relative;
+      width: 56px;
+      height: 56px;
+      flex-shrink: 0;
+      border-radius: 50%;
+    }
+    .page-profile .msg-avatar-wrap.is-story {
+      padding: 3px;
+      background: conic-gradient(from 210deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888, #f09433);
+    }
+    .page-profile .msg-avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      background: #222;
+    }
+    .page-profile .msg-avatar-wrap.is-story img {
+      border: 2px solid #0a0a0a;
+      box-sizing: border-box;
+    }
+    .page-profile .msg-online-dot {
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #31a24c;
+      border: 2px solid #0a0a0a;
+    }
+    .page-profile .msg-row-copy {
+      min-width: 0;
+      flex: 1;
+    }
+    .page-profile .msg-row-name {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .page-profile .msg-row-preview {
+      display: block;
+      margin-top: 0.15rem;
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: #8e8e8e;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .page-profile .msg-row-preview.is-unread {
+      color: #cfcfcf;
+      font-weight: 500;
+    }
+
+    .page-profile .msg-chat-header {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.75rem 0.85rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      flex-shrink: 0;
+    }
+    .page-profile .msg-chat-person {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      min-width: 0;
+      flex: 1;
+    }
+    .page-profile .msg-chat-person img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .page-profile .msg-chat-person strong {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .page-profile .msg-chat-person span {
+      display: block;
+      font-size: 0.72rem;
+      color: #8e8e8e;
+      margin-top: 0.1rem;
+    }
+    .page-profile .msg-chat-log {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 1rem 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      background:
+        radial-gradient(circle at top right, rgba(47, 111, 219, 0.12), transparent 42%),
+        #0a0a0a;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    }
+    .page-profile .msg-bubble {
+      max-width: 82%;
+      padding: 0.55rem 0.8rem;
+      border-radius: 16px;
+      font-size: 0.86rem;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+    .page-profile .msg-bubble.is-in {
+      align-self: flex-start;
+      background: #262626;
+      color: #f5f5f5;
+      border-bottom-left-radius: 4px;
+    }
+    .page-profile .msg-bubble.is-out {
+      align-self: flex-end;
+      background: #2f6fdb;
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+    .page-profile .msg-bubble-meta {
+      display: block;
+      margin-top: 0.25rem;
+      font-size: 0.65rem;
+      opacity: 0.7;
+    }
+    .page-profile .msg-attach-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      padding: 0.55rem 0.85rem 0;
+      background: #111;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      flex-shrink: 0;
+    }
+    .page-profile .msg-attach-preview:empty {
+      display: none;
+    }
+    .page-profile .msg-attach-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      max-width: 100%;
+      padding: 0.3rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ddd;
+      font-size: 0.72rem;
+    }
+    .page-profile .msg-attach-chip span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 10rem;
+    }
+    .page-profile .msg-attach-chip button {
+      border: 0;
+      background: transparent;
+      color: #aaa;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+    }
+    .page-profile .msg-compose {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.45rem;
+      padding: 0.7rem 0.75rem 0.85rem;
+      background: #111;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      flex-shrink: 0;
+    }
+    .page-profile .msg-compose textarea {
+      flex: 1;
+      min-width: 0;
+      min-height: 40px;
+      max-height: 96px;
+      resize: none;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 0.55rem 0.75rem;
+      font-family: inherit;
+      font-size: 0.86rem;
+      line-height: 1.35;
+      color: #fff;
+      background: #1a1a1a;
+    }
+    .page-profile .msg-compose textarea::placeholder {
+      color: #8e8e8e;
+    }
+    .page-profile .msg-compose textarea:focus {
+      outline: none;
+      border-color: rgba(47, 111, 219, 0.7);
+    }
+    .page-profile .msg-compose .msg-icon-btn.is-send {
+      background: #2f6fdb;
+      color: #fff;
+    }
+    .page-profile .msg-compose .msg-icon-btn.is-send:hover {
+      background: #2560c4;
+    }
+    .page-profile .msg-compose .msg-icon-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .page-profile .msg-file-input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @media (max-width: 640px) {
+      .page-profile .msg-panel {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: none;
+        width: 100%;
+        height: min(78vh, 620px);
+        border-radius: 18px 18px 0 0;
+        animation: msgPanelUp 0.28s var(--ease);
+      }
+      @keyframes msgPanelUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .page-profile .msg-avatar-wrap {
+        width: 50px;
+        height: 50px;
+      }
+    }
   </style>
 </head>
 <body class="profile-page page-profile">
@@ -410,7 +769,7 @@
 
   <nav class="app-nav" aria-label="Profile navigation">
     <div class="app-nav-inner">
-      <a href="#messages" class="app-nav-item" aria-label="Messages, 3 unread">
+      <a href="#messages" class="app-nav-item" id="openMessagesBtn" aria-label="Messages, 3 unread" aria-controls="messagesPanel" aria-expanded="false">
         <span class="app-nav-icon app-nav-icon--messages">
           <i class="fa-regular fa-comments" aria-hidden="true"></i>
           <span class="app-nav-badge" aria-hidden="true">3</span>
@@ -906,6 +1265,130 @@
   <footer class="site-footer">
     <p>&copy; 2026 CC Hub — Catholic Congress. Connect • Trade • Grow.</p>
   </footer>
+
+  <div class="msg-panel-root" id="messagesPanel" hidden>
+    <div class="msg-panel-backdrop" data-msg-close tabindex="-1" aria-hidden="true"></div>
+    <aside class="msg-panel" role="dialog" aria-modal="true" aria-labelledby="messages-panel-title">
+      <div class="msg-panel-view" id="msgListView">
+        <header class="msg-panel-header">
+          <h2 id="messages-panel-title">Messages</h2>
+          <button type="button" class="msg-panel-close" data-msg-close aria-label="Close messages">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </header>
+        <ul class="msg-list" id="msgConversationList" role="list">
+          <li>
+            <button type="button" class="msg-row" data-chat-id="vivek" data-name="Vivek Chembra" data-avatar="assets/images/cchub/tt2.jpg" data-status="Active 6m ago">
+              <span class="msg-avatar-wrap">
+                <img src="assets/images/cchub/tt2.jpg" alt="" width="56" height="56" />
+              </span>
+              <span class="msg-row-copy">
+                <span class="msg-row-name">Vivek Chembra</span>
+                <span class="msg-row-preview">Active 6m ago</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="msg-row" data-chat-id="jaleel" data-name="Jaleel Magalath" data-avatar="assets/images/cchub/tt3.webp" data-status="Active now" data-online="true">
+              <span class="msg-avatar-wrap">
+                <img src="assets/images/cchub/tt3.webp" alt="" width="56" height="56" />
+                <span class="msg-online-dot" aria-hidden="true"></span>
+              </span>
+              <span class="msg-row-copy">
+                <span class="msg-row-name">Jaleel Magalath</span>
+                <span class="msg-row-preview">Active now</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="msg-row" data-chat-id="joseph" data-name="Joseph Mathew" data-avatar="assets/images/cchub/tt4.webp" data-status="Aahaaa · 2d">
+              <span class="msg-avatar-wrap">
+                <img src="assets/images/cchub/tt4.webp" alt="" width="56" height="56" />
+              </span>
+              <span class="msg-row-copy">
+                <span class="msg-row-name">Joseph Mathew</span>
+                <span class="msg-row-preview">Aahaaa · 2d</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="msg-row" data-chat-id="bejois" data-name="Bejois T Balan" data-avatar="assets/images/cchub/tt5.webp" data-status="4+ new messages · 5d" data-unread="true">
+              <span class="msg-avatar-wrap is-story">
+                <img src="assets/images/cchub/tt5.webp" alt="" width="56" height="56" />
+              </span>
+              <span class="msg-row-copy">
+                <span class="msg-row-name">Bejois T Balan</span>
+                <span class="msg-row-preview is-unread">4+ new messages · 5d</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="msg-row" data-chat-id="anoop" data-name="Anoop Kuriakose" data-avatar="assets/images/cchub/tt6.jpg" data-status="Reacted 👍 to your message · 1w">
+              <span class="msg-avatar-wrap">
+                <img src="assets/images/cchub/tt6.jpg" alt="" width="56" height="56" />
+              </span>
+              <span class="msg-row-copy">
+                <span class="msg-row-name">Anoop Kuriakose</span>
+                <span class="msg-row-preview">Reacted 👍 to your message · 1w</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="msg-row" data-chat-id="maria" data-name="Maria Thomas" data-avatar="assets/images/cchub/pr1.jpg" data-status="Looking forward to the conclave · 3d">
+              <span class="msg-avatar-wrap">
+                <img src="assets/images/cchub/pr1.jpg" alt="" width="56" height="56" />
+              </span>
+              <span class="msg-row-copy">
+                <span class="msg-row-name">Maria Thomas</span>
+                <span class="msg-row-preview">Looking forward to the conclave · 3d</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="msg-row" data-chat-id="rahul" data-name="Rahul Jose" data-avatar="assets/images/cchub/pr2.jpg" data-status="Active 2h ago">
+              <span class="msg-avatar-wrap">
+                <img src="assets/images/cchub/pr2.jpg" alt="" width="56" height="56" />
+              </span>
+              <span class="msg-row-copy">
+                <span class="msg-row-name">Rahul Jose</span>
+                <span class="msg-row-preview">Active 2h ago</span>
+              </span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="msg-panel-view" id="msgChatView" hidden>
+        <header class="msg-chat-header">
+          <button type="button" class="msg-chat-back" id="msgChatBack" aria-label="Back to messages">
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+          </button>
+          <div class="msg-chat-person">
+            <img id="msgChatAvatar" src="assets/images/cchub/tt2.jpg" alt="" width="40" height="40" />
+            <div>
+              <strong id="msgChatName">Contact</strong>
+              <span id="msgChatStatus">Active now</span>
+            </div>
+          </div>
+          <button type="button" class="msg-panel-close" data-msg-close aria-label="Close messages">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </header>
+        <div class="msg-chat-log" id="msgChatLog" aria-live="polite"></div>
+        <div class="msg-attach-preview" id="msgAttachPreview" aria-live="polite"></div>
+        <form class="msg-compose" id="msgChatForm" autocomplete="off">
+          <input type="file" id="msgFileInput" class="msg-file-input" accept="image/*,.pdf,.doc,.docx,.txt" multiple tabindex="-1" aria-hidden="true" />
+          <button type="button" class="msg-icon-btn" id="msgAttachBtn" aria-label="Attach file or image">
+            <i class="fa-solid fa-paperclip" aria-hidden="true"></i>
+          </button>
+          <textarea id="msgChatInput" rows="1" placeholder="Message…" aria-label="Type a message"></textarea>
+          <button type="submit" class="msg-icon-btn is-send" id="msgSendBtn" aria-label="Send message">
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+          </button>
+        </form>
+      </div>
+    </aside>
+  </div>
 
   <dialog class="password-dialog" id="changePasswordDialog" aria-labelledby="change-password-title">
     <form method="dialog" class="password-dialog-form" id="changePasswordForm">

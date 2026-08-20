@@ -706,4 +706,222 @@
     socialBody?.appendChild(row);
     row.querySelector(".social-edit-btn")?.click();
   });
+
+  /* ---------- Messages panel + chat ---------- */
+  const openMessagesBtn = document.getElementById("openMessagesBtn");
+  const messagesPanel = document.getElementById("messagesPanel");
+  const msgListView = document.getElementById("msgListView");
+  const msgChatView = document.getElementById("msgChatView");
+  const msgChatBack = document.getElementById("msgChatBack");
+  const msgChatLog = document.getElementById("msgChatLog");
+  const msgChatForm = document.getElementById("msgChatForm");
+  const msgChatInput = document.getElementById("msgChatInput");
+  const msgChatName = document.getElementById("msgChatName");
+  const msgChatStatus = document.getElementById("msgChatStatus");
+  const msgChatAvatar = document.getElementById("msgChatAvatar");
+  const msgAttachBtn = document.getElementById("msgAttachBtn");
+  const msgFileInput = document.getElementById("msgFileInput");
+  const msgAttachPreview = document.getElementById("msgAttachPreview");
+  const msgSendBtn = document.getElementById("msgSendBtn");
+
+  const conversationThreads = {
+    vivek: [
+      { text: "Hi George, hope you're doing well!", out: false },
+      { text: "Doing great, Vivek. How about you?", out: true },
+      { text: "All good. Are you joining the Kochi conclave?", out: false },
+    ],
+    jaleel: [
+      { text: "Can we connect on the networking session?", out: false },
+      { text: "Absolutely — I'll be there after lunch.", out: true },
+    ],
+    joseph: [
+      { text: "Aahaaa", out: false },
+    ],
+    bejois: [
+      { text: "Sending over the event flyer shortly.", out: false },
+      { text: "Please check the seating update as well.", out: false },
+      { text: "Thanks Bejois, received!", out: true },
+    ],
+    anoop: [
+      { text: "Reacted 👍 to your message", out: false },
+      { text: "Looking forward to collaborating.", out: true },
+    ],
+    maria: [
+      { text: "Looking forward to the conclave", out: false },
+      { text: "Same here — see you in Kochi!", out: true },
+    ],
+    rahul: [
+      { text: "Quick question about the trading desk timings.", out: false },
+    ],
+  };
+
+  let pendingFiles = [];
+  let activeChatId = null;
+
+  function setMessagesOpen(open) {
+    if (!messagesPanel || !openMessagesBtn) return;
+    messagesPanel.hidden = !open;
+    openMessagesBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    document.body.style.overflow = open ? "hidden" : "";
+    if (!open) {
+      showListView();
+      clearPendingFiles();
+    }
+  }
+
+  function showListView() {
+    if (msgListView) msgListView.hidden = false;
+    if (msgChatView) msgChatView.hidden = true;
+    activeChatId = null;
+  }
+
+  function clearPendingFiles() {
+    pendingFiles = [];
+    if (msgFileInput) msgFileInput.value = "";
+    renderAttachPreview();
+  }
+
+  function renderAttachPreview() {
+    if (!msgAttachPreview) return;
+    msgAttachPreview.innerHTML = "";
+    pendingFiles.forEach((file, index) => {
+      const chip = document.createElement("span");
+      chip.className = "msg-attach-chip";
+      const label = document.createElement("span");
+      label.textContent = file.name;
+      const remove = document.createElement("button");
+      remove.type = "button";
+      remove.setAttribute("aria-label", `Remove ${file.name}`);
+      remove.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
+      remove.addEventListener("click", () => {
+        pendingFiles.splice(index, 1);
+        renderAttachPreview();
+      });
+      chip.append(label, remove);
+      msgAttachPreview.appendChild(chip);
+    });
+  }
+
+  function appendBubble(text, outgoing) {
+    if (!msgChatLog) return;
+    const bubble = document.createElement("div");
+    bubble.className = `msg-bubble ${outgoing ? "is-out" : "is-in"}`;
+    bubble.textContent = text;
+    const meta = document.createElement("span");
+    meta.className = "msg-bubble-meta";
+    meta.textContent = outgoing ? "Just now" : "";
+    if (outgoing) bubble.appendChild(meta);
+    msgChatLog.appendChild(bubble);
+    msgChatLog.scrollTop = msgChatLog.scrollHeight;
+  }
+
+  function openChatFromRow(row) {
+    if (!row || !msgChatView || !msgListView) return;
+    activeChatId = row.dataset.chatId || "unknown";
+    const name = row.dataset.name || "Contact";
+    const avatar = row.dataset.avatar || "assets/images/cchub/tt1.webp";
+    const status = row.dataset.status || "Active now";
+
+    if (msgChatName) msgChatName.textContent = name;
+    if (msgChatStatus) msgChatStatus.textContent = status;
+    if (msgChatAvatar) {
+      msgChatAvatar.src = avatar;
+      msgChatAvatar.alt = "";
+    }
+
+    msgListView.hidden = true;
+    msgChatView.hidden = false;
+    clearPendingFiles();
+
+    if (msgChatLog) {
+      msgChatLog.innerHTML = "";
+      const thread = conversationThreads[activeChatId] || [
+        { text: `Start a conversation with ${name}.`, out: false },
+      ];
+      thread.forEach((msg) => appendBubble(msg.text, msg.out));
+    }
+
+    window.requestAnimationFrame(() => msgChatInput?.focus());
+  }
+
+  openMessagesBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const opening = Boolean(messagesPanel?.hidden);
+    setMessagesOpen(opening);
+    if (opening) showListView();
+  });
+
+  messagesPanel?.querySelectorAll("[data-msg-close]").forEach((el) => {
+    el.addEventListener("click", () => setMessagesOpen(false));
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && messagesPanel && !messagesPanel.hidden) {
+      if (msgChatView && !msgChatView.hidden) {
+        showListView();
+      } else {
+        setMessagesOpen(false);
+        openMessagesBtn?.focus();
+      }
+    }
+  });
+
+  msgChatBack?.addEventListener("click", () => {
+    showListView();
+  });
+
+  document.getElementById("msgConversationList")?.addEventListener("click", (e) => {
+    const row = e.target.closest(".msg-row");
+    if (row) openChatFromRow(row);
+  });
+
+  msgAttachBtn?.addEventListener("click", () => msgFileInput?.click());
+
+  msgFileInput?.addEventListener("change", () => {
+    const files = Array.from(msgFileInput.files || []);
+    if (!files.length) return;
+    pendingFiles = pendingFiles.concat(files).slice(0, 5);
+    renderAttachPreview();
+    msgFileInput.value = "";
+  });
+
+  function autoGrowTextarea() {
+    if (!msgChatInput) return;
+    msgChatInput.style.height = "auto";
+    msgChatInput.style.height = `${Math.min(msgChatInput.scrollHeight, 96)}px`;
+  }
+
+  msgChatInput?.addEventListener("input", autoGrowTextarea);
+
+  msgChatInput?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      msgChatForm?.requestSubmit();
+    }
+  });
+
+  msgChatForm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const text = msgChatInput?.value.trim() || "";
+    const hasFiles = pendingFiles.length > 0;
+    if (!text && !hasFiles) return;
+
+    if (hasFiles) {
+      const names = pendingFiles.map((f) => f.name).join(", ");
+      appendBubble(text ? `${text}\n📎 ${names}` : `📎 ${names}`, true);
+      clearPendingFiles();
+    } else {
+      appendBubble(text, true);
+    }
+
+    if (msgChatInput) {
+      msgChatInput.value = "";
+      autoGrowTextarea();
+      msgChatInput.focus();
+    }
+
+    window.setTimeout(() => {
+      appendBubble("Thanks — I'll reply shortly.", false);
+    }, 700);
+  });
 })();
