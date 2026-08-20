@@ -201,10 +201,9 @@
     }
 
     .page-profile .app-nav {
-      position: fixed;
+      position: sticky;
       top: var(--header-h);
-      left: 0;
-      right: 0;
+      margin-top: var(--header-h);
       z-index: 999;
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
@@ -320,7 +319,10 @@
     }
 
     .page-profile .profile-main {
-      padding-top: calc(var(--header-h) + 86px);
+      padding-top: 1.5rem;
+    }
+    .page-profile .profile-cover {
+      height: 228px;
     }
   </style>
 </head>
