@@ -214,46 +214,113 @@
       width: min(100% - 2rem, 1280px);
       margin-inline: auto;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      gap: 1.5rem;
-      padding: 0.5rem 0;
+      gap: 2.25rem;
+      padding: 0.85rem 0 0.75rem;
     }
     .page-profile .app-nav-item {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 0.85rem;
-      border-radius: 999px;
+      gap: 0.45rem;
+      padding: 0;
+      min-width: 0;
+      border-radius: 0;
+      border-bottom: none;
+      background: transparent;
       font-family: var(--font-sans);
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1a2340;
       text-decoration: none;
-      transition: background 0.3s ease, color 0.3s ease;
+      transition: opacity 0.2s ease;
     }
     .page-profile .app-nav-item:hover,
     .page-profile .app-nav-item.is-active {
-      background: rgba(26, 79, 156, 0.08);
-      color: var(--primary);
+      background: transparent;
+      color: #1a2340;
+      border-bottom-color: transparent;
+      opacity: 0.85;
     }
-    .page-profile .app-nav-item i {
-      font-size: 1rem;
-    }
-    .page-profile .app-nav-item .header-avatar {
-      width: 28px;
-      height: 28px;
+    .page-profile .app-nav-icon {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
-      overflow: hidden;
     }
-    .page-profile .app-nav-item .header-avatar img {
-      width: 100%;
-      height: 100%;
+    .page-profile .app-nav-icon i {
+      font-size: 1.35rem;
+    }
+    .page-profile .app-nav-icon--messages {
+      background: #e8f1fb;
+      color: #2f6fdb;
+    }
+    .page-profile .app-nav-icon--admin {
+      background: #fbf3d8;
+      color: #d4a017;
+    }
+    .page-profile .app-nav-icon--share {
+      background: #e7f6ea;
+      color: #2ea043;
+    }
+    .page-profile .app-nav-badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 5px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+      line-height: 1;
+      color: #fff;
+    }
+    .page-profile .app-nav-icon--messages .app-nav-badge {
+      background: #2f6fdb;
+    }
+    .page-profile .app-nav-icon--admin .app-nav-badge {
+      background: #d4a017;
+    }
+    .page-profile .app-nav-avatar {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 3px solid #2f6fdb;
+      box-sizing: border-box;
+    }
+    .page-profile .app-nav-avatar::after {
+      content: "";
+      position: absolute;
+      right: 1px;
+      bottom: 4px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2f6fdb;
+      border: 2px solid #fff;
+    }
+    .page-profile .app-nav-avatar img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
       object-fit: cover;
+    }
+    .page-profile .app-nav-label {
+      white-space: nowrap;
+      text-align: center;
     }
 
     .page-profile .profile-main {
-      padding-top: calc(var(--header-h) + 52px);
+      padding-top: calc(var(--header-h) + 96px);
     }
   </style>
 </head>
@@ -341,23 +408,31 @@
 
   <nav class="app-nav" aria-label="Profile navigation">
     <div class="app-nav-inner">
-      <a href="#messages" class="app-nav-item" aria-label="Messages">
-        <i class="fa-regular fa-comments" aria-hidden="true"></i>
-        <span>Messages</span>
+      <a href="#messages" class="app-nav-item" aria-label="Messages, 3 unread">
+        <span class="app-nav-icon app-nav-icon--messages">
+          <i class="fa-regular fa-comments" aria-hidden="true"></i>
+          <span class="app-nav-badge" aria-hidden="true">3</span>
+        </span>
+        <span class="app-nav-label">Messages</span>
       </a>
-      <a href="#admin-messages" class="app-nav-item" aria-label="Messages from Admin">
-        <i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i>
-        <span>Admin Messages</span>
+      <a href="#admin-messages" class="app-nav-item" aria-label="Admin Messages, 5 unread">
+        <span class="app-nav-icon app-nav-icon--admin">
+          <i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i>
+          <span class="app-nav-badge" aria-hidden="true">5</span>
+        </span>
+        <span class="app-nav-label">Admin Messages</span>
       </a>
       <a href="#share-profile" class="app-nav-item" aria-label="Share Profile">
-        <i class="fa-solid fa-share-from-square" aria-hidden="true"></i>
-        <span>Share Profile</span>
+        <span class="app-nav-icon app-nav-icon--share">
+          <i class="fa-solid fa-share-from-square" aria-hidden="true"></i>
+        </span>
+        <span class="app-nav-label">Share Profile</span>
       </a>
       <a href="ch-profile.html" class="app-nav-item is-active" aria-current="page" aria-label="Your profile">
-        <span class="header-avatar">
-          <img src="assets/images/cchub/tt1.webp" alt="" width="28" height="28" />
+        <span class="app-nav-avatar">
+          <img src="assets/images/cchub/tt1.webp" alt="" width="52" height="52" />
         </span>
-        <span>Profile</span>
+        <span class="app-nav-label">Profile</span>
       </a>
     </div>
   </nav>
