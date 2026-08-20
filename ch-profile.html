@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>George Mathew — Profile | CC Hub</title>
+  <meta name="description" content="View George Mathew's profile on CC Hub — connect, collaborate, and grow together." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <!-- IBNCC fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Manrope:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/cchub/ch-styles.css" />
+  <link rel="stylesheet" href="css/cchub/ch-profile.css" />
+
+  <style>
+    :root {
+      --primary: #0b1d36;
+      --primary-mid: #122a4a;
+      --secondary: #1a4f9c;
+      --royal: #1e5bb8;
+      --gold: #c9a227;
+      --gold-bright: #e0b93a;
+      --gold-soft: #f3e4b0;
+      --dark: #07111f;
+      --light: #f7fafc;
+      --text: #142033;
+      --muted: #5a6b82;
+      --white: #ffffff;
+      --border: rgba(15, 40, 80, 0.1);
+      --shadow: 0 18px 50px rgba(7, 17, 31, 0.12);
+      --radius: 22px;
+      --radius-sm: 14px;
+      --header-h: 78px;
+      --font-display: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "DM Sans", system-ui, sans-serif;
+      --font-body: "Manrope", system-ui, sans-serif;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --max: 1180px;
+    }
+    .page-profile .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 1000;
+      height: var(--header-h);
+      overflow: visible;
+      transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
+      background: rgba(255, 255, 255, 0.42);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .page-profile .site-header.is-scrolled {
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 8px 30px rgba(7, 17, 31, 0.08);
+      border-bottom-color: var(--border);
+    }
+    .page-profile .header-inner {
+      width: min(100% - 2rem, 1280px);
+      margin-inline: auto;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0;
+      min-height: unset;
+      max-width: unset;
+      grid-template-columns: unset;
+    }
+    .page-profile .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      flex-shrink: 1;
+      transition: none;
+    }
+    .page-profile .brand-logo {
+      width: 105px;
+      height: auto;
+      object-fit: contain;
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: block;
+      color: inherit;
+      border-spacing: unset;
+    }
+    .page-profile .brand-logo svg,
+    .page-profile .brand-logo img {
+      height: auto;
+      width: 105px;
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .page-profile .brand-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      line-height: 1.15;
+      min-width: 0;
+      flex-shrink: 0;
+    }
+    .page-profile .brand-tagline {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: clamp(0.5rem, 1.15vw + 0.36rem, 0.58rem);
+      font-weight: 600;
+      letter-spacing: 0.055em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.28;
+      max-width: min(13.25rem, 62vw);
+      min-width: min(10.75rem, 52vw);
+      white-space: normal;
+      overflow: visible;
+    }
+    .page-profile .nav-desktop {
+      display: none;
+      align-items: center;
+      gap: 0.35rem;
+      text-transform: uppercase;
+    }
+    .page-profile .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.55rem 0.85rem;
+      border-radius: 999px;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .page-profile .nav-link:hover,
+    .page-profile .nav-link.active {
+      background: rgba(26, 79, 156, 0.08);
+      color: var(--primary);
+    }
+    .page-profile .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-shrink: 0;
+    }
+    .page-profile .header-notice {
+      display: none;
+      align-items: center;
+      gap: 0.55rem;
+      max-width: min(380px, 34vw);
+      height: 38px;
+      padding: 0 0.65rem 0 0.45rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(247, 250, 252, 0.92));
+      border: 1px solid rgba(26, 79, 156, 0.18);
+      box-shadow: 0 4px 16px rgba(18, 58, 107, 0.1), 0 0 0 1px rgba(201, 162, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      overflow: hidden;
+    }
+    .page-profile .menu-toggle {
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.7);
+    }
+    @media (max-width: 767px) {
+      .page-profile .header-notice:not(.header-notice--mobile) { display: none !important; }
+    }
+    @media (min-width: 768px) {
+      .page-profile .header-notice:not(.header-notice--mobile) { display: flex; max-width: min(280px, 38vw); }
+    }
+    @media (min-width: 1024px) {
+      .page-profile .nav-desktop { display: flex; }
+      .page-profile .header-notice:not(.header-notice--mobile) { display: flex; max-width: min(340px, 30vw); }
+      .page-profile .menu-toggle { display: none; }
+      .page-profile .nav-mobile { display: none !important; }
+      .page-profile .brand-tagline { max-width: none; min-width: 0; font-size: 0.58rem; letter-spacing: 0.11em; white-space: nowrap; }
+    }
+    @media (min-width: 1200px) {
+      .page-profile .nav-desktop { gap: 0.35rem; }
+      .page-profile .nav-link { padding: 0.55rem 0.7rem; font-size: 0.84rem; }
+      .page-profile .header-notice:not(.header-notice--mobile) { max-width: min(400px, 32vw); }
+    }
+    @media (min-width: 1320px) {
+      .page-profile .nav-desktop { gap: 0.5rem; }
+      .page-profile .nav-link { padding: 0.55rem 0.85rem; font-size: 0.88rem; }
+      .page-profile .header-notice:not(.header-notice--mobile) { max-width: 420px; }
+    }
+
+    .page-profile .app-nav {
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-profile .app-nav-inner {
+      width: min(100% - 2rem, 1280px);
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 0.5rem 0;
+    }
+    .page-profile .app-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.85rem;
+      border-radius: 999px;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .page-profile .app-nav-item:hover,
+    .page-profile .app-nav-item.is-active {
+      background: rgba(26, 79, 156, 0.08);
+      color: var(--primary);
+    }
+    .page-profile .app-nav-item i {
+      font-size: 1rem;
+    }
+    .page-profile .app-nav-item .header-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .page-profile .app-nav-item .header-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .page-profile .profile-main {
+      padding-top: calc(var(--header-h) + 52px);
+    }
+  </style>
+</head>
+<body class="profile-page page-profile">
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="index.html#home" class="brand" aria-label="IBNCC Home">
+        <span class="brand-text">
+          <img src="assets/images/logo_full.png" alt="IBNCC logo" class="brand-logo" width="52" height="52" />
+          <span class="brand-tagline">AN INITIATIVE OF CATHOLIC CONGRESS</span>
+        </span>
+      </a>
+
+      <nav class="nav-desktop" aria-label="Primary">
+        <a href="index.html#home" class="nav-link" data-section="home"><span>Home</span></a>
+        <a href="index.html#about" class="nav-link" data-section="about"><span>About</span></a>
+        <a href="index.html#events" class="nav-link" data-section="events"><span>Events</span></a>
+        <a href="networking.html" class="nav-link" data-section="networking"><span>Networking</span></a>
+        <a href="ch-trading.html" class="nav-link" data-section="trading"><span>Trading</span></a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="event-details.html" class="header-notice" aria-label="Upcoming event announcement">
+          <span class="header-notice-icon" aria-hidden="true">
+            <i class="fa-solid fa-bell"></i>
+          </span>
+          <span class="header-notice-track">
+            <span class="header-notice-marquee">
+              <span class="header-notice-text">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
+              <span class="header-notice-text" aria-hidden="true">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
+            </span>
+          </span>
+        </a>
+        <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="nav-mobile" id="mobile-menu" aria-label="Mobile" hidden>
+      <div class="nav-mobile-card">
+        <a href="event-details.html" class="header-notice header-notice--mobile" aria-label="Upcoming event announcement">
+          <span class="header-notice-icon" aria-hidden="true">
+            <i class="fa-solid fa-bell"></i>
+          </span>
+          <span class="header-notice-track">
+            <span class="header-notice-marquee">
+              <span class="header-notice-text">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
+              <span class="header-notice-text" aria-hidden="true">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
+            </span>
+          </span>
+        </a>
+        <div class="nav-mobile-list">
+          <a href="index.html#home" class="nav-link" data-section="home">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-house"></i></span>
+            <span class="nav-mobile-copy"><strong>Home</strong><em>Welcome to IBNCC</em></span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+          <a href="index.html#about" class="nav-link" data-section="about">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-circle-info"></i></span>
+            <span class="nav-mobile-copy"><strong>About</strong><em>Know more about us</em></span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+          <a href="index.html#events" class="nav-link" data-section="events">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-calendar-days"></i></span>
+            <span class="nav-mobile-copy"><strong>Events</strong><em>Upcoming gatherings</em></span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+          <a href="networking.html" class="nav-link" data-section="networking">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-handshake"></i></span>
+            <span class="nav-mobile-copy"><strong>Networking</strong><em>Build global connections</em></span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+          <a href="ch-trading.html" class="nav-link" data-section="trading">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-arrow-right-arrow-left"></i></span>
+            <span class="nav-mobile-copy"><strong>Trading</strong><em>Collaborate and grow</em></span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <nav class="app-nav" aria-label="Profile navigation">
+    <div class="app-nav-inner">
+      <a href="#messages" class="app-nav-item" aria-label="Messages">
+        <i class="fa-regular fa-comments" aria-hidden="true"></i>
+        <span>Messages</span>
+      </a>
+      <a href="#admin-messages" class="app-nav-item" aria-label="Messages from Admin">
+        <i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i>
+        <span>Admin Messages</span>
+      </a>
+      <a href="#share-profile" class="app-nav-item" aria-label="Share Profile">
+        <i class="fa-solid fa-share-from-square" aria-hidden="true"></i>
+        <span>Share Profile</span>
+      </a>
+      <a href="ch-profile.html" class="app-nav-item is-active" aria-current="page" aria-label="Your profile">
+        <span class="header-avatar">
+          <img src="assets/images/cchub/tt1.webp" alt="" width="28" height="28" />
+        </span>
+        <span>Profile</span>
+      </a>
+    </div>
+  </nav>
+
+  <main class="profile-main">
+    <section class="profile-banner-card" aria-labelledby="profile-name">
+      <div class="profile-cover">
+        <img
+          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=80"
+          alt="Mountain landscape cover photo"
+        />
+      </div>
+
+      <div class="profile-identity">
+        <img
+          class="profile-photo"
+          src="assets/images/cchub/tt5.webp"
+          alt="Portrait of George Mathew"
+          width="120"
+          height="120"
+        />
+
+        <div class="profile-identity-body">
+          <h1 id="profile-name" class="profile-display-name">
+            George Mathew
+            <i class="fa-solid fa-shield-halved" title="Verified member" aria-label="Verified member"></i>
+          </h1>
+          <p class="profile-profession">Civil Engineer</p>
+          <p class="profile-about">
+            Passionate about contributing to society through ethical and sustainable design.
+          </p>
+
+          <ul class="profile-meta-pills">
+            <li>
+              <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+              Kozhikode, Kerala
+            </li>
+            <li>
+              <i class="fa-solid fa-church" aria-hidden="true"></i>
+              Kozhikode Diocese
+            </li>
+            <li>
+              <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+              Member since Jan 2024
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="profile-details-row">
+      <section class="profile-panel" aria-labelledby="profile-details-heading">
+        <header class="profile-panel-header">
+          <h2 id="profile-details-heading">
+            <i class="fa-regular fa-user" aria-hidden="true"></i>
+            Profile Details
+          </h2>
+        </header>
+
+        <div class="profile-accordion" data-accordion>
+        <details class="profile-detail-item">
+          <summary>
+            <span class="detail-left">
+              <span class="detail-icon"><i class="fa-solid fa-church" aria-hidden="true"></i></span>
+              <span class="detail-label">Church Details</span>
+            </span>
+            <span class="detail-actions">
+              <button type="button" class="detail-action" aria-label="Edit Church Details" data-action="edit">
+                <i class="fa-solid fa-pen" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="detail-action" aria-label="Privacy for Church Details" data-action="privacy">
+                <i class="fa-solid fa-eye-slash" aria-hidden="true"></i>
+              </button>
+              <span class="detail-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
+            </span>
+          </summary>
+          <div class="detail-content">
+            <dl class="detail-grid">
+              <div><dt>Rite</dt><dd>Syro-Malabar</dd></div>
+              <div><dt>Diocese</dt><dd>Kozhikode</dd></div>
+              <div><dt>Forane</dt><dd>Kozhikode Forane</dd></div>
+              <div><dt>Parish</dt><dd>St. Mary&apos;s Cathedral</dd></div>
+            </dl>
+          </div>
+        </details>
+
+        <details class="profile-detail-item">
+          <summary>
+            <span class="detail-left">
+              <span class="detail-icon"><i class="fa-regular fa-id-card" aria-hidden="true"></i></span>
+              <span class="detail-label">Personal Details</span>
+            </span>
+            <span class="detail-actions">
+              <button type="button" class="detail-action" aria-label="Edit Personal Details" data-action="edit">
+                <i class="fa-solid fa-pen" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="detail-action" aria-label="Privacy for Personal Details" data-action="privacy">
+                <i class="fa-solid fa-eye-slash" aria-hidden="true"></i>
+              </button>
+              <span class="detail-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
+            </span>
+          </summary>
+          <div class="detail-content">
+            <dl class="detail-grid">
+              <div><dt>Full Name</dt><dd>George Mathew</dd></div>
+              <div><dt>Date of Birth</dt><dd>14 March 1990</dd></div>
+              <div><dt>Gender</dt><dd>Male</dd></div>
+              <div><dt>Blood Group</dt><dd>O+</dd></div>
+            </dl>
+          </div>
+        </details>
+
+        <details class="profile-detail-item">
+          <summary>
+            <span class="detail-left">
+              <span class="detail-icon"><i class="fa-solid fa-address-book" aria-hidden="true"></i></span>
+              <span class="detail-label">Contact Information</span>
+            </span>
+            <span class="detail-actions">
+              <button type="button" class="detail-action" aria-label="Edit Contact Information" data-action="edit">
+                <i class="fa-solid fa-pen" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="detail-action" aria-label="Privacy for Contact Information" data-action="privacy">
+                <i class="fa-solid fa-eye-slash" aria-hidden="true"></i>
+              </button>
+              <span class="detail-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
+            </span>
+          </summary>
+          <div class="detail-content">
+            <dl class="detail-grid">
+              <div><dt>Mobile</dt><dd>+91 98765 43210</dd></div>
+              <div><dt>Email</dt><dd>george.mathew@email.com</dd></div>
+              <div><dt>WhatsApp</dt><dd>+91 98765 43210</dd></div>
+              <div><dt>Preferred Contact</dt><dd>Phone / WhatsApp</dd></div>
+            </dl>
+          </div>
+        </details>
+
+        <details class="profile-detail-item">
+          <summary>
+            <span class="detail-left">
+              <span class="detail-icon"><i class="fa-solid fa-house" aria-hidden="true"></i></span>
+              <span class="detail-label">Permanent Address</span>
+            </span>
+            <span class="detail-actions">
+              <button type="button" class="detail-action" aria-label="Edit Permanent Address" data-action="edit">
+                <i class="fa-solid fa-pen" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="detail-action" aria-label="Privacy for Permanent Address" data-action="privacy">
+                <i class="fa-solid fa-eye-slash" aria-hidden="true"></i>
+              </button>
+              <span class="detail-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
+            </span>
+          </summary>
+          <div class="detail-content">
+            <dl class="detail-grid">
+              <div><dt>House / Street</dt><dd>Rose Villa, Mission Road</dd></div>
+              <div><dt>District</dt><dd>Kozhikode</dd></div>
+              <div><dt>State</dt><dd>Kerala</dd></div>
+              <div><dt>PIN</dt><dd>673001</dd></div>
+            </dl>
+          </div>
+        </details>
+
+        <details class="profile-detail-item">
+          <summary>
+            <span class="detail-left">
+              <span class="detail-icon"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
+              <span class="detail-label">Present Address</span>
+            </span>
+            <span class="detail-actions">
+              <button type="button" class="detail-action" aria-label="Edit Present Address" data-action="edit">
+                <i class="fa-solid fa-pen" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="detail-action" aria-label="Privacy for Present Address" data-action="privacy">
+                <i class="fa-solid fa-eye-slash" aria-hidden="true"></i>
+              </button>
+              <span class="detail-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
+            </span>
+          </summary>
+          <div class="detail-content">
+            <dl class="detail-grid">
+              <div><dt>House / Street</dt><dd>Flat 4B, Green Heights</dd></div>
+              <div><dt>District</dt><dd>Kozhikode</dd></div>
+              <div><dt>State</dt><dd>Kerala</dd></div>
+              <div><dt>PIN</dt><dd>673016</dd></div>
+            </dl>
+          </div>
+        </details>
+
+        <details class="profile-detail-item">
+          <summary>
+            <span class="detail-left">
+              <span class="detail-icon"><i class="fa-solid fa-briefcase" aria-hidden="true"></i></span>
+              <span class="detail-label">Employment Status</span>
+            </span>
+            <span class="detail-actions">
+              <button type="button" class="detail-action" aria-label="Edit Employment Status" data-action="edit">
+                <i class="fa-solid fa-pen" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="detail-action" aria-label="Privacy for Employment Status" data-action="privacy">
+                <i class="fa-solid fa-eye-slash" aria-hidden="true"></i>
+              </button>
+              <span class="detail-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
+            </span>
+          </summary>
+          <div class="detail-content">
+            <dl class="detail-grid">
+              <div><dt>Status</dt><dd>Employed</dd></div>
+              <div><dt>Organization</dt><dd>Horizon Infra Pvt. Ltd.</dd></div>
+              <div><dt>Work Mode</dt><dd>Hybrid</dd></div>
+              <div><dt>Experience</dt><dd>12 years</dd></div>
+            </dl>
+          </div>
+        </details>
+
+        <details class="profile-detail-item">
+          <summary>
+            <span class="detail-left">
+              <span class="detail-icon"><i class="fa-solid fa-toolbox" aria-hidden="true"></i></span>
+              <span class="detail-label">Job Details</span>
+            </span>
+            <span class="detail-actions">
+              <button type="button" class="detail-action" aria-label="Edit Job Details" data-action="edit">
+                <i class="fa-solid fa-pen" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="detail-action" aria-label="Privacy for Job Details" data-action="privacy">
+                <i class="fa-solid fa-eye-slash" aria-hidden="true"></i>
+              </button>
+              <span class="detail-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
+            </span>
+          </summary>
+          <div class="detail-content">
+            <dl class="detail-grid">
+              <div><dt>Category</dt><dd>Engineering &amp; Technical</dd></div>
+              <div><dt>Job</dt><dd>Civil Engineer</dd></div>
+            </dl>
+          </div>
+        </details>
+        </div>
+      </section>
+
+      <aside class="profile-sidebar" aria-label="Profile sidebar">
+        <article class="sidebar-card profile-brief-card" id="profile-brief-card">
+          <header class="sidebar-card-header">
+            <h3>Edit Your Profile Brief</h3>
+            <button
+              type="button"
+              class="sidebar-icon-btn"
+              id="briefEditBtn"
+              aria-label="Edit profile brief"
+              aria-pressed="false"
+            >
+              <i class="fa-solid fa-pen" aria-hidden="true"></i>
+            </button>
+          </header>
+
+          <div class="profile-brief-view" id="profileBriefView">
+            <div class="profile-card profile-card--sidebar">
+              <div class="profile-card-main">
+                <img
+                  class="profile-avatar"
+                  src="assets/images/cchub/tt5.webp"
+                  alt="Portrait of George Mathew"
+                  width="68"
+                  height="68"
+                />
+                <div class="profile-card-info">
+                  <h4 class="profile-name">
+                    George Mathew
+                    <i class="fa-solid fa-circle-check" title="Verified" aria-label="Verified"></i>
+                  </h4>
+                  <p class="profile-role">Civil Engineer</p>
+                  <p class="profile-bio">Passionate about contributing to society through ethical and sustainable design.</p>
+                  <p class="profile-status is-available">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    Available
+                  </p>
+                </div>
+              </div>
+              <div class="profile-location">
+                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                <div>
+                  <strong>Kozhikode, Kerala</strong>
+                  <span>Kozhikode District</span>
+                </div>
+              </div>
+              <div class="profile-contact">
+                <a href="tel:+919876543210"><i class="fa-solid fa-phone" aria-hidden="true"></i> +91 98765 43210</a>
+                <a href="mailto:george.mathew@email.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i> george.mathew@email.com</a>
+              </div>
+            </div>
+          </div>
+
+          <form class="profile-brief-form" id="profileBriefForm" hidden>
+            <label>
+              <span>Full Name</span>
+              <input type="text" name="name" value="George Mathew" />
+            </label>
+            <label>
+              <span>Profession</span>
+              <input type="text" name="role" value="Civil Engineer" />
+            </label>
+            <label>
+              <span>Bio</span>
+              <textarea name="bio" rows="3">Passionate about contributing to society through ethical and sustainable design.</textarea>
+            </label>
+            <label>
+              <span>Availability</span>
+              <select name="status">
+                <option value="available" selected>Available</option>
+                <option value="busy">Busy</option>
+              </select>
+            </label>
+            <label>
+              <span>Location</span>
+              <input type="text" name="location" value="Kozhikode, Kerala" />
+            </label>
+            <label>
+              <span>District</span>
+              <input type="text" name="district" value="Kozhikode District" />
+            </label>
+            <label>
+              <span>Phone</span>
+              <input type="tel" name="phone" value="+91 98765 43210" />
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" value="george.mathew@email.com" />
+            </label>
+            <div class="profile-brief-form-actions">
+              <button type="button" class="sidebar-btn-secondary" id="briefCancelBtn">Cancel</button>
+              <button type="submit" class="sidebar-btn-primary">Save</button>
+            </div>
+          </form>
+        </article>
+
+        <article class="sidebar-card work-details-card" id="work-details-card">
+          <header class="sidebar-card-header">
+            <h3>Work Details</h3>
+            <button
+              type="button"
+              class="sidebar-icon-btn"
+              id="workEditBtn"
+              aria-label="Edit work description"
+              aria-pressed="false"
+            >
+              <i class="fa-solid fa-pen" aria-hidden="true"></i>
+            </button>
+          </header>
+
+          <div class="work-summary-view" id="workDetailsView">
+            <p class="work-summary-meta" id="workSummaryMeta">
+              <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+              <span class="work-summary-meta-text" id="workSummaryMetaText">Senior Civil Engineer · Infrastructure Design · Kozhikode, Kerala</span>
+            </p>
+            <p class="work-summary-text" id="workSummaryText">
+              Senior Civil Engineer at Horizon Infra Pvt. Ltd. with twelve years of experience in
+              infrastructure design, site planning, and sustainable development across Kerala.
+              I deliver community-focused projects—parish facility upgrades, road rehabilitation,
+              and structural assessments—working with contractors, diocese committees, and municipal
+              partners. Practical, clear, and collaborative, I guide projects from concept to
+              completion and offer design consultation for public infrastructure initiatives.
+            </p>
+            <div class="profile-brief-form-actions work-summary-actions" id="workSummaryActions" hidden>
+              <button type="button" class="sidebar-btn-secondary" id="workCancelBtn">Cancel</button>
+              <button type="button" class="sidebar-btn-primary" id="workSaveBtn">Save</button>
+            </div>
+          </div>
+        </article>
+
+        <a href="#change-password" class="sidebar-settings-link" id="changePasswordLink">
+          <span class="sidebar-settings-icon"><i class="fa-solid fa-key" aria-hidden="true"></i></span>
+          <span class="sidebar-settings-copy">
+            <strong>Change Password</strong>
+            <small>Update your account security settings</small>
+          </span>
+          <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+        </a>
+
+        <article class="sidebar-card social-links-card" id="social-links-card">
+          <header class="sidebar-card-header">
+            <h3>Social Media Links</h3>
+            <button type="button" class="sidebar-add-btn" id="addSocialBtn">
+              <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              Add Another
+            </button>
+          </header>
+
+          <div class="social-links-table" role="table" aria-label="Social media profiles">
+            <div class="social-links-head" role="row">
+              <span role="columnheader">Platform</span>
+              <span role="columnheader">Profile URL</span>
+              <span role="columnheader"><span class="visually-hidden">Actions</span></span>
+            </div>
+            <div class="social-links-body" id="socialLinksBody">
+              <div class="social-link-row" role="row" data-social-row>
+                <span class="social-platform" role="cell" data-field="platform">LinkedIn</span>
+                <a class="social-url" role="cell" href="https://linkedin.com/in/george-mathew" target="_blank" rel="noopener noreferrer" data-field="url">linkedin.com/in/george-mathew</a>
+                <button type="button" class="sidebar-icon-btn social-edit-btn" aria-label="Edit LinkedIn profile">
+                  <i class="fa-solid fa-pen" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="social-link-row" role="row" data-social-row>
+                <span class="social-platform" role="cell" data-field="platform">Instagram</span>
+                <a class="social-url" role="cell" href="https://instagram.com/george.mathew" target="_blank" rel="noopener noreferrer" data-field="url">instagram.com/george.mathew</a>
+                <button type="button" class="sidebar-icon-btn social-edit-btn" aria-label="Edit Instagram profile">
+                  <i class="fa-solid fa-pen" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+      </aside>
+    </div>
+
+    <section class="profile-panel gallery-panel" aria-labelledby="gallery-heading">
+      <header class="profile-panel-header gallery-header">
+        <h2 id="gallery-heading">
+          <i class="fa-regular fa-image" aria-hidden="true"></i>
+          Gallery
+        </h2>
+        <button type="button" class="gallery-add-btn">
+          <i class="fa-solid fa-plus" aria-hidden="true"></i>
+          Add Image
+        </button>
+      </header>
+
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=80" alt="Mountain sunset landscape" />
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&w=600&q=80" alt="Church building exterior" />
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1519890239709-8bf4f9c2c0b0?auto=format&fit=crop&w=600&q=80" alt="Cross silhouette at sunset" />
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" alt="Friends gathered outdoors" />
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1466692476866-aef1dfb1e735?auto=format&fit=crop&w=600&q=80" alt="Young plant sprout in soil" />
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=600&q=80" alt="Hands joined in a circle" />
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=600&q=80" alt="Rosary resting on an open Bible" />
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=600&q=80" alt="Community holding hands silhouette" />
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Tropical beach at sunset" />
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80" alt="Foggy forest hillside" />
+        </figure>
+      </div>
+
+      <button type="button" class="gallery-view-more">
+        View More
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+      </button>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 CC Hub — Catholic Congress. Connect • Trade • Grow.</p>
+  </footer>
+
+  <dialog class="password-dialog" id="changePasswordDialog" aria-labelledby="change-password-title">
+    <form method="dialog" class="password-dialog-form" id="changePasswordForm">
+      <header class="password-dialog-header">
+        <h2 id="change-password-title">Change Password</h2>
+        <button type="button" class="sidebar-icon-btn" id="closePasswordDialog" aria-label="Close">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </header>
+      <label>
+        <span>Current Password</span>
+        <input type="password" name="current" autocomplete="current-password" required />
+      </label>
+      <label>
+        <span>New Password</span>
+        <input type="password" name="new" autocomplete="new-password" required />
+      </label>
+      <label>
+        <span>Confirm New Password</span>
+        <input type="password" name="confirm" autocomplete="new-password" required />
+      </label>
+      <div class="profile-brief-form-actions">
+        <button type="button" class="sidebar-btn-secondary" id="cancelPasswordBtn">Cancel</button>
+        <button type="submit" class="sidebar-btn-primary">Update Password</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="js/script.js"></script>
+  <script src="js/cchub/ch-profile.js"></script>
+</body>
+</html>

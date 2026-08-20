@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="IBNCC — International Business Network. A project of Catholic Congress connecting Christian entrepreneurs, professionals and leaders globally." />
+  <title>IBNCC — International Business Network</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Manrope:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/png" href="assets/images/logo.png" />
+</head>
+
+<body>
+  <!-- SVG Filters for flag cloth displacement -->
+  <svg class="svg-defs" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="cloth-wave" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.04" numOctaves="3" seed="2" result="noise">
+          <animate attributeName="baseFrequency" dur="11s" values="0.012 0.04;0.018 0.055;0.01 0.035;0.012 0.04"
+            repeatCount="indefinite" />
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+      <filter id="cloth-soft" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.008 0.025" numOctaves="2" seed="5" result="noise2">
+          <animate attributeName="baseFrequency" dur="9s" values="0.008 0.025;0.014 0.032;0.008 0.025"
+            repeatCount="indefinite" />
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="noise2" scale="10" xChannelSelector="R" yChannelSelector="B" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ========== HEADER ========== -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="#home" class="brand" aria-label="IBNCC Home">
+        <!-- <img src="assets/images/logo_full.png" alt="IBNCC logo" class="brand-logo" width="52" height="52" /> -->
+        <span class="brand-text">
+          <img src="assets/images/logo_full.png" alt="IBNCC logo" class="brand-logo" width="52" height="52" />
+          <!-- <span class="brand-name">IBNCC</span> -->
+          <span class="brand-tagline">AN INITIATIVE OF CATHOLIC CONGRESS</span>
+        </span>
+      </a>
+
+      <nav class="nav-desktop" aria-label="Primary">
+        <a href="#home" class="nav-link active" data-section="home"><span>Home</span></a>
+        <a href="#about" class="nav-link" data-section="about"><span>About</span></a>
+        <a href="#events" class="nav-link" data-section="events"><span>Events</span></a>
+        <a href="networking.html" class="nav-link" data-section="networking"><span>Networking</span></a>
+        <a href="ch-trading.html" class="nav-link" data-section="trading"><span>Trading</span></a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="#events" class="header-notice" aria-label="Upcoming event announcement">
+          <span class="header-notice-icon" aria-hidden="true">
+            <i class="fa-solid fa-bell"></i>
+          </span>
+          <span class="header-notice-track">
+            <span class="header-notice-marquee">
+              <span class="header-notice-text">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress
+                Hotel, NH Bypass, Palarivattom, Kochi</span>
+              <span class="header-notice-text" aria-hidden="true">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8
+                PM — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
+            </span>
+          </span>
+        </a>
+        <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false"
+          aria-controls="mobile-menu">
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="nav-mobile" id="mobile-menu" aria-label="Mobile" hidden>
+      <div class="nav-mobile-card">
+        <a href="#events" class="header-notice header-notice--mobile" aria-label="Upcoming event announcement">
+          <span class="header-notice-icon" aria-hidden="true">
+            <i class="fa-solid fa-bell"></i>
+          </span>
+          <span class="header-notice-track">
+            <span class="header-notice-marquee">
+              <span class="header-notice-text">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress
+                Hotel, NH Bypass, Palarivattom, Kochi</span>
+              <span class="header-notice-text" aria-hidden="true">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM
+                — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
+            </span>
+          </span>
+          <!-- <span class="header-notice-chip">GLC</span> -->
+        </a>
+        <div class="nav-mobile-list">
+          <a href="#home" class="nav-link active" data-section="home">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-house"></i></span>
+            <span class="nav-mobile-copy">
+              <strong>Home</strong>
+              <em>Welcome to IBNCC</em>
+            </span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+          <a href="#about" class="nav-link" data-section="about">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-circle-info"></i></span>
+            <span class="nav-mobile-copy">
+              <strong>About</strong>
+              <em>Know more about us</em>
+            </span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+          <a href="#events" class="nav-link" data-section="events">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-calendar-days"></i></span>
+            <span class="nav-mobile-copy">
+              <strong>Events</strong>
+              <em>Upcoming gatherings</em>
+            </span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+          <a href="networking.html" class="nav-link" data-section="networking">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-handshake"></i></span>
+            <span class="nav-mobile-copy">
+              <strong>Networking</strong>
+              <em>Build global connections</em>
+            </span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+          <a href="ch-trading.html" class="nav-link" data-section="trading">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-arrow-right-arrow-left"></i></span>
+            <span class="nav-mobile-copy">
+              <strong>Trading</strong>
+              <em>Collaborate and grow</em>
+            </span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="home">
+      <div class="sky" aria-hidden="true">
+        <div class="hero-bg"></div>
+        <div class="sky-gradient"></div>
+        <div class="sunburst"></div>
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="cloud cloud-4"></div>
+        <canvas id="network-canvas" class="network-canvas" aria-hidden="true"></canvas>
+        <div class="hero-waves">
+          <svg viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true">
+            <path class="wave wave-1" d="M0,96 C240,140 480,40 720,80 C960,120 1200,40 1440,88 L1440,160 L0,160 Z" />
+            <path class="wave wave-2"
+              d="M0,110 C280,150 520,70 780,100 C1040,130 1240,70 1440,110 L1440,160 L0,160 Z" />
+            <path class="wave wave-3"
+              d="M0,128 C320,160 560,100 840,120 C1120,140 1280,100 1440,130 L1440,160 L0,160 Z" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="hero-layout">
+        <div class="flag-scene">
+          <div class="flag-assembly">
+            <div class="flag-cloth flag-cloth--main">
+              <div class="flag-surface">
+                <div class="flag-image-wrap">
+                  <img src="assets/images/crop_new.png" alt="Catholic Congress flag of IBNCC waving in the wind"
+                    class="flag-image" decoding="async" />
+                </div>
+                <div class="flag-fold flag-fold--1"></div>
+                <div class="flag-fold flag-fold--2"></div>
+                <div class="flag-fold flag-fold--3"></div>
+                <div class="flag-highlight"></div>
+                <div class="flag-shade"></div>
+              </div>
+            </div>
+            <div class="flag-cloth flag-cloth--ghost" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <div class="hero-content">
+          <!-- <div class="hero-globe" aria-hidden="true">
+            <svg viewBox="0 0 320 320" class="hero-globe-svg">
+              <circle cx="160" cy="160" r="118" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.35" />
+              <ellipse cx="160" cy="160" rx="55" ry="118" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.28" />
+              <ellipse cx="160" cy="160" rx="95" ry="118" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.22" />
+              <ellipse cx="160" cy="160" rx="118" ry="42" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.28" />
+              <ellipse cx="160" cy="160" rx="118" ry="78" fill="none" stroke="currentColor" stroke-width="0.7" opacity="0.2" />
+              <line x1="42" y1="160" x2="278" y2="160" stroke="currentColor" stroke-width="0.8" opacity="0.25" />
+              <circle cx="95" cy="130" r="3.5" fill="currentColor" opacity="0.55" />
+              <circle cx="160" cy="118" r="3.5" fill="currentColor" opacity="0.55" />
+              <circle cx="210" cy="150" r="3.5" fill="currentColor" opacity="0.55" />
+              <circle cx="185" cy="200" r="3" fill="currentColor" opacity="0.45" />
+              <path d="M95 130 L160 118 L210 150 L185 200" fill="none" stroke="currentColor" stroke-width="1" opacity="0.35" stroke-dasharray="3 4" />
+            </svg>
+          </div> -->
+
+          <h1 class="hero-title reveal">
+            Connecting Businesses.<br />
+            Building Global<br />
+            Opportunities.
+          </h1>
+          <p class="hero-lead reveal">
+            Empowering businesses and communities through collaboration, faith, and shared vision for a better tomorrow.
+          </p>
+          <div class="hero-ctas reveal">
+            <a href="#objectives" class="btn btn-hero-primary">
+              Explore Initiatives <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+            <a href="#about" class="btn btn-hero-secondary">
+              Learn More <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <a href="#about" class="scroll-indicator" aria-label="Scroll to explore">
+        <span>Scroll to explore</span>
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+      </a>
+    </section>
+
+    <!-- ========== ABOUT ========== -->
+    <section class="section about" id="about">
+      <div class="container about-wrap">
+        <div class="about-grid">
+          <div class="about-copy reveal">
+            <p class="about-eyebrow">About IBNCC</p>
+            <h2 class="about-title">Building a Global Christian Business Network</h2>
+            <div class="about-divider" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <p class="about-lead">
+              IBNCC is a global platform created to connect Christian business people, entrepreneurs, professionals and
+              leaders. Through networking, knowledge sharing, collaboration, mentorship and access to opportunities,
+              IBNCC
+              aims to strengthen businesses and create a connected ecosystem where people and ideas can grow together.
+            </p>
+            <ul class="about-pillars">
+              <li><i class="fa-solid fa-globe" aria-hidden="true"></i> Global Network</li>
+              <li><i class="fa-solid fa-heart" aria-hidden="true"></i> Shared Values</li>
+              <li><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Business Growth</li>
+              <li><i class="fa-solid fa-crown" aria-hidden="true"></i> Leadership</li>
+              <li><i class="fa-solid fa-people-group" aria-hidden="true"></i> Collaboration</li>
+            </ul>
+          </div>
+
+          <div class="about-visual reveal">
+            <div class="about-visual-bg" aria-hidden="true">
+              <div class="about-dot-grid"></div>
+              <svg class="about-world-map" viewBox="0 0 400 400" aria-hidden="true">
+                <circle cx="200" cy="200" r="160" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.12"
+                  stroke-dasharray="4 6" />
+                <ellipse cx="200" cy="200" rx="160" ry="70" fill="none" stroke="currentColor" stroke-width="1"
+                  opacity="0.1" />
+                <ellipse cx="200" cy="200" rx="90" ry="160" fill="none" stroke="currentColor" stroke-width="1"
+                  opacity="0.1" />
+                <line x1="40" y1="200" x2="360" y2="200" stroke="currentColor" stroke-width="0.8" opacity="0.08" />
+              </svg>
+            </div>
+            <div class="about-visual-frame">
+              <img src="assets/images/ab2.png"
+                alt="International business professionals collaborating around a table" loading="lazy" width="600"
+                height="600" />
+              <!-- <div class="about-badge">
+                <span class="about-badge-icon" aria-hidden="true"><i class="fa-solid fa-users"></i></span>
+                <span class="about-badge-text">Global<br />Community</span>
+              </div> -->
+              <div class="about-mission-card">
+                <span class="about-mission-icon" aria-hidden="true"><i class="fa-solid fa-bullseye"></i></span>
+                <h3>Our Mission</h3>
+                <p>Empowering Christian entrepreneurs to build meaningful global connections and lasting impact.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-features reveal">
+          <article class="about-feature">
+            <div class="about-feature-icon"><i class="fa-solid fa-globe" aria-hidden="true"></i></div>
+            <h3>Global Reach</h3>
+            <p>Connecting Christian business leaders across continents and cultures.</p>
+          </article>
+          <article class="about-feature">
+            <div class="about-feature-icon"><i class="fa-solid fa-user-group" aria-hidden="true"></i></div>
+            <h3>Meaningful Connections</h3>
+            <p>Building trusted relationships that create real business opportunities.</p>
+          </article>
+          <article class="about-feature">
+            <div class="about-feature-icon"><i class="fa-solid fa-handshake" aria-hidden="true"></i></div>
+            <h3>Business Empowerment</h3>
+            <p>Supporting growth through mentorship, resources and strategic partnerships.</p>
+          </article>
+          <article class="about-feature">
+            <div class="about-feature-icon"><i class="fa-solid fa-book-open" aria-hidden="true"></i></div>
+            <h3>Knowledge Sharing</h3>
+            <p>Access to insights, trends and expertise from industry leaders worldwide.</p>
+          </article>
+          <article class="about-feature">
+            <div class="about-feature-icon"><i class="fa-solid fa-star" aria-hidden="true"></i></div>
+            <h3>Kingdom Impact</h3>
+            <p>Advancing businesses that reflect faith, integrity and purpose.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CORE OBJECTIVES ========== -->
+    <section class="section objectives" id="objectives">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="section-eyebrow">Purpose</p>
+          <h2 class="section-title">Core Objectives of IBNCC</h2>
+          <p class="section-lead">Six pillars guiding how we connect, empower and grow Christian business communities
+            worldwide.</p>
+        </div>
+        <div class="objectives-grid">
+          <article class="obj-card reveal" data-stagger="0">
+            <!-- <span class="obj-num">01</span> -->
+            <div class="obj-icon"><i class="fa-solid fa-network-wired" aria-hidden="true"></i></div>
+            <h3>Global Networking</h3>
+            <p>Establish forums, events and platforms for connecting Christian business persons locally and globally.
+            </p>
+          </article>
+          <article class="obj-card reveal" data-stagger="1">
+            <!-- <span class="obj-num">02</span> -->
+            <div class="obj-icon"><i class="fa-solid fa-earth-americas" aria-hidden="true"></i></div>
+            <h3>Global Expansion</h3>
+            <p>Assist Christian businesses in scaling beyond borders while maintaining their values.</p>
+          </article>
+          <article class="obj-card reveal" data-stagger="2">
+            <!-- <span class="obj-num">03</span> -->
+            <div class="obj-icon"><i class="fa-solid fa-rocket" aria-hidden="true"></i></div>
+            <h3>Startup Support</h3>
+            <p>Incubate and mentor startups initiated by Christian youth.</p>
+          </article>
+          <article class="obj-card reveal" data-stagger="3">
+            <!-- <span class="obj-num">04</span> -->
+            <div class="obj-icon"><i class="fa-solid fa-venus" aria-hidden="true"></i></div>
+            <h3>Women Empowerment</h3>
+            <p>Launch initiatives to promote Christian women entrepreneurs and leaders.</p>
+          </article>
+          <article class="obj-card reveal" data-stagger="4">
+            <!-- <span class="obj-num">05</span> -->
+            <div class="obj-icon"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></div>
+            <h3>Skill Development</h3>
+            <p>Conduct workshops, training and resources to build business and leadership capabilities.</p>
+          </article>
+          <article class="obj-card reveal" data-stagger="5">
+            <!-- <span class="obj-num">06</span> -->
+            <div class="obj-icon"><i class="fa-solid fa-hand-holding-dollar" aria-hidden="true"></i></div>
+            <h3>Funding &amp; Investment</h3>
+            <p>Facilitate angel investments, grants and crowdfunding opportunities within the community.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ACTIVITIES ========== -->
+    <section class="section activities" id="activities">
+      <div class="activities-decor" aria-hidden="true">
+        <div class="activities-dot-grid"></div>
+        <!-- <svg class="activities-waves" viewBox="0 0 1200 600" preserveAspectRatio="none">
+          <path d="M-50 180 C200 80, 400 280, 650 160 S1000 60, 1250 200" fill="none" stroke="currentColor" stroke-width="1.2" />
+          <path d="M-50 280 C250 200, 450 360, 700 260 S1050 180, 1250 320" fill="none" stroke="currentColor" stroke-width="1" />
+          <path d="M-50 420 C220 340, 480 500, 760 400 S1100 320, 1250 460" fill="none" stroke="currentColor" stroke-width="1" />
+        </svg> -->
+      </div>
+
+      <div class="container">
+        <div class="section-header activities-header reveal">
+          <p class="section-eyebrow activities-eyebrow">Activities</p>
+          <h2 class="section-title">What We Do</h2>
+          <p class="section-lead">Creating meaningful connections, opportunities and knowledge-sharing platforms.</p>
+        </div>
+
+        <div class="activities-editorial">
+          <!-- Card 01 — tall left -->
+          <article class="act-card act-card--a reveal">
+            <span class="act-num" aria-hidden="true">01</span>
+            <div class="act-body">
+              <div class="act-icon"><i class="fa-solid fa-comments" aria-hidden="true"></i></div>
+              <h3>Chapter Meetings &amp; Webinars</h3>
+              <p>Regular biweekly chapter meetings and monthly webinars that bring members together to learn, connect
+                and collaborate.</p>
+            </div>
+            <div class="act-media">
+              <img src="assets/images/ac4.jpg"
+                alt="Business seminar and webinar presentation" loading="lazy" width="640" height="360" />
+            </div>
+          </article>
+
+          <!-- Card 02 — horizontal, image left -->
+          <article class="act-card act-card--b reveal" id="trading">
+            <div class="act-media">
+              <img src="assets/images/ac1.png"
+                alt="Business handshake representing networking and trading" loading="lazy" width="480" height="360" />
+            </div>
+            <div class="act-body">
+              <span class="act-num" aria-hidden="true">02</span>
+              <div class="act-icon"><i class="fa-solid fa-handshake" aria-hidden="true"></i></div>
+              <h3>Networking &amp; Trading Platform</h3>
+              <p>A dedicated platform designed to facilitate business networking, partnerships, trading and commercial
+                opportunities.</p>
+            </div>
+          </article>
+
+          <!-- Card 03 — dark horizontal, image right -->
+          <article class="act-card act-card--c reveal">
+            <div class="act-body">
+              <div class="act-icon"><i class="fa-solid fa-building-columns" aria-hidden="true"></i></div>
+              <h3>Global Business Conclaves</h3>
+              <p>High-impact business gatherings that bring entrepreneurs, CEOs, founders, investors and industry
+                experts together.</p>
+            </div>
+            <div class="act-media">
+              <span class="act-num" aria-hidden="true">03</span>
+              <img src="assets/images/ac6.jpg"
+                alt="Global business conclave conference stage" loading="lazy" width="560" height="360" />
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== EVENTS ========== -->
+    <section class="section events-gallery" id="events">
+      <div class="container">
+        <!-- Upcoming Events -->
+        <div class="events-subsection events-upcoming">
+          <div class="section-header section-header-upc reveal">
+            <p class="section-eyebrow">Calendar</p>
+            <h2 class="section-title">Upcoming Events</h2>
+            <p class="section-lead">Join us for high-impact gatherings that connect Christian business leaders across
+              the globe.</p>
+          </div>
+
+          <div class="upcoming-gallery">
+            <article class="upcoming-card reveal" data-stagger="0">
+              <div class="upcoming-card-media">
+                <img src="assets/images/connection.avif"
+                  alt="IBNCC Global Business Conclave conference hall" loading="lazy" width="900" height="520" />
+                <span class="upcoming-badge">Upcoming</span>
+              </div>
+              <div class="upcoming-card-body">
+                <h3 class="upcoming-card-title">IBNCC Global Business Conclave</h3>
+                <p class="upcoming-card-tagline">Connect. Learn. Grow. Expand.</p>
+                <ul class="upcoming-card-meta">
+                  <li>
+                    <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                    <span>13th September 2026</span>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    <span>Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
+                  </li>
+                </ul>
+                <a href="event-details.html" class="btn btn-primary upcoming-card-btn">
+                  View Details <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </article>
+
+            <!-- <article class="upcoming-card reveal" data-stagger="1">
+              <div class="upcoming-card-media">
+                <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1400&q=80"
+                  alt="IBNCC Asia-Pacific Business Forum panel discussion" loading="lazy" width="900" height="520" />
+                <span class="upcoming-badge">Upcoming</span>
+              </div>
+              <div class="upcoming-card-body">
+                <h3 class="upcoming-card-title">IBNCC Asia-Pacific Business Forum</h3>
+                <p class="upcoming-card-tagline">Trade. Partner. Scale Across Borders.</p>
+                <ul class="upcoming-card-meta">
+                  <li>
+                    <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                    <span>24th November 2026</span>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    <span>Grand Hyatt, Singapore</span>
+                  </li>
+                </ul>
+                <a href="#cta" class="btn btn-primary upcoming-card-btn">
+                  View Details <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </article>
+
+            <article class="upcoming-card reveal" data-stagger="2">
+              <div class="upcoming-card-media">
+                <img src="https://images.unsplash.com/photo-1505373877841-8d25f39d4664?auto=format&fit=crop&w=1400&q=80"
+                  alt="Christian Entrepreneurs Leadership Summit keynote stage" loading="lazy" width="900" height="520" />
+                <span class="upcoming-badge">Upcoming</span>
+              </div>
+              <div class="upcoming-card-body">
+                <h3 class="upcoming-card-title">Christian Entrepreneurs Leadership Summit</h3>
+                <p class="upcoming-card-tagline">Lead with Purpose. Build with Integrity.</p>
+                <ul class="upcoming-card-meta">
+                  <li>
+                    <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                    <span>18th January 2027</span>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    <span>Taj Lands End, Mumbai, Maharashtra</span>
+                  </li>
+                </ul>
+                <a href="#cta" class="btn btn-primary upcoming-card-btn">
+                  View Details <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </article> -->
+          </div>
+        </div>
+
+        <!-- Previous Events -->
+        <!-- <div class="events-subsection events-previous">
+          <div class="section-header reveal">
+            <p class="section-eyebrow">Archive</p>
+            <h2 class="section-title">Previous Events</h2>
+            <p class="section-lead">Highlights from past conclaves, forums and networking gatherings across the IBNCC
+              community.</p>
+          </div>
+
+          <div class="previous-gallery">
+            <article class="previous-card reveal" data-stagger="0">
+              <div class="previous-card-media">
+                <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80"
+                  alt="Leadership Summit 2025 networking session" loading="lazy" width="480" height="320" />
+                <div class="previous-card-overlay">
+                  <div class="previous-card-details">
+                    <p><i class="fa-regular fa-calendar" aria-hidden="true"></i> 18th October 2025</p>
+                    <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Kochi, Kerala</p>
+                  </div>
+                </div>
+              </div>
+              <div class="previous-card-body">
+                <h3>Christian Leadership Summit</h3>
+                <a href="#cta" class="btn btn-hero-secondary previous-card-btn">
+                  View More <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </article>
+
+            <article class="previous-card reveal" data-stagger="1">
+              <div class="previous-card-media">
+                <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80"
+                  alt="Entrepreneurs Forum 2025 keynote" loading="lazy" width="480" height="320" />
+                <div class="previous-card-overlay">
+                  <div class="previous-card-details">
+                    <p><i class="fa-regular fa-calendar" aria-hidden="true"></i> 22nd June 2025</p>
+                    <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Bengaluru, Karnataka</p>
+                  </div>
+                </div>
+              </div>
+              <div class="previous-card-body">
+                <h3>Entrepreneurs Forum 2025</h3>
+                <a href="#cta" class="btn btn-hero-secondary previous-card-btn">
+                  View More <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </article>
+
+            <article class="previous-card reveal" data-stagger="2">
+              <div class="previous-card-media">
+                <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=80"
+                  alt="Women in Business Meet 2025" loading="lazy" width="480" height="320" />
+                <div class="previous-card-overlay">
+                  <div class="previous-card-details">
+                    <p><i class="fa-regular fa-calendar" aria-hidden="true"></i> 8th March 2025</p>
+                    <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Chennai, Tamil Nadu</p>
+                  </div>
+                </div>
+              </div>
+              <div class="previous-card-body">
+                <h3>Women in Business Meet</h3>
+                <a href="#cta" class="btn btn-hero-secondary previous-card-btn">
+                  View More <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </article>
+
+            <article class="previous-card reveal" data-stagger="3">
+              <div class="previous-card-media">
+                <img src="https://images.unsplash.com/photo-1591115765373-5207764f72e7?auto=format&fit=crop&w=800&q=80"
+                  alt="Faith &amp; Finance Roundtable 2024" loading="lazy" width="480" height="320" />
+                <div class="previous-card-overlay">
+                  <div class="previous-card-details">
+                    <p><i class="fa-regular fa-calendar" aria-hidden="true"></i> 14th November 2024</p>
+                    <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Mumbai, Maharashtra</p>
+                  </div>
+                </div>
+              </div>
+              <div class="previous-card-body">
+                <h3>Faith &amp; Finance Roundtable</h3>
+                <a href="#cta" class="btn btn-hero-secondary previous-card-btn">
+                  View More <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </article>
+
+            <article class="previous-card reveal" data-stagger="4">
+              <div class="previous-card-media">
+                <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=800&q=80"
+                  alt="Startup Pitch Night 2024" loading="lazy" width="480" height="320" />
+                <div class="previous-card-overlay">
+                  <div class="previous-card-details">
+                    <p><i class="fa-regular fa-calendar" aria-hidden="true"></i> 5th September 2024</p>
+                    <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Hyderabad, Telangana</p>
+                  </div>
+                </div>
+              </div>
+              <div class="previous-card-body">
+                <h3>Startup Pitch Night</h3>
+                <a href="#cta" class="btn btn-hero-secondary previous-card-btn">
+                  View More <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </article>
+
+            <article class="previous-card reveal" data-stagger="5">
+              <div class="previous-card-media">
+                <img src="https://images.unsplash.com/photo-1528605105345-5344ea20e269?auto=format&fit=crop&w=800&q=80"
+                  alt="Global Networking Evening 2024" loading="lazy" width="480" height="320" />
+                <div class="previous-card-overlay">
+                  <div class="previous-card-details">
+                    <p><i class="fa-regular fa-calendar" aria-hidden="true"></i> 20th April 2024</p>
+                    <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Dubai, UAE</p>
+                  </div>
+                </div>
+              </div>
+              <div class="previous-card-body">
+                <h3>Global Networking Evening</h3>
+                <a href="#cta" class="btn btn-hero-secondary previous-card-btn">
+                  View More <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- ========== UPCOMING EVENT (legacy, commented) ========== -->
+    <!-- <section class="section event" id="events">
+      <div class="container">
+        <div class="event-hero reveal">
+          <div class="event-glow" aria-hidden="true"></div>
+          <div class="event-globe" aria-hidden="true"></div>
+          <div class="event-content">
+            <span class="event-badge">Upcoming Event</span>
+            <h2>IBNCC Global Business Conclave</h2>
+            <p class="event-tagline">Connect. Learn. Grow. Expand.</p>
+            <dl class="event-meta">
+              <div>
+                <dt><i class="fa-regular fa-calendar" aria-hidden="true"></i> Date</dt>
+                <dd>Coming Soon</dd>
+              </div>
+              <div>
+                <dt><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Location</dt>
+                <dd>Coming Soon</dd>
+              </div>
+              <div>
+                <dt><i class="fa-solid fa-building" aria-hidden="true"></i> Format</dt>
+                <dd>Global Business Conclave</dd>
+              </div>
+            </dl>
+            <div class="event-ctas">
+              <a href="#cta" class="btn btn-gold">Register Your Interest</a>
+              <a href="#benefits" class="btn btn-outline-light">Explore Event</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- ========== CONCLAVE BENEFITS ========== -->
+    <!-- <section class="section benefits" id="benefits">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="section-eyebrow">Attending the Conclave</p>
+          <h2 class="section-title">Why Attend the IBNCC Global Business Conclave?</h2>
+        </div>
+        <div class="benefits-grid">
+          <article class="benefit-card reveal">
+            <span class="benefit-num">01</span>
+            <div class="benefit-icon"><i class="fa-solid fa-user-group" aria-hidden="true"></i></div>
+            <h3>High-Value Networking</h3>
+            <p>Meet entrepreneurs, business leaders and decision-makers who can open doors to new relationships and
+              opportunities.</p>
+          </article>
+          <article class="benefit-card reveal">
+            <span class="benefit-num">02</span>
+            <div class="benefit-icon"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i></div>
+            <h3>Direct Market Insights</h3>
+            <p>Gain first-hand insights into emerging markets, changing business environments and new opportunities.</p>
+          </article>
+          <article class="benefit-card reveal">
+            <span class="benefit-num">03</span>
+            <div class="benefit-icon"><i class="fa-solid fa-seedling" aria-hidden="true"></i></div>
+            <h3>Strategic Growth Opportunities</h3>
+            <p>Discover partnerships, collaborations and strategies that can help accelerate your business growth.</p>
+          </article>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- ========== NETWORKING ========== -->
+    <!-- <section class="section networking" id="networking">
+      <div class="container networking-grid">
+        <div class="networking-copy reveal">
+          <p class="section-eyebrow">Connections</p>
+          <h2 class="section-title">Networking &amp; Partnerships</h2>
+          <ul class="check-list">
+            <li>Connect with CEOs, founders and key decision-makers.</li>
+            <li>Build lasting alliances, joint ventures and client leads.</li>
+            <li>Interact directly with prominent industry experts.</li>
+          </ul>
+          <div class="float-tags" aria-hidden="true">
+            <span>CEO</span>
+            <span>Founder</span>
+            <span>Investor</span>
+            <span>Entrepreneur</span>
+            <span>Industry Expert</span>
+            <span>Partner</span>
+          </div>
+        </div>
+        <div class="networking-visual reveal">
+          <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=1100&q=80"
+            alt="Entrepreneurs networking at an international conference" loading="lazy" width="640" height="480" />
+        </div>
+      </div>
+    </section> -->
+
+    <!-- ========== KNOWLEDGE ========== -->
+    <!-- <section class="section knowledge" id="knowledge">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="section-eyebrow">Learning</p>
+          <h2 class="section-title">Knowledge &amp; Trends</h2>
+          <p class="section-lead">Stay ahead with insights that shape modern enterprise.</p>
+        </div>
+        <div class="knowledge-layout">
+          <div class="knowledge-copy reveal">
+            <ul class="check-list">
+              <li>Learn cutting-edge market trends and new technologies.</li>
+              <li>Gain practical problem-solving strategies from peers.</li>
+              <li>Listen to expert keynote speakers and panel sessions.</li>
+            </ul>
+          </div>
+          <div class="timeline reveal" role="list">
+            <article class="timeline-item" role="listitem">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <i class="fa-solid fa-microchip" aria-hidden="true"></i>
+                <h3>AI &amp; Technology</h3>
+                <p>Emerging tools reshaping how enterprises compete.</p>
+              </div>
+            </article>
+            <article class="timeline-item" role="listitem">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <i class="fa-solid fa-lightbulb" aria-hidden="true"></i>
+                <h3>Innovation</h3>
+                <p>Practical frameworks for product and service invention.</p>
+              </div>
+            </article>
+            <article class="timeline-item" role="listitem">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <i class="fa-solid fa-chess" aria-hidden="true"></i>
+                <h3>Strategy</h3>
+                <p>Board-level thinking for sustainable market advantage.</p>
+              </div>
+            </article>
+            <article class="timeline-item" role="listitem">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <i class="fa-solid fa-cloud" aria-hidden="true"></i>
+                <h3>Digital Transformation</h3>
+                <p>Modernizing operations without losing human values.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- ========== GROWTH ========== -->
+    <!-- <section class="section growth" id="growth">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="section-eyebrow">Impact</p>
+          <h2 class="section-title">Growth &amp; Visibility</h2>
+          <p class="section-lead">Elevate your presence from local markets to global stages.</p>
+        </div>
+        <div class="growth-grid">
+          <ul class="check-list reveal">
+            <li>Boost personal and corporate brand credibility.</li>
+            <li>Showcase products or services to targeted audiences.</li>
+            <li>Discover fresh regional or global market expansion channels.</li>
+          </ul>
+          <div class="growth-path reveal" id="growth-path">
+            <svg viewBox="0 0 640 220" class="growth-svg" aria-hidden="true">
+              <path class="growth-line" d="M40 180 C140 170, 180 120, 240 110 S360 90, 400 70 S520 40, 600 30"
+                fill="none" stroke="url(#growthGrad)" stroke-width="3" stroke-linecap="round" />
+              <defs>
+                <linearGradient id="growthGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#1a3a6b" />
+                  <stop offset="55%" stop-color="#2f6fed" />
+                  <stop offset="100%" stop-color="#c9a227" />
+                </linearGradient>
+              </defs>
+              <circle class="growth-node" cx="40" cy="180" r="8" />
+              <circle class="growth-node" cx="240" cy="110" r="8" />
+              <circle class="growth-node" cx="400" cy="70" r="8" />
+              <circle class="growth-node" cx="600" cy="30" r="10" />
+            </svg>
+            <div class="growth-labels">
+              <span>Local</span>
+              <span>Regional</span>
+              <span>National</span>
+              <span>Global</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- ========== HIGHLIGHTS ========== -->
+    <!-- <section class="section highlights" id="highlights">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="section-eyebrow">Conclave Highlights</p>
+          <h2 class="section-title">What Awaits You at the Conclave</h2>
+        </div>
+        <div class="highlights-grid">
+          <article class="hl-card hl-card--lg reveal">
+            <i class="fa-solid fa-users" aria-hidden="true"></i>
+            <h3>Panel Discussions</h3>
+            <p>Live dialogues with leaders shaping industry and faith-aligned enterprise.</p>
+          </article>
+          <article class="hl-card reveal">
+            <i class="fa-solid fa-microphone" aria-hidden="true"></i>
+            <h3>Expert Keynotes</h3>
+            <p>Inspiring speeches from global voices in business and leadership.</p>
+          </article>
+          <article class="hl-card hl-card--accent reveal">
+            <i class="fa-solid fa-brain" aria-hidden="true"></i>
+            <h3>AI in Business</h3>
+            <p>Practical applications of artificial intelligence for modern enterprises.</p>
+          </article>
+          <article class="hl-card reveal">
+            <i class="fa-solid fa-certificate" aria-hidden="true"></i>
+            <h3>Patent &amp; Trademark</h3>
+            <p>Protecting innovation with clarity and legal foresight.</p>
+          </article>
+          <article class="hl-card hl-card--lg reveal">
+            <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+            <h3>Future Business Opportunities</h3>
+            <p>Spot emerging markets and next-generation venture themes.</p>
+          </article>
+          <article class="hl-card reveal">
+            <i class="fa-solid fa-microchip" aria-hidden="true"></i>
+            <h3>Emerging Technologies</h3>
+            <p>Explore tools that will define the next decade of commerce.</p>
+          </article>
+          <article class="hl-card reveal">
+            <i class="fa-solid fa-bullhorn" aria-hidden="true"></i>
+            <h3>Digital Marketing</h3>
+            <p>Strategies to grow visibility across channels and borders.</p>
+          </article>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- ========== CTA ========== -->
+    <section class="section cta-section" id="cta">
+      <div class="cta-bg" aria-hidden="true">
+        <div class="cta-globe"></div>
+        <canvas id="cta-canvas" class="cta-canvas"></canvas>
+      </div>
+      <div class="container cta-inner reveal">
+        <h2 class="section-title">Be Part of the Global Network</h2>
+        <p class="section-lead">
+          Connect with Christian business leaders, discover opportunities and help shape a stronger global business
+          community.
+        </p>
+        <div class="cta-buttons">
+          <a href="mailto:connect@ibncc.org" class="btn btn-gold">Join IBNCC</a>
+          <a href="#networking" class="btn btn-outline-light">Explore Networking &amp; Trading</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="site-footer" id="footer">
+    <div class="footer-card">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand-inner">
+            <img src="assets/images/logo_full.png" alt="IBNCC" width="56" height="56" />
+            <div>
+              <strong class="footer-tagline">International Business Network <br> of Catholic Congress</strong>
+              <!-- <span>International Business Network</span> -->
+              <p>A global platform connecting Catholic entrepreneurs, professionals and organizations to collaborate,
+                trade and grow together.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="footer-nav">
+          <h3>Navigate</h3>
+          <a href="#home"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+          <a href="#about"><i class="fa-solid fa-circle-info" aria-hidden="true"></i><span>About</span></a>
+          <a href="#events"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i><span>Events</span></a>
+          <a href="#networking"><i class="fa-solid fa-handshake" aria-hidden="true"></i><span>Networking</span></a>
+          <a href="#trading"><i class="fa-solid fa-arrow-right-arrow-left"
+              aria-hidden="true"></i><span>Trading</span></a>
+        </div> -->
+        <div class="footer-nav">
+          <h3>Navigate</h3>
+          <a href="#home"><span>Home</span></a>
+          <a href="#about"><span>About</span></a>
+          <a href="#events"><span>Events</span></a>
+          <a href="#networking"><span>Networking</span></a>
+          <a href="#trading"><span>Trading</span></a>
+        </div>
+
+        <div class="footer-connect">
+          <h3>Connect</h3>
+          <a href="mailto:ibncc26@gmail.com" class="footer-contact-link">
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+            <span>ibncc26@gmail.com</span>
+          </a>
+          <a href="tel:+10000000000" class="footer-contact-link">
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            <span>+91 9847030064</span>
+          </a>
+          <!-- <div class="footer-location">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            <span>IBNCC Global Secretariat, Kochi, Kerala, India</span>
+          </div> -->
+
+          <h3 class="footer-follow">Follow Us</h3>
+          <div class="socials" aria-label="Social links">
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
+            <a href="#" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <p class="footer-copy">&copy; 2026 IBNCC. All rights reserved.</p>
+        <div class="footer-design">
+          <a href="#">Designed By : Astraz Software solutions</a>
+          <!-- <span aria-hidden="true">|</span>
+          <a href="#">Terms of Service</a>
+          <span aria-hidden="true">|</span>
+          <a href="#">Sitemap</a> -->
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
+  </button>
+
+  <script src="js/script.js" defer></script>
+</body>
+
+</html>
