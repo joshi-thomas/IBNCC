@@ -450,7 +450,11 @@
     briefView.hidden = editing;
     briefForm.hidden = !editing;
     briefEditBtn.setAttribute("aria-pressed", editing ? "true" : "false");
+    briefEditBtn.setAttribute("aria-expanded", editing ? "true" : "false");
   }
+
+  /* Keep the edit form hidden until the pen button is clicked */
+  setBriefEditing(false);
 
   briefEditBtn?.addEventListener("click", () => {
     setBriefEditing(briefForm.hidden);
