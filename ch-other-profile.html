@@ -277,6 +277,83 @@
       white-space: nowrap;
       text-align: center;
     }
+
+    /* ---------- Other profile social icons ---------- */
+    .page-profile.other-profile-page .other-social-links {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    .page-profile.other-profile-page .other-social-label {
+      margin: 0 0 0.7rem;
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .page-profile.other-profile-page .other-social-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .page-profile.other-profile-page .other-social-link {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--light);
+      color: var(--primary-mid);
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition:
+        transform 0.22s var(--ease),
+        background 0.22s ease,
+        color 0.22s ease,
+        border-color 0.22s ease,
+        box-shadow 0.22s ease;
+    }
+    .page-profile.other-profile-page .other-social-link:hover,
+    .page-profile.other-profile-page .other-social-link:focus-visible {
+      transform: translateY(-3px);
+      color: var(--white);
+      outline: none;
+      box-shadow: 0 8px 18px rgba(11, 29, 54, 0.14);
+    }
+    .page-profile.other-profile-page .other-social-link--instagram:hover,
+    .page-profile.other-profile-page .other-social-link--instagram:focus-visible {
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      border-color: transparent;
+    }
+    .page-profile.other-profile-page .other-social-link--facebook:hover,
+    .page-profile.other-profile-page .other-social-link--facebook:focus-visible {
+      background: #1877f2;
+      border-color: #1877f2;
+    }
+    .page-profile.other-profile-page .other-social-link--youtube:hover,
+    .page-profile.other-profile-page .other-social-link--youtube:focus-visible {
+      background: #ff0000;
+      border-color: #ff0000;
+    }
+    .page-profile.other-profile-page .other-social-link--x:hover,
+    .page-profile.other-profile-page .other-social-link--x:focus-visible {
+      background: #0f1419;
+      border-color: #0f1419;
+    }
+    @media (max-width: 480px) {
+      .page-profile.other-profile-page .other-social-link {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 <body class="profile-page other-profile-page page-profile">
@@ -659,6 +736,56 @@
                 </button>
               </form>
             </div>
+          </div>
+
+          <div class="other-social-links" aria-label="Social media profiles">
+            <p class="other-social-label">Social Media Links</p>
+            <ul class="other-social-list">
+              <li>
+                <a
+                  href="https://instagram.com/"
+                  class="other-social-link other-social-link--instagram"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                >
+                  <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://facebook.com/"
+                  class="other-social-link other-social-link--facebook"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                >
+                  <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://youtube.com/"
+                  class="other-social-link other-social-link--youtube"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="YouTube"
+                >
+                  <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://x.com/"
+                  class="other-social-link other-social-link--x"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="X (Twitter)"
+                >
+                  <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+                </a>
+              </li>
+            </ul>
           </div>
 
           <div class="similar-members" id="similar-members">
