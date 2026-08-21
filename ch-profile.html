@@ -833,19 +833,43 @@
     <section class="profile-banner-card" aria-labelledby="profile-name">
       <div class="profile-cover">
         <img
+          id="profileCoverImage"
           src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=80"
           alt="Mountain landscape cover photo"
         />
+        <button
+          type="button"
+          class="profile-image-edit profile-image-edit--cover"
+          id="editCoverImageBtn"
+          aria-label="Change cover image"
+          title="Change cover image"
+        >
+          <i class="fa-solid fa-pen" aria-hidden="true"></i>
+        </button>
+        <input type="file" id="coverImageInput" class="profile-image-file-input" accept="image/*" tabindex="-1" aria-hidden="true" />
       </div>
 
       <div class="profile-identity">
-        <img
-          class="profile-photo"
-          src="assets/images/cchub/tt5.webp"
-          alt="Portrait of George Mathew"
-          width="120"
-          height="120"
-        />
+        <div class="profile-photo-wrap">
+          <img
+            class="profile-photo"
+            id="profilePhotoImage"
+            src="assets/images/cchub/tt5.webp"
+            alt="Portrait of George Mathew"
+            width="120"
+            height="120"
+          />
+          <button
+            type="button"
+            class="profile-image-edit profile-image-edit--photo"
+            id="editProfilePhotoBtn"
+            aria-label="Change profile photo"
+            title="Change profile photo"
+          >
+            <i class="fa-solid fa-pen" aria-hidden="true"></i>
+          </button>
+          <input type="file" id="profilePhotoInput" class="profile-image-file-input" accept="image/*" tabindex="-1" aria-hidden="true" />
+        </div>
 
         <div class="profile-identity-body">
           <h1 id="profile-name" class="profile-display-name">

@@ -468,6 +468,43 @@
     setDetailPrivacy(item, item.classList.contains("is-private"));
   });
 
+  /* ---------- Profile / cover image edit ---------- */
+
+  function bindImagePicker({ button, input, image, label }) {
+    if (!button || !input || !image) return;
+
+    button.addEventListener("click", () => input.click());
+
+    input.addEventListener("change", () => {
+      const file = input.files?.[0];
+      if (!file || !file.type.startsWith("image/")) return;
+
+      const objectUrl = URL.createObjectURL(file);
+      const previousUrl = image.dataset.objectUrl;
+
+      image.src = objectUrl;
+      image.dataset.objectUrl = objectUrl;
+      if (label) image.alt = label;
+
+      if (previousUrl) URL.revokeObjectURL(previousUrl);
+      input.value = "";
+    });
+  }
+
+  bindImagePicker({
+    button: document.getElementById("editCoverImageBtn"),
+    input: document.getElementById("coverImageInput"),
+    image: document.getElementById("profileCoverImage"),
+    label: "Updated cover photo",
+  });
+
+  bindImagePicker({
+    button: document.getElementById("editProfilePhotoBtn"),
+    input: document.getElementById("profilePhotoInput"),
+    image: document.getElementById("profilePhotoImage"),
+    label: "Updated profile photo",
+  });
+
   document.querySelector(".gallery-add-btn")?.addEventListener("click", () => {
     console.info("Add Image (demo)");
   });
