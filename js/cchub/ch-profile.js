@@ -1045,7 +1045,6 @@
   function setMessagesOpen(open) {
     if (!messagesPanel || !openMessagesBtn) return;
     messagesPanel.hidden = !open;
-    openMessagesBtn.setAttribute("aria-expanded", open ? "true" : "false");
     document.body.style.overflow = open ? "hidden" : "";
     if (!open) {
       showListView();
@@ -1128,19 +1127,13 @@
     window.requestAnimationFrame(() => msgChatInput?.focus());
   }
 
-  openMessagesBtn?.addEventListener("click", (e) => {
-    e.preventDefault();
-    const opening = Boolean(messagesPanel?.hidden);
-    setMessagesOpen(opening);
-    if (opening) showListView();
-  });
-
   messagesPanel?.querySelectorAll("[data-msg-close]").forEach((el) => {
     el.addEventListener("click", () => setMessagesOpen(false));
   });
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && messagesPanel && !messagesPanel.hidden) {
+      if (appNavDropdown && !appNavDropdown.hidden) return;
       if (msgChatView && !msgChatView.hidden) {
         showListView();
       } else {
@@ -1207,5 +1200,109 @@
     window.setTimeout(() => {
       appendBubble("Thanks — I'll reply shortly.", false);
     }, 700);
+  });
+
+  /* ---------- App nav dropdown (Activity / Logout) ---------- */
+
+  const appNav = document.querySelector(".app-nav");
+  const appNavDropdown = document.getElementById("appNavDropdown");
+  const appNavItems = Array.from(document.querySelectorAll(".app-nav .app-nav-item"));
+  let appNavDropdownAnchor = null;
+
+  function setAppNavExpanded(item, expanded) {
+    appNavItems.forEach((navItem) => {
+      navItem.setAttribute("aria-expanded", navItem === item && expanded ? "true" : "false");
+    });
+  }
+
+  function positionAppNavDropdown(item) {
+    if (!appNav || !appNavDropdown || !item) return;
+    const navRect = appNav.getBoundingClientRect();
+    const itemRect = item.getBoundingClientRect();
+    const menuWidth = appNavDropdown.offsetWidth || 188;
+    let left = itemRect.left - navRect.left + itemRect.width / 2 - menuWidth / 2;
+    left = Math.max(8, Math.min(left, navRect.width - menuWidth - 8));
+    appNavDropdown.style.left = `${left}px`;
+    appNavDropdown.style.right = "auto";
+  }
+
+  function closeAppNavDropdown() {
+    if (!appNavDropdown) return;
+    appNavDropdown.hidden = true;
+    setAppNavExpanded(null, false);
+    appNavDropdownAnchor = null;
+  }
+
+  function openAppNavDropdown(item) {
+    if (!appNavDropdown || !item) return;
+    appNavDropdown.hidden = false;
+    appNavDropdownAnchor = item;
+    setAppNavExpanded(item, true);
+    positionAppNavDropdown(item);
+    window.requestAnimationFrame(() => {
+      appNavDropdown.querySelector(".app-nav-dropdown-item")?.focus();
+    });
+  }
+
+  function toggleAppNavDropdown(item) {
+    if (!item) return;
+    const isOpen = !appNavDropdown?.hidden && appNavDropdownAnchor === item;
+    if (isOpen) closeAppNavDropdown();
+    else openAppNavDropdown(item);
+  }
+
+  appNavItems.forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const wasOpenForItem = !appNavDropdown?.hidden && appNavDropdownAnchor === item;
+      toggleAppNavDropdown(item);
+
+      if (item.id === "openMessagesBtn" && messagesPanel) {
+        if (wasOpenForItem) {
+          setMessagesOpen(false);
+        } else {
+          setMessagesOpen(true);
+          showListView();
+        }
+      }
+    });
+  });
+
+  appNavDropdown?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const actionItem = e.target.closest("[data-nav-action]");
+    if (!actionItem) return;
+    e.preventDefault();
+    const action = actionItem.getAttribute("data-nav-action");
+    closeAppNavDropdown();
+    if (action === "logout") {
+      console.info("Logout (demo)");
+      window.location.href = "index.html";
+      return;
+    }
+    if (action === "activity") {
+      console.info("Activity (demo)");
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!appNavDropdown || appNavDropdown.hidden) return;
+    if (e.target.closest(".app-nav-dropdown") || e.target.closest(".app-nav-item")) return;
+    closeAppNavDropdown();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || !appNavDropdown || appNavDropdown.hidden) return;
+    const anchor = appNavDropdownAnchor;
+    closeAppNavDropdown();
+    anchor?.focus();
+  });
+
+  window.addEventListener("resize", () => {
+    if (!appNavDropdown?.hidden && appNavDropdownAnchor) {
+      positionAppNavDropdown(appNavDropdownAnchor);
+    }
   });
 })();

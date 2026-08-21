@@ -209,6 +209,7 @@
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       box-shadow: none;
+      overflow: visible;
     }
     .page-profile .app-nav-inner {
       width: min(100% - 2rem, 1280px);
@@ -453,29 +454,39 @@
 
   <nav class="app-nav" aria-label="Profile navigation">
     <div class="app-nav-inner">
-      <a href="#save-profile" class="app-nav-item" aria-label="Save Profile">
+      <a href="#save-profile" class="app-nav-item" aria-label="Save Profile" aria-haspopup="menu" aria-expanded="false">
         <span class="app-nav-icon app-nav-icon--save">
           <i class="fa-regular fa-bookmark" aria-hidden="true"></i>
         </span>
         <span class="app-nav-label">Save Profile</span>
       </a>
-      <a href="#block-profile" class="app-nav-item" aria-label="Block Profile">
+      <a href="#block-profile" class="app-nav-item" aria-label="Block Profile" aria-haspopup="menu" aria-expanded="false">
         <span class="app-nav-icon app-nav-icon--block">
           <i class="fa-solid fa-ban" aria-hidden="true"></i>
         </span>
         <span class="app-nav-label">Block Profile</span>
       </a>
-      <a href="#share-profile" class="app-nav-item" aria-label="Share Profile">
+      <a href="#share-profile" class="app-nav-item" aria-label="Share Profile" aria-haspopup="menu" aria-expanded="false">
         <span class="app-nav-icon app-nav-icon--share">
           <i class="fa-solid fa-share-from-square" aria-hidden="true"></i>
         </span>
         <span class="app-nav-label">Share Profile</span>
       </a>
-      <a href="ch-profile.html" class="app-nav-item" aria-label="Your profile">
+      <a href="ch-profile.html" class="app-nav-item" aria-label="Your profile" aria-haspopup="menu" aria-expanded="false">
         <span class="app-nav-icon app-nav-icon--profile">
           <i class="fa-regular fa-user" aria-hidden="true"></i>
         </span>
         <span class="app-nav-label">Your Profile</span>
+      </a>
+    </div>
+    <div class="app-nav-dropdown" id="appNavDropdown" hidden role="menu" aria-label="Account menu">
+      <a href="#activity" class="app-nav-dropdown-item" role="menuitem" data-nav-action="activity">
+        <span class="app-nav-dropdown-icon" aria-hidden="true"><i class="fa-solid fa-clock-rotate-left"></i></span>
+        <span>Activity</span>
+      </a>
+      <a href="#logout" class="app-nav-dropdown-item app-nav-dropdown-item--logout" role="menuitem" data-nav-action="logout">
+        <span class="app-nav-dropdown-icon" aria-hidden="true"><i class="fa-solid fa-right-from-bracket"></i></span>
+        <span>Logout</span>
       </a>
     </div>
   </nav>
