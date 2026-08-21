@@ -9,54 +9,282 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Manrope:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/cchub/ch-styles.css" />
   <link rel="stylesheet" href="css/cchub/ch-profile.css" />
+
+  <style>
+    :root {
+      --primary: #0b1d36;
+      --primary-mid: #122a4a;
+      --secondary: #1a4f9c;
+      --royal: #1e5bb8;
+      --gold: #c9a227;
+      --gold-bright: #e0b93a;
+      --gold-soft: #f3e4b0;
+      --dark: #07111f;
+      --light: #f7fafc;
+      --text: #142033;
+      --muted: #5a6b82;
+      --white: #ffffff;
+      --border: rgba(15, 40, 80, 0.1);
+      --shadow: 0 18px 50px rgba(7, 17, 31, 0.12);
+      --radius: 22px;
+      --radius-sm: 14px;
+      --header-h: 78px;
+      --font-display: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "DM Sans", system-ui, sans-serif;
+      --font-body: "Manrope", system-ui, sans-serif;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --max: 1180px;
+    }
+    .page-profile .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 1000;
+      height: var(--header-h);
+      overflow: visible;
+      transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
+      background: rgba(255, 255, 255, 0.42);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .page-profile .site-header.is-scrolled {
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 8px 30px rgba(7, 17, 31, 0.08);
+      border-bottom-color: var(--border);
+    }
+    .page-profile .header-inner {
+      width: min(100% - 2rem, 1280px);
+      margin-inline: auto;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0;
+      min-height: unset;
+      max-width: unset;
+      grid-template-columns: unset;
+    }
+    .page-profile .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      flex-shrink: 1;
+      transition: none;
+    }
+    .page-profile .brand-logo {
+      width: 105px;
+      height: auto;
+      object-fit: contain;
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: block;
+      color: inherit;
+      border-spacing: unset;
+    }
+    .page-profile .brand-logo svg,
+    .page-profile .brand-logo img {
+      height: auto;
+      width: 105px;
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .page-profile .brand-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      line-height: 1.15;
+      min-width: 0;
+      flex-shrink: 0;
+    }
+    .page-profile .brand-tagline {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: clamp(0.5rem, 1.15vw + 0.36rem, 0.58rem);
+      font-weight: 600;
+      letter-spacing: 0.055em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.28;
+      max-width: min(13.25rem, 62vw);
+      min-width: min(10.75rem, 52vw);
+      white-space: normal;
+      overflow: visible;
+    }
+    .page-profile .nav-desktop {
+      display: none;
+      align-items: center;
+      gap: 0.35rem;
+      text-transform: uppercase;
+    }
+    .page-profile .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.55rem 0.85rem;
+      border-radius: 999px;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .page-profile .nav-link:hover,
+    .page-profile .nav-link.active {
+      background: rgba(26, 79, 156, 0.08);
+      color: var(--primary);
+    }
+    .page-profile .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-shrink: 0;
+    }
+    .page-profile .header-notice {
+      display: none;
+      align-items: center;
+      gap: 0.55rem;
+      max-width: min(380px, 34vw);
+      height: 38px;
+      padding: 0 0.65rem 0 0.45rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(247, 250, 252, 0.92));
+      border: 1px solid rgba(26, 79, 156, 0.18);
+      box-shadow: 0 4px 16px rgba(18, 58, 107, 0.1), 0 0 0 1px rgba(201, 162, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      overflow: hidden;
+    }
+    .page-profile .menu-toggle {
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.7);
+    }
+    @media (max-width: 767px) {
+      .page-profile .header-notice:not(.header-notice--mobile) { display: none !important; }
+    }
+    @media (min-width: 768px) {
+      .page-profile .header-notice:not(.header-notice--mobile) { display: flex; max-width: min(280px, 38vw); }
+    }
+    @media (min-width: 1024px) {
+      .page-profile .nav-desktop { display: flex; }
+      .page-profile .header-notice:not(.header-notice--mobile) { display: flex; max-width: min(340px, 30vw); }
+      .page-profile .menu-toggle { display: none; }
+      .page-profile .nav-mobile { display: none !important; }
+      .page-profile .brand-tagline { max-width: none; min-width: 0; font-size: 0.58rem; letter-spacing: 0.11em; white-space: nowrap; }
+    }
+    @media (min-width: 1200px) {
+      .page-profile .nav-desktop { gap: 0.35rem; }
+      .page-profile .nav-link { padding: 0.55rem 0.7rem; font-size: 0.84rem; }
+      .page-profile .header-notice:not(.header-notice--mobile) { max-width: min(400px, 32vw); }
+    }
+    @media (min-width: 1320px) {
+      .page-profile .nav-desktop { gap: 0.5rem; }
+      .page-profile .nav-link { padding: 0.55rem 0.85rem; font-size: 0.88rem; }
+      .page-profile .header-notice:not(.header-notice--mobile) { max-width: 420px; }
+    }
+
+    /* Keep following content clear of the fixed header */
+    .page-profile.other-profile-page > .app-nav {
+      margin-top: var(--header-h);
+    }
+  </style>
 </head>
-<body class="profile-page other-profile-page">
-  <header class="site-header profile-header">
-    <div class="header-inner profile-header-inner">
-      <a href="ch-home.html" class="brand" aria-label="CC Hub Home">
-        <span class="brand-logo" aria-hidden="true">
-          <img src="assets/images/cchub/logo_full.png" alt="" />
-          <span class="brand-name">International Business Network</span>
+<body class="profile-page other-profile-page page-profile">
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="index.html#home" class="brand" aria-label="IBNCC Home">
+        <span class="brand-text">
+          <img src="assets/images/logo_full.png" alt="IBNCC logo" class="brand-logo" width="52" height="52" />
+          <span class="brand-tagline">AN INITIATIVE OF CATHOLIC CONGRESS</span>
         </span>
       </a>
 
-      <form class="search-bar" role="search" action="#" method="get">
-        <input
-          type="search"
-          name="q"
-          placeholder="Search for people, profession or service..."
-          aria-label="Search for people, profession or service"
-        />
-        <button type="submit" class="search-btn" aria-label="Submit search">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </form>
+      <nav class="nav-desktop" aria-label="Primary">
+        <a href="index.html#home" class="nav-link" data-section="home"><span>Home</span></a>
+        <a href="index.html#about" class="nav-link" data-section="about"><span>About</span></a>
+        <a href="index.html#events" class="nav-link" data-section="events"><span>Events</span></a>
+        <a href="networking.html" class="nav-link" data-section="networking"><span>Networking</span></a>
+        <a href="ch-trading.html" class="nav-link" data-section="trading"><span>Trading</span></a>
+      </nav>
 
-      <div class="profile-header-actions">
-        <button type="button" class="profile-loc-btn" aria-label="Current location Kozhikode, Kerala">
-          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-          <span>Kozhikode, Kerala</span>
-          <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+      <div class="header-actions">
+        <a href="event-details.html" class="header-notice" aria-label="Upcoming event announcement">
+          <span class="header-notice-icon" aria-hidden="true">
+            <i class="fa-solid fa-bell"></i>
+          </span>
+          <span class="header-notice-track">
+            <span class="header-notice-marquee">
+              <span class="header-notice-text">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
+              <span class="header-notice-text" aria-hidden="true">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
+            </span>
+          </span>
+        </a>
+        <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
         </button>
-        <a href="#favorites" class="icon-btn" aria-label="Favorites">
-          <i class="fa-regular fa-heart"></i>
-        </a>
-        <a href="#notifications" class="icon-btn notify-btn" aria-label="Notifications, 3 unread">
-          <i class="fa-regular fa-bell"></i>
-          <span class="cart-badge">3</span>
-        </a>
-        <a href="ch-profile.html" class="header-avatar" aria-label="Your profile">
-          <img
-            src="assets/images/cchub/tt1.webp"
-            alt=""
-            width="40"
-            height="40"
-          />
-        </a>
       </div>
     </div>
+
+    <nav class="nav-mobile" id="mobile-menu" aria-label="Mobile" hidden>
+      <div class="nav-mobile-card">
+        <a href="event-details.html" class="header-notice header-notice--mobile" aria-label="Upcoming event announcement">
+          <span class="header-notice-icon" aria-hidden="true">
+            <i class="fa-solid fa-bell"></i>
+          </span>
+          <span class="header-notice-track">
+            <span class="header-notice-marquee">
+              <span class="header-notice-text">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
+              <span class="header-notice-text" aria-hidden="true">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
+            </span>
+          </span>
+        </a>
+        <div class="nav-mobile-list">
+          <a href="index.html#home" class="nav-link" data-section="home">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-house"></i></span>
+            <span class="nav-mobile-copy"><strong>Home</strong><em>Welcome to IBNCC</em></span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+          <a href="index.html#about" class="nav-link" data-section="about">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-circle-info"></i></span>
+            <span class="nav-mobile-copy"><strong>About</strong><em>Know more about us</em></span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+          <a href="index.html#events" class="nav-link" data-section="events">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-calendar-days"></i></span>
+            <span class="nav-mobile-copy"><strong>Events</strong><em>Upcoming gatherings</em></span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+          <a href="networking.html" class="nav-link" data-section="networking">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-handshake"></i></span>
+            <span class="nav-mobile-copy"><strong>Networking</strong><em>Build global connections</em></span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+          <a href="ch-trading.html" class="nav-link" data-section="trading">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-arrow-right-arrow-left"></i></span>
+            <span class="nav-mobile-copy"><strong>Trading</strong><em>Collaborate and grow</em></span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
   </header>
 
   <nav class="app-nav" aria-label="Main navigation">
@@ -712,6 +940,7 @@
     </form>
   </dialog>
 
+  <script src="js/script.js"></script>
   <script src="js/cchub/ch-profile.js"></script>
   <script src="js/cchub/ch-other-profile.js"></script>
 </body>
