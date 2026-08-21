@@ -199,9 +199,83 @@
       .page-profile .header-notice:not(.header-notice--mobile) { max-width: 420px; }
     }
 
-    /* Keep following content clear of the fixed header */
-    .page-profile.other-profile-page > .app-nav {
+    /* ---------- Profile-style app navigation ---------- */
+    .page-profile .app-nav {
+      position: sticky;
+      top: var(--header-h);
       margin-top: var(--header-h);
+      z-index: 999;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: none;
+    }
+    .page-profile .app-nav-inner {
+      width: min(100% - 2rem, 1280px);
+      margin-inline: auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 1.9rem;
+      padding: 0.7rem 0 0.6rem;
+      max-width: unset;
+    }
+    .page-profile .app-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0;
+      min-width: 0;
+      border-radius: 0;
+      border-bottom: none;
+      background: transparent;
+      font-family: var(--font-sans);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: #1a2340;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+      flex-shrink: 0;
+    }
+    .page-profile .app-nav-item:hover,
+    .page-profile .app-nav-item.is-active {
+      background: transparent;
+      color: #1a2340;
+      border-bottom-color: transparent;
+      opacity: 0.85;
+    }
+    .page-profile .app-nav-icon {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    .page-profile .app-nav-icon i {
+      font-size: 1.2rem;
+    }
+    .page-profile .app-nav-icon--save {
+      background: #f3e8ff;
+      color: #8b5cf6;
+    }
+    .page-profile .app-nav-icon--block {
+      background: #fde8e8;
+      /* color: #dc3545; */
+      color: #c67179;
+    }
+    .page-profile .app-nav-icon--share {
+      background: #e7f6ea;
+      color: #2ea043;
+    }
+    .page-profile .app-nav-icon--profile {
+      background: #e8f1fb;
+      color: #2f6fdb;
+    }
+    .page-profile .app-nav-label {
+      white-space: nowrap;
+      text-align: center;
     }
   </style>
 </head>
@@ -287,36 +361,31 @@
     </nav>
   </header>
 
-  <nav class="app-nav" aria-label="Main navigation">
+  <nav class="app-nav" aria-label="Profile navigation">
     <div class="app-nav-inner">
-      <a href="ch-home.html" class="app-nav-item">
-        <i class="fa-solid fa-house" aria-hidden="true"></i>
-        <span>Home</span>
+      <a href="#save-profile" class="app-nav-item" aria-label="Save Profile">
+        <span class="app-nav-icon app-nav-icon--save">
+          <i class="fa-regular fa-bookmark" aria-hidden="true"></i>
+        </span>
+        <span class="app-nav-label">Save Profile</span>
       </a>
-      <a href="ch-home.html#networking" class="app-nav-item is-active" aria-current="page">
-        <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
-        <span>Networking</span>
+      <a href="#block-profile" class="app-nav-item" aria-label="Block Profile">
+        <span class="app-nav-icon app-nav-icon--block">
+          <i class="fa-solid fa-ban" aria-hidden="true"></i>
+        </span>
+        <span class="app-nav-label">Block Profile</span>
       </a>
-      <a href="ch-home.html#trading" class="app-nav-item">
-        <i class="fa-solid fa-handshake" aria-hidden="true"></i>
-        <span>Trading</span>
-      </a>      
-      <a href="#marketplace" class="app-nav-item">
-        <i class="fa-solid fa-store" aria-hidden="true"></i>
-        <span>Marketplace</span>
+      <a href="#share-profile" class="app-nav-item" aria-label="Share Profile">
+        <span class="app-nav-icon app-nav-icon--share">
+          <i class="fa-solid fa-share-from-square" aria-hidden="true"></i>
+        </span>
+        <span class="app-nav-label">Share Profile</span>
       </a>
-      
-      <a href="#events" class="app-nav-item">
-        <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
-        <span>Events</span>
-      </a>
-      <a href="#messages" class="app-nav-item">
-        <i class="fa-regular fa-comments" aria-hidden="true"></i>
-        <span>Messages</span>
-      </a>
-      <a href="#groups" class="app-nav-item">
-        <i class="fa-solid fa-users" aria-hidden="true"></i>
-        <span>Groups</span>
+      <a href="ch-profile.html" class="app-nav-item" aria-label="Your profile">
+        <span class="app-nav-icon app-nav-icon--profile">
+          <i class="fa-regular fa-user" aria-hidden="true"></i>
+        </span>
+        <span class="app-nav-label">Your Profile</span>
       </a>
     </div>
   </nav>
