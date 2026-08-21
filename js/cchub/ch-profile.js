@@ -644,9 +644,14 @@
     row.innerHTML = `
       <span class="social-platform" role="cell" data-field="platform">${platform || "Platform"}</span>
       <a class="social-url" role="cell" href="${normalizeUrl(url)}" target="_blank" rel="noopener noreferrer" data-field="url">${displayUrl(normalizeUrl(url)) || "profile-url.com"}</a>
-      <button type="button" class="sidebar-icon-btn social-edit-btn" aria-label="Edit social profile">
-        <i class="fa-solid fa-pen" aria-hidden="true"></i>
-      </button>
+      <span class="social-link-actions" role="cell">
+        <button type="button" class="sidebar-icon-btn social-edit-btn" aria-label="Edit social profile">
+          <i class="fa-solid fa-pen" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="sidebar-icon-btn social-delete-btn" aria-label="Delete social profile">
+          <i class="fa-regular fa-trash-can" aria-hidden="true"></i>
+        </button>
+      </span>
     `;
 
     bindSocialRow(row);
@@ -655,6 +660,12 @@
 
   function bindSocialRow(row) {
     const editBtn = row.querySelector(".social-edit-btn");
+    const deleteBtn = row.querySelector(".social-delete-btn");
+
+    deleteBtn?.addEventListener("click", () => {
+      row.remove();
+    });
+
     editBtn?.addEventListener("click", () => {
       if (row.classList.contains("is-editing")) return;
 
@@ -695,6 +706,7 @@
         link.href = nextUrl;
         link.textContent = displayUrl(nextUrl);
         editBtn.setAttribute("aria-label", `Edit ${nextPlatform} profile`);
+        deleteBtn?.setAttribute("aria-label", `Delete ${nextPlatform} profile`);
 
         row.classList.remove("is-editing");
         fields.remove();
