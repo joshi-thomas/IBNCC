@@ -425,9 +425,47 @@
         return;
       }
 
+      if (action === "privacy") {
+        if (!item) return;
+        setDetailPrivacy(item, !item.classList.contains("is-private"));
+        return;
+      }
+
       const label = item?.querySelector(".detail-label")?.textContent?.trim();
       console.info(`${action}: ${label}`);
     });
+  });
+
+  function setDetailPrivacy(item, isPrivate) {
+    if (!item) return;
+    const btn = item.querySelector('[data-action="privacy"]');
+    const label = item.querySelector(".detail-label")?.textContent?.trim() || "this section";
+    const icon = btn?.querySelector("i");
+
+    item.classList.toggle("is-private", isPrivate);
+    btn?.classList.add("detail-action--privacy");
+    btn?.setAttribute("aria-pressed", isPrivate ? "true" : "false");
+
+    if (isPrivate) {
+      btn?.setAttribute("aria-label", `Show ${label} to other viewers`);
+      btn?.setAttribute("title", "Hidden from other viewers - click to make visible");
+      if (icon) {
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+      }
+    } else {
+      btn?.setAttribute("aria-label", `Hide ${label} from other viewers`);
+      btn?.setAttribute("title", "Visible to other viewers - click to hide");
+      if (icon) {
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+      }
+    }
+  }
+
+  /* Initialize privacy controls: sections start visible to others */
+  document.querySelectorAll(".profile-accordion .profile-detail-item").forEach((item) => {
+    setDetailPrivacy(item, item.classList.contains("is-private"));
   });
 
   document.querySelector(".gallery-add-btn")?.addEventListener("click", () => {

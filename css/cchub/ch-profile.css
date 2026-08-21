@@ -353,12 +353,57 @@
   display: grid;
   place-items: center;
   color: var(--ink-soft);
-  transition: background var(--transition), color var(--transition);
+  transition: background var(--transition), color var(--transition), transform var(--transition), box-shadow var(--transition);
 }
 
 .detail-action:hover {
   background: rgba(11, 42, 74, 0.08);
   color: var(--maroon);
+}
+
+.detail-action--privacy:hover,
+.detail-action[data-action="privacy"]:hover {
+  background: rgba(99, 102, 241, 0.12);
+  color: #4f46e5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.16);
+}
+
+.detail-action[data-action="privacy"][aria-pressed="true"] {
+  background: rgba(180, 35, 24, 0.1);
+  color: #b42318;
+}
+
+.detail-action[data-action="privacy"][aria-pressed="true"]:hover {
+  background: rgba(180, 35, 24, 0.16);
+  color: #912018;
+  box-shadow: 0 4px 10px rgba(180, 35, 24, 0.18);
+}
+
+.profile-detail-item.is-private {
+  background: linear-gradient(90deg, rgba(180, 35, 24, 0.04), transparent 55%);
+}
+
+.profile-detail-item.is-private .detail-label {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.profile-detail-item.is-private .detail-label::after {
+  content: "Hidden";
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #b42318;
+  background: rgba(180, 35, 24, 0.1);
+  border: 1px solid rgba(180, 35, 24, 0.16);
 }
 
 .detail-chevron {
