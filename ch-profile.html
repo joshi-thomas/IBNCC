@@ -1507,26 +1507,93 @@
   <dialog class="password-dialog" id="changePasswordDialog" aria-labelledby="change-password-title">
     <form method="dialog" class="password-dialog-form" id="changePasswordForm">
       <header class="password-dialog-header">
-        <h2 id="change-password-title">Change Password</h2>
-        <button type="button" class="sidebar-icon-btn" id="closePasswordDialog" aria-label="Close">
+        <div class="password-dialog-heading">
+          <span class="password-dialog-badge" aria-hidden="true">
+            <i class="fa-solid fa-shield-halved"></i>
+          </span>
+          <div>
+            <h2 id="change-password-title">Change Password</h2>
+            <p class="password-dialog-subtitle">Keep your account secure by using a strong password</p>
+          </div>
+        </div>
+        <button type="button" class="password-dialog-close" id="closePasswordDialog" aria-label="Close">
           <i class="fa-solid fa-xmark" aria-hidden="true"></i>
         </button>
       </header>
-      <label>
-        <span>Current Password</span>
-        <input type="password" name="current" autocomplete="current-password" required />
-      </label>
-      <label>
-        <span>New Password</span>
-        <input type="password" name="new" autocomplete="new-password" required />
-      </label>
-      <label>
-        <span>Confirm New Password</span>
-        <input type="password" name="confirm" autocomplete="new-password" required />
-      </label>
-      <div class="profile-brief-form-actions">
-        <button type="button" class="sidebar-btn-secondary" id="cancelPasswordBtn">Cancel</button>
-        <button type="submit" class="sidebar-btn-primary">Update Password</button>
+
+      <div class="password-dialog-body">
+        <aside class="password-dialog-aside" aria-hidden="true">
+          <div class="password-hero">
+            <span class="password-hero-orbit"></span>
+            <span class="password-hero-orbit password-hero-orbit--inner"></span>
+            <span class="password-hero-float password-hero-float--shield">
+              <i class="fa-solid fa-shield"></i>
+            </span>
+            <span class="password-hero-float password-hero-float--lock">
+              <i class="fa-solid fa-lock"></i>
+            </span>
+            <div class="password-hero-lock">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+            <div class="password-hero-mask" aria-hidden="true">* * * *</div>
+          </div>
+          <div class="password-tips">
+            <strong>
+              <i class="fa-solid fa-lightbulb" aria-hidden="true"></i>
+              Password Tips
+            </strong>
+            <p>Use a combination of letters, numbers and special characters for stronger security.</p>
+          </div>
+        </aside>
+
+        <div class="password-dialog-fields">
+          <label class="password-field">
+            <span>Current Password</span>
+            <span class="password-input-wrap">
+              <i class="fa-solid fa-lock password-input-icon password-input-icon--current" aria-hidden="true"></i>
+              <input type="password" name="current" id="pwCurrent" autocomplete="current-password" placeholder="Enter your current password" required />
+              <button type="button" class="password-toggle" data-toggle-password="pwCurrent" aria-label="Show current password">
+                <i class="fa-regular fa-eye" aria-hidden="true"></i>
+              </button>
+            </span>
+          </label>
+
+          <label class="password-field">
+            <span>New Password</span>
+            <span class="password-input-wrap">
+              <i class="fa-solid fa-lock password-input-icon password-input-icon--new" aria-hidden="true"></i>
+              <input type="password" name="new" id="pwNew" autocomplete="new-password" placeholder="Enter your new password" required />
+              <button type="button" class="password-toggle" data-toggle-password="pwNew" aria-label="Show new password">
+                <i class="fa-regular fa-eye" aria-hidden="true"></i>
+              </button>
+            </span>
+            <div class="password-strength" id="passwordStrength" aria-live="polite">
+              <div class="password-strength-bars" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <em class="password-strength-label">Weak</em>
+            </div>
+          </label>
+
+          <label class="password-field">
+            <span>Confirm New Password</span>
+            <span class="password-input-wrap">
+              <i class="fa-solid fa-lock password-input-icon password-input-icon--confirm" aria-hidden="true"></i>
+              <input type="password" name="confirm" id="pwConfirm" autocomplete="new-password" placeholder="Re-enter your new password" required />
+              <button type="button" class="password-toggle" data-toggle-password="pwConfirm" aria-label="Show confirm password">
+                <i class="fa-regular fa-eye" aria-hidden="true"></i>
+              </button>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <div class="password-dialog-actions">
+        <button type="button" class="password-btn-cancel" id="cancelPasswordBtn">Cancel</button>
+        <button type="submit" class="password-btn-submit">
+          <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+          Update Password
+        </button>
       </div>
     </form>
   </dialog>

@@ -586,14 +586,68 @@
   const closePasswordDialog = document.getElementById("closePasswordDialog");
   const cancelPasswordBtn = document.getElementById("cancelPasswordBtn");
   const changePasswordForm = document.getElementById("changePasswordForm");
+  const pwNewInput = document.getElementById("pwNew");
+  const passwordStrength = document.getElementById("passwordStrength");
+
+  function scorePassword(value) {
+    let score = 0;
+    if (!value) return 0;
+    if (value.length >= 6) score += 1;
+    if (value.length >= 10) score += 1;
+    if (/[A-Z]/.test(value) && /[a-z]/.test(value)) score += 1;
+    if (/\d/.test(value)) score += 1;
+    if (/[^A-Za-z0-9]/.test(value)) score += 1;
+    if (score <= 2) return 1;
+    if (score <= 4) return 2;
+    return 3;
+  }
+
+  function updatePasswordStrength() {
+    if (!passwordStrength || !pwNewInput) return;
+    const level = scorePassword(pwNewInput.value);
+    const label = passwordStrength.querySelector(".password-strength-label");
+    passwordStrength.classList.remove("is-weak", "is-medium", "is-strong");
+    if (!pwNewInput.value) {
+      if (label) label.textContent = "Weak";
+      return;
+    }
+    if (level === 1) {
+      passwordStrength.classList.add("is-weak");
+      if (label) label.textContent = "Weak";
+    } else if (level === 2) {
+      passwordStrength.classList.add("is-medium");
+      if (label) label.textContent = "Medium";
+    } else {
+      passwordStrength.classList.add("is-strong");
+      if (label) label.textContent = "Strong";
+    }
+  }
+
+  function resetPasswordVisibility() {
+    changePasswordForm?.querySelectorAll(".password-toggle").forEach((btn) => {
+      const inputId = btn.getAttribute("data-toggle-password");
+      const input = inputId ? document.getElementById(inputId) : null;
+      if (!input) return;
+      input.type = "password";
+      btn.setAttribute("aria-label", btn.getAttribute("aria-label")?.replace(/^Hide/, "Show") || "Show password");
+      const icon = btn.querySelector("i");
+      if (icon) {
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+      }
+    });
+  }
 
   function openPasswordDialog() {
     passwordDialog?.showModal();
+    updatePasswordStrength();
   }
 
   function closePasswordDialogFn() {
     passwordDialog?.close();
     changePasswordForm?.reset();
+    resetPasswordVisibility();
+    updatePasswordStrength();
   }
 
   changePasswordLink?.addEventListener("click", (e) => {
@@ -603,6 +657,29 @@
 
   closePasswordDialog?.addEventListener("click", closePasswordDialogFn);
   cancelPasswordBtn?.addEventListener("click", closePasswordDialogFn);
+
+  changePasswordForm?.querySelectorAll(".password-toggle").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const inputId = btn.getAttribute("data-toggle-password");
+      const input = inputId ? document.getElementById(inputId) : null;
+      if (!input) return;
+      const showing = input.type === "text";
+      input.type = showing ? "password" : "text";
+      const nextLabel = showing ? "Show" : "Hide";
+      const currentLabel = btn.getAttribute("aria-label") || "";
+      btn.setAttribute(
+        "aria-label",
+        currentLabel.replace(/^(Show|Hide)/, nextLabel) || `${nextLabel} password`
+      );
+      const icon = btn.querySelector("i");
+      if (icon) {
+        icon.classList.toggle("fa-eye", showing);
+        icon.classList.toggle("fa-eye-slash", !showing);
+      }
+    });
+  });
+
+  pwNewInput?.addEventListener("input", updatePasswordStrength);
 
   changePasswordForm?.addEventListener("submit", (e) => {
     e.preventDefault();
