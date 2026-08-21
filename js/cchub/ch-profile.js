@@ -476,6 +476,122 @@
     console.info("View More gallery (demo)");
   });
 
+  /* ---------- Gallery lightbox slider ---------- */
+
+  const galleryGrid = document.querySelector(".gallery-grid");
+  const galleryLightbox = document.getElementById("galleryLightbox");
+  const galleryLightboxImage = document.getElementById("galleryLightboxImage");
+  const galleryLightboxCaption = document.getElementById("galleryLightboxCaption");
+  const galleryLightboxIndex = document.getElementById("galleryLightboxIndex");
+  const galleryLightboxTotal = document.getElementById("galleryLightboxTotal");
+  const galleryPrevBtn = document.getElementById("galleryLightboxPrev");
+  const galleryNextBtn = document.getElementById("galleryLightboxNext");
+
+  let galleryImages = [];
+  let galleryIndex = 0;
+  let galleryAnimating = false;
+
+  function collectGalleryImages() {
+    galleryImages = Array.from(galleryGrid?.querySelectorAll(".gallery-item img") || []).map((img) => ({
+      src: img.currentSrc || img.src,
+      alt: img.alt || "Gallery image",
+    }));
+    if (galleryLightboxTotal) {
+      galleryLightboxTotal.textContent = String(galleryImages.length || 0);
+    }
+  }
+
+  function setGalleryOpen(open) {
+    if (!galleryLightbox) return;
+    galleryLightbox.hidden = !open;
+    document.body.style.overflow = open ? "hidden" : "";
+  }
+
+  function showGalleryImage(nextIndex, direction = "none") {
+    if (!galleryLightboxImage || !galleryImages.length || galleryAnimating) return;
+
+    const total = galleryImages.length;
+    galleryIndex = ((nextIndex % total) + total) % total;
+    const item = galleryImages[galleryIndex];
+
+    const applyContent = () => {
+      galleryLightboxImage.src = item.src;
+      galleryLightboxImage.alt = item.alt;
+      if (galleryLightboxCaption) galleryLightboxCaption.textContent = item.alt;
+      if (galleryLightboxIndex) galleryLightboxIndex.textContent = String(galleryIndex + 1);
+    };
+
+    if (direction === "none") {
+      applyContent();
+      galleryLightboxImage.classList.remove("is-from-prev", "is-from-next");
+      galleryLightboxImage.classList.add("is-active");
+      return;
+    }
+
+    galleryAnimating = true;
+    galleryLightboxImage.classList.remove("is-active", "is-from-prev", "is-from-next");
+    galleryLightboxImage.classList.add(direction === "next" ? "is-from-next" : "is-from-prev");
+
+    window.requestAnimationFrame(() => {
+      applyContent();
+      window.requestAnimationFrame(() => {
+        galleryLightboxImage.classList.remove("is-from-prev", "is-from-next");
+        galleryLightboxImage.classList.add("is-active");
+        window.setTimeout(() => {
+          galleryAnimating = false;
+        }, 320);
+      });
+    });
+  }
+
+  function openGalleryAt(index) {
+    collectGalleryImages();
+    if (!galleryImages.length) return;
+    showGalleryImage(index, "none");
+    setGalleryOpen(true);
+  }
+
+  function closeGalleryLightbox() {
+    setGalleryOpen(false);
+  }
+
+  galleryGrid?.querySelectorAll(".gallery-item").forEach((item, index) => {
+    item.setAttribute("tabindex", "0");
+    item.setAttribute("role", "button");
+    item.setAttribute("aria-label", `View gallery image ${index + 1}`);
+
+    item.addEventListener("click", () => openGalleryAt(index));
+    item.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openGalleryAt(index);
+      }
+    });
+  });
+
+  galleryPrevBtn?.addEventListener("click", () => showGalleryImage(galleryIndex - 1, "prev"));
+  galleryNextBtn?.addEventListener("click", () => showGalleryImage(galleryIndex + 1, "next"));
+
+  galleryLightbox?.querySelectorAll("[data-gallery-close]").forEach((el) => {
+    el.addEventListener("click", closeGalleryLightbox);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!galleryLightbox || galleryLightbox.hidden) return;
+    if (e.key === "Escape") {
+      closeGalleryLightbox();
+      return;
+    }
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      showGalleryImage(galleryIndex - 1, "prev");
+    }
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      showGalleryImage(galleryIndex + 1, "next");
+    }
+  });
+
   /* ---------- Profile Brief ---------- */
 
   const briefView = document.getElementById("profileBriefView");

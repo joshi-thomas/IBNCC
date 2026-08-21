@@ -615,6 +615,7 @@
   background: var(--cream-deep);
   box-shadow: var(--shadow-sm);
   transition: transform var(--transition), box-shadow var(--transition);
+  cursor: pointer;
 }
 
 .gallery-item:hover {
@@ -622,10 +623,16 @@
   box-shadow: var(--shadow-md);
 }
 
+.gallery-item:focus-visible {
+  outline: 2px solid rgba(26, 79, 156, 0.55);
+  outline-offset: 2px;
+}
+
 .gallery-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  pointer-events: none;
 }
 
 .gallery-view-more {
@@ -649,6 +656,213 @@
 
 .gallery-view-more i {
   font-size: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+/* ---------- Gallery lightbox slider ---------- */
+
+.gallery-lightbox[hidden] {
+  display: none !important;
+}
+
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1400;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.gallery-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 17, 31, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.gallery-lightbox-dialog {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 880px);
+  max-height: min(88vh, 720px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1rem 1rem 1.1rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 28px 80px rgba(7, 17, 31, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  animation: galleryLightboxIn 0.28s ease;
+}
+
+@keyframes galleryLightboxIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.gallery-lightbox-close {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  z-index: 2;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #eef2f7;
+  color: #1a2340;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gallery-lightbox-close:hover {
+  background: #1a4f9c;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(26, 79, 156, 0.28);
+}
+
+.gallery-lightbox-frame {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 0;
+}
+
+.gallery-lightbox-stage {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: min(68vh, 560px);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0b1d36;
+  display: grid;
+  place-items: center;
+}
+
+.gallery-lightbox-stage img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.32s ease, opacity 0.32s ease;
+}
+
+.gallery-lightbox-stage img.is-from-next {
+  opacity: 0;
+  transform: translateX(36px);
+}
+
+.gallery-lightbox-stage img.is-from-prev {
+  opacity: 0;
+  transform: translateX(-36px);
+}
+
+.gallery-lightbox-stage img.is-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.gallery-lightbox-nav {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #eef2f7;
+  color: #122a4a;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gallery-lightbox-nav:hover {
+  background: #1a4f9c;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(26, 79, 156, 0.28);
+}
+
+.gallery-lightbox-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  text-align: center;
+  padding: 0 2.5rem;
+}
+
+.gallery-lightbox-caption {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #142033;
+}
+
+.gallery-lightbox-counter {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #5a6b82;
+  font-weight: 500;
+}
+
+@media (max-width: 720px) {
+  .gallery-lightbox {
+    padding: 0.5rem;
+  }
+
+  .gallery-lightbox-dialog {
+    width: 100%;
+    max-height: 94vh;
+    border-radius: 16px;
+    padding: 0.75rem 0.65rem 0.9rem;
+  }
+
+  .gallery-lightbox-frame {
+    gap: 0.35rem;
+  }
+
+  .gallery-lightbox-stage {
+    height: min(58vh, 420px);
+    border-radius: 12px;
+  }
+
+  .gallery-lightbox-nav {
+    width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+  }
+
+  .gallery-lightbox-close {
+    width: 34px;
+    height: 34px;
+    top: 0.55rem;
+    right: 0.55rem;
+  }
+
+  .gallery-lightbox-meta {
+    padding: 0 0.5rem;
+  }
 }
 
 /* ---------- Profile Sidebar ---------- */
