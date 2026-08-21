@@ -203,13 +203,17 @@
       background: rgba(255, 255, 255, 0.7);
     }
 
-    /*  Force IBNCC footer styles  */
+    /* Restore index/ch-profile footer look over ch-styles.css */
     .page-networking .site-footer {
       position: relative;
-      color: rgba(255, 255, 255, 0.78);
+      text-align: initial;
       padding: 4.75rem 0 0;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: inherit;
+      border-top: none;
+      background: transparent;
+      background-image: url("assets/images/foot.png");
       overflow: hidden;
-      background-image: url(assets/images/foot.png);
     }
 
     /*  Responsive: restore IBNCC header breakpoints  */
@@ -1066,7 +1070,7 @@
     </div>
   </main>
 
-  <!-- ========== FOOTER (from IBNCC event-details.html) ========== -->
+  <!-- ========== FOOTER ========== -->
   <footer class="site-footer" id="footer">
     <div class="footer-card">
       <div class="container footer-grid">
@@ -1075,18 +1079,29 @@
             <img src="assets/images/logo_full.png" alt="IBNCC" width="56" height="56" />
             <div>
               <strong class="footer-tagline">International Business Network <br> of Catholic Congress</strong>
-              <p>A global platform connecting Catholic entrepreneurs, professionals and organizations to collaborate, trade and grow together.</p>
+              <!-- <span>International Business Network</span> -->
+              <p>A global platform connecting Catholic entrepreneurs, professionals and organizations to collaborate,
+                trade and grow together.</p>
             </div>
           </div>
         </div>
 
+        <!-- <div class="footer-nav">
+          <h3>Navigate</h3>
+          <a href="#home"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+          <a href="#about"><i class="fa-solid fa-circle-info" aria-hidden="true"></i><span>About</span></a>
+          <a href="#events"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i><span>Events</span></a>
+          <a href="#networking"><i class="fa-solid fa-handshake" aria-hidden="true"></i><span>Networking</span></a>
+          <a href="#trading"><i class="fa-solid fa-arrow-right-arrow-left"
+              aria-hidden="true"></i><span>Trading</span></a>
+        </div> -->
         <div class="footer-nav">
           <h3>Navigate</h3>
-          <a href="index.html#home"><span>Home</span></a>
-          <a href="index.html#about"><span>About</span></a>
-          <a href="index.html#events"><span>Events</span></a>
-          <a href="networking.html"><span>Networking</span></a>
-          <a href="ch-trading.html"><span>Trading</span></a>
+          <a href="#home"><span>Home</span></a>
+          <a href="#about"><span>About</span></a>
+          <a href="#events"><span>Events</span></a>
+          <a href="#networking"><span>Networking</span></a>
+          <a href="#trading"><span>Trading</span></a>
         </div>
 
         <div class="footer-connect">
@@ -1099,6 +1114,10 @@
             <i class="fa-solid fa-phone" aria-hidden="true"></i>
             <span>+91 9847030064</span>
           </a>
+          <!-- <div class="footer-location">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            <span>IBNCC Global Secretariat, Kochi, Kerala, India</span>
+          </div> -->
 
           <h3 class="footer-follow">Follow Us</h3>
           <div class="socials" aria-label="Social links">
@@ -1114,6 +1133,10 @@
         <p class="footer-copy">&copy; 2026 IBNCC. All rights reserved.</p>
         <div class="footer-design">
           <a href="#">Designed By : Astraz Software solutions</a>
+          <!-- <span aria-hidden="true">|</span>
+          <a href="#">Terms of Service</a>
+          <span aria-hidden="true">|</span>
+          <a href="#">Sitemap</a> -->
         </div>
       </div>
     </div>
