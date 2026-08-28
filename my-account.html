@@ -1,0 +1,3950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account — CC Hub</title>
+  <meta
+    name="description"
+    content="Manage your personal information, order history, address book, and support inquiries on CC Hub."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Manrope:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+  <link rel="stylesheet" href="css/cchub/ch-styles.css" />
+  <link rel="stylesheet" href="css/cchub/ch-trading.css" />
+
+  <style>
+    /* ========================================================
+       My Account Page Styles — Matching Reference Images
+       ======================================================== */
+    :root {
+      --acc-primary: #3b2a1a;
+      --acc-text: #5c4733;
+      --acc-muted: #806b56;
+      --acc-gold: #c9a027;
+      --acc-gold-dark: #a67c1e;
+      --acc-gold-light: #faeed2;
+      --acc-gold-border: #d4a737;
+      --acc-card-bg: #fffdf9;
+      --acc-border: rgba(212, 167, 55, 0.22);
+      --acc-radius: 20px;
+    }
+    /* :root {
+      --acc-primary: #0b1d36;
+      --acc-text: #142033;
+      --acc-muted: #5a6b82;
+      --acc-gold: #c9a027;
+      --acc-gold-dark: #a67c1e;
+      --acc-gold-light: #faeed2;
+      --acc-gold-border: #d4a737;
+      --acc-card-bg: #fffdf9;
+      --acc-border: rgba(212, 167, 55, 0.22);
+      --acc-radius: 20px;
+    } */
+    /* :root {
+      --primary: #0b1d36;
+      --primary-mid: #122a4a;
+      --secondary: #1a4f9c;
+      --royal: #1e5bb8;
+      --gold: #c9a227;
+      --gold-bright: #e0b93a;
+      --gold-soft: #f3e4b0;
+      --dark: #07111f;
+      --light: #f7fafc;
+      --text: #142033;
+      --muted: #5a6b82;
+      --white: #ffffff;
+      --border: rgba(15, 40, 80, 0.1);
+      --shadow: 0 18px 50px rgba(7, 17, 31, 0.12);
+      --radius: 22px;
+      --radius-sm: 14px;
+      --header-h: 78px;
+      --font-display: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "DM Sans", system-ui, sans-serif;
+      --font-body: "Manrope", system-ui, sans-serif;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --max: 1180px;
+    } */
+
+    body.account-page {
+      background:
+        radial-gradient(ellipse 70% 40% at 10% 0%, rgba(11, 42, 74, 0.04), transparent 50%),
+        linear-gradient(180deg, #fdf8f0 0%, #faf3ea 45%, #fdf8f0 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .account-main {
+      flex: 1 0 auto;
+      padding: 32px 0 64px;
+    }
+
+    .account-container {
+      width: min(100% - 2.5rem, 1320px);
+      margin-inline: auto;
+    }
+
+    /* Breadcrumbs */
+    .account-breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      color: var(--acc-muted);
+      margin-bottom: 24px;
+      font-family: var(--font-body, "Outfit", sans-serif);
+    }
+
+    .account-breadcrumbs a {
+      color: var(--acc-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .account-breadcrumbs a:hover {
+      color: var(--acc-gold-dark);
+    }
+
+    .account-breadcrumbs .sep {
+      color: #b59f88;
+      font-size: 0.7rem;
+    }
+
+    .account-breadcrumbs .current {
+      color: var(--acc-primary);
+      font-weight: 600;
+    }
+
+    /* Layout Grid: Left Sidebar + Right Content */
+    .account-layout-grid {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* ----------------------------------------------------
+       Left Sidebar Section
+       ---------------------------------------------------- */
+    .account-sidebar-card {
+      background: var(--acc-card-bg);
+      border: 1px solid var(--acc-border);
+      border-radius: var(--acc-radius);
+      box-shadow: 0 4px 20px rgba(110, 75, 20, 0.05);
+      padding: 28px 20px 24px;
+      position: sticky;
+      top: calc(var(--header-h, 88px) + 20px);
+    }
+
+    .account-sidebar-title {
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--acc-primary);
+      margin: 0 0 18px 0;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--acc-border);
+      text-align: center;
+    }
+
+    .account-nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .account-nav-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1.5px solid transparent;
+      background: transparent;
+      color: var(--acc-text);
+      font-family: var(--font-body, "Outfit", system-ui, sans-serif);
+      font-size: 0.94rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      outline: none;
+    }
+
+    .account-nav-item:hover {
+      background: #fbf5e9;
+      color: var(--acc-gold-dark);
+      transform: translateX(2px);
+    }
+
+    .account-nav-item.is-active {
+      background: var(--acc-gold-light);
+      border-color: var(--acc-gold-border);
+      color: var(--acc-gold-dark);
+      font-weight: 700;
+      box-shadow: 0 2px 10px rgba(201, 162, 39, 0.12);
+      transform: none;
+    }
+
+    .account-nav-icon {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      font-size: 1.05rem;
+      flex-shrink: 0;
+      color: var(--acc-gold);
+      transition: color 0.2s ease;
+    }
+
+    .account-nav-item.is-active .account-nav-icon {
+      color: var(--acc-gold-dark);
+    }
+
+    .account-nav-label {
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .account-nav-divider {
+      height: 1px;
+      background: var(--acc-border);
+      margin: 8px 0;
+      list-style: none;
+    }
+
+    .account-nav-item--logout {
+      color: #99402e;
+    }
+
+    .account-nav-item--logout .account-nav-icon {
+      color: #b94b35;
+    }
+
+    .account-nav-item--logout:hover {
+      background: #fdf0ee;
+      color: #b91c1c;
+    }
+
+    /* ----------------------------------------------------
+       Right Content Section
+       ---------------------------------------------------- */
+    .account-content-card {
+      background: var(--acc-card-bg);
+      border: 1px solid var(--acc-border);
+      border-radius: var(--acc-radius);
+      box-shadow: 0 6px 24px rgba(110, 75, 20, 0.06);
+      padding: 36px 40px 48px;
+      min-width: 0;
+    }
+
+    .account-card-header {
+      padding-bottom: 16px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--acc-border);
+    }
+
+    .account-section-title {
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: clamp(1.5rem, 2.5vw, 1.95rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--acc-primary);
+      margin: 0;
+      line-height: 1.25;
+    }
+
+    /* Tab Panels */
+    .account-tab-panel[hidden] {
+      display: none !important;
+    }
+
+    .account-tab-panel {
+      animation: accountFadeIn 0.26s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes accountFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ----------------------------------------------------
+       1. Personal Information Panel
+       ---------------------------------------------------- */
+    .personal-info-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(212, 167, 55, 0.16);
+      font-family: var(--font-body, "Outfit", sans-serif);
+    }
+
+    .info-row:first-child {
+      padding-top: 6px;
+    }
+
+    .info-label {
+      min-width: 180px;
+      font-weight: 700;
+      color: var(--acc-primary);
+      font-size: 0.96rem;
+      flex-shrink: 0;
+    }
+
+    .info-value {
+      color: var(--acc-text);
+      font-size: 0.96rem;
+      flex: 1;
+    }
+
+    .info-value-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .personal-actions {
+      margin-top: 32px;
+    }
+
+    /* Buttons */
+    .btn-gold-solid {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 26px;
+      background: var(--acc-gold);
+      color: #ffffff;
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(201, 162, 39, 0.22);
+      transition: all 0.22s ease;
+      text-decoration: none;
+    }
+
+    .btn-gold-solid:hover {
+      background: var(--acc-gold-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(201, 162, 39, 0.32);
+      color: #ffffff;
+    }
+
+    .btn-outline-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      border: 1.5px solid var(--acc-gold-border);
+      background: #fffdf8;
+      color: var(--acc-gold-dark);
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 0.84rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-outline-gold:hover {
+      background: var(--acc-gold-light);
+      border-color: var(--acc-gold-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ----------------------------------------------------
+       2. Order History Panel
+       ---------------------------------------------------- */
+    .orders-filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-bottom: 24px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(212, 167, 55, 0.16);
+    }
+
+    .order-filter-btn {
+      padding: 8px 4px 12px;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: var(--acc-muted);
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 0.94rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      outline: none;
+      margin-bottom: -1px;
+    }
+
+    .order-filter-btn:hover {
+      color: var(--acc-gold-dark);
+    }
+
+    .order-filter-btn.is-active {
+      color: var(--acc-gold-dark);
+      border-bottom-color: var(--acc-gold);
+      font-weight: 700;
+    }
+
+    .orders-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .order-card {
+      background: #ffffff;
+      border: 1px solid rgba(212, 167, 55, 0.2);
+      border-radius: 14px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 10px rgba(110, 75, 20, 0.04);
+      transition: all 0.2s ease;
+    }
+
+    .order-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(110, 75, 20, 0.08);
+      border-color: rgba(212, 167, 55, 0.4);
+    }
+
+    .order-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 14px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(212, 167, 55, 0.12);
+    }
+
+    .order-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .order-id {
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--acc-primary);
+    }
+
+    .order-date {
+      font-size: 0.82rem;
+      color: var(--acc-muted);
+      font-family: var(--font-body, "Outfit", sans-serif);
+    }
+
+    .order-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: var(--font-body, "Outfit", sans-serif);
+    }
+
+    .status--delivered {
+      background: #e6f7ec;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    .status--processing {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+
+    .status--delivery {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+
+    .order-card-body {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .order-thumb {
+      width: 72px;
+      height: 72px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: #f8f4ed;
+      border: 1px solid rgba(212, 167, 55, 0.2);
+      flex-shrink: 0;
+    }
+
+    .order-item-details {
+      flex: 1;
+      min-width: 0;
+      font-family: var(--font-body, "Outfit", sans-serif);
+    }
+
+    .order-item-title {
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--acc-primary);
+      margin: 0 0 3px 0;
+    }
+
+    .order-item-qty {
+      font-size: 0.82rem;
+      color: var(--acc-muted);
+      margin: 0 0 4px 0;
+    }
+
+    .order-item-price {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--acc-gold-dark);
+      margin: 0;
+    }
+
+    .order-card-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(212, 167, 55, 0.12);
+    }
+
+    .order-footnote {
+      font-size: 0.84rem;
+      color: var(--acc-muted);
+      font-family: var(--font-body, "Outfit", sans-serif);
+    }
+
+    .order-arrow-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #edd3a5;
+      color: #8a5a1e;
+      border: none;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .order-arrow-btn:hover {
+      background: #e2be82;
+      color: #613e11;
+      transform: translateX(2px);
+    }
+
+    /* ----------------------------------------------------
+       3. Address Book Panel
+       ---------------------------------------------------- */
+    .address-top-bar {
+      margin-bottom: 24px;
+    }
+
+    .address-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .address-card {
+      background: #ffffff;
+      border: 1px solid rgba(212, 167, 55, 0.22);
+      border-radius: 14px;
+      padding: 22px 20px;
+      box-shadow: 0 2px 10px rgba(110, 75, 20, 0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+
+    .address-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(110, 75, 20, 0.08);
+      border-color: rgba(212, 167, 55, 0.45);
+    }
+
+    .address-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-family: var(--font-body, "Outfit", sans-serif);
+    }
+
+    .address-pin-icon {
+      color: #3b2a1a;
+      font-size: 0.95rem;
+    }
+
+    .address-label-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--acc-primary);
+    }
+
+    .address-tag-default {
+      margin-left: auto;
+      background: #fdf5e6;
+      color: var(--acc-gold-dark);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(212, 167, 55, 0.3);
+    }
+
+    .address-card-body {
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 0.88rem;
+      color: var(--acc-text);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .address-user-name {
+      font-weight: 700;
+      color: var(--acc-primary);
+      margin: 0 0 4px 0;
+      font-size: 0.94rem;
+    }
+
+    .address-line {
+      margin: 0 0 3px 0;
+    }
+
+    .address-phone {
+      margin: 6px 0 0 0;
+      color: var(--acc-primary);
+      font-weight: 600;
+    }
+
+    .address-card-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .address-btn {
+      flex: 1;
+      padding: 8px 14px;
+      background: #fffdf8;
+      border: 1.5px solid var(--acc-gold-border);
+      color: var(--acc-gold-dark);
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 0.86rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .address-btn:hover {
+      background: var(--acc-gold-light);
+      border-color: var(--acc-gold-dark);
+    }
+
+    .address-btn--delete:hover {
+      background: #fdf0ee;
+      color: #b91c1c;
+      border-color: #fca5a5;
+    }
+
+    /* ----------------------------------------------------
+       4. Contact Us Panel
+       ---------------------------------------------------- */
+    .contact-support-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+      margin-bottom: 36px;
+    }
+
+    .support-card {
+      background: #ffffff;
+      border: 1px solid rgba(212, 167, 55, 0.22);
+      border-radius: 14px;
+      padding: 28px 24px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(110, 75, 20, 0.04);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .support-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(110, 75, 20, 0.08);
+      border-color: rgba(212, 167, 55, 0.45);
+    }
+
+    .support-icon {
+      font-size: 1.35rem;
+      color: var(--acc-gold);
+      margin-bottom: 10px;
+    }
+
+    .support-title {
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--acc-primary);
+      margin: 0 0 10px 0;
+    }
+
+    .support-link {
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--acc-gold-dark);
+      text-decoration: none;
+      margin-bottom: 8px;
+      transition: color 0.2s ease;
+    }
+
+    .support-link:hover {
+      color: #78530d;
+      text-decoration: underline;
+    }
+
+    .support-note {
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 0.82rem;
+      color: var(--acc-muted);
+      margin: 0;
+    }
+
+    /* Contact Form Box */
+    .contact-form-section {
+      background: #fdfaf4;
+      border: 1px solid rgba(212, 167, 55, 0.18);
+      border-radius: 14px;
+      padding: 28px;
+    }
+
+    .contact-form-title {
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--acc-primary);
+      margin: 0 0 18px 0;
+    }
+
+    .account-contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      font-family: var(--font-body, "Outfit", sans-serif);
+    }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-field label {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--acc-primary);
+    }
+
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      padding: 10px 14px;
+      border: 1px solid rgba(212, 167, 55, 0.3);
+      border-radius: 8px;
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 0.92rem;
+      background: #ffffff;
+      color: var(--acc-primary);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus,
+    .form-field select:focus {
+      border-color: var(--acc-gold);
+      box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.15);
+    }
+
+    /* ----------------------------------------------------
+       Dialog Modals (Edit Profile & Add Address)
+       ---------------------------------------------------- */
+    .account-dialog {
+      border: none;
+      border-radius: 20px;
+      padding: 0;
+      background: transparent;
+      max-width: 520px;
+      width: calc(100% - 2rem);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+      margin: auto;
+    }
+
+    .account-dialog::backdrop {
+      background: rgba(14, 26, 40, 0.65);
+      backdrop-filter: blur(4px);
+    }
+
+    .account-dialog-card {
+      background: #fffdf9;
+      border: 1px solid rgba(212, 167, 55, 0.35);
+      border-radius: 20px;
+      padding: 32px 28px;
+      position: relative;
+    }
+
+    .account-dialog-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 167, 55, 0.3);
+      background: #ffffff;
+      color: var(--acc-muted);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .account-dialog-close:hover {
+      background: #fdf0ee;
+      color: #b91c1c;
+      border-color: #fca5a5;
+    }
+
+    .account-dialog-title {
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--acc-primary);
+      margin: 0 0 6px 0;
+    }
+
+    .account-dialog-sub {
+      font-size: 0.86rem;
+      color: var(--acc-muted);
+      margin: 0 0 22px 0;
+      font-family: var(--font-body, "Outfit", sans-serif);
+    }
+
+    .account-dialog-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .dialog-btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .btn-secondary {
+      padding: 11px 22px;
+      background: #f1ebd8;
+      border: 1px solid rgba(212, 167, 55, 0.3);
+      color: var(--acc-primary);
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 0.88rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background: #e6dfc8;
+    }
+
+    /* Toast Notification */
+    .account-toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 10000;
+      background: var(--acc-primary);
+      color: #ffffff;
+      padding: 14px 22px;
+      border-radius: 12px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+
+    .account-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .account-toast i {
+      color: var(--acc-gold);
+      font-size: 1.1rem;
+    }
+
+    /* ----------------------------------------------------
+       Responsive Breakpoints
+       ---------------------------------------------------- */
+    @media (max-width: 960px) {
+      .account-layout-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .account-sidebar-card {
+        position: static;
+        padding: 20px;
+      }
+
+      .account-sidebar-title {
+        text-align: left;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+      }
+
+      .account-nav-list {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        gap: 10px;
+      }
+
+      .account-nav-item {
+        width: auto;
+        white-space: nowrap;
+        flex-shrink: 0;
+        padding: 10px 16px;
+      }
+
+      .account-nav-divider {
+        display: none;
+      }
+
+      .account-content-card {
+        padding: 28px 22px;
+      }
+
+      .address-grid,
+      .contact-support-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .account-main {
+        padding: 20px 0 48px;
+      }
+
+      .form-row-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      .info-label {
+        min-width: unset;
+      }
+
+      .order-card-body {
+        align-items: flex-start;
+      }
+
+      .account-section-title {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+
+</head>
+<body class="trading-page account-page">
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html#home" class="brand" aria-label="IBNCC Home">
+        <span class="brand-text">
+          <img src="assets/images/logo_full.png" alt="IBNCC logo" class="brand-logo" width="52" height="52" />
+          <span class="brand-tagline">AN INITIATIVE OF CATHOLIC CONGRESS</span>
+        </span>
+      </a>
+
+      <form class="search-bar" role="search" action="#" method="get">
+        <input
+          type="search"
+          name="q"
+          placeholder="Search for products, brands and more..."
+          aria-label="Search"
+        />
+        <button type="submit" class="search-btn" aria-label="Submit search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </form>
+
+      <div class="header-actions">
+        <a href="#login" class="btn-login">Login</a>
+        <a href="#wishlist" class="icon-btn" aria-label="Wishlist">
+          <i class="fa-regular fa-heart"></i>
+        </a>
+        <a href="#cart" class="icon-btn cart-btn" aria-label="Shopping cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-badge">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="category-nav" aria-label="Product categories">
+    <div class="category-nav-inner">
+
+      <div class="category-dropdown" data-mega="electronics">
+        <a href="ch-product-list.html?cat=electronics" class="category-item">
+          <span class="category-icon"><i class="fa-solid fa-mobile-screen-button"></i></span>
+          <span class="category-label">Electronics</span>
+          <i class="fa-solid fa-chevron-down category-chevron" aria-hidden="true"></i>
+        </a>
+        
+        <div class="mega-menu" role="menu">
+          <div class="mega-menu-scroll">
+            <div class="mega-menu-shell">
+              <aside class="mega-featured">
+                <p class="mega-featured-eyebrow">Shop Electronics</p>
+                <h3 class="mega-featured-title">Latest Tech. Best Prices.</h3>
+                <p class="mega-featured-subtitle">Discover top brands and smart gadgets.</p>
+                <a href="ch-product-list.html?cat=electronics" class="mega-featured-cta">Shop Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <div class="mega-featured-media">
+                  <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=640&q=80" alt="" loading="lazy" />
+                </div>
+              </aside>
+              <div class="mega-columns" style="--mega-cols: 4;">
+                
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=electronics&group=Mobiles" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Mobiles</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=electronics&group=Mobiles&item=Apple">Apple</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Mobiles&item=Samsung">Samsung</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Mobiles&item=vivo">vivo</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Mobiles&item=OPPO">OPPO</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Mobiles&item=realme">realme</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Mobiles&item=Xiaomi">Xiaomi</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Mobiles&item=Motorola">Motorola</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Mobiles&item=OnePlus">OnePlus</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Mobiles&item=Nothing">Nothing</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Mobiles&item=iQOO">iQOO</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Mobiles&item=next">next</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=electronics&group=Smart+Wearable+Tech" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-clock" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Smart Wearable Tech</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=electronics&group=Smart+Wearable+Tech&item=Smart+Watches">Smart Watches</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Smart+Wearable+Tech&item=Smart+Bands">Smart Bands</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Smart+Wearable+Tech&item=Smart+Glasses">Smart Glasses</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=electronics&group=Health+Care+Appliances" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Health Care Appliances</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=electronics&group=Health+Care+Appliances&item=Bp+Monitors">Bp Monitors</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Health+Care+Appliances&item=Weighing+Scale">Weighing Scale</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Health+Care+Appliances&item=Massagers">Massagers</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=electronics&group=Mobile+Accessories" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-headphones" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Mobile Accessories</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=electronics&group=Mobile+Accessories&item=Cases">Cases</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Mobile+Accessories&item=Chargers">Chargers</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Mobile+Accessories&item=Power+Banks">Power Banks</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Mobile+Accessories&item=Screen+Guards">Screen Guards</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Mobile+Accessories&item=Cables">Cables</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Mobile+Accessories&item=Holders">Holders</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=electronics&group=Laptops" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-laptop" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Laptops</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=electronics&group=Laptops&item=Gaming+Laptops">Gaming Laptops</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Laptops&item=Thin+%26+Light">Thin & Light</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Laptops&item=2-in-1+Laptops">2-in-1 Laptops</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=electronics&group=Desktop+PCs" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-desktop" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Desktop PCs</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=electronics&group=Desktop+PCs&item=All-in-Ones">All-in-Ones</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Desktop+PCs&item=Mini+PCs">Mini PCs</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Desktop+PCs&item=Monitors">Monitors</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=electronics&group=Computer+Accessories" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-keyboard" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Computer Accessories</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=electronics&group=Computer+Accessories&item=Keyboards">Keyboards</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Computer+Accessories&item=Mouse">Mouse</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Computer+Accessories&item=Pendrives">Pendrives</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Computer+Accessories&item=Hard+Disks">Hard Disks</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=electronics&group=Computer+Peripherals" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-print" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Computer Peripherals</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=electronics&group=Computer+Peripherals&item=Printers">Printers</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Computer+Peripherals&item=Scanners">Scanners</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Computer+Peripherals&item=Webcams">Webcams</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=electronics&group=Tablets" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-tablet-screen-button" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Tablets</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=electronics&group=Tablets&item=Apple+iPads">Apple iPads</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Tablets&item=Android+Tablets">Android Tablets</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Tablets&item=Kids+Tablets">Kids Tablets</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=electronics&group=Televisions" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-tv" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Televisions</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=electronics&group=Televisions&item=Smart+TVs">Smart TVs</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Televisions&item=4K+Ultra+HD">4K Ultra HD</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Televisions&item=OLED+TVs">OLED TVs</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=electronics&group=Speakers" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Speakers</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=electronics&group=Speakers&item=Bluetooth+Speakers">Bluetooth Speakers</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Speakers&item=Soundbars">Soundbars</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Speakers&item=Home+Theatre">Home Theatre</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=electronics&group=Smart+Home+Automation" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-house-signal" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Smart Home Automation</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=electronics&group=Smart+Home+Automation&item=Smart+Lights">Smart Lights</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Smart+Home+Automation&item=Smart+Cameras">Smart Cameras</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Smart+Home+Automation&item=Smart+Plugs">Smart Plugs</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=electronics&group=Camera" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-camera" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Camera</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=electronics&group=Camera&item=DSLR+%26+Mirrorless">DSLR & Mirrorless</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Camera&item=Action+Cameras">Action Cameras</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Camera&item=Instant+Cameras">Instant Cameras</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=electronics&group=Camera+Accessories" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-camera-retro" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Camera Accessories</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=electronics&group=Camera+Accessories&item=Lenses">Lenses</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Camera+Accessories&item=Tripods">Tripods</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Camera+Accessories&item=Memory+Cards">Memory Cards</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=electronics&group=Network+Components" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-wifi" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Network Components</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=electronics&group=Network+Components&item=Routers">Routers</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Network+Components&item=Range+Extenders">Range Extenders</a></li>
+                  <li><a href="ch-product-list.html?cat=electronics&group=Network+Components&item=Mesh+WiFi">Mesh WiFi</a></li>
+                </ul>
+              </div>
+            </div>
+              </div>
+              <div class="mega-promos">
+                
+              <a href="ch-product-list.html?cat=electronics" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Top Deals on Smartphones</strong>
+                  <span class="">Up to 40% Off</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=electronics" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Best Selling Laptops</strong>
+                  <span class="">From ₹24,999</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=electronics" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Audio That Moves You</strong>
+                  <span class="">Up to 50% Off</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=electronics" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Smart Gadgets For Everyday</strong>
+                  <span class="mega-promo-link">Shop Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1579586337278-3befd40fd17a?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-dropdown" data-mega="appliances">
+        <a href="ch-product-list.html?cat=appliances" class="category-item">
+          <span class="category-icon"><i class="fa-solid fa-tv"></i></span>
+          <span class="category-label">TVs &amp; Appliances</span>
+          <i class="fa-solid fa-chevron-down category-chevron" aria-hidden="true"></i>
+        </a>
+        
+        <div class="mega-menu" role="menu">
+          <div class="mega-menu-scroll">
+            <div class="mega-menu-shell">
+              <aside class="mega-featured">
+                <p class="mega-featured-eyebrow">TVs & Appliances</p>
+                <h3 class="mega-featured-title">Upgrade Your Home.</h3>
+                <p class="mega-featured-subtitle">Smart screens and trusted appliances.</p>
+                <a href="ch-product-list.html?cat=appliances" class="mega-featured-cta">Explore Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <div class="mega-featured-media">
+                  <img src="https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=640&q=80" alt="" loading="lazy" />
+                </div>
+              </aside>
+              <div class="mega-columns" style="--mega-cols: 4;">
+                
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=appliances&group=Television" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-tv" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Television</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=appliances&group=Television&item=Smart+%26+Ultra+HD">Smart & Ultra HD</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Television&item=32+inch+%26+below">32 inch & below</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Television&item=43%E2%80%9355+inch">43–55 inch</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Television&item=65+%26+above">65 & above</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=appliances&group=Top+Brands" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-star" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Top Brands</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=appliances&group=Top+Brands&item=Samsung">Samsung</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Top+Brands&item=LG">LG</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Top+Brands&item=Sony">Sony</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Top+Brands&item=Mi">Mi</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Top+Brands&item=TCL">TCL</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=appliances&group=Washing+Machine" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-soap" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Washing Machine</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=appliances&group=Washing+Machine&item=Front+Load">Front Load</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Washing+Machine&item=Top+Load">Top Load</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Washing+Machine&item=Semi+Automatic">Semi Automatic</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=appliances&group=Air+Conditioners" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-snowflake" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Air Conditioners</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=appliances&group=Air+Conditioners&item=Inverter+AC">Inverter AC</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Air+Conditioners&item=Split+ACs">Split ACs</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Air+Conditioners&item=Window+ACs">Window ACs</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=appliances&group=Refrigerators" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-box" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Refrigerators</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=appliances&group=Refrigerators&item=Single+Door">Single Door</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Refrigerators&item=Double+Door">Double Door</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Refrigerators&item=Side+by+Side">Side by Side</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Refrigerators&item=French+Door">French Door</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=appliances&group=Kitchen+Appliances" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-blender" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Kitchen Appliances</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=appliances&group=Kitchen+Appliances&item=Microwave">Microwave</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Kitchen+Appliances&item=Chimney">Chimney</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Kitchen+Appliances&item=Mixer+Grinder">Mixer Grinder</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Kitchen+Appliances&item=OTG">OTG</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=appliances&group=Small+Appliances" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-fan" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Small Appliances</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=appliances&group=Small+Appliances&item=Irons">Irons</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Small+Appliances&item=Fans">Fans</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Small+Appliances&item=Geysers">Geysers</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Small+Appliances&item=Water+Purifiers">Water Purifiers</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=appliances&group=Buying+Guides" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-book" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Buying Guides</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=appliances&group=Buying+Guides&item=TV+Buying+Guide">TV Buying Guide</a></li>
+                  <li><a href="ch-product-list.html?cat=appliances&group=Buying+Guides&item=AC+Buying+Guide">AC Buying Guide</a></li>
+                </ul>
+              </div>
+            </div>
+              </div>
+              <div class="mega-promos">
+                
+              <a href="ch-product-list.html?cat=appliances" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Smart TV Fest</strong>
+                  <span class="">Up to 45% Off</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=appliances" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Cooling Essentials</strong>
+                  <span class="">From ₹22,990</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1631545806609-5d9f8f0c0b0a?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=appliances" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Kitchen Powerhouse</strong>
+                  <span class="">Up to 35% Off</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=appliances" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Home Comfort Picks</strong>
+                  <span class="mega-promo-link">Shop Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1556911220-bff31c28c27e?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-dropdown" data-mega="men">
+        <a href="ch-product-list.html?cat=men" class="category-item">
+          <span class="category-icon"><i class="fa-solid fa-person"></i></span>
+          <span class="category-label">Men</span>
+          <i class="fa-solid fa-chevron-down category-chevron" aria-hidden="true"></i>
+        </a>
+        
+        <div class="mega-menu" role="menu">
+          <div class="mega-menu-scroll">
+            <div class="mega-menu-shell">
+              <aside class="mega-featured">
+                <p class="mega-featured-eyebrow">Shop Men</p>
+                <h3 class="mega-featured-title">Style That Works.</h3>
+                <p class="mega-featured-subtitle">Fashion, footwear and grooming essentials.</p>
+                <a href="ch-product-list.html?cat=men" class="mega-featured-cta">Shop Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <div class="mega-featured-media">
+                  <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=640&q=80" alt="" loading="lazy" />
+                </div>
+              </aside>
+              <div class="mega-columns" style="--mega-cols: 4;">
+                
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=men&group=Footwear" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-shoe-prints" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Footwear</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=men&group=Footwear&item=Sports+Shoes">Sports Shoes</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Footwear&item=Casual+Shoes">Casual Shoes</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Footwear&item=Formal+Shoes">Formal Shoes</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Footwear&item=Sandals">Sandals</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Footwear&item=Sneakers">Sneakers</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=men&group=Men%27s+Grooming" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-spray-can-sparkles" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Men's Grooming</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=men&group=Men%27s+Grooming&item=Deodorants">Deodorants</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Men%27s+Grooming&item=Perfumes">Perfumes</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Men%27s+Grooming&item=Beard+Care">Beard Care</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Men%27s+Grooming&item=Shavers">Shavers</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=men&group=Top+wear" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-shirt" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Top wear</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=men&group=Top+wear&item=T-Shirts">T-Shirts</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Top+wear&item=Casual+Shirts">Casual Shirts</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Top+wear&item=Formal+Shirts">Formal Shirts</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Top+wear&item=Jackets">Jackets</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=men&group=Bottom+wear" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-user-tie" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Bottom wear</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=men&group=Bottom+wear&item=Jeans">Jeans</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Bottom+wear&item=Trousers">Trousers</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Bottom+wear&item=Shorts">Shorts</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Bottom+wear&item=Cargos">Cargos</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=men&group=Ethnic+wear" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-person" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Ethnic wear</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=men&group=Ethnic+wear&item=Kurtas">Kurtas</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Ethnic+wear&item=Sherwanis">Sherwanis</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Ethnic+wear&item=Ethnic+Sets">Ethnic Sets</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=men&group=Innerwear+%26+Loungewear" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-vest" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Innerwear & Loungewear</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=men&group=Innerwear+%26+Loungewear&item=Briefs">Briefs</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Innerwear+%26+Loungewear&item=Vests">Vests</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Innerwear+%26+Loungewear&item=Thermals">Thermals</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=men&group=Accessories" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Accessories</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=men&group=Accessories&item=Watches">Watches</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Accessories&item=Wallets">Wallets</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Accessories&item=Belts">Belts</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Accessories&item=Backpacks">Backpacks</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Accessories&item=Sunglasses">Sunglasses</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=men&group=Featured+Brands" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-tags" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Featured Brands</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=men&group=Featured+Brands&item=Nike">Nike</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Featured+Brands&item=Adidas">Adidas</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Featured+Brands&item=Puma">Puma</a></li>
+                  <li><a href="ch-product-list.html?cat=men&group=Featured+Brands&item=Levi%27s">Levi's</a></li>
+                </ul>
+              </div>
+            </div>
+              </div>
+              <div class="mega-promos">
+                
+              <a href="ch-product-list.html?cat=men" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Sneaker Edit</strong>
+                  <span class="">Up to 50% Off</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=men" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Casual Shirt Fest</strong>
+                  <span class="">From ₹699</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=men" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Watch Collection</strong>
+                  <span class="">Up to 40% Off</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=men" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Grooming Essentials</strong>
+                  <span class="mega-promo-link">Shop Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1620916560282-8c4d4f0f0c0a?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-dropdown" data-mega="women">
+        <a href="ch-product-list.html?cat=women" class="category-item">
+          <span class="category-icon"><i class="fa-solid fa-person-dress"></i></span>
+          <span class="category-label">Women</span>
+          <i class="fa-solid fa-chevron-down category-chevron" aria-hidden="true"></i>
+        </a>
+        
+        <div class="mega-menu" role="menu">
+          <div class="mega-menu-scroll">
+            <div class="mega-menu-shell">
+              <aside class="mega-featured">
+                <p class="mega-featured-eyebrow">Shop Women</p>
+                <h3 class="mega-featured-title">Everyday Elegance.</h3>
+                <p class="mega-featured-subtitle">Ethnic, western and beauty favourites.</p>
+                <a href="ch-product-list.html?cat=women" class="mega-featured-cta">Explore Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <div class="mega-featured-media">
+                  <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=640&q=80" alt="" loading="lazy" />
+                </div>
+              </aside>
+              <div class="mega-columns" style="--mega-cols: 4;">
+                
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=women&group=Western+Wear" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-person-dress" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Western Wear</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=women&group=Western+Wear&item=Tops">Tops</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Western+Wear&item=Dresses">Dresses</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Western+Wear&item=Jeans">Jeans</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Western+Wear&item=Skirts">Skirts</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Western+Wear&item=Jumpsuits">Jumpsuits</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=women&group=Lingerie+%26+Sleepwear" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-moon" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Lingerie & Sleepwear</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=women&group=Lingerie+%26+Sleepwear&item=Bras">Bras</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Lingerie+%26+Sleepwear&item=Panties">Panties</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Lingerie+%26+Sleepwear&item=Nightwear">Nightwear</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=women&group=Ethnic+Wear" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-gem" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Ethnic Wear</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=women&group=Ethnic+Wear&item=Sarees">Sarees</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Ethnic+Wear&item=Kurtis">Kurtis</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Ethnic+Wear&item=Lehenga">Lehenga</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Ethnic+Wear&item=Salwar+Suits">Salwar Suits</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=women&group=Ethnic+Bottoms" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-shirt" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Ethnic Bottoms</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=women&group=Ethnic+Bottoms&item=Leggings">Leggings</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Ethnic+Bottoms&item=Palazzos">Palazzos</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Ethnic+Bottoms&item=Shararas">Shararas</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=women&group=Footwear" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-shoe-prints" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Footwear</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=women&group=Footwear&item=Flats">Flats</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Footwear&item=Heels">Heels</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Footwear&item=Wedges">Wedges</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Footwear&item=Sports+Shoes">Sports Shoes</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=women&group=Watches" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-clock" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Watches</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=women&group=Watches&item=Analog">Analog</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Watches&item=Smart+Watches">Smart Watches</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=women&group=Beauty+%26+Jewellery" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-spa" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Beauty & Jewellery</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=women&group=Beauty+%26+Jewellery&item=Make+Up">Make Up</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Beauty+%26+Jewellery&item=Skin+Care">Skin Care</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Beauty+%26+Jewellery&item=Silver+Jewellery">Silver Jewellery</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Beauty+%26+Jewellery&item=Handbags">Handbags</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=women&group=Featured" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-star" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Featured</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=women&group=Featured&item=Biba">Biba</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Featured&item=W">W</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Featured&item=Lakme">Lakme</a></li>
+                  <li><a href="ch-product-list.html?cat=women&group=Featured&item=Titan+Raga">Titan Raga</a></li>
+                </ul>
+              </div>
+            </div>
+              </div>
+              <div class="mega-promos">
+                
+              <a href="ch-product-list.html?cat=women" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Kurti Carnival</strong>
+                  <span class="">Up to 60% Off</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=women" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Handbag Edit</strong>
+                  <span class="">From ₹799</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1584917865442-de89df76accf?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=women" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Beauty Bestsellers</strong>
+                  <span class="">Up to 40% Off</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1596462502278-27bfdd403348?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=women" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Festive Jewellery</strong>
+                  <span class="mega-promo-link">Shop Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-dropdown" data-mega="kids">
+        <a href="ch-product-list.html?cat=kids" class="category-item">
+          <span class="category-icon"><i class="fa-solid fa-baby"></i></span>
+          <span class="category-label">Baby &amp; Kids</span>
+          <i class="fa-solid fa-chevron-down category-chevron" aria-hidden="true"></i>
+        </a>
+        
+        <div class="mega-menu" role="menu">
+          <div class="mega-menu-scroll">
+            <div class="mega-menu-shell">
+              <aside class="mega-featured">
+                <p class="mega-featured-eyebrow">Baby & Kids</p>
+                <h3 class="mega-featured-title">Grow With Joy.</h3>
+                <p class="mega-featured-subtitle">Clothing, toys and care for little ones.</p>
+                <a href="ch-product-list.html?cat=kids" class="mega-featured-cta">Shop Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <div class="mega-featured-media">
+                  <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=640&q=80" alt="" loading="lazy" />
+                </div>
+              </aside>
+              <div class="mega-columns" style="--mega-cols: 4;">
+                
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=kids&group=Boys%27+Clothing" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-shirt" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Boys' Clothing</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=kids&group=Boys%27+Clothing&item=T-Shirts">T-Shirts</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Boys%27+Clothing&item=Ethnic+Wear">Ethnic Wear</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Boys%27+Clothing&item=Shorts">Shorts</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Boys%27+Clothing&item=Innerwear">Innerwear</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=kids&group=Girls%27+Clothing" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-person-dress" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Girls' Clothing</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=kids&group=Girls%27+Clothing&item=Dresses">Dresses</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Girls%27+Clothing&item=Tops">Tops</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Girls%27+Clothing&item=Ethnic+Wear">Ethnic Wear</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=kids&group=Kids%27+Footwear" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-shoe-prints" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Kids' Footwear</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=kids&group=Kids%27+Footwear&item=Sandals">Sandals</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Kids%27+Footwear&item=Sport+Shoes">Sport Shoes</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Kids%27+Footwear&item=School+Shoes">School Shoes</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=kids&group=Winter+Wear" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-snowflake" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Winter Wear</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=kids&group=Winter+Wear&item=Sweatshirts">Sweatshirts</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Winter+Wear&item=Jackets">Jackets</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Winter+Wear&item=Thermals">Thermals</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=kids&group=Toys" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-puzzle-piece" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Toys</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=kids&group=Toys&item=Educational+Toys">Educational Toys</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Toys&item=Soft+Toys">Soft Toys</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Toys&item=Remote+Control">Remote Control</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Toys&item=Board+Games">Board Games</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=kids&group=School+Supplies" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-school" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">School Supplies</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=kids&group=School+Supplies&item=School+Bags">School Bags</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=School+Supplies&item=Lunch+Boxes">Lunch Boxes</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=School+Supplies&item=Stationery">Stationery</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=kids&group=Baby+Care" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-baby" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Baby Care</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=kids&group=Baby+Care&item=Diapers">Diapers</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Baby+Care&item=Wipes">Wipes</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Baby+Care&item=Baby+Food">Baby Food</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Baby+Care&item=Bath+Care">Bath Care</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Baby+Care&item=Strollers">Strollers</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=kids&group=Featured+Brands" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-tags" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Featured Brands</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=kids&group=Featured+Brands&item=Barbie">Barbie</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Featured+Brands&item=Lego">Lego</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Featured+Brands&item=Puma">Puma</a></li>
+                  <li><a href="ch-product-list.html?cat=kids&group=Featured+Brands&item=Crocs">Crocs</a></li>
+                </ul>
+              </div>
+            </div>
+              </div>
+              <div class="mega-promos">
+                
+              <a href="ch-product-list.html?cat=kids" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Toy Wonderland</strong>
+                  <span class="">Up to 45% Off</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1558060370-d644479cb6f7?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=kids" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Kids Fashion</strong>
+                  <span class="">From ₹399</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=kids" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Baby Essentials</strong>
+                  <span class="">Up to 30% Off</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=kids" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Back to School</strong>
+                  <span class="mega-promo-link">Shop Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-dropdown" data-mega="home">
+        <a href="ch-product-list.html?cat=home" class="category-item">
+          <span class="category-icon"><i class="fa-solid fa-couch"></i></span>
+          <span class="category-label">Home &amp; Furniture</span>
+          <i class="fa-solid fa-chevron-down category-chevron" aria-hidden="true"></i>
+        </a>
+        
+        <div class="mega-menu" role="menu">
+          <div class="mega-menu-scroll">
+            <div class="mega-menu-shell">
+              <aside class="mega-featured">
+                <p class="mega-featured-eyebrow">Home & Furniture</p>
+                <h3 class="mega-featured-title">Make Space Beautiful.</h3>
+                <p class="mega-featured-subtitle">Furniture, décor and kitchen essentials.</p>
+                <a href="ch-product-list.html?cat=home" class="mega-featured-cta">Explore Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <div class="mega-featured-media">
+                  <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=640&q=80" alt="" loading="lazy" />
+                </div>
+              </aside>
+              <div class="mega-columns" style="--mega-cols: 4;">
+                
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=home&group=Kitchen+%26+Cookware" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-utensils" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Kitchen & Cookware</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=home&group=Kitchen+%26+Cookware&item=Pans">Pans</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Kitchen+%26+Cookware&item=Pressure+Cookers">Pressure Cookers</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Kitchen+%26+Cookware&item=Gas+Stoves">Gas Stoves</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Kitchen+%26+Cookware&item=Dinner+Sets">Dinner Sets</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=home&group=Kitchen+Storage" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-jar" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Kitchen Storage</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=home&group=Kitchen+Storage&item=Bottles">Bottles</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Kitchen+Storage&item=Lunch+Boxes">Lunch Boxes</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Kitchen+Storage&item=Containers">Containers</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=home&group=Bedroom+Furniture" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-bed" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Bedroom Furniture</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=home&group=Bedroom+Furniture&item=Beds">Beds</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Bedroom+Furniture&item=Mattresses">Mattresses</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Bedroom+Furniture&item=Wardrobes">Wardrobes</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=home&group=Living+Room" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-couch" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Living Room</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=home&group=Living+Room&item=Sofas">Sofas</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Living+Room&item=TV+Units">TV Units</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Living+Room&item=Coffee+Tables">Coffee Tables</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=home&group=Furnishing" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-rug" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Furnishing</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=home&group=Furnishing&item=Bedsheets">Bedsheets</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Furnishing&item=Curtains">Curtains</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Furnishing&item=Cushions">Cushions</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Furnishing&item=Towels">Towels</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=home&group=Home+Decor" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Home Decor</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=home&group=Home+Decor&item=Paintings">Paintings</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Home+Decor&item=Clocks">Clocks</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Home+Decor&item=Lamps">Lamps</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Home+Decor&item=Showpieces">Showpieces</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=home&group=Smart+Home" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-house-signal" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Smart Home</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=home&group=Smart+Home&item=Smart+Lights">Smart Lights</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Smart+Home&item=Door+Locks">Door Locks</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Smart+Home&item=Cameras">Cameras</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=home&group=Featured" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-star" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Featured</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=home&group=Featured&item=HomeTown">HomeTown</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Featured&item=Prestige">Prestige</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Featured&item=Milton">Milton</a></li>
+                  <li><a href="ch-product-list.html?cat=home&group=Featured&item=Spaces">Spaces</a></li>
+                </ul>
+              </div>
+            </div>
+              </div>
+              <div class="mega-promos">
+                
+              <a href="ch-product-list.html?cat=home" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Sofa Festival</strong>
+                  <span class="">Up to 55% Off</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=home" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Bedroom Makeover</strong>
+                  <span class="">From ₹8,999</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=home" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Cookware Combos</strong>
+                  <span class="">Up to 40% Off</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1556911220-bff31c28c27e?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=home" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Decor Picks</strong>
+                  <span class="mega-promo-link">Shop Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1513519245088-0e12902e35a6?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-dropdown" data-mega="sports">
+        <a href="ch-product-list.html?cat=sports" class="category-item">
+          <span class="category-icon"><i class="fa-solid fa-basketball"></i></span>
+          <span class="category-label">Sports, Books &amp; More</span>
+          <i class="fa-solid fa-chevron-down category-chevron" aria-hidden="true"></i>
+        </a>
+        
+        <div class="mega-menu" role="menu">
+          <div class="mega-menu-scroll">
+            <div class="mega-menu-shell">
+              <aside class="mega-featured">
+                <p class="mega-featured-eyebrow">Sports, Books & More</p>
+                <h3 class="mega-featured-title">Play. Learn. Explore.</h3>
+                <p class="mega-featured-subtitle">Fitness gear, books and everyday essentials.</p>
+                <a href="ch-product-list.html?cat=sports" class="mega-featured-cta">Shop Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <div class="mega-featured-media">
+                  <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba6850?auto=format&fit=crop&w=640&q=80" alt="" loading="lazy" />
+                </div>
+              </aside>
+              <div class="mega-columns" style="--mega-cols: 4;">
+                
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=sports&group=Sports" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-basketball" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Sports</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=sports&group=Sports&item=Cricket">Cricket</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Sports&item=Badminton">Badminton</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Sports&item=Football">Football</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Sports&item=Cycling">Cycling</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Sports&item=Swimming">Swimming</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=sports&group=Exercise+Fitness" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-dumbbell" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Exercise Fitness</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=sports&group=Exercise+Fitness&item=Dumbbells">Dumbbells</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Exercise+Fitness&item=Yoga+Mat">Yoga Mat</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Exercise+Fitness&item=Home+Gyms">Home Gyms</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Exercise+Fitness&item=Cardio">Cardio</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=sports&group=Books" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-book" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Books</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=sports&group=Books&item=Fiction">Fiction</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Books&item=Self-Help">Self-Help</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Books&item=Academics">Academics</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Books&item=Children">Children</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=sports&group=Stationery" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-pen" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Stationery</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=sports&group=Stationery&item=Pens">Pens</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Stationery&item=Diaries">Diaries</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Stationery&item=Organizers">Organizers</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=sports&group=Food+Essentials" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-mug-hot" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Food Essentials</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=sports&group=Food+Essentials&item=Nuts">Nuts</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Food+Essentials&item=Tea+%26+Coffee">Tea & Coffee</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Food+Essentials&item=Snacks">Snacks</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Food+Essentials&item=Breakfast">Breakfast</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=sports&group=Health+%26+Nutrition" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-capsules" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Health & Nutrition</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=sports&group=Health+%26+Nutrition&item=Protein">Protein</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Health+%26+Nutrition&item=Vitamins">Vitamins</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Health+%26+Nutrition&item=Health+Drinks">Health Drinks</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=sports&group=Gaming+%26+Music" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-gamepad" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Gaming & Music</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=sports&group=Gaming+%26+Music&item=Consoles">Consoles</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Gaming+%26+Music&item=Accessories">Accessories</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Gaming+%26+Music&item=Instruments">Instruments</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=sports&group=Auto+Accessories" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-car" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Auto Accessories</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=sports&group=Auto+Accessories&item=Helmets">Helmets</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Auto+Accessories&item=Car+Care">Car Care</a></li>
+                  <li><a href="ch-product-list.html?cat=sports&group=Auto+Accessories&item=Audio">Audio</a></li>
+                </ul>
+              </div>
+            </div>
+              </div>
+              <div class="mega-promos">
+                
+              <a href="ch-product-list.html?cat=sports" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Fitness Starters</strong>
+                  <span class="">Up to 40% Off</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=sports" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Book Bundles</strong>
+                  <span class="">From ₹199</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=sports" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Outdoor Sports</strong>
+                  <span class="">Up to 35% Off</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=sports" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Gaming Corner</strong>
+                  <span class="mega-promo-link">Shop Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-dropdown" data-mega="farm">
+        <a href="ch-product-list.html?cat=farm" class="category-item">
+          <span class="category-icon"><i class="fa-solid fa-leaf"></i></span>
+          <span class="category-label">Farm &amp; Garden</span>
+          <i class="fa-solid fa-chevron-down category-chevron" aria-hidden="true"></i>
+        </a>
+        
+        <div class="mega-menu" role="menu">
+          <div class="mega-menu-scroll">
+            <div class="mega-menu-shell">
+              <aside class="mega-featured">
+                <p class="mega-featured-eyebrow">Farm & Garden</p>
+                <h3 class="mega-featured-title">Grow Fresh. Grow Local.</h3>
+                <p class="mega-featured-subtitle">Seeds, tools and garden essentials.</p>
+                <a href="ch-product-list.html?cat=farm" class="mega-featured-cta">Explore Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <div class="mega-featured-media">
+                  <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=640&q=80" alt="" loading="lazy" />
+                </div>
+              </aside>
+              <div class="mega-columns" style="--mega-cols: 4;">
+                
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=farm&group=Seeds+%26+Saplings" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-seedling" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Seeds & Saplings</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=farm&group=Seeds+%26+Saplings&item=Vegetable+Seeds">Vegetable Seeds</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Seeds+%26+Saplings&item=Flower+Seeds">Flower Seeds</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Seeds+%26+Saplings&item=Herb+Seeds">Herb Seeds</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Seeds+%26+Saplings&item=Fruit+Saplings">Fruit Saplings</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=farm&group=Soil+%26+Fertilizers" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-mountain" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Soil & Fertilizers</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=farm&group=Soil+%26+Fertilizers&item=Potting+Mix">Potting Mix</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Soil+%26+Fertilizers&item=Organic+Manure">Organic Manure</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Soil+%26+Fertilizers&item=Compost">Compost</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=farm&group=Gardening+Tools" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Gardening Tools</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=farm&group=Gardening+Tools&item=Hand+Tools">Hand Tools</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Gardening+Tools&item=Pruners">Pruners</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Gardening+Tools&item=Watering+Cans">Watering Cans</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Gardening+Tools&item=Gloves">Gloves</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=farm&group=Irrigation" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-droplet" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Irrigation</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=farm&group=Irrigation&item=Drip+Kits">Drip Kits</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Irrigation&item=Sprinklers">Sprinklers</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Irrigation&item=Timers">Timers</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=farm&group=Plants+%26+Planters" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-leaf" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Plants & Planters</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=farm&group=Plants+%26+Planters&item=Indoor+Plants">Indoor Plants</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Plants+%26+Planters&item=Succulents">Succulents</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Plants+%26+Planters&item=Ceramic+Pots">Ceramic Pots</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Plants+%26+Planters&item=Grow+Bags">Grow Bags</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=farm&group=Lawn+Care" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-tree" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Lawn Care</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=farm&group=Lawn+Care&item=Grass+Seed">Grass Seed</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Lawn+Care&item=Weed+Control">Weed Control</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=farm&group=Pest+%26+Plant+Care" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-bug" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Pest & Plant Care</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=farm&group=Pest+%26+Plant+Care&item=Neem+Oil">Neem Oil</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Pest+%26+Plant+Care&item=Organic+Pesticides">Organic Pesticides</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Pest+%26+Plant+Care&item=Mulch">Mulch</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=farm&group=Featured" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-star" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Featured</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=farm&group=Featured&item=Urban+Farming+Kits">Urban Farming Kits</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Featured&item=Balcony+Garden">Balcony Garden</a></li>
+                  <li><a href="ch-product-list.html?cat=farm&group=Featured&item=Ugaoo">Ugaoo</a></li>
+                </ul>
+              </div>
+            </div>
+              </div>
+              <div class="mega-promos">
+                
+              <a href="ch-product-list.html?cat=farm" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Seed Starter Kits</strong>
+                  <span class="">From ₹149</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1466692476866-aef1dfb1e735?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=farm" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Tool Combos</strong>
+                  <span class="">Up to 30% Off</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=farm" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Indoor Plant Edit</strong>
+                  <span class="">Up to 25% Off</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1485955900006-10f4d32477c2?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=farm" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Organic Living</strong>
+                  <span class="mega-promo-link">Shop Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-dropdown" data-mega="food">
+        <a href="ch-product-list.html?cat=food" class="category-item">
+          <span class="category-icon"><i class="fa-solid fa-basket-shopping"></i></span>
+          <span class="category-label">Food Items</span>
+          <i class="fa-solid fa-chevron-down category-chevron" aria-hidden="true"></i>
+        </a>
+        
+        <div class="mega-menu" role="menu">
+          <div class="mega-menu-scroll">
+            <div class="mega-menu-shell">
+              <aside class="mega-featured">
+                <p class="mega-featured-eyebrow">Food Items</p>
+                <h3 class="mega-featured-title">Fresh to Your Table.</h3>
+                <p class="mega-featured-subtitle">Staples, produce and everyday groceries.</p>
+                <a href="ch-product-list.html?cat=food" class="mega-featured-cta">Shop Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <div class="mega-featured-media">
+                  <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=640&q=80" alt="" loading="lazy" />
+                </div>
+              </aside>
+              <div class="mega-columns" style="--mega-cols: 4;">
+                
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=food&group=Fresh+Produce" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-carrot" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Fresh Produce</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=food&group=Fresh+Produce&item=Fruits">Fruits</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Fresh+Produce&item=Vegetables">Vegetables</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Fresh+Produce&item=Leafy+Greens">Leafy Greens</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Fresh+Produce&item=Organic+Fresh">Organic Fresh</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=food&group=Dairy+%26+Eggs" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-egg" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Dairy & Eggs</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=food&group=Dairy+%26+Eggs&item=Milk">Milk</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Dairy+%26+Eggs&item=Curd">Curd</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Dairy+%26+Eggs&item=Cheese">Cheese</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Dairy+%26+Eggs&item=Butter">Butter</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Dairy+%26+Eggs&item=Eggs">Eggs</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=food&group=Pantry+Staples" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-wheat-awn" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Pantry Staples</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=food&group=Pantry+Staples&item=Rice+%26+Grains">Rice & Grains</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Pantry+Staples&item=Atta">Atta</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Pantry+Staples&item=Dals">Dals</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Pantry+Staples&item=Oils">Oils</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Pantry+Staples&item=Spices">Spices</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=food&group=Breakfast+%26+Spreads" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-bread-slice" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Breakfast & Spreads</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=food&group=Breakfast+%26+Spreads&item=Cereals">Cereals</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Breakfast+%26+Spreads&item=Oats">Oats</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Breakfast+%26+Spreads&item=Honey">Honey</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Breakfast+%26+Spreads&item=Bread">Bread</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=food&group=Beverages" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-mug-saucer" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Beverages</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=food&group=Beverages&item=Tea">Tea</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Beverages&item=Coffee">Coffee</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Beverages&item=Juices">Juices</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Beverages&item=Health+Drinks">Health Drinks</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=food&group=Snacks+%26+Sweets" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-cookie" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Snacks & Sweets</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=food&group=Snacks+%26+Sweets&item=Namkeen">Namkeen</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Snacks+%26+Sweets&item=Biscuits">Biscuits</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Snacks+%26+Sweets&item=Chocolates">Chocolates</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Snacks+%26+Sweets&item=Dry+Fruits">Dry Fruits</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mega-col">
+              
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=food&group=Cooking+Essentials" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-bottle-droplet" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Cooking Essentials</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=food&group=Cooking+Essentials&item=Sauces">Sauces</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Cooking+Essentials&item=Pickles">Pickles</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Cooking+Essentials&item=Ready-to-Cook">Ready-to-Cook</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Cooking+Essentials&item=Pasta">Pasta</a></li>
+                </ul>
+              </div>
+
+              <div class="mega-group">
+                <a href="ch-product-list.html?cat=food&group=Featured+Stores" class="mega-heading">
+                  <span class="mega-heading-icon"><i class="fa-solid fa-store" aria-hidden="true"></i></span>
+                  <span class="mega-heading-text">Featured Stores</span>
+                  <i class="fa-solid fa-chevron-right mega-heading-chevron" aria-hidden="true"></i>
+                </a>
+                <ul class="mega-list">
+                  <li><a href="ch-product-list.html?cat=food&group=Featured+Stores&item=Organic+Pantry">Organic Pantry</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Featured+Stores&item=Bulk+Buy">Bulk Buy</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Featured+Stores&item=Amul">Amul</a></li>
+                  <li><a href="ch-product-list.html?cat=food&group=Featured+Stores&item=Aashirvaad">Aashirvaad</a></li>
+                </ul>
+              </div>
+            </div>
+              </div>
+              <div class="mega-promos">
+                
+              <a href="ch-product-list.html?cat=food" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Farm Fresh Picks</strong>
+                  <span class="">Same-day deals</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=food" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Pantry Value Packs</strong>
+                  <span class="">Up to 25% Off</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=food" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Tea & Coffee Edit</strong>
+                  <span class="">From ₹99</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+
+              <a href="ch-product-list.html?cat=food" class="mega-promo-card">
+                <div class="mega-promo-copy">
+                  <strong>Healthy Snacking</strong>
+                  <span class="mega-promo-link">Shop Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=240&q=80" alt="" loading="lazy" />
+              </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- Main My Account Content -->
+  <main class="account-main" id="main-content">
+    <div class="account-container">
+      <nav class="account-breadcrumbs" aria-label="Breadcrumb">
+        <a href="index.html#home"><i class="fa-solid fa-house"></i> Home</a>
+        <span class="sep"><i class="fa-solid fa-chevron-right"></i></span>
+        <a href="ch-trading.html">Trading</a>
+        <span class="sep"><i class="fa-solid fa-chevron-right"></i></span>
+        <span class="current">My Account</span>
+      </nav>
+
+      <div class="account-layout-grid">
+        <!-- 1. LEFT VERTICAL SECTION (MY ACCOUNT SIDEBAR) -->
+        <aside class="account-sidebar" aria-label="Account Navigation">
+          <div class="account-sidebar-card">
+            <h2 class="account-sidebar-title">MY ACCOUNT</h2>
+            <ul class="account-nav-list" role="tablist" aria-label="Account Tabs">
+              <li role="presentation">
+                <button
+                  type="button"
+                  class="account-nav-item is-active"
+                  id="tab-personal"
+                  role="tab"
+                  aria-selected="true"
+                  aria-controls="panel-personal"
+                  data-tab="personal"
+                  data-title="PERSONAL INFORMATION"
+                >
+                  <span class="account-nav-icon" aria-hidden="true">
+                    <i class="fa-solid fa-user"></i>
+                  </span>
+                  <span class="account-nav-label">Personal Information</span>
+                </button>
+              </li>
+
+              <li role="presentation">
+                <button
+                  type="button"
+                  class="account-nav-item"
+                  id="tab-orders"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="panel-orders"
+                  data-tab="orders"
+                  data-title="ORDER HISTORY"
+                >
+                  <span class="account-nav-icon" aria-hidden="true">
+                    <i class="fa-solid fa-box-archive"></i>
+                  </span>
+                  <span class="account-nav-label">Order History</span>
+                </button>
+              </li>
+
+              <li role="presentation">
+                <button
+                  type="button"
+                  class="account-nav-item"
+                  id="tab-address"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="panel-address"
+                  data-tab="address"
+                  data-title="ADDRESS BOOK"
+                >
+                  <span class="account-nav-icon" aria-hidden="true">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                  </span>
+                  <span class="account-nav-label">Address Book</span>
+                </button>
+              </li>
+
+              <li role="presentation">
+                <button
+                  type="button"
+                  class="account-nav-item"
+                  id="tab-contact"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="panel-contact"
+                  data-tab="contact"
+                  data-title="CONTACT US"
+                >
+                  <span class="account-nav-icon" aria-hidden="true">
+                    <i class="fa-solid fa-headset"></i>
+                  </span>
+                  <span class="account-nav-label">Contact Us</span>
+                </button>
+              </li>
+
+              <li role="presentation" class="account-nav-divider"></li>
+
+              <li role="presentation">
+                <a href="#logout" class="account-nav-item account-nav-item--logout" id="accountLogoutBtn" role="button">
+                  <span class="account-nav-icon" aria-hidden="true">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                  </span>
+                  <span class="account-nav-label">Logout</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+
+        <!-- 2. RIGHT VERTICAL SECTION (TAB CONTENT AREA) -->
+        <section class="account-content-area" aria-labelledby="accountHeading">
+          <div class="account-content-card">
+            <div class="account-card-header">
+              <h1 class="account-section-title" id="accountHeading">PERSONAL INFORMATION</h1>
+            </div>
+
+            <!-- Tab Panel 1: Personal Information (Default Active) -->
+            <div class="account-tab-panel is-active" id="panel-personal" role="tabpanel" aria-labelledby="tab-personal">
+              <div class="personal-info-card">
+                <div class="info-row">
+                  <span class="info-label">Name</span>
+                  <span class="info-value" id="profileName">John Doe</span>
+                </div>
+
+                <div class="info-row">
+                  <span class="info-label">Phone Number</span>
+                  <span class="info-value" id="profilePhone">+91 9876543210</span>
+                </div>
+
+                <div class="info-row">
+                  <span class="info-label">Email ID</span>
+                  <span class="info-value" id="profileEmail">john.doe@example.com</span>
+                </div>
+
+                <div class="info-row">
+                  <span class="info-label">Date of Birth</span>
+                  <div class="info-value-wrap">
+                    <span class="info-value" id="profileDob">Not added yet</span>
+                    <button type="button" class="btn-outline-gold" id="btnAddDob">Add Date of Birth</button>
+                  </div>
+                </div>
+
+                <div class="personal-actions">
+                  <button type="button" class="btn-gold-solid" id="btnEditDetails">EDIT DETAILS</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab Panel 2: Order History -->
+            <div class="account-tab-panel" id="panel-orders" role="tabpanel" aria-labelledby="tab-orders" hidden>
+              <div class="orders-filter-bar" role="tablist" aria-label="Filter Orders">
+                <button type="button" class="order-filter-btn is-active" data-filter="all">All Orders</button>
+                <button type="button" class="order-filter-btn" data-filter="processing">Processing</button>
+                <button type="button" class="order-filter-btn" data-filter="out-for-delivery">Out for Delivery</button>
+                <button type="button" class="order-filter-btn" data-filter="delivered">Delivered</button>
+              </div>
+
+              <div class="orders-list" id="ordersListContainer">
+                <!-- Order 1 -->
+                <article class="order-card" data-status="delivered">
+                  <div class="order-card-head">
+                    <div class="order-meta">
+                      <strong class="order-id">ORD-001</strong>
+                      <span class="order-date">January 15, 2024</span>
+                    </div>
+                    <span class="order-status-badge status--delivered">Delivered</span>
+                  </div>
+                  <div class="order-card-body">
+                    <img src="assets/images/lr1.jpg" alt="Gold Necklace" class="order-thumb" width="72" height="72" />
+                    <div class="order-item-details">
+                      <h3 class="order-item-title">Gold Necklace</h3>
+                      <p class="order-item-qty">1 item</p>
+                      <p class="order-item-price">&#8377;45,000.00</p>
+                    </div>
+                  </div>
+                  <div class="order-card-foot">
+                    <span class="order-footnote">Delivered on January 20, 2024</span>
+                    <button type="button" class="order-arrow-btn" aria-label="View order ORD-001 details" title="View details">
+                      <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </article>
+
+                <!-- Order 2 -->
+                <article class="order-card" data-status="processing">
+                  <div class="order-card-head">
+                    <div class="order-meta">
+                      <strong class="order-id">ORD-002</strong>
+                      <span class="order-date">February 1, 2024</span>
+                    </div>
+                    <span class="order-status-badge status--processing">Processing</span>
+                  </div>
+                  <div class="order-card-body">
+                    <img src="assets/images/tt1.webp" alt="Diamond Ring" class="order-thumb" width="72" height="72" />
+                    <div class="order-item-details">
+                      <h3 class="order-item-title">Diamond Ring</h3>
+                      <p class="order-item-qty">1 item</p>
+                      <p class="order-item-price">&#8377;75,000.00</p>
+                    </div>
+                  </div>
+                  <div class="order-card-foot">
+                    <span class="order-footnote">Estimated delivery by February 8, 2024</span>
+                    <button type="button" class="order-arrow-btn" aria-label="View order ORD-002 details" title="View details">
+                      <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </article>
+
+                <!-- Order 3 -->
+                <article class="order-card" data-status="out-for-delivery">
+                  <div class="order-card-head">
+                    <div class="order-meta">
+                      <strong class="order-id">ORD-003</strong>
+                      <span class="order-date">February 18, 2024</span>
+                    </div>
+                    <span class="order-status-badge status--delivery">Out for Delivery</span>
+                  </div>
+                  <div class="order-card-body">
+                    <img src="assets/images/lr2.jpg" alt="Handcrafted Platinum Bracelet" class="order-thumb" width="72" height="72" />
+                    <div class="order-item-details">
+                      <h3 class="order-item-title">Handcrafted Platinum Bracelet</h3>
+                      <p class="order-item-qty">1 item</p>
+                      <p class="order-item-price">&#8377;62,500.00</p>
+                    </div>
+                  </div>
+                  <div class="order-card-foot">
+                    <span class="order-footnote">Expected delivery today by 8:00 PM</span>
+                    <button type="button" class="order-arrow-btn" aria-label="View order ORD-003 details" title="View details">
+                      <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </article>
+
+                <!-- Order 4 -->
+                <article class="order-card" data-status="delivered">
+                  <div class="order-card-head">
+                    <div class="order-meta">
+                      <strong class="order-id">ORD-004</strong>
+                      <span class="order-date">December 22, 2023</span>
+                    </div>
+                    <span class="order-status-badge status--delivered">Delivered</span>
+                  </div>
+                  <div class="order-card-body">
+                    <img src="assets/images/tt3.webp" alt="Pure Silk Traditional Kurta Set" class="order-thumb" width="72" height="72" />
+                    <div class="order-item-details">
+                      <h3 class="order-item-title">Pure Silk Traditional Kurta Set</h3>
+                      <p class="order-item-qty">2 items</p>
+                      <p class="order-item-price">&#8377;18,200.00</p>
+                    </div>
+                  </div>
+                  <div class="order-card-foot">
+                    <span class="order-footnote">Delivered on December 26, 2023</span>
+                    <button type="button" class="order-arrow-btn" aria-label="View order ORD-004 details" title="View details">
+                      <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <!-- Tab Panel 3: Address Book -->
+            <div class="account-tab-panel" id="panel-address" role="tabpanel" aria-labelledby="tab-address" hidden>
+              <div class="address-top-bar">
+                <button type="button" class="btn-gold-solid" id="btnAddAddressBtn">+ ADD ADDRESS</button>
+              </div>
+
+              <div class="address-grid" id="addressGrid">
+                <!-- Address Card 1 -->
+                <div class="address-card" data-address-id="addr-1">
+                  <div class="address-card-header">
+                    <span class="address-pin-icon"><i class="fa-solid fa-location-dot"></i></span>
+                    <strong class="address-label-name">Address_1</strong>
+                    <span class="address-tag-default">Default</span>
+                  </div>
+                  <div class="address-card-body">
+                    <p class="address-user-name">John Doe</p>
+                    <p class="address-line">123 Main Street, Apartment 4B</p>
+                    <p class="address-line">Mumbai, MAHARASHTRA - 400001</p>
+                    <p class="address-phone">Phone: +91 9876543210</p>
+                  </div>
+                  <div class="address-card-actions">
+                    <button type="button" class="address-btn address-btn--edit" data-action="edit">Edit</button>
+                    <button type="button" class="address-btn address-btn--delete" data-action="delete">Delete</button>
+                  </div>
+                </div>
+
+                <!-- Address Card 2 -->
+                <div class="address-card" data-address-id="addr-2">
+                  <div class="address-card-header">
+                    <span class="address-pin-icon"><i class="fa-solid fa-location-dot"></i></span>
+                    <strong class="address-label-name">Address_2</strong>
+                  </div>
+                  <div class="address-card-body">
+                    <p class="address-user-name">ertty rjghfjhg</p>
+                    <p class="address-line">rtertytry, rtertyrt</p>
+                    <p class="address-line">fgghjfghj, NAGALAND - 123456</p>
+                    <p class="address-phone">Phone: trtrey</p>
+                  </div>
+                  <div class="address-card-actions">
+                    <button type="button" class="address-btn address-btn--edit" data-action="edit">Edit</button>
+                    <button type="button" class="address-btn address-btn--delete" data-action="delete">Delete</button>
+                  </div>
+                </div>
+
+                <!-- Address Card 3 -->
+                <div class="address-card" data-address-id="addr-3">
+                  <div class="address-card-header">
+                    <span class="address-pin-icon"><i class="fa-solid fa-location-dot"></i></span>
+                    <strong class="address-label-name">Address_3</strong>
+                  </div>
+                  <div class="address-card-body">
+                    <p class="address-user-name">John Doe (Office)</p>
+                    <p class="address-line">CC Hub Business Tower, 5th Floor, Suite 502</p>
+                    <p class="address-line">Kochi, KERALA - 682016</p>
+                    <p class="address-phone">Phone: +91 9847030064</p>
+                  </div>
+                  <div class="address-card-actions">
+                    <button type="button" class="address-btn address-btn--edit" data-action="edit">Edit</button>
+                    <button type="button" class="address-btn address-btn--delete" data-action="delete">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab Panel 4: Contact Us -->
+            <div class="account-tab-panel" id="panel-contact" role="tabpanel" aria-labelledby="tab-contact" hidden>
+              <div class="contact-support-grid">
+                <div class="support-card">
+                  <span class="support-icon"><i class="fa-solid fa-phone"></i></span>
+                  <h3 class="support-title">PHONE SUPPORT</h3>
+                  <a href="tel:+911234567890" class="support-link">+91 1234-567-890</a>
+                  <p class="support-note">Available: Monday - Friday, 10 AM - 6 PM</p>
+                </div>
+                <div class="support-card">
+                  <span class="support-icon"><i class="fa-solid fa-envelope"></i></span>
+                  <h3 class="support-title">EMAIL SUPPORT</h3>
+                  <a href="mailto:support@vajra.com" class="support-link">support@vajra.com</a>
+                  <p class="support-note">response time: within 24 hours</p>
+                </div>
+              </div>
+
+              <div class="contact-form-section">
+                <h3 class="contact-form-title">Send Us a Direct Message</h3>
+                <form class="account-contact-form" id="accountContactForm">
+                  <div class="form-row-2">
+                    <div class="form-field">
+                      <label for="contactSubject">Subject</label>
+                      <input type="text" id="contactSubject" placeholder="How can we assist you?" required />
+                    </div>
+                    <div class="form-field">
+                      <label for="contactOrderRef">Order Reference (Optional)</label>
+                      <input type="text" id="contactOrderRef" placeholder="e.g. ORD-001" />
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <label for="contactMessage">Message</label>
+                    <textarea id="contactMessage" rows="4" placeholder="Write your message here..." required></textarea>
+                  </div>
+                  <button type="submit" class="btn-gold-solid">SEND MESSAGE</button>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Edit Personal Details Dialog -->
+  <dialog class="account-dialog" id="editProfileDialog" aria-labelledby="editProfileTitle">
+    <div class="account-dialog-card">
+      <button type="button" class="account-dialog-close" id="editProfileClose" aria-label="Close dialog">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h2 class="account-dialog-title" id="editProfileTitle">Edit Personal Information</h2>
+      <p class="account-dialog-sub">Update your account details below.</p>
+      <form class="account-dialog-form" id="editProfileForm">
+        <div class="form-field">
+          <label for="inputName">Full Name</label>
+          <input type="text" id="inputName" value="John Doe" required />
+        </div>
+        <div class="form-field">
+          <label for="inputPhone">Phone Number</label>
+          <input type="tel" id="inputPhone" value="+91 9876543210" required />
+        </div>
+        <div class="form-field">
+          <label for="inputEmail">Email Address</label>
+          <input type="email" id="inputEmail" value="john.doe@example.com" required />
+        </div>
+        <div class="form-field">
+          <label for="inputDob">Date of Birth</label>
+          <input type="date" id="inputDob" />
+        </div>
+        <div class="dialog-btn-row">
+          <button type="submit" class="btn-gold-solid">SAVE CHANGES</button>
+          <button type="button" class="btn-secondary" id="editProfileCancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Add/Edit Address Dialog -->
+  <dialog class="account-dialog" id="addressDialog" aria-labelledby="addressDialogTitle">
+    <div class="account-dialog-card">
+      <button type="button" class="account-dialog-close" id="addressDialogClose" aria-label="Close dialog">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h2 class="account-dialog-title" id="addressDialogTitle">Add New Address</h2>
+      <p class="account-dialog-sub">Fill in the address details below.</p>
+      <form class="account-dialog-form" id="addressForm">
+        <input type="hidden" id="addressEditId" value="" />
+        <div class="form-field">
+          <label for="addrLabel">Address Label</label>
+          <input type="text" id="addrLabel" placeholder="e.g. Address_1, Home, Office" required />
+        </div>
+        <div class="form-field">
+          <label for="addrName">Recipient Name</label>
+          <input type="text" id="addrName" placeholder="Full name" required />
+        </div>
+        <div class="form-field">
+          <label for="addrStreet">Street Address</label>
+          <input type="text" id="addrStreet" placeholder="House/Flat number, Street name" required />
+        </div>
+        <div class="form-row-2">
+          <div class="form-field">
+            <label for="addrCity">City / District</label>
+            <input type="text" id="addrCity" placeholder="City" required />
+          </div>
+          <div class="form-field">
+            <label for="addrState">State</label>
+            <input type="text" id="addrState" placeholder="State" required />
+          </div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-field">
+            <label for="addrPincode">PIN Code</label>
+            <input type="text" id="addrPincode" placeholder="6-digit PIN code" required />
+          </div>
+          <div class="form-field">
+            <label for="addrPhone">Contact Phone</label>
+            <input type="tel" id="addrPhone" placeholder="Mobile number" required />
+          </div>
+        </div>
+        <div class="dialog-btn-row">
+          <button type="submit" class="btn-gold-solid">SAVE ADDRESS</button>
+          <button type="button" class="btn-secondary" id="addressDialogCancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Toast Notification -->
+  <div class="account-toast" id="accountToast" role="status" aria-live="polite">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="accountToastMsg">Action completed successfully.</span>
+  </div>
+
+
+<!-- ========== FOOTER ========== -->
+  <footer class="site-footer" id="footer">
+    <div class="footer-card">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand-inner">
+            <img src="assets/images/logo_full.png" alt="IBNCC" width="56" height="56" />
+            <div>
+              <strong class="footer-tagline">International Business Network <br> of Catholic Congress</strong>
+              <!-- <span>International Business Network</span> -->
+              <p>A global platform connecting Catholic entrepreneurs, professionals and organizations to collaborate,
+                trade and grow together.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="footer-nav">
+          <h3>Navigate</h3>
+          <a href="#home"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+          <a href="#about"><i class="fa-solid fa-circle-info" aria-hidden="true"></i><span>About</span></a>
+          <a href="#events"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i><span>Events</span></a>
+          <a href="#networking"><i class="fa-solid fa-handshake" aria-hidden="true"></i><span>Networking</span></a>
+          <a href="#trading"><i class="fa-solid fa-arrow-right-arrow-left"
+              aria-hidden="true"></i><span>Trading</span></a>
+        </div> -->
+        <div class="footer-nav">
+          <h3>Navigate</h3>
+          <a href="#home"><span>Home</span></a>
+          <a href="#about"><span>About</span></a>
+          <a href="#events"><span>Events</span></a>
+          <a href="#networking"><span>Networking</span></a>
+          <a href="#trading"><span>Trading</span></a>
+        </div>
+
+        <div class="footer-connect">
+          <h3>Connect</h3>
+          <a href="mailto:ibncc26@gmail.com" class="footer-contact-link">
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+            <span>ibncc26@gmail.com</span>
+          </a>
+          <a href="tel:+10000000000" class="footer-contact-link">
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            <span>+91 9847030064</span>
+          </a>
+          <!-- <div class="footer-location">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            <span>IBNCC Global Secretariat, Kochi, Kerala, India</span>
+          </div> -->
+
+          <h3 class="footer-follow">Follow Us</h3>
+          <div class="socials" aria-label="Social links">
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
+            <a href="#" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <p class="footer-copy">&copy; 2026 IBNCC. All rights reserved.</p>
+        <div class="footer-design">
+          <a href="#">Designed By : Astraz Software solutions</a>
+          <!-- <span aria-hidden="true">|</span>
+          <a href="#">Terms of Service</a>
+          <span aria-hidden="true">|</span>
+          <a href="#">Sitemap</a> -->
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<dialog class="login-modal" id="loginModal" aria-labelledby="login-title">
+    <div class="login-card">
+      <button type="button" class="login-modal-close" id="loginModalClose" aria-label="Close login">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+
+      <header class="login-card-head">
+        <span class="login-lock" aria-hidden="true">
+          <i class="fa-solid fa-lock"></i>
+        </span>
+        <div>
+          <h2 id="login-title">Login to CC Hub</h2>
+          <p class="login-tagline">Connect<span>•</span>Trade<span>•</span>Grow</p>
+        </div>
+      </header>
+
+      <form class="login-form" id="loginForm">
+        <div class="login-field">
+          <i class="fa-solid fa-phone login-field-icon" aria-hidden="true"></i>
+          <label class="visually-hidden" for="loginPhone">Phone Number</label>
+          <input
+            id="loginPhone"
+            type="tel"
+            name="phone"
+            placeholder="Phone Number"
+            autocomplete="tel"
+            required
+          />
+        </div>
+
+        <div class="login-field">
+          <i class="fa-solid fa-lock login-field-icon" aria-hidden="true"></i>
+          <label class="visually-hidden" for="loginPassword">Password</label>
+          <input
+            id="loginPassword"
+            type="password"
+            name="password"
+            placeholder="Password"
+            autocomplete="current-password"
+            required
+          />
+          <button
+            type="button"
+            class="login-password-toggle"
+            id="loginPasswordToggle"
+            aria-label="Show password"
+          >
+            <i class="fa-regular fa-eye-slash" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="login-row">
+          <label class="login-remember">
+            <input type="checkbox" name="remember" />
+            Remember me
+          </label>
+          <a href="#forgot-password" class="login-forgot">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="login-submit">
+          Login
+          <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
+        </button>
+
+        <div class="login-divider">or</div>
+
+        <a href="#register" class="login-register">
+          <i class="fa-solid fa-user-group" aria-hidden="true"></i>
+          New Member? Register Here
+        </a>
+      </form>
+
+      <div class="login-wave" aria-hidden="true">
+        <svg viewBox="0 0 420 72" preserveAspectRatio="none">
+          <path fill="#f3c43a" d="M0 26c48 22 86-16 138-4 54 12 78 36 132 26 50-8 82-30 150-6v30H0z" />
+          <path fill="#e8a31a" d="M0 42c58 16 92-14 150-4 56 10 88 26 142 14 48-10 72-6 128 10v10H0z" />
+          <path fill="#d97706" d="M0 58c72 10 112-8 182 2 56 8 92 12 238 2v10H0z" />
+        </svg>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="login-modal otp-modal" id="otpModal" aria-labelledby="otp-title">
+    <div class="login-card otp-card">
+      <button type="button" class="login-modal-close" id="otpModalClose" aria-label="Close OTP verification">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+
+      <header class="login-card-head">
+        <span class="login-lock" aria-hidden="true">
+          <i class="fa-solid fa-shield-halved"></i>
+        </span>
+        <div>
+          <h2 id="otp-title">OTP Verification</h2>
+          <p class="login-tagline">Verify your registered mobile</p>
+        </div>
+      </header>
+
+      <p class="otp-sent-text">We've sent a 6-digit OTP to the mobile number associated with your signup account.</p>
+      <p class="otp-phone">Sent to <span id="otpMaskedPhone">your registered mobile</span></p>
+
+      <div class="otp-sms" id="otpSms" hidden>
+        <span class="otp-sms-label">Message from CC Hub</span>
+        <p>Your OTP is <strong id="otpSmsCode"></strong>. Do not share this code with anyone.</p>
+      </div>
+
+      <form class="otp-form" id="otpForm">
+        <div class="otp-inputs" role="group" aria-label="One-time password">
+          <label class="visually-hidden" for="otpDigit1">Digit 1</label>
+          <input id="otpDigit1" type="text" inputmode="numeric" maxlength="1" autocomplete="one-time-code" required />
+          <label class="visually-hidden" for="otpDigit2">Digit 2</label>
+          <input id="otpDigit2" type="text" inputmode="numeric" maxlength="1" required />
+          <label class="visually-hidden" for="otpDigit3">Digit 3</label>
+          <input id="otpDigit3" type="text" inputmode="numeric" maxlength="1" required />
+          <label class="visually-hidden" for="otpDigit4">Digit 4</label>
+          <input id="otpDigit4" type="text" inputmode="numeric" maxlength="1" required />
+          <label class="visually-hidden" for="otpDigit5">Digit 5</label>
+          <input id="otpDigit5" type="text" inputmode="numeric" maxlength="1" required />
+          <label class="visually-hidden" for="otpDigit6">Digit 6</label>
+          <input id="otpDigit6" type="text" inputmode="numeric" maxlength="1" required />
+        </div>
+
+        <p class="otp-error" id="otpError" hidden></p>
+        <p class="otp-success" id="otpSuccess" hidden></p>
+
+        <button type="submit" class="login-submit">
+          Verify OTP
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+        </button>
+
+        <div class="otp-resend-row">
+          <span>Didn't receive the code?</span>
+          <button type="button" class="otp-resend" id="otpResend">Resend OTP</button>
+          <span class="otp-timer" id="otpTimer"></span>
+        </div>
+
+        <a href="#login" class="otp-back-login" id="otpBackLogin">Back to Login</a>
+      </form>
+
+      <div class="login-wave" aria-hidden="true">
+        <svg viewBox="0 0 420 72" preserveAspectRatio="none">
+          <path fill="#f3c43a" d="M0 26c48 22 86-16 138-4 54 12 78 36 132 26 50-8 82-30 150-6v30H0z" />
+          <path fill="#e8a31a" d="M0 42c58 16 92-14 150-4 56 10 88 26 142 14 48-10 72-6 128 10v10H0z" />
+          <path fill="#d97706" d="M0 58c72 10 112-8 182 2 56 8 92 12 238 2v10H0z" />
+        </svg>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="login-modal" id="resetPasswordModal" aria-labelledby="reset-password-title">
+    <div class="login-card otp-card">
+      <button type="button" class="login-modal-close" id="resetPasswordModalClose" aria-label="Close set new password">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+
+      <header class="login-card-head">
+        <span class="login-lock" aria-hidden="true">
+          <i class="fa-solid fa-key"></i>
+        </span>
+        <div>
+          <h2 id="reset-password-title">Set New Password</h2>
+          <p class="login-tagline">Create a new password for your account</p>
+        </div>
+      </header>
+
+      <p class="reset-hint">Your mobile number has been verified. Enter a new password to continue.</p>
+
+      <form class="login-form" id="resetPasswordForm">
+        <div class="login-field">
+          <i class="fa-solid fa-lock login-field-icon" aria-hidden="true"></i>
+          <label class="visually-hidden" for="resetPassword">New Password</label>
+          <input id="resetPassword" type="password" name="password" placeholder="New Password" autocomplete="new-password" minlength="6" required />
+          <button type="button" class="login-password-toggle" data-password-toggle="resetPassword" aria-label="Show password">
+            <i class="fa-regular fa-eye-slash" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="login-field">
+          <i class="fa-solid fa-lock login-field-icon" aria-hidden="true"></i>
+          <label class="visually-hidden" for="resetPasswordConfirm">Confirm New Password</label>
+          <input id="resetPasswordConfirm" type="password" name="confirm" placeholder="Confirm New Password" autocomplete="new-password" minlength="6" required />
+          <button type="button" class="login-password-toggle" data-password-toggle="resetPasswordConfirm" aria-label="Show password">
+            <i class="fa-regular fa-eye-slash" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <p class="otp-error" id="resetPasswordError" hidden></p>
+        <p class="otp-success" id="resetPasswordSuccess" hidden></p>
+
+        <button type="submit" class="login-submit">
+          Save Password
+          <i class="fa-solid fa-check" aria-hidden="true"></i>
+        </button>
+
+        <a href="#login" class="otp-back-login" id="resetBackLogin">Back to Login</a>
+      </form>
+
+      <div class="login-wave" aria-hidden="true">
+        <svg viewBox="0 0 420 72" preserveAspectRatio="none">
+          <path fill="#f3c43a" d="M0 26c48 22 86-16 138-4 54 12 78 36 132 26 50-8 82-30 150-6v30H0z" />
+          <path fill="#e8a31a" d="M0 42c58 16 92-14 150-4 56 10 88 26 142 14 48-10 72-6 128 10v10H0z" />
+          <path fill="#d97706" d="M0 58c72 10 112-8 182 2 56 8 92 12 238 2v10H0z" />
+        </svg>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="login-modal register-modal" id="registerModal" aria-labelledby="register-title">
+    <div class="register-card">
+      <button type="button" class="login-modal-close" id="registerModalClose" aria-label="Close registration">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+
+      <header class="register-card-head">
+        <span class="register-user-icon" aria-hidden="true">
+          <i class="fa-solid fa-user-plus"></i>
+        </span>
+        <h2 id="register-title">Create Your Account</h2>
+        <p>Sign up to get started with CC Hub</p>
+      </header>
+
+      <form class="register-form" id="registerForm">
+        <div class="register-field">
+          <i class="fa-solid fa-user" aria-hidden="true"></i>
+          <div class="register-field-body">
+            <label for="registerName">Name</label>
+            <input id="registerName" type="text" name="name" placeholder="Enter your full name" autocomplete="name" required />
+          </div>
+        </div>
+
+        <div class="register-field">
+          <i class="fa-solid fa-church" aria-hidden="true"></i>
+          <div class="register-field-body">
+            <label for="registerParish">Parish</label>
+            <input id="registerParish" type="text" name="parish" placeholder="Enter your parish" required />
+          </div>
+        </div>
+
+        <div class="register-field">
+          <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+          <div class="register-field-body">
+            <label for="registerDiocese">Diocese</label>
+            <select id="registerDiocese" name="diocese" required>
+              <option value="" disabled selected>Select your diocese</option>
+              <option value="kozhikode">Kozhikode</option>
+              <option value="ernakulam">Ernakulam-Angamaly</option>
+              <option value="thrissur">Thrissur</option>
+              <option value="kannur">Kannur</option>
+              <option value="palakkad">Palakkad</option>
+              <option value="thamarassery">Thamarassery</option>
+            </select>
+          </div>
+          <i class="fa-solid fa-chevron-down register-chevron" aria-hidden="true"></i>
+        </div>
+
+        <div class="register-field">
+          <i class="fa-solid fa-cross" aria-hidden="true"></i>
+          <div class="register-field-body">
+            <label for="registerRite">Rite</label>
+            <select id="registerRite" name="rite" required>
+              <option value="" disabled selected>Select your rite</option>
+              <option value="syro-malabar">Syro-Malabar</option>
+              <option value="syro-malankara">Syro-Malankara</option>
+              <option value="latin">Latin</option>
+            </select>
+          </div>
+          <i class="fa-solid fa-chevron-down register-chevron" aria-hidden="true"></i>
+        </div>
+
+        <div class="register-field">
+          <i class="fa-solid fa-lock" aria-hidden="true"></i>
+          <div class="register-field-body">
+            <label for="registerPassword">Password</label>
+            <input id="registerPassword" type="password" name="password" placeholder="Enter your password" autocomplete="new-password" required />
+          </div>
+          <button type="button" class="login-password-toggle" data-password-toggle="registerPassword" aria-label="Show password">
+            <i class="fa-regular fa-eye-slash" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="register-field">
+          <i class="fa-solid fa-lock" aria-hidden="true"></i>
+          <div class="register-field-body">
+            <label for="registerConfirm">Confirm Password</label>
+            <input id="registerConfirm" type="password" name="confirm" placeholder="Confirm your password" autocomplete="new-password" required />
+          </div>
+          <button type="button" class="login-password-toggle" data-password-toggle="registerConfirm" aria-label="Show password">
+            <i class="fa-regular fa-eye-slash" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="register-field">
+          <i class="fa-solid fa-phone" aria-hidden="true"></i>
+          <div class="register-field-body">
+            <label for="registerPhone">Phone Number</label>
+            <input id="registerPhone" type="tel" name="phone" placeholder="Enter your phone number" autocomplete="tel" required />
+          </div>
+        </div>
+
+        <div class="register-field">
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          <div class="register-field-body">
+            <label for="registerEmail">Email (Optional)</label>
+            <input id="registerEmail" type="email" name="email" placeholder="Enter your email address" autocomplete="email" />
+          </div>
+        </div>
+
+        <button type="submit" class="login-submit register-submit">
+          <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
+          Sign Up
+        </button>
+
+        <div class="login-divider">OR</div>
+
+        <button type="button" class="register-google" id="registerGoogleBtn">
+          <svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true">
+            <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.6 32.4 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 8 3.1l5.7-5.7C34.2 6.1 29.4 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/>
+            <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 12 24 12c3.1 0 5.8 1.2 8 3.1l5.7-5.7C34.2 6.1 29.4 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/>
+            <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.5-11.2-8.3l-6.5 5C9.6 39.6 16.3 44 24 44z"/>
+            <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1.1 3.2-3.5 5.8-6.6 7.3l6.2 5.2C37.5 38.3 44 33 44 24c0-1.3-.1-2.7-.4-3.5z"/>
+          </svg>
+          Sign up with Google
+        </button>
+
+        <p class="register-legal">
+          By signing up, you agree to our<br />
+          <a href="#terms">Terms of Use</a>
+          <span>| and</span>
+          <a href="#privacy">Privacy Policy</a>
+        </p>
+      </form>
+    </div>
+  </dialog>
+
+  <script src="js/cchub/ch-mega-menu.js"></script>
+  <script src="js/cchub/ch-main.js"></script>
+  <script src="js/cchub/ch-trading.js"></script>
+  <script src="js/cchub/ch-login.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // 1. Tab Navigation Elements
+      const navBtns = document.querySelectorAll(".account-nav-item[data-tab]");
+      const panels = document.querySelectorAll(".account-tab-panel");
+      const titleEl = document.getElementById("accountHeading");
+
+      function showToast(msg) {
+        const toast = document.getElementById("accountToast");
+        const msgEl = document.getElementById("accountToastMsg");
+        if (!toast || !msgEl) return;
+        msgEl.textContent = msg;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 3200);
+      }
+
+      function switchTab(tabId) {
+        let activeBtn = null;
+        navBtns.forEach((btn) => {
+          const isTarget = btn.getAttribute("data-tab") === tabId;
+          btn.classList.toggle("is-active", isTarget);
+          btn.setAttribute("aria-selected", isTarget ? "true" : "false");
+          if (isTarget) activeBtn = btn;
+        });
+
+        panels.forEach((panel) => {
+          const isTarget = panel.id === "panel-" + tabId;
+          if (isTarget) {
+            panel.removeAttribute("hidden");
+            panel.classList.add("is-active");
+          } else {
+            panel.setAttribute("hidden", "");
+            panel.classList.remove("is-active");
+          }
+        });
+
+        if (activeBtn && titleEl) {
+          titleEl.textContent = activeBtn.getAttribute("data-title") || "MY ACCOUNT";
+        }
+
+        // Update URL hash without scrolling
+        if (history.replaceState) {
+          history.replaceState(null, null, "#" + tabId);
+        }
+      }
+
+      navBtns.forEach((btn) => {
+        btn.addEventListener("click", function () {
+          const tabId = this.getAttribute("data-tab");
+          if (tabId) switchTab(tabId);
+        });
+      });
+
+      // Handle initial hash routing
+      const hash = window.location.hash.replace("#", "").toLowerCase();
+      if (["personal", "orders", "address", "contact"].includes(hash)) {
+        switchTab(hash);
+      }
+
+      // 2. Order History Filter Tabs
+      const orderFilters = document.querySelectorAll(".order-filter-btn");
+      const orderCards = document.querySelectorAll(".order-card");
+
+      orderFilters.forEach((filterBtn) => {
+        filterBtn.addEventListener("click", function () {
+          orderFilters.forEach((b) => b.classList.remove("is-active"));
+          this.classList.add("is-active");
+
+          const filter = this.getAttribute("data-filter");
+          orderCards.forEach((card) => {
+            const status = card.getAttribute("data-status");
+            if (filter === "all" || status === filter) {
+              card.style.display = "";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+      });
+
+      // 3. Edit Personal Info Dialog
+      const editProfileDialog = document.getElementById("editProfileDialog");
+      const btnEditDetails = document.getElementById("btnEditDetails");
+      const btnAddDob = document.getElementById("btnAddDob");
+      const editProfileClose = document.getElementById("editProfileClose");
+      const editProfileCancel = document.getElementById("editProfileCancel");
+      const editProfileForm = document.getElementById("editProfileForm");
+
+      function openProfileDialog() {
+        if (!editProfileDialog) return;
+        document.getElementById("inputName").value = document.getElementById("profileName").textContent.trim();
+        document.getElementById("inputPhone").value = document.getElementById("profilePhone").textContent.trim();
+        document.getElementById("inputEmail").value = document.getElementById("profileEmail").textContent.trim();
+        const dobText = document.getElementById("profileDob").textContent.trim();
+        if (dobText !== "Not added yet") {
+          document.getElementById("inputDob").value = dobText;
+        }
+        editProfileDialog.showModal();
+      }
+
+      if (btnEditDetails) btnEditDetails.addEventListener("click", openProfileDialog);
+      if (btnAddDob) btnAddDob.addEventListener("click", openProfileDialog);
+
+      if (editProfileClose) editProfileClose.addEventListener("click", () => editProfileDialog.close());
+      if (editProfileCancel) editProfileCancel.addEventListener("click", () => editProfileDialog.close());
+
+      if (editProfileForm) {
+        editProfileForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const name = document.getElementById("inputName").value;
+          const phone = document.getElementById("inputPhone").value;
+          const email = document.getElementById("inputEmail").value;
+          const dob = document.getElementById("inputDob").value;
+
+          document.getElementById("profileName").textContent = name;
+          document.getElementById("profilePhone").textContent = phone;
+          document.getElementById("profileEmail").textContent = email;
+          if (dob) {
+            document.getElementById("profileDob").textContent = dob;
+            if (btnAddDob) btnAddDob.textContent = "Change Date of Birth";
+          }
+          editProfileDialog.close();
+          showToast("Personal details updated successfully!");
+        });
+      }
+
+      // 4. Address Book Dialog & Actions
+      const addressDialog = document.getElementById("addressDialog");
+      const btnAddAddressBtn = document.getElementById("btnAddAddressBtn");
+      const addressDialogClose = document.getElementById("addressDialogClose");
+      const addressDialogCancel = document.getElementById("addressDialogCancel");
+      const addressForm = document.getElementById("addressForm");
+      const addressGrid = document.getElementById("addressGrid");
+
+      if (btnAddAddressBtn) {
+        btnAddAddressBtn.addEventListener("click", function () {
+          document.getElementById("addressDialogTitle").textContent = "Add New Address";
+          document.getElementById("addressEditId").value = "";
+          addressForm.reset();
+          addressDialog.showModal();
+        });
+      }
+
+      if (addressDialogClose) addressDialogClose.addEventListener("click", () => addressDialog.close());
+      if (addressDialogCancel) addressDialogCancel.addEventListener("click", () => addressDialog.close());
+
+      if (addressGrid) {
+        addressGrid.addEventListener("click", function (e) {
+          const editBtn = e.target.closest(".address-btn--edit");
+          const delBtn = e.target.closest(".address-btn--delete");
+
+          if (delBtn) {
+            const card = delBtn.closest(".address-card");
+            if (card && confirm("Are you sure you want to delete this address?")) {
+              card.remove();
+              showToast("Address deleted successfully.");
+            }
+          } else if (editBtn) {
+            const card = editBtn.closest(".address-card");
+            if (card) {
+              const addrId = card.getAttribute("data-address-id");
+              const label = card.querySelector(".address-label-name").textContent.trim();
+              const name = card.querySelector(".address-user-name").textContent.trim();
+              const lines = card.querySelectorAll(".address-line");
+              const phoneText = card.querySelector(".address-phone").textContent.replace("Phone:", "").trim();
+
+              document.getElementById("addressDialogTitle").textContent = "Edit Address";
+              document.getElementById("addressEditId").value = addrId;
+              document.getElementById("addrLabel").value = label;
+              document.getElementById("addrName").value = name;
+              if (lines[0]) document.getElementById("addrStreet").value = lines[0].textContent.trim();
+              if (lines[1]) {
+                const parts = lines[1].textContent.split(",");
+                document.getElementById("addrCity").value = parts[0] ? parts[0].trim() : "";
+                if (parts[1]) {
+                  const statePin = parts[1].split("-");
+                  document.getElementById("addrState").value = statePin[0] ? statePin[0].trim() : "";
+                  document.getElementById("addrPincode").value = statePin[1] ? statePin[1].trim() : "";
+                }
+              }
+              document.getElementById("addrPhone").value = phoneText;
+              addressDialog.showModal();
+            }
+          }
+        });
+      }
+
+      if (addressForm) {
+        addressForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const editId = document.getElementById("addressEditId").value;
+          const label = document.getElementById("addrLabel").value.trim();
+          const name = document.getElementById("addrName").value.trim();
+          const street = document.getElementById("addrStreet").value.trim();
+          const city = document.getElementById("addrCity").value.trim();
+          const state = document.getElementById("addrState").value.trim();
+          const pin = document.getElementById("addrPincode").value.trim();
+          const phone = document.getElementById("addrPhone").value.trim();
+
+          if (editId) {
+            const existingCard = document.querySelector('.address-card[data-address-id="' + editId + '"]');
+            if (existingCard) {
+              existingCard.querySelector(".address-label-name").textContent = label;
+              existingCard.querySelector(".address-user-name").textContent = name;
+              const lines = existingCard.querySelectorAll(".address-line");
+              if (lines[0]) lines[0].textContent = street;
+              if (lines[1]) lines[1].textContent = city + ", " + state.toUpperCase() + " - " + pin;
+              existingCard.querySelector(".address-phone").textContent = "Phone: " + phone;
+              showToast("Address updated successfully!");
+            }
+          } else {
+            const newId = "addr-" + Date.now();
+            const newCard = document.createElement("div");
+            newCard.className = "address-card";
+            newCard.setAttribute("data-address-id", newId);
+            newCard.innerHTML = `
+              <div class="address-card-header">
+                <span class="address-pin-icon"><i class="fa-solid fa-location-dot"></i></span>
+                <strong class="address-label-name">${label}</strong>
+              </div>
+              <div class="address-card-body">
+                <p class="address-user-name">${name}</p>
+                <p class="address-line">${street}</p>
+                <p class="address-line">${city}, ${state.toUpperCase()} - ${pin}</p>
+                <p class="address-phone">Phone: ${phone}</p>
+              </div>
+              <div class="address-card-actions">
+                <button type="button" class="address-btn address-btn--edit" data-action="edit">Edit</button>
+                <button type="button" class="address-btn address-btn--delete" data-action="delete">Delete</button>
+              </div>
+            `;
+            addressGrid.appendChild(newCard);
+            showToast("New address added successfully!");
+          }
+          addressDialog.close();
+        });
+      }
+
+      // 5. Contact Form Submission
+      const contactForm = document.getElementById("accountContactForm");
+      if (contactForm) {
+        contactForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          contactForm.reset();
+          showToast("Thank you! Your message has been sent to support.");
+        });
+      }
+
+      // 6. Logout Button
+      const logoutBtn = document.getElementById("accountLogoutBtn");
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", function (e) {
+          e.preventDefault();
+          if (confirm("Are you sure you want to log out of your CC Hub account?")) {
+            showToast("Logging out...");
+            setTimeout(() => {
+              window.location.href = "ch-trading.html";
+            }, 1000);
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
