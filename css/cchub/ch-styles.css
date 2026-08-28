@@ -111,9 +111,11 @@ button {
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
+  gap: 0.75rem;
+  min-width: 0;
+  flex-shrink: 1;
   transition: opacity var(--transition);
+  text-decoration: none;
 }
 
 .brand:hover {
@@ -121,19 +123,19 @@ button {
 }
 
 .brand-logo {
-  width: auto;
+  width: 105px;
   height: auto;
-  color: var(--maroon);
-  display: table;
+  object-fit: contain;
+  border-radius: 10px;
   flex-shrink: 0;
-  border-spacing: 0;
+  display: block;
 }
 
 .brand-logo svg,
 .brand-logo img {
-  height: 42px;
-  width: auto;
-  max-width: none;
+  height: auto;
+  width: 105px;
+  max-width: 100%;
   object-fit: contain;
   display: block;
 }
@@ -141,27 +143,36 @@ button {
 .brand-text {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  align-items: center;
+  gap: 0.2rem;
+  line-height: 1.15;
+  min-width: 0;
+  flex-shrink: 0;
 }
 
 .brand-name {
-  display: table-caption;
-  caption-side: bottom;
-  padding-top: 3px;
-  font-size: 0.52rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--navy);
-  line-height: 1.25;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  color: var(--primary, var(--navy));
   text-align: center;
 }
 
 .brand-tagline {
-  font-size: 0.72rem;
-  font-weight: 400;
-  color: var(--ink-soft);
-  letter-spacing: 0.04em;
+  display: block;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: clamp(0.5rem, 1.15vw + 0.36rem, 0.58rem);
+  font-weight: 600;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  color: var(--muted, var(--ink-soft));
+  text-align: center;
+  line-height: 1.28;
+  max-width: min(13.25rem, 62vw);
+  min-width: min(10.75rem, 52vw);
+  white-space: normal;
+  overflow: visible;
 }
 
 .search-bar {
@@ -2257,19 +2268,21 @@ button {
 }
 
 @media (max-width: 640px) {
-  .brand-name {
-    font-size: 0.44rem;
-    letter-spacing: 0.04em;
-  }
-
   .brand-logo {
-    width: auto;
+    width: 80px;
     height: auto;
   }
 
   .brand-logo svg,
   .brand-logo img {
-    height: 34px;
+    width: 80px;
+    height: auto;
+  }
+
+  .brand-tagline {
+    font-size: 0.5rem;
+    min-width: 0;
+    max-width: 14rem;
   }
 
   .btn-login {
