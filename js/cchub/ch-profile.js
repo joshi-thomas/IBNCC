@@ -1283,7 +1283,8 @@
       return;
     }
     if (action === "activity") {
-      console.info("Activity (demo)");
+      window.location.href = "activity.html";
+      return;
     }
   });
 

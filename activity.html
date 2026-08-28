@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Activity — Networking Activities | CC Hub</title>
+  <meta name="description" content="Manage your saved, shared, and blocked profiles on CC Hub." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <!-- IBNCC fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Manrope:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/cchub/ch-styles.css" />
+  <link rel="stylesheet" href="css/cchub/ch-profile.css" />
+
+  <style>
+    :root {
+      --primary: #0b1d36;
+      --primary-mid: #122a4a;
+      --secondary: #1a4f9c;
+      --royal: #1e5bb8;
+      --gold: #c9a227;
+      --gold-bright: #e0b93a;
+      --gold-soft: #f3e4b0;
+      --dark: #07111f;
+      --light: #f7fafc;
+      --text: #142033;
+      --muted: #5a6b82;
+      --white: #ffffff;
+      --border: rgba(15, 40, 80, 0.1);
+      --shadow: 0 18px 50px rgba(7, 17, 31, 0.12);
+      --radius: 22px;
+      --radius-sm: 14px;
+      --header-h: 78px;
+      --font-display: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "DM Sans", system-ui, sans-serif;
+      --font-body: "Manrope", system-ui, sans-serif;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --max: 1180px;
+    }
+
+    body.page-activity {
+      background-color: #fbf7ef;
+      background-image: 
+        radial-gradient(at 15% 15%, rgba(201, 162, 39, 0.05) 0px, transparent 50%),
+        radial-gradient(at 85% 85%, rgba(26, 79, 156, 0.04) 0px, transparent 50%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-activity .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 1000;
+      height: var(--header-h);
+      overflow: visible;
+      transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(15, 40, 80, 0.08);
+    }
+    .page-activity .site-header.is-scrolled {
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 8px 30px rgba(7, 17, 31, 0.08);
+      border-bottom-color: var(--border);
+    }
+    .page-activity .header-inner {
+      width: min(100% - 2rem, 1280px);
+      margin-inline: auto;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0;
+      min-height: unset;
+      max-width: unset;
+      grid-template-columns: unset;
+    }
+    .page-activity .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      flex-shrink: 1;
+      transition: none;
+    }
+    .page-activity .brand-logo {
+      width: 105px;
+      height: auto;
+      object-fit: contain;
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: block;
+      color: inherit;
+    }
+    .page-activity .brand-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      line-height: 1.15;
+      min-width: 0;
+      flex-shrink: 0;
+    }
+    .page-activity .brand-tagline {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: clamp(0.5rem, 1.15vw + 0.36rem, 0.58rem);
+      font-weight: 600;
+      letter-spacing: 0.055em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.28;
+      max-width: min(13.25rem, 62vw);
+      min-width: min(10.75rem, 52vw);
+      white-space: normal;
+      overflow: visible;
+    }
+    .page-activity .nav-desktop {
+      display: none;
+      align-items: center;
+      gap: 0.35rem;
+      text-transform: uppercase;
+    }
+    .page-activity .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.55rem 0.85rem;
+      border-radius: 999px;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .page-activity .nav-link:hover {
+      color: var(--royal);
+      background: rgba(30, 91, 184, 0.08);
+    }
+    .page-activity .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-shrink: 0;
+    }
+    .page-activity .header-notice {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      max-width: min(28rem, 40vw);
+      padding: 0.4rem 0.75rem 0.4rem 0.45rem;
+      border-radius: 999px;
+      background: rgba(201, 162, 39, 0.14);
+      border: 1px solid rgba(201, 162, 39, 0.42);
+      color: var(--primary-mid);
+      text-decoration: none;
+      font-family: var(--font-sans);
+      font-size: 0.76rem;
+      font-weight: 600;
+      overflow: hidden;
+    }
+    .page-activity .header-notice-icon {
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 50%;
+      background: #c9a227;
+      color: #07111f;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      font-size: 0.78rem;
+    }
+    .page-activity .header-notice-track {
+      overflow: hidden;
+      white-space: nowrap;
+      min-width: 0;
+      mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+    }
+    .page-activity .header-notice-marquee {
+      display: inline-flex;
+      gap: 2.25rem;
+      animation: headerNoticeMarquee 26s linear infinite;
+    }
+    .page-activity .header-notice-text {
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    @keyframes headerNoticeMarquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .page-activity .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.85);
+      cursor: pointer;
+      align-items: center;
+    }
+    .page-activity .menu-bar {
+      width: 20px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    @media (min-width: 992px) {
+      .page-activity .nav-desktop { display: flex; }
+      .page-activity .menu-toggle { display: none; }
+    }
+
+    /* App Nav */
+    .page-activity .app-nav {
+      position: sticky;
+      top: var(--header-h);
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      overflow: visible;
+    }
+
+    /* ========================================================
+       Activity Page Layout & Styling
+       ======================================================== */
+    .activity-main {
+      flex: 1 0 auto;
+      padding-top: 2rem;
+      padding-bottom: 4rem;
+    }
+
+    .activity-container {
+      width: min(100% - 2rem, 1280px);
+      margin-inline: auto;
+    }
+
+    .activity-breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      font-family: var(--font-sans);
+    }
+    .activity-breadcrumbs a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .activity-breadcrumbs a:hover {
+      color: var(--royal);
+    }
+    .activity-breadcrumbs .sep {
+      color: #94a3b8;
+      font-size: 0.7rem;
+    }
+    .activity-breadcrumbs .current {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Grid Layout: Sidebar + Main Content */
+    .activity-layout-grid {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* --- Left Sidebar (My Activity) --- */
+    .activity-sidebar-card {
+      background: #ffffff;
+      border: 1px solid rgba(15, 40, 80, 0.1);
+      border-radius: 18px;
+      box-shadow: 0 4px 20px rgba(7, 17, 31, 0.05);
+      padding: 24px 18px;
+      position: sticky;
+      top: calc(var(--header-h) + 80px);
+    }
+
+    .activity-sidebar-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin: 0 0 16px 0;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(15, 40, 80, 0.08);
+      text-align: center;
+    }
+
+    .activity-tabs-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .activity-tab-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #475569;
+      font-family: var(--font-sans);
+      font-size: 0.94rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.22s var(--ease);
+      outline: none;
+      position: relative;
+    }
+
+    .activity-tab-btn:hover {
+      background: rgba(11, 29, 54, 0.04);
+      color: var(--primary);
+      transform: translateX(2px);
+    }
+
+    .activity-tab-btn.is-active {
+      background: #fbf3dc;
+      color: #8c6414;
+      font-weight: 700;
+      border-color: rgba(201, 162, 39, 0.3);
+      border-left: 4px solid #c9a227;
+      box-shadow: 0 2px 10px rgba(201, 162, 39, 0.12);
+      transform: none;
+    }
+
+    .activity-tab-icon {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      font-size: 1rem;
+      flex-shrink: 0;
+      color: #64748b;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+
+    .activity-tab-btn.is-active .activity-tab-icon {
+      color: #9a7219;
+      background: rgba(201, 162, 39, 0.15);
+    }
+
+    .activity-tab-label {
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .activity-tab-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 22px;
+      height: 22px;
+      padding: 0 6px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      background: rgba(15, 40, 80, 0.08);
+      color: #475569;
+    }
+
+    .activity-tab-btn.is-active .activity-tab-badge {
+      background: #c9a227;
+      color: #ffffff;
+    }
+
+    /* --- Right Section (Main Panel Card) --- */
+    .activity-content-card {
+      background: #ffffff;
+      border: 1px solid rgba(15, 40, 80, 0.1);
+      border-radius: 20px;
+      box-shadow: 0 6px 24px rgba(7, 17, 31, 0.05);
+      padding: 32px 32px 40px;
+      min-width: 0;
+    }
+
+    .activity-content-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+      border-bottom: 1.5px solid rgba(201, 162, 39, 0.35);
+      flex-wrap: wrap;
+    }
+
+    .activity-header-info {
+      min-width: 0;
+    }
+
+    .activity-section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2vw + 0.8rem, 1.85rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .activity-section-subtitle {
+      margin: 6px 0 0 0;
+      font-size: 0.86rem;
+      color: var(--muted);
+      font-family: var(--font-sans);
+    }
+
+    .activity-count-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: #fbf3dc;
+      color: #8c6414;
+      font-size: 0.84rem;
+      font-weight: 600;
+      border: 1px solid rgba(201, 162, 39, 0.3);
+    }
+
+    /* Tab Panels */
+    .activity-tab-panel[hidden] {
+      display: none !important;
+    }
+
+    .activity-tab-panel {
+      animation: activityFadeIn 0.28s var(--ease);
+    }
+
+    @keyframes activityFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Notice Banner for Blocked or Informational */
+    .activity-notice-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: rgba(26, 79, 156, 0.06);
+      border: 1px solid rgba(26, 79, 156, 0.16);
+      color: var(--primary);
+      font-size: 0.86rem;
+      line-height: 1.45;
+      margin-bottom: 20px;
+    }
+    .activity-notice-banner i {
+      color: var(--secondary);
+      font-size: 1.05rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    /* Action Buttons inside Activity Profile Cards */
+    .activity-action-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .activity-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .activity-action-btn--unblock {
+      background: #fef2f2;
+      color: #b91c1c;
+      border-color: #fecaca;
+    }
+    .activity-action-btn--unblock:hover {
+      background: #b91c1c;
+      color: #ffffff;
+      border-color: #b91c1c;
+    }
+
+    .activity-action-btn--remove {
+      background: #fbf3dc;
+      color: #8c6414;
+      border-color: rgba(201, 162, 39, 0.35);
+    }
+    .activity-action-btn--remove:hover {
+      background: #dc2626;
+      color: #ffffff;
+      border-color: #dc2626;
+    }
+
+    .activity-action-btn--share {
+      background: rgba(26, 79, 156, 0.08);
+      color: var(--secondary);
+      border-color: rgba(26, 79, 156, 0.2);
+    }
+    .activity-action-btn--share:hover {
+      background: var(--royal);
+      color: #ffffff;
+      border-color: var(--royal);
+    }
+
+    .activity-meta-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      background: #f1f5f9;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+    .activity-meta-tag i {
+      color: var(--gold);
+    }
+
+    .profile-card--blocked {
+      background: #fafafa;
+      opacity: 0.92;
+      border-left: 4px solid #ef4444;
+    }
+
+    /* Toast Notification for Instant Feedback */
+    .activity-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 10000;
+      background: var(--primary);
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 500;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s var(--ease);
+      pointer-events: none;
+    }
+    .activity-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .activity-toast i {
+      color: var(--gold-bright);
+    }
+
+    /* Empty state */
+    .activity-empty-state {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--muted);
+    }
+    .activity-empty-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background: rgba(15, 40, 80, 0.05);
+      display: grid;
+      place-items: center;
+      font-size: 1.6rem;
+      color: #94a3b8;
+    }
+    .activity-empty-state h3 {
+      font-family: var(--font-sans);
+      font-size: 1.15rem;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    /* Responsive Queries */
+    @media (max-width: 960px) {
+      .activity-layout-grid {
+        grid-template-columns: 1fr;
+      }
+      .activity-sidebar-card {
+        position: static;
+        padding: 18px;
+      }
+      .activity-sidebar-title {
+        text-align: left;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+      }
+      .activity-tabs-list {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        gap: 10px;
+      }
+      .activity-tab-btn {
+        width: auto;
+        white-space: nowrap;
+        flex-shrink: 0;
+        padding: 10px 16px;
+      }
+      .activity-tab-btn.is-active {
+        border-left: 1px solid rgba(201, 162, 39, 0.3);
+        border-bottom: 3.5px solid #c9a227;
+      }
+      .activity-content-card {
+        padding: 24px 20px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .activity-content-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .activity-section-title {
+        font-size: 1.35rem;
+      }
+    }
+  </style>
+</head>
+<body class="profile-page page-profile page-activity">
+  <!-- Top Site Header -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="index.html#home" class="brand" aria-label="IBNCC Home">
+        <span class="brand-text">
+          <img src="assets/images/logo_full.png" alt="IBNCC logo" class="brand-logo" width="52" height="52" />
+          <span class="brand-tagline">AN INITIATIVE OF CATHOLIC CONGRESS</span>
+        </span>
+      </a>
+
+      <nav class="nav-desktop" aria-label="Primary">
+        <a href="index.html#home" class="nav-link" data-section="home"><span>Home</span></a>
+        <a href="index.html#about" class="nav-link" data-section="about"><span>About</span></a>
+        <a href="index.html#events" class="nav-link" data-section="events"><span>Events</span></a>
+        <a href="networking.html" class="nav-link" data-section="networking"><span>Networking</span></a>
+        <a href="ch-trading.html" class="nav-link" data-section="trading"><span>Trading</span></a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="event-details.html" class="header-notice" aria-label="Upcoming event announcement">
+          <span class="header-notice-icon" aria-hidden="true">
+            <i class="fa-solid fa-bell"></i>
+          </span>
+          <span class="header-notice-track">
+            <span class="header-notice-marquee">
+              <span class="header-notice-text">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
+              <span class="header-notice-text" aria-hidden="true">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
+            </span>
+          </span>
+        </a>
+        <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="nav-mobile" id="mobile-menu" aria-label="Mobile" hidden>
+      <div class="nav-mobile-card">
+        <a href="event-details.html" class="header-notice header-notice--mobile" aria-label="Upcoming event announcement">
+          <span class="header-notice-icon" aria-hidden="true">
+            <i class="fa-solid fa-bell"></i>
+          </span>
+          <span class="header-notice-track">
+            <span class="header-notice-marquee">
+              <span class="header-notice-text">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
+              <span class="header-notice-text" aria-hidden="true">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
+            </span>
+          </span>
+        </a>
+        <div class="nav-mobile-list">
+          <a href="index.html#home" class="nav-link" data-section="home">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-house"></i></span>
+            <span class="nav-mobile-copy"><strong>Home</strong><em>Welcome to IBNCC</em></span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+          <a href="index.html#about" class="nav-link" data-section="about">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-circle-info"></i></span>
+            <span class="nav-mobile-copy"><strong>About</strong><em>Know more about us</em></span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+          <a href="index.html#events" class="nav-link" data-section="events">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-calendar-days"></i></span>
+            <span class="nav-mobile-copy"><strong>Events</strong><em>Upcoming gatherings</em></span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+          <a href="networking.html" class="nav-link" data-section="networking">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-handshake"></i></span>
+            <span class="nav-mobile-copy"><strong>Networking</strong><em>Build global connections</em></span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+          <a href="ch-trading.html" class="nav-link" data-section="trading">
+            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-arrow-right-arrow-left"></i></span>
+            <span class="nav-mobile-copy"><strong>Trading</strong><em>Collaborate and grow</em></span>
+            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Profile / App Navigation Bar -->
+  <nav class="app-nav" aria-label="Profile navigation">
+    <div class="app-nav-inner">
+      <a href="#messages" class="app-nav-item" id="openMessagesBtn" aria-label="Messages, 3 unread" aria-controls="messagesPanel" aria-expanded="false" aria-haspopup="menu">
+        <span class="app-nav-icon app-nav-icon--messages">
+          <i class="fa-regular fa-comments" aria-hidden="true"></i>
+          <span class="app-nav-badge" aria-hidden="true">3</span>
+        </span>
+        <span class="app-nav-label">Messages</span>
+      </a>
+      <a href="#admin-messages" class="app-nav-item" aria-label="Admin Messages, 5 unread" aria-haspopup="menu" aria-expanded="false">
+        <span class="app-nav-icon app-nav-icon--admin">
+          <i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i>
+          <span class="app-nav-badge" aria-hidden="true">5</span>
+        </span>
+        <span class="app-nav-label">Admin Messages</span>
+      </a>
+      <a href="#share-profile" class="app-nav-item" aria-label="Share Profile" aria-haspopup="menu" aria-expanded="false">
+        <span class="app-nav-icon app-nav-icon--share">
+          <i class="fa-solid fa-share-from-square" aria-hidden="true"></i>
+        </span>
+        <span class="app-nav-label">Share Profile</span>
+      </a>
+      <a href="ch-profile.html" class="app-nav-item" aria-label="Your profile" aria-haspopup="menu" aria-expanded="false">
+        <span class="app-nav-avatar">
+          <img src="assets/images/cchub/tt1.webp" alt="" width="52" height="52" />
+        </span>
+        <span class="app-nav-label">Profile</span>
+      </a>
+    </div>
+    <div class="app-nav-dropdown" id="appNavDropdown" hidden role="menu" aria-label="Account menu">
+      <a href="activity.html" class="app-nav-dropdown-item is-active" role="menuitem" data-nav-action="activity">
+        <span class="app-nav-dropdown-icon" aria-hidden="true"><i class="fa-solid fa-clock-rotate-left"></i></span>
+        <span>Activity</span>
+      </a>
+      <a href="#logout" class="app-nav-dropdown-item app-nav-dropdown-item--logout" role="menuitem" data-nav-action="logout">
+        <span class="app-nav-dropdown-icon" aria-hidden="true"><i class="fa-solid fa-right-from-bracket"></i></span>
+        <span>Logout</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Activity Section -->
+  <main class="activity-main" id="main-content">
+    <div class="activity-container">
+      <nav class="activity-breadcrumbs" aria-label="Breadcrumbs">
+        <a href="index.html#home"><i class="fa-solid fa-house"></i> Home</a>
+        <span class="sep"><i class="fa-solid fa-chevron-right"></i></span>
+        <a href="networking.html">Networking</a>
+        <span class="sep"><i class="fa-solid fa-chevron-right"></i></span>
+        <span class="current">My Activity</span>
+      </nav>
+
+      <div class="activity-layout-grid">
+        <!-- 1. Left Vertical Section (Sidebar Navigation) -->
+        <aside class="activity-sidebar" aria-label="Activity Categories">
+          <div class="activity-sidebar-card">
+            <h2 class="activity-sidebar-title">My Activity</h2>
+            <ul class="activity-tabs-list" role="tablist" aria-label="Activity Sections">
+              <li role="presentation">
+                <button
+                  type="button"
+                  class="activity-tab-btn is-active"
+                  id="tab-saved"
+                  role="tab"
+                  aria-selected="true"
+                  aria-controls="panel-saved"
+                  data-tab="saved"
+                  data-title="Saved Profiles"
+                  data-subtitle="Profiles you have bookmarked for quick access and collaboration."
+                >
+                  <span class="activity-tab-icon" aria-hidden="true">
+                    <i class="fa-solid fa-bookmark"></i>
+                  </span>
+                  <span class="activity-tab-label">Saved Profiles</span>
+                  <span class="activity-tab-badge" id="savedCountBadge">3</span>
+                </button>
+              </li>
+
+              <li role="presentation">
+                <button
+                  type="button"
+                  class="activity-tab-btn"
+                  id="tab-shared"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="panel-shared"
+                  data-tab="shared"
+                  data-title="Shared Profiles"
+                  data-subtitle="Profiles you have shared with other members and business groups."
+                >
+                  <span class="activity-tab-icon" aria-hidden="true">
+                    <i class="fa-solid fa-share-nodes"></i>
+                  </span>
+                  <span class="activity-tab-label">Shared Profiles</span>
+                  <span class="activity-tab-badge" id="sharedCountBadge">4</span>
+                </button>
+              </li>
+
+              <li role="presentation">
+                <button
+                  type="button"
+                  class="activity-tab-btn"
+                  id="tab-blocked"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="panel-blocked"
+                  data-tab="blocked"
+                  data-title="Blocked Profiles"
+                  data-subtitle="Members currently blocked from interacting with your profile."
+                >
+                  <span class="activity-tab-icon" aria-hidden="true">
+                    <i class="fa-solid fa-ban"></i>
+                  </span>
+                  <span class="activity-tab-label">Blocked Profiles</span>
+                  <span class="activity-tab-badge" id="blockedCountBadge">2</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </aside>
+
+        <!-- 2. Right Vertical Section (Main Tab Content) -->
+        <section class="activity-content" aria-labelledby="activitySectionTitle">
+          <div class="activity-content-card">
+            <div class="activity-content-header">
+              <div class="activity-header-info">
+                <h1 class="activity-section-title" id="activitySectionTitle">Saved Profiles</h1>
+                <p class="activity-section-subtitle" id="activitySectionSubtitle">
+                  Profiles you have bookmarked for quick access and collaboration.
+                </p>
+              </div>
+              <div class="activity-count-pill" id="activityHeaderBadge">
+                <i class="fa-solid fa-user-check"></i>
+                <span id="activityHeaderBadgeText">3 Saved Members</span>
+              </div>
+            </div>
+
+            <!-- Tab Panel 1: Saved Profiles (Default Active) -->
+            <div class="activity-tab-panel" id="panel-saved" role="tabpanel" aria-labelledby="tab-saved">
+              <ul class="profile-list" id="savedProfileList">
+                <li class="profile-card" data-profile-id="saved-1">
+                  <div class="profile-main">
+                    <img
+                      class="profile-avatar"
+                      src="assets/images/pr1.jpg"
+                      alt="Portrait of George Mathew"
+                      width="72"
+                      height="72"
+                    />
+                    <div class="profile-info">
+                      <h3 class="profile-name">
+                        George Mathew
+                        <i class="fa-solid fa-circle-check" title="Verified" aria-label="Verified"></i>
+                      </h3>
+                      <p class="profile-role">Civil Engineer</p>
+                      <p class="profile-bio">
+                        Passionate about contributing to society through ethical and sustainable design.
+                      </p>
+                      <p class="profile-status is-available">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        Available
+                      </p>
+                    </div>
+                  </div>
+                  <div class="profile-location">
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    <div>
+                      <strong>Kozhikode, Kerala</strong>
+                      <span>Kozhikode District</span>
+                    </div>
+                  </div>
+                  <div class="profile-contact">
+                    <a href="tel:+919876543210"><i class="fa-solid fa-phone" aria-hidden="true"></i> +91 98765 43210</a>
+                    <a href="mailto:arun.mathew@email.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i> arun.mathew@email.com</a>
+                    <div class="activity-action-wrap">
+                      <button type="button" class="profile-appointment">
+                        <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                        Need an appointment
+                      </button>
+                      <button type="button" class="activity-action-btn activity-action-btn--remove" data-action="unsave" data-name="George Mathew" title="Remove from saved">
+                        <i class="fa-solid fa-bookmark"></i> Saved
+                      </button>
+                    </div>
+                  </div>
+                  <a href="ch-profile.html" class="profile-open" aria-label="View George Mathew profile">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                  </a>
+                </li>
+
+                <li class="profile-card" data-profile-id="saved-2">
+                  <div class="profile-main">
+                    <img
+                      class="profile-avatar"
+                      src="assets/images/lr1.jpg"
+                      alt="Portrait of Dr. Meera Thomas"
+                      width="72"
+                      height="72"
+                    />
+                    <div class="profile-info">
+                      <h3 class="profile-name">
+                        Dr. Meera Thomas
+                        <i class="fa-solid fa-circle-check" title="Verified" aria-label="Verified"></i>
+                      </h3>
+                      <p class="profile-role">Physician & Health Consultant</p>
+                      <p class="profile-bio">
+                        Community health advocate offering family care and wellness guidance.
+                      </p>
+                      <p class="profile-status is-available">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        Available
+                      </p>
+                    </div>
+                  </div>
+                  <div class="profile-location">
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    <div>
+                      <strong>Ernakulam, Kerala</strong>
+                      <span>Ernakulam District</span>
+                    </div>
+                  </div>
+                  <div class="profile-contact">
+                    <a href="tel:+919812345678"><i class="fa-solid fa-phone" aria-hidden="true"></i> +91 98123 45678</a>
+                    <a href="mailto:meera.thomas@email.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i> meera.thomas@email.com</a>
+                    <div class="activity-action-wrap">
+                      <button type="button" class="profile-appointment">
+                        <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                        Need an appointment
+                      </button>
+                      <button type="button" class="activity-action-btn activity-action-btn--remove" data-action="unsave" data-name="Dr. Meera Thomas" title="Remove from saved">
+                        <i class="fa-solid fa-bookmark"></i> Saved
+                      </button>
+                    </div>
+                  </div>
+                  <a href="ch-other-profile.html" class="profile-open" aria-label="View Dr. Meera Thomas profile">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                  </a>
+                </li>
+
+                <li class="profile-card" data-profile-id="saved-3">
+                  <div class="profile-main">
+                    <img
+                      class="profile-avatar"
+                      src="assets/images/pr2.jpg"
+                      alt="Portrait of Mathew Varghese"
+                      width="72"
+                      height="72"
+                    />
+                    <div class="profile-info">
+                      <h3 class="profile-name">
+                        Mathew Varghese
+                        <i class="fa-solid fa-circle-check" title="Verified" aria-label="Verified"></i>
+                      </h3>
+                      <p class="profile-role">Chartered Accountant & Tax Auditor</p>
+                      <p class="profile-bio">
+                        Helping startups and businesses scale with corporate taxation and compliance.
+                      </p>
+                      <p class="profile-status is-available">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        Available
+                      </p>
+                    </div>
+                  </div>
+                  <div class="profile-location">
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    <div>
+                      <strong>Kozhikode, Kerala</strong>
+                      <span>Kozhikode District</span>
+                    </div>
+                  </div>
+                  <div class="profile-contact">
+                    <a href="tel:+919745123456"><i class="fa-solid fa-phone" aria-hidden="true"></i> +91 97451 23456</a>
+                    <a href="mailto:mathew.varghese@email.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i> mathew.varghese@email.com</a>
+                    <div class="activity-action-wrap">
+                      <button type="button" class="profile-appointment">
+                        <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                        Need an appointment
+                      </button>
+                      <button type="button" class="activity-action-btn activity-action-btn--remove" data-action="unsave" data-name="Mathew Varghese" title="Remove from saved">
+                        <i class="fa-solid fa-bookmark"></i> Saved
+                      </button>
+                    </div>
+                  </div>
+                  <a href="ch-other-profile.html" class="profile-open" aria-label="View Mathew Varghese profile">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Tab Panel 2: Shared Profiles -->
+            <div class="activity-tab-panel" id="panel-shared" role="tabpanel" aria-labelledby="tab-shared" hidden>
+              <ul class="profile-list" id="sharedProfileList">
+                <li class="profile-card" data-profile-id="shared-1">
+                  <div class="profile-main">
+                    <img
+                      class="profile-avatar"
+                      src="assets/images/lr2.jpg"
+                      alt="Portrait of Sarah Joseph"
+                      width="72"
+                      height="72"
+                    />
+                    <div class="profile-info">
+                      <h3 class="profile-name">
+                        Sarah Joseph
+                        <i class="fa-solid fa-circle-check" title="Verified" aria-label="Verified"></i>
+                      </h3>
+                      <p class="profile-role">Architect & Urban Designer</p>
+                      <p class="profile-bio">
+                        Modern sustainable architecture for residential and corporate establishments.
+                      </p>
+                      <span class="activity-meta-tag">
+                        <i class="fa-solid fa-share-nodes"></i> Shared on 24 Aug 2026
+                      </span>
+                    </div>
+                  </div>
+                  <div class="profile-location">
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    <div>
+                      <strong>Thrissur, Kerala</strong>
+                      <span>Thrissur District</span>
+                    </div>
+                  </div>
+                  <div class="profile-contact">
+                    <a href="tel:+919847112233"><i class="fa-solid fa-phone" aria-hidden="true"></i> +91 98471 12233</a>
+                    <a href="mailto:sarah.joseph@email.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i> sarah.joseph@email.com</a>
+                    <div class="activity-action-wrap">
+                      <button type="button" class="activity-action-btn activity-action-btn--share" data-action="reshare" data-name="Sarah Joseph">
+                        <i class="fa-solid fa-share-nodes"></i> Share Again
+                      </button>
+                    </div>
+                  </div>
+                  <a href="ch-other-profile.html" class="profile-open" aria-label="View Sarah Joseph profile">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                  </a>
+                </li>
+
+                <li class="profile-card" data-profile-id="shared-2">
+                  <div class="profile-main">
+                    <img
+                      class="profile-avatar"
+                      src="assets/images/cchub/pr2.jpg"
+                      alt="Portrait of Rahul Jose"
+                      width="72"
+                      height="72"
+                    />
+                    <div class="profile-info">
+                      <h3 class="profile-name">
+                        Rahul Jose
+                        <i class="fa-solid fa-circle-check" title="Verified" aria-label="Verified"></i>
+                      </h3>
+                      <p class="profile-role">Wealth Manager & Financial Planner</p>
+                      <p class="profile-bio">
+                        Portfolio management and business funding advisory across Kerala.
+                      </p>
+                      <span class="activity-meta-tag">
+                        <i class="fa-solid fa-share-nodes"></i> Shared on 20 Aug 2026
+                      </span>
+                    </div>
+                  </div>
+                  <div class="profile-location">
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    <div>
+                      <strong>Ernakulam, Kerala</strong>
+                      <span>Ernakulam District</span>
+                    </div>
+                  </div>
+                  <div class="profile-contact">
+                    <a href="tel:+919446556677"><i class="fa-solid fa-phone" aria-hidden="true"></i> +91 94465 56677</a>
+                    <a href="mailto:rahul.jose@email.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i> rahul.jose@email.com</a>
+                    <div class="activity-action-wrap">
+                      <button type="button" class="activity-action-btn activity-action-btn--share" data-action="reshare" data-name="Rahul Jose">
+                        <i class="fa-solid fa-share-nodes"></i> Share Again
+                      </button>
+                    </div>
+                  </div>
+                  <a href="ch-other-profile.html" class="profile-open" aria-label="View Rahul Jose profile">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                  </a>
+                </li>
+
+                <li class="profile-card" data-profile-id="shared-3">
+                  <div class="profile-main">
+                    <img
+                      class="profile-avatar"
+                      src="assets/images/tt6.jpg"
+                      alt="Portrait of Anoop Kuriakose"
+                      width="72"
+                      height="72"
+                    />
+                    <div class="profile-info">
+                      <h3 class="profile-name">
+                        Anoop Kuriakose
+                        <i class="fa-solid fa-circle-check" title="Verified" aria-label="Verified"></i>
+                      </h3>
+                      <p class="profile-role">Cloud Architect & IT Consultant</p>
+                      <p class="profile-bio">
+                        Enterprise software architecture and digital transformation advisor.
+                      </p>
+                      <span class="activity-meta-tag">
+                        <i class="fa-solid fa-share-nodes"></i> Shared on 16 Aug 2026
+                      </span>
+                    </div>
+                  </div>
+                  <div class="profile-location">
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    <div>
+                      <strong>Kannur, Kerala</strong>
+                      <span>Kannur District</span>
+                    </div>
+                  </div>
+                  <div class="profile-contact">
+                    <a href="tel:+919895001122"><i class="fa-solid fa-phone" aria-hidden="true"></i> +91 98950 01122</a>
+                    <a href="mailto:anoop.k@email.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i> anoop.k@email.com</a>
+                    <div class="activity-action-wrap">
+                      <button type="button" class="activity-action-btn activity-action-btn--share" data-action="reshare" data-name="Anoop Kuriakose">
+                        <i class="fa-solid fa-share-nodes"></i> Share Again
+                      </button>
+                    </div>
+                  </div>
+                  <a href="ch-other-profile.html" class="profile-open" aria-label="View Anoop Kuriakose profile">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                  </a>
+                </li>
+
+                <li class="profile-card" data-profile-id="shared-4">
+                  <div class="profile-main">
+                    <img
+                      class="profile-avatar"
+                      src="assets/images/cchub/pr1.jpg"
+                      alt="Portrait of Maria Thomas"
+                      width="72"
+                      height="72"
+                    />
+                    <div class="profile-info">
+                      <h3 class="profile-name">
+                        Maria Thomas
+                        <i class="fa-solid fa-circle-check" title="Verified" aria-label="Verified"></i>
+                      </h3>
+                      <p class="profile-role">HR Director & Talent Acquisition</p>
+                      <p class="profile-bio">
+                        Executive recruitment and organizational development specialist.
+                      </p>
+                      <span class="activity-meta-tag">
+                        <i class="fa-solid fa-share-nodes"></i> Shared on 10 Aug 2026
+                      </span>
+                    </div>
+                  </div>
+                  <div class="profile-location">
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    <div>
+                      <strong>Palakkad, Kerala</strong>
+                      <span>Palakkad District</span>
+                    </div>
+                  </div>
+                  <div class="profile-contact">
+                    <a href="tel:+919871239870"><i class="fa-solid fa-phone" aria-hidden="true"></i> +91 98712 39870</a>
+                    <a href="mailto:maria.t@email.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i> maria.t@email.com</a>
+                    <div class="activity-action-wrap">
+                      <button type="button" class="activity-action-btn activity-action-btn--share" data-action="reshare" data-name="Maria Thomas">
+                        <i class="fa-solid fa-share-nodes"></i> Share Again
+                      </button>
+                    </div>
+                  </div>
+                  <a href="ch-other-profile.html" class="profile-open" aria-label="View Maria Thomas profile">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Tab Panel 3: Blocked Profiles -->
+            <div class="activity-tab-panel" id="panel-blocked" role="tabpanel" aria-labelledby="tab-blocked" hidden>
+              <div class="activity-notice-banner">
+                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                <div>
+                  <strong>Blocked Members</strong>
+                  <p style="margin: 3px 0 0 0;">
+                    Blocked profiles cannot view your direct contact info, message you on CC Hub, or send appointment invitations.
+                  </p>
+                </div>
+              </div>
+
+              <ul class="profile-list" id="blockedProfileList">
+                <li class="profile-card profile-card--blocked" data-profile-id="blocked-1">
+                  <div class="profile-main">
+                    <img
+                      class="profile-avatar"
+                      src="assets/images/tt2.jpg"
+                      alt="Portrait of John Miller"
+                      width="72"
+                      height="72"
+                    />
+                    <div class="profile-info">
+                      <h3 class="profile-name">
+                        John Miller
+                      </h3>
+                      <p class="profile-role" style="color: #64748b;">Marketing Consultant</p>
+                      <p class="profile-bio">
+                        Commercial branding, influencer marketing, and digital outreach.
+                      </p>
+                      <span class="activity-meta-tag" style="background: #fee2e2; color: #b91c1c;">
+                        <i class="fa-solid fa-ban" style="color: #b91c1c;"></i> Blocked on 12 Aug 2026
+                      </span>
+                    </div>
+                  </div>
+                  <div class="profile-location">
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    <div>
+                      <strong>Kochi, Kerala</strong>
+                      <span>Ernakulam District</span>
+                    </div>
+                  </div>
+                  <div class="profile-contact">
+                    <div class="activity-action-wrap">
+                      <button type="button" class="activity-action-btn activity-action-btn--unblock" data-action="unblock" data-name="John Miller">
+                        <i class="fa-solid fa-lock-open"></i> Unblock Profile
+                      </button>
+                    </div>
+                  </div>
+                  <a href="javascript:void(0)" class="profile-open" style="opacity: 0.4; cursor: not-allowed;" aria-label="Profile blocked">
+                    <i class="fa-solid fa-ban" aria-hidden="true"></i>
+                  </a>
+                </li>
+
+                <li class="profile-card profile-card--blocked" data-profile-id="blocked-2">
+                  <div class="profile-main">
+                    <img
+                      class="profile-avatar"
+                      src="assets/images/pr3.jpg"
+                      alt="Portrait of Kevin Paul"
+                      width="72"
+                      height="72"
+                    />
+                    <div class="profile-info">
+                      <h3 class="profile-name">
+                        Kevin Paul
+                      </h3>
+                      <p class="profile-role" style="color: #64748b;">Import & Export Specialist</p>
+                      <p class="profile-bio">
+                        Cross-border wholesale commodities and logistics consulting.
+                      </p>
+                      <span class="activity-meta-tag" style="background: #fee2e2; color: #b91c1c;">
+                        <i class="fa-solid fa-ban" style="color: #b91c1c;"></i> Blocked on 05 Jul 2026
+                      </span>
+                    </div>
+                  </div>
+                  <div class="profile-location">
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    <div>
+                      <strong>Thrissur, Kerala</strong>
+                      <span>Thrissur District</span>
+                    </div>
+                  </div>
+                  <div class="profile-contact">
+                    <div class="activity-action-wrap">
+                      <button type="button" class="activity-action-btn activity-action-btn--unblock" data-action="unblock" data-name="Kevin Paul">
+                        <i class="fa-solid fa-lock-open"></i> Unblock Profile
+                      </button>
+                    </div>
+                  </div>
+                  <a href="javascript:void(0)" class="profile-open" style="opacity: 0.4; cursor: not-allowed;" aria-label="Profile blocked">
+                    <i class="fa-solid fa-ban" aria-hidden="true"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Messages Drawer Panel -->
+  <div class="msg-panel-root" id="messagesPanel" hidden>
+    <div class="msg-panel-backdrop" data-msg-close tabindex="-1" aria-hidden="true"></div>
+    <aside class="msg-panel" role="dialog" aria-modal="true" aria-labelledby="messages-panel-title">
+      <div class="msg-panel-view" id="msgListView">
+        <header class="msg-panel-header">
+          <h2 id="messages-panel-title">Messages</h2>
+          <button type="button" class="msg-panel-close" data-msg-close aria-label="Close messages">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </header>
+        <ul class="msg-list" id="msgConversationList" role="list">
+          <li>
+            <button type="button" class="msg-row" data-chat-id="vivek" data-name="Vivek Chembra" data-avatar="assets/images/cchub/tt2.jpg" data-status="Active 6m ago">
+              <span class="msg-avatar-wrap">
+                <img src="assets/images/cchub/tt2.jpg" alt="" width="56" height="56" />
+                <span class="msg-status-pip is-offline" aria-hidden="true"></span>
+              </span>
+              <span class="msg-row-main">
+                <span class="msg-row-top">
+                  <strong class="msg-sender">Vivek Chembra</strong>
+                  <time class="msg-time" datetime="2026-08-28T09:15">6m</time>
+                </span>
+                <span class="msg-snippet">Hi George, let us discuss the project schedule tomorrow.</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="msg-row" data-chat-id="jaleel" data-name="Jaleel Magalath" data-avatar="assets/images/cchub/tt3.webp" data-status="Active now" data-online="true">
+              <span class="msg-avatar-wrap">
+                <img src="assets/images/cchub/tt3.webp" alt="" width="56" height="56" />
+                <span class="msg-status-pip is-online" aria-hidden="true"></span>
+              </span>
+              <span class="msg-row-main">
+                <span class="msg-row-top">
+                  <strong class="msg-sender">Jaleel Magalath</strong>
+                  <time class="msg-time" datetime="2026-08-28T09:00">1h</time>
+                </span>
+                <span class="msg-snippet">Sent you the revised budget sheet for your review.</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="msg-row" data-chat-id="joseph" data-name="Joseph Mathew" data-avatar="assets/images/cchub/tt4.webp" data-status="Active 2d ago">
+              <span class="msg-avatar-wrap">
+                <img src="assets/images/cchub/tt4.webp" alt="" width="56" height="56" />
+                <span class="msg-status-pip is-offline" aria-hidden="true"></span>
+              </span>
+              <span class="msg-row-main">
+                <span class="msg-row-top">
+                  <strong class="msg-sender">Joseph Mathew</strong>
+                  <time class="msg-time" datetime="2026-08-26">2d</time>
+                </span>
+                <span class="msg-snippet">Aahaaa · 2d</span>
+              </span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="msg-panel-view" id="msgChatView" hidden>
+        <header class="msg-chat-header">
+          <button type="button" class="msg-chat-back" id="msgChatBackBtn" aria-label="Back to conversations">
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+          </button>
+          <div class="msg-chat-user">
+            <img id="msgChatAvatar" src="assets/images/cchub/tt2.jpg" alt="" width="40" height="40" />
+            <div>
+              <strong id="msgChatName">Vivek Chembra</strong>
+              <small id="msgChatStatus">Active 6m ago</small>
+            </div>
+          </div>
+          <button type="button" class="msg-panel-close" data-msg-close aria-label="Close messages">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </header>
+        <div class="msg-chat-body" id="msgChatBody" role="log" aria-live="polite"></div>
+        <form class="msg-compose" id="msgComposeForm" autocomplete="off">
+          <label class="msg-icon-btn" for="msgFileInput" title="Attach file or photo" aria-label="Attach file or photo">
+            <i class="fa-solid fa-paperclip" aria-hidden="true"></i>
+          </label>
+          <input type="file" id="msgFileInput" class="msg-file-input" accept="image/*,.pdf,.doc,.docx" />
+          <textarea id="msgInput" class="msg-textarea" rows="1" placeholder="Type a message..." required></textarea>
+          <button type="submit" class="msg-icon-btn is-send" aria-label="Send message">
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+          </button>
+        </form>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Toast for User Feedback -->
+  <div class="activity-toast" id="activityToast" role="status" aria-live="polite">
+    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+    <span id="activityToastText">Action completed successfully</span>
+  </div>
+
+  <!-- Site Footer (Reused from ch-profile.html) -->
+  <footer class="site-footer" id="footer">
+    <div class="footer-card">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand-inner">
+            <img src="assets/images/logo_full.png" alt="IBNCC" width="56" height="56" />
+            <div>
+              <strong class="footer-tagline">International Business Network <br> of Catholic Congress</strong>
+              <p>A global platform connecting Catholic entrepreneurs, professionals and organizations to collaborate,
+                trade and grow together.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-nav">
+          <h3>Navigate</h3>
+          <a href="index.html#home"><span>Home</span></a>
+          <a href="index.html#about"><span>About</span></a>
+          <a href="index.html#events"><span>Events</span></a>
+          <a href="networking.html"><span>Networking</span></a>
+          <a href="ch-trading.html"><span>Trading</span></a>
+        </div>
+
+        <div class="footer-connect">
+          <h3>Connect</h3>
+          <a href="mailto:ibncc26@gmail.com" class="footer-contact-link">
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+            <span>ibncc26@gmail.com</span>
+          </a>
+          <a href="tel:+10000000000" class="footer-contact-link">
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            <span>+91 9847030064</span>
+          </a>
+
+          <h3 class="footer-follow">Follow Us</h3>
+          <div class="socials" aria-label="Social links">
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
+            <a href="#" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <p class="footer-copy">&copy; 2026 IBNCC. All rights reserved.</p>
+        <div class="footer-design">
+          <a href="#">Designed By : Astraz Software solutions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
+  </button>
+
+  <!-- Scripts -->
+  <script src="js/script.js"></script>
+  <script src="js/cchub/ch-profile.js"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      // Tab Elements
+      const tabButtons = document.querySelectorAll(".activity-tab-btn");
+      const tabPanels = document.querySelectorAll(".activity-tab-panel");
+      const sectionTitle = document.getElementById("activitySectionTitle");
+      const sectionSubtitle = document.getElementById("activitySectionSubtitle");
+      const headerBadge = document.getElementById("activityHeaderBadge");
+      const headerBadgeText = document.getElementById("activityHeaderBadgeText");
+      const toast = document.getElementById("activityToast");
+      const toastText = document.getElementById("activityToastText");
+      let toastTimer = null;
+
+      function showToast(message, iconClass = "fa-circle-check") {
+        if (!toast || !toastText) return;
+        toastText.textContent = message;
+        const icon = toast.querySelector("i");
+        if (icon) {
+          icon.className = `fa-solid ${iconClass}`;
+        }
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000);
+      }
+
+      function updateCounts() {
+        const savedCount = document.querySelectorAll("#savedProfileList .profile-card").length;
+        const sharedCount = document.querySelectorAll("#sharedProfileList .profile-card").length;
+        const blockedCount = document.querySelectorAll("#blockedProfileList .profile-card").length;
+
+        const savedBadge = document.getElementById("savedCountBadge");
+        const sharedBadge = document.getElementById("sharedCountBadge");
+        const blockedBadge = document.getElementById("blockedCountBadge");
+
+        if (savedBadge) savedBadge.textContent = savedCount;
+        if (sharedBadge) sharedBadge.textContent = sharedCount;
+        if (blockedBadge) blockedBadge.textContent = blockedCount;
+
+        const activeTab = document.querySelector(".activity-tab-btn.is-active");
+        if (activeTab && headerBadgeText) {
+          const tabType = activeTab.getAttribute("data-tab");
+          if (tabType === "saved") {
+            headerBadgeText.textContent = `${savedCount} Saved Member${savedCount !== 1 ? "s" : ""}`;
+          } else if (tabType === "shared") {
+            headerBadgeText.textContent = `${sharedCount} Shared Profile${sharedCount !== 1 ? "s" : ""}`;
+          } else if (tabType === "blocked") {
+            headerBadgeText.textContent = `${blockedCount} Blocked Member${blockedCount !== 1 ? "s" : ""}`;
+          }
+        }
+      }
+
+      function switchTab(targetTabBtn) {
+        if (!targetTabBtn) return;
+        const tabKey = targetTabBtn.getAttribute("data-tab");
+        const title = targetTabBtn.getAttribute("data-title") || "My Activity";
+        const subtitle = targetTabBtn.getAttribute("data-subtitle") || "";
+
+        tabButtons.forEach((btn) => {
+          const isCurrent = btn === targetTabBtn;
+          btn.classList.toggle("is-active", isCurrent);
+          btn.setAttribute("aria-selected", isCurrent ? "true" : "false");
+        });
+
+        tabPanels.forEach((panel) => {
+          const panelId = panel.id;
+          if (panelId === `panel-${tabKey}`) {
+            panel.hidden = false;
+          } else {
+            panel.hidden = true;
+          }
+        });
+
+        if (sectionTitle) sectionTitle.textContent = title;
+        if (sectionSubtitle) sectionSubtitle.textContent = subtitle;
+
+        updateCounts();
+      }
+
+      tabButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          switchTab(btn);
+        });
+
+        btn.addEventListener("keydown", (e) => {
+          const btns = Array.from(tabButtons);
+          const index = btns.indexOf(btn);
+          let targetIndex = -1;
+
+          if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+            targetIndex = (index + 1) % btns.length;
+          } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+            targetIndex = (index - 1 + btns.length) % btns.length;
+          }
+
+          if (targetIndex !== -1) {
+            e.preventDefault();
+            btns[targetIndex].focus();
+            switchTab(btns[targetIndex]);
+          }
+        });
+      });
+
+      // Actions: Unblock, Unsave, Re-share
+      document.addEventListener("click", (e) => {
+        // Unblock action
+        const unblockBtn = e.target.closest('[data-action="unblock"]');
+        if (unblockBtn) {
+          const name = unblockBtn.getAttribute("data-name") || "Member";
+          const card = unblockBtn.closest(".profile-card");
+          if (card) {
+            card.style.transition = "all 0.3s ease";
+            card.style.opacity = "0";
+            card.style.transform = "translateX(20px)";
+            setTimeout(() => {
+              card.remove();
+              updateCounts();
+              showToast(`${name} has been unblocked.`);
+            }, 300);
+          }
+          return;
+        }
+
+        // Unsave action
+        const unsaveBtn = e.target.closest('[data-action="unsave"]');
+        if (unsaveBtn) {
+          const name = unsaveBtn.getAttribute("data-name") || "Member";
+          const card = unsaveBtn.closest(".profile-card");
+          if (card) {
+            card.style.transition = "all 0.3s ease";
+            card.style.opacity = "0";
+            card.style.transform = "scale(0.96)";
+            setTimeout(() => {
+              card.remove();
+              updateCounts();
+              showToast(`${name} removed from saved profiles.`);
+            }, 300);
+          }
+          return;
+        }
+
+        // Reshare action
+        const reshareBtn = e.target.closest('[data-action="reshare"]');
+        if (reshareBtn) {
+          const name = reshareBtn.getAttribute("data-name") || "Member";
+          showToast(`Profile link for ${name} copied to clipboard!`, "fa-share-nodes");
+          return;
+        }
+      });
+
+      updateCounts();
+    })();
+  </script>
+</body>
+</html>
