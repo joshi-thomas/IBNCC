@@ -578,14 +578,15 @@
     }
 
     /* ----------------------------------------------------
-       Address Change Dialog Modal
+       Address Selection Dialog Modals (<div class="pay-dialog-card">)
+       Matching Reference Images 1 & 2
        ---------------------------------------------------- */
     .pay-dialog {
       border: none;
       border-radius: 20px;
       padding: 0;
       background: transparent;
-      max-width: 540px;
+      max-width: 620px;
       width: calc(100% - 2rem);
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
       margin: auto;
@@ -600,7 +601,7 @@
       background: #fffdf9;
       border: 1px solid rgba(212, 167, 55, 0.35);
       border-radius: 20px;
-      padding: 32px 28px;
+      padding: 28px 24px 30px;
       position: relative;
     }
 
@@ -619,6 +620,7 @@
       cursor: pointer;
       font-size: 0.9rem;
       transition: all 0.2s ease;
+      z-index: 2;
     }
 
     .pay-dialog-close:hover {
@@ -629,47 +631,162 @@
 
     .pay-dialog-title {
       font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
-      font-size: 1.45rem;
+      font-size: 1.48rem;
       font-weight: 700;
       color: var(--pay-primary);
-      margin: 0 0 6px 0;
+      margin: 0 0 16px 0;
+      line-height: 1.25;
     }
 
-    .pay-dialog-sub {
-      font-size: 0.86rem;
-      color: var(--pay-muted);
-      margin: 0 0 20px 0;
-      font-family: var(--font-body, "Outfit", sans-serif);
-    }
-
-    .pay-dialog-form {
+    /* Scrollable Address Options List */
+    .pay-dialog-addr-list {
       display: flex;
       flex-direction: column;
+      gap: 12px;
+      max-height: 250px;
+      overflow-y: auto;
+      padding-right: 6px;
+      margin-bottom: 22px;
+    }
+
+    .pay-dialog-addr-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .pay-dialog-addr-list::-webkit-scrollbar-track {
+      background: #f5eedf;
+      border-radius: 4px;
+    }
+
+    .pay-dialog-addr-list::-webkit-scrollbar-thumb {
+      background: #d4a737;
+      border-radius: 4px;
+    }
+
+    /* Address Option Card */
+    .addr-select-card {
+      display: flex;
+      align-items: flex-start;
       gap: 14px;
+      padding: 16px 18px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid rgba(212, 167, 55, 0.22);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .addr-select-card:hover {
+      border-color: var(--pay-gold);
+      background: #fffdf8;
+    }
+
+    .addr-select-card.is-selected {
+      border: 1.5px solid var(--pay-gold-border);
+      background: #fdf6e9;
+      box-shadow: 0 2px 10px rgba(201, 162, 39, 0.12);
+    }
+
+    /* Custom Radio Dot */
+    .addr-radio-outer {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #bda893;
+      background: #ffffff;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: grid;
+      place-items: center;
+      transition: all 0.2s ease;
+    }
+
+    .addr-select-card.is-selected .addr-radio-outer {
+      border-color: var(--pay-gold);
+    }
+
+    .addr-radio-inner {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--pay-gold);
+      display: none;
+    }
+
+    .addr-select-card.is-selected .addr-radio-inner {
+      display: block;
+    }
+
+    .addr-card-content {
+      flex: 1;
+      min-width: 0;
       font-family: var(--font-body, "Outfit", sans-serif);
     }
 
-    .form-row-2 {
+    .addr-card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--pay-primary);
+      margin: 0 0 3px 0;
+    }
+
+    .addr-card-line {
+      font-size: 0.9rem;
+      color: #6e5742;
+      margin: 0 0 2px 0;
+      line-height: 1.4;
+    }
+
+    .addr-card-phone {
+      font-size: 0.9rem;
+      color: #6e5742;
+      font-weight: 500;
+      margin: 4px 0 0 0;
+    }
+
+    /* Add New Address Section Inside Dialog */
+    .add-addr-section {
+      border-top: 1px solid rgba(212, 167, 55, 0.2);
+      padding-top: 18px;
+    }
+
+    .add-addr-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .add-addr-title {
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: 1.38rem;
+      font-weight: 700;
+      color: var(--pay-primary);
+      margin: 0;
+    }
+
+    .add-addr-form-box {
+      background: #ffffff;
+      border: 1px solid rgba(212, 167, 55, 0.25);
+      border-radius: 14px;
+      padding: 20px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-family: var(--font-body, "Outfit", sans-serif);
+    }
+
+    .addr-form-row-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 12px;
     }
 
-    .form-field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .form-field label {
-      font-size: 0.86rem;
-      font-weight: 600;
-      color: var(--pay-primary);
-    }
-
-    .form-field input {
+    .addr-input {
+      width: 100%;
       padding: 10px 14px;
-      border: 1px solid rgba(212, 167, 55, 0.3);
+      border: 1px solid #dfd3c3;
       border-radius: 8px;
       font-family: var(--font-body, "Outfit", sans-serif);
       font-size: 0.92rem;
@@ -677,48 +794,84 @@
       color: var(--pay-primary);
       outline: none;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      box-sizing: border-box;
     }
 
-    .form-field input:focus {
+    .addr-input:focus {
       border-color: var(--pay-gold);
       box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.15);
     }
 
-    .dialog-btn-row {
-      display: flex;
-      gap: 12px;
-      margin-top: 10px;
+    .addr-select-state {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #dfd3c3;
+      border-radius: 8px;
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 0.92rem;
+      background: #ffffff;
+      color: var(--pay-primary);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      box-sizing: border-box;
+      cursor: pointer;
     }
 
-    .btn-dialog-save {
+    .addr-select-state:focus {
+      border-color: var(--pay-gold);
+      box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.15);
+    }
+
+    /* Save & Cancel Pill Buttons (Matching Reference Image) */
+    .addr-dialog-btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .btn-save-addr {
       flex: 1;
-      padding: 11px 22px;
+      padding: 12px 28px;
       background: var(--pay-gold);
       color: #ffffff;
       border: none;
-      border-radius: 8px;
+      border-radius: 24px;
       font-family: var(--font-body, "Outfit", sans-serif);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
       cursor: pointer;
       transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(201, 162, 39, 0.25);
     }
 
-    .btn-dialog-save:hover {
+    .btn-save-addr:hover {
       background: var(--pay-gold-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(201, 162, 39, 0.35);
     }
 
-    .btn-dialog-cancel {
-      padding: 11px 22px;
-      background: #f1ebd8;
-      border: 1px solid rgba(212, 167, 55, 0.3);
-      color: var(--pay-primary);
+    .btn-cancel-addr {
+      flex: 1;
+      padding: 12px 28px;
+      background: #ffffff;
+      border: 1.5px solid #dfd3c3;
+      color: #6e5742;
+      border-radius: 24px;
       font-family: var(--font-body, "Outfit", sans-serif);
-      font-size: 0.9rem;
-      font-weight: 600;
-      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
       cursor: pointer;
       transition: all 0.2s ease;
+    }
+
+    .btn-cancel-addr:hover {
+      background: #fdf5e6;
+      border-color: var(--pay-gold);
+      color: var(--pay-gold-dark);
     }
 
     /* Toast Notification */
@@ -787,11 +940,12 @@
 
       .pay-address-card,
       .pay-summary-card,
-      .pay-methods-card {
+      .pay-methods-card,
+      .pay-dialog-card {
         padding: 18px 16px;
       }
 
-      .form-row-2 {
+      .addr-form-row-2 {
         grid-template-columns: 1fr;
       }
     }
@@ -2617,7 +2771,7 @@
                 </span>
                 <h2 class="pay-address-title" id="shippingAddressTitle">Shipping Address</h2>
               </div>
-              <button type="button" class="btn-change-addr" data-target-addr="shipping">Change</button>
+              <button type="button" class="btn-change-addr" id="btnChangeShippingAddr" data-target-addr="shipping">Change</button>
             </div>
 
             <div class="pay-address-inner-box">
@@ -2637,7 +2791,7 @@
                 </span>
                 <h2 class="pay-address-title" id="deliveryAddressTitle">Delivery Address</h2>
               </div>
-              <button type="button" class="btn-change-addr" data-target-addr="delivery">Change</button>
+              <button type="button" class="btn-change-addr" id="btnChangeDeliveryAddr" data-target-addr="delivery">Change</button>
             </div>
 
             <div class="pay-address-inner-box">
@@ -2786,55 +2940,205 @@
     </div>
   </main>
 
-  <!-- Change Address Dialog Modal -->
-  <dialog class="pay-dialog" id="changeAddressDialog" aria-labelledby="changeAddressTitle">
+  <!-- ========================================================
+       1. SEPARATE DELIVERY ADDRESS SELECTION DIALOG (<div class="pay-dialog-card">)
+       Matching Reference Images 1 & 2
+       ======================================================== -->
+  <dialog class="pay-dialog" id="deliveryAddressDialog" aria-labelledby="deliveryDialogTitle">
     <div class="pay-dialog-card">
-      <button type="button" class="pay-dialog-close" id="changeAddressClose" aria-label="Close dialog">
+      <button type="button" class="pay-dialog-close" id="deliveryDialogClose" aria-label="Close dialog">
         <i class="fa-solid fa-xmark" aria-hidden="true"></i>
       </button>
-      <h2 class="pay-dialog-title" id="changeAddressTitle">Update Address</h2>
-      <p class="pay-dialog-sub">Enter the updated address details below.</p>
       
-      <form class="pay-dialog-form" id="changeAddressForm">
-        <input type="hidden" id="targetAddrType" value="shipping" />
+      <h2 class="pay-dialog-title" id="deliveryDialogTitle">Select a delivery address</h2>
 
-        <div class="form-field">
-          <label for="inputAddrName">Customer / Recipient Name</label>
-          <input type="text" id="inputAddrName" required placeholder="Full Name" />
-        </div>
-
-        <div class="form-field">
-          <label for="inputAddrStreet">House / Building & Street Address</label>
-          <input type="text" id="inputAddrStreet" required placeholder="e.g. 123, Park Street, Apartment 4B" />
-        </div>
-
-        <div class="form-row-2">
-          <div class="form-field">
-            <label for="inputAddrCity">City</label>
-            <input type="text" id="inputAddrCity" required placeholder="e.g. Kolkata" />
+      <!-- Scrollable Existing Addresses List -->
+      <div class="pay-dialog-addr-list" id="deliveryAddressList" role="radiogroup" aria-label="Delivery Address Options">
+        <!-- Address Option 1 (Default Active / Selected) -->
+        <div class="addr-select-card is-selected" data-name="John Doe" data-street="123, Park Street, Apartment 4B" data-citystate="Kolkata, West Bengal 700016" data-phone="+91 98765 43210">
+          <div class="addr-radio-outer">
+            <div class="addr-radio-inner"></div>
           </div>
-          <div class="form-field">
-            <label for="inputAddrState">State</label>
-            <input type="text" id="inputAddrState" required placeholder="e.g. West Bengal" />
+          <div class="addr-card-content">
+            <p class="addr-card-name">John Doe</p>
+            <p class="addr-card-line">123, Park Street, Apartment 4B</p>
+            <p class="addr-card-line">Kolkata, West Bengal 700016</p>
+            <p class="addr-card-phone">Phone: +91 98765 43210</p>
           </div>
         </div>
 
-        <div class="form-row-2">
-          <div class="form-field">
-            <label for="inputAddrPin">PIN / ZIP Code</label>
-            <input type="text" id="inputAddrPin" required placeholder="e.g. 700016" />
+        <!-- Address Option 2 -->
+        <div class="addr-select-card" data-name="Priya Sharma" data-street="42, Lake View Residency, Flat 12A" data-citystate="Bandra West, Mumbai, Maharashtra 400050" data-phone="+91 98201 33456">
+          <div class="addr-radio-outer">
+            <div class="addr-radio-inner"></div>
           </div>
-          <div class="form-field">
-            <label for="inputAddrPhone">Phone Number</label>
-            <input type="tel" id="inputAddrPhone" required placeholder="e.g. +91 98765 43210" />
+          <div class="addr-card-content">
+            <p class="addr-card-name">Priya Sharma</p>
+            <p class="addr-card-line">42, Lake View Residency, Flat 12A</p>
+            <p class="addr-card-line">Bandra West, Mumbai, Maharashtra 400050</p>
+            <p class="addr-card-phone">Phone: +91 98201 33456</p>
           </div>
         </div>
 
-        <div class="dialog-btn-row">
-          <button type="submit" class="btn-dialog-save">SAVE & APPLY ADDRESS</button>
-          <button type="button" class="btn-dialog-cancel" id="changeAddressCancel">Cancel</button>
+        <!-- Address Option 3 -->
+        <div class="addr-select-card" data-name="David Wilson" data-street="56, Green Meadows, Whitefield" data-citystate="Bengaluru, Karnataka 560066" data-phone="+91 98450 12345">
+          <div class="addr-radio-outer">
+            <div class="addr-radio-inner"></div>
+          </div>
+          <div class="addr-card-content">
+            <p class="addr-card-name">David Wilson</p>
+            <p class="addr-card-line">56, Green Meadows, Whitefield</p>
+            <p class="addr-card-line">Bengaluru, Karnataka 560066</p>
+            <p class="addr-card-phone">Phone: +91 98450 12345</p>
+          </div>
         </div>
-      </form>
+      </div>
+
+      <!-- Add New Address Section -->
+      <div class="add-addr-section">
+        <div class="add-addr-header">
+          <h3 class="add-addr-title">Add New Address</h3>
+          <i class="fa-solid fa-xmark" style="color: #6e5742; font-size: 1.05rem; cursor: pointer;" id="deliveryAddCancelIcon" aria-hidden="true"></i>
+        </div>
+
+        <form class="add-addr-form-box" id="deliveryNewAddrForm">
+          <div class="addr-form-row-2">
+            <input type="text" class="addr-input" id="delivFirstName" placeholder="John" required />
+            <input type="text" class="addr-input" id="delivLastName" placeholder="Doe" required />
+          </div>
+
+          <input type="tel" class="addr-input" id="delivNewPhone" placeholder="+91 98765 43210" required />
+
+          <input type="text" class="addr-input" id="delivNewStreet" placeholder="123, Park Street, Apartment 4B" required />
+
+          <input type="text" class="addr-input" id="delivNewArea" placeholder="Kolkata, West Bengal 700016" required />
+
+          <div class="addr-form-row-2">
+            <input type="text" class="addr-input" id="delivNewPin" placeholder="Pincode" required />
+            <input type="text" class="addr-input" id="delivNewCity" placeholder="Town / City" required />
+          </div>
+
+          <select class="addr-select-state" id="delivNewState" required>
+            <option value="" disabled selected>Select State</option>
+            <option value="West Bengal">West Bengal</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+          </select>
+
+          <div class="addr-dialog-btn-row">
+            <button type="submit" class="btn-save-addr">SAVE ADDRESS</button>
+            <button type="button" class="btn-cancel-addr" id="deliveryDialogCancelBtn">CANCEL</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </dialog>
+
+  <!-- ========================================================
+       2. SEPARATE SHIPPING ADDRESS SELECTION DIALOG (<div class="pay-dialog-card">)
+       Matching Reference Images 1 & 2
+       ======================================================== -->
+  <dialog class="pay-dialog" id="shippingAddressDialog" aria-labelledby="shippingDialogTitle">
+    <div class="pay-dialog-card">
+      <button type="button" class="pay-dialog-close" id="shippingDialogClose" aria-label="Close dialog">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+      
+      <h2 class="pay-dialog-title" id="shippingDialogTitle">Select a shipping address</h2>
+
+      <!-- Scrollable Existing Addresses List -->
+      <div class="pay-dialog-addr-list" id="shippingAddressList" role="radiogroup" aria-label="Shipping Address Options">
+        <!-- Address Option 1 (Default Active / Selected) -->
+        <div class="addr-select-card is-selected" data-name="John Doe" data-street="123, Park Street, Apartment 4B" data-citystate="Kolkata, West Bengal 700016" data-phone="+91 98765 43210">
+          <div class="addr-radio-outer">
+            <div class="addr-radio-inner"></div>
+          </div>
+          <div class="addr-card-content">
+            <p class="addr-card-name">John Doe</p>
+            <p class="addr-card-line">123, Park Street, Apartment 4B</p>
+            <p class="addr-card-line">Kolkata, West Bengal 700016</p>
+            <p class="addr-card-phone">Phone: +91 98765 43210</p>
+          </div>
+        </div>
+
+        <!-- Address Option 2 -->
+        <div class="addr-select-card" data-name="Priya Sharma" data-street="42, Lake View Residency, Flat 12A" data-citystate="Bandra West, Mumbai, Maharashtra 400050" data-phone="+91 98201 33456">
+          <div class="addr-radio-outer">
+            <div class="addr-radio-inner"></div>
+          </div>
+          <div class="addr-card-content">
+            <p class="addr-card-name">Priya Sharma</p>
+            <p class="addr-card-line">42, Lake View Residency, Flat 12A</p>
+            <p class="addr-card-line">Bandra West, Mumbai, Maharashtra 400050</p>
+            <p class="addr-card-phone">Phone: +91 98201 33456</p>
+          </div>
+        </div>
+
+        <!-- Address Option 3 -->
+        <div class="addr-select-card" data-name="David Wilson" data-street="56, Green Meadows, Whitefield" data-citystate="Bengaluru, Karnataka 560066" data-phone="+91 98450 12345">
+          <div class="addr-radio-outer">
+            <div class="addr-radio-inner"></div>
+          </div>
+          <div class="addr-card-content">
+            <p class="addr-card-name">David Wilson</p>
+            <p class="addr-card-line">56, Green Meadows, Whitefield</p>
+            <p class="addr-card-line">Bengaluru, Karnataka 560066</p>
+            <p class="addr-card-phone">Phone: +91 98450 12345</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add New Address Section -->
+      <div class="add-addr-section">
+        <div class="add-addr-header">
+          <h3 class="add-addr-title">Add New Address</h3>
+          <i class="fa-solid fa-xmark" style="color: #6e5742; font-size: 1.05rem; cursor: pointer;" id="shippingAddCancelIcon" aria-hidden="true"></i>
+        </div>
+
+        <form class="add-addr-form-box" id="shippingNewAddrForm">
+          <div class="addr-form-row-2">
+            <input type="text" class="addr-input" id="shipFirstName" placeholder="John" required />
+            <input type="text" class="addr-input" id="shipLastName" placeholder="Doe" required />
+          </div>
+
+          <input type="tel" class="addr-input" id="shipNewPhone" placeholder="+91 98765 43210" required />
+
+          <input type="text" class="addr-input" id="shipNewStreet" placeholder="123, Park Street, Apartment 4B" required />
+
+          <input type="text" class="addr-input" id="shipNewArea" placeholder="Kolkata, West Bengal 700016" required />
+
+          <div class="addr-form-row-2">
+            <input type="text" class="addr-input" id="shipNewPin" placeholder="Pincode" required />
+            <input type="text" class="addr-input" id="shipNewCity" placeholder="Town / City" required />
+          </div>
+
+          <select class="addr-select-state" id="shipNewState" required>
+            <option value="" disabled selected>Select State</option>
+            <option value="West Bengal">West Bengal</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+          </select>
+
+          <div class="addr-dialog-btn-row">
+            <button type="submit" class="btn-save-addr">SAVE ADDRESS</button>
+            <button type="button" class="btn-cancel-addr" id="shippingDialogCancelBtn">CANCEL</button>
+          </div>
+        </form>
+      </div>
+
     </div>
   </dialog>
 
@@ -2853,9 +3157,9 @@
         <p style="margin: 0; color: #5c4733;"><strong>Order Status:</strong> Processing</p>
       </div>
 
-      <div class="dialog-btn-row" style="justify-content: center;">
-        <a href="my-account.html#orders" class="btn-dialog-save" style="text-decoration: none; text-align: center; display: inline-block;">VIEW ORDER IN ACCOUNT</a>
-        <a href="ch-trading.html" class="btn-dialog-cancel" style="text-decoration: none; text-align: center; display: inline-block;">CONTINUE SHOPPING</a>
+      <div class="dialog-btn-row" style="justify-content: center; display: flex; gap: 12px;">
+        <a href="my-account.html#orders" class="btn-save-addr" style="text-decoration: none; text-align: center; display: inline-block; flex: none;">VIEW ORDER IN ACCOUNT</a>
+        <a href="ch-trading.html" class="btn-cancel-addr" style="text-decoration: none; text-align: center; display: inline-block; flex: none;">CONTINUE SHOPPING</a>
       </div>
     </div>
   </dialog>
@@ -3295,96 +3599,162 @@
         setTimeout(() => toast.classList.remove("show"), 3200);
       }
 
-      // 2. Change Address Dialog Handling
-      const addrDialog = document.getElementById("changeAddressDialog");
-      const addrForm = document.getElementById("changeAddressForm");
-      const addrClose = document.getElementById("changeAddressClose");
-      const addrCancel = document.getElementById("changeAddressCancel");
-      const targetTypeInput = document.getElementById("targetAddrType");
-      const dialogTitle = document.getElementById("changeAddressTitle");
+      // 2. Setup Address Selection Dialogs
+      function setupAddressDialog(config) {
+        const dialog = document.getElementById(config.dialogId);
+        const openBtn = document.getElementById(config.openBtnId);
+        const closeBtn = document.getElementById(config.closeBtnId);
+        const cancelBtn = document.getElementById(config.cancelBtnId);
+        const cancelIcon = document.getElementById(config.cancelIconId);
+        const listContainer = document.getElementById(config.listId);
+        const form = document.getElementById(config.formId);
 
-      const changeBtns = document.querySelectorAll(".btn-change-addr");
+        if (!dialog) return;
 
-      changeBtns.forEach((btn) => {
-        btn.addEventListener("click", function () {
-          const type = this.getAttribute("data-target-addr"); // 'shipping' or 'delivery'
-          targetTypeInput.value = type;
+        // Open Dialog
+        if (openBtn) {
+          openBtn.addEventListener("click", function () {
+            dialog.showModal();
+          });
+        }
 
-          if (type === "shipping") {
-            dialogTitle.textContent = "Update Shipping Address";
-            document.getElementById("inputAddrName").value = document.getElementById("shipName").textContent.trim();
-            document.getElementById("inputAddrStreet").value = document.getElementById("shipStreet").textContent.trim();
-            
-            const cityStateZip = document.getElementById("shipCityState").textContent.trim();
-            const phoneText = document.getElementById("shipPhone").textContent.replace("Phone:", "").trim();
-            
-            // Extract components
-            const parts = cityStateZip.split(",");
-            document.getElementById("inputAddrCity").value = parts[0] ? parts[0].trim() : "Kolkata";
-            if (parts[1]) {
-              const stateParts = parts[1].trim().split(" ");
-              const zip = stateParts.pop();
-              document.getElementById("inputAddrState").value = stateParts.join(" ");
-              document.getElementById("inputAddrPin").value = zip || "700016";
-            }
-            document.getElementById("inputAddrPhone").value = phoneText;
-          } else {
-            dialogTitle.textContent = "Update Delivery Address";
-            document.getElementById("inputAddrName").value = document.getElementById("delivName").textContent.trim();
-            document.getElementById("inputAddrStreet").value = document.getElementById("delivStreet").textContent.trim();
-            
-            const cityStateZip = document.getElementById("delivCityState").textContent.trim();
-            const phoneText = document.getElementById("delivPhone").textContent.replace("Phone:", "").trim();
-            
-            const parts = cityStateZip.split(",");
-            document.getElementById("inputAddrCity").value = parts[0] ? parts[0].trim() : "Kolkata";
-            if (parts[1]) {
-              const stateParts = parts[1].trim().split(" ");
-              const zip = stateParts.pop();
-              document.getElementById("inputAddrState").value = stateParts.join(" ");
-              document.getElementById("inputAddrPin").value = zip || "700016";
-            }
-            document.getElementById("inputAddrPhone").value = phoneText;
-          }
+        // Close Dialog Helpers
+        function closeDialog() {
+          dialog.close();
+        }
 
-          addrDialog.showModal();
-        });
+        if (closeBtn) closeBtn.addEventListener("click", closeDialog);
+        if (cancelBtn) cancelBtn.addEventListener("click", closeDialog);
+        if (cancelIcon) cancelIcon.addEventListener("click", closeDialog);
+
+        // Click on Existing Address Options
+        if (listContainer) {
+          listContainer.addEventListener("click", function (e) {
+            const card = e.target.closest(".addr-select-card");
+            if (!card) return;
+
+            // Highlight selection
+            listContainer.querySelectorAll(".addr-select-card").forEach((c) => c.classList.remove("is-selected"));
+            card.classList.add("is-selected");
+
+            // Extract info
+            const name = card.getAttribute("data-name");
+            const street = card.getAttribute("data-street");
+            const citystate = card.getAttribute("data-citystate");
+            const phone = card.getAttribute("data-phone");
+
+            // Update main page card
+            document.getElementById(config.targetNameId).textContent = name;
+            document.getElementById(config.targetStreetId).textContent = street;
+            document.getElementById(config.targetCityStateId).textContent = citystate;
+            document.getElementById(config.targetPhoneId).textContent = phone.startsWith("Phone:") ? phone : "Phone: " + phone;
+
+            showToast(config.label + " selected successfully!");
+            setTimeout(closeDialog, 250);
+          });
+        }
+
+        // Add New Address Form Submit
+        if (form) {
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const firstName = document.getElementById(config.inputFirstNameId).value.trim();
+            const lastName = document.getElementById(config.inputLastNameId).value.trim();
+            const fullName = firstName + " " + lastName;
+            const phone = document.getElementById(config.inputPhoneId).value.trim();
+            const street = document.getElementById(config.inputStreetId).value.trim();
+            const area = document.getElementById(config.inputAreaId).value.trim();
+            const pin = document.getElementById(config.inputPinId).value.trim();
+            const city = document.getElementById(config.inputCityId).value.trim();
+            const state = document.getElementById(config.inputStateId).value.trim();
+
+            const cityStateStr = city + ", " + state + " " + pin;
+
+            // Create new address card in list
+            const newCard = document.createElement("div");
+            newCard.className = "addr-select-card is-selected";
+            newCard.setAttribute("data-name", fullName);
+            newCard.setAttribute("data-street", street);
+            newCard.setAttribute("data-citystate", cityStateStr);
+            newCard.setAttribute("data-phone", phone);
+
+            newCard.innerHTML = `
+              <div class="addr-radio-outer">
+                <div class="addr-radio-inner"></div>
+              </div>
+              <div class="addr-card-content">
+                <p class="addr-card-name">${fullName}</p>
+                <p class="addr-card-line">${street}</p>
+                <p class="addr-card-line">${cityStateStr}</p>
+                <p class="addr-card-phone">Phone: ${phone}</p>
+              </div>
+            `;
+
+            // Unselect others and prepend new card
+            listContainer.querySelectorAll(".addr-select-card").forEach((c) => c.classList.remove("is-selected"));
+            listContainer.prepend(newCard);
+
+            // Update main page card
+            document.getElementById(config.targetNameId).textContent = fullName;
+            document.getElementById(config.targetStreetId).textContent = street;
+            document.getElementById(config.targetCityStateId).textContent = cityStateStr;
+            document.getElementById(config.targetPhoneId).textContent = "Phone: " + phone;
+
+            form.reset();
+            showToast("New " + config.label.toLowerCase() + " saved and selected!");
+            closeDialog();
+          });
+        }
+      }
+
+      // Initialize Delivery Address Dialog
+      setupAddressDialog({
+        label: "Delivery Address",
+        dialogId: "deliveryAddressDialog",
+        openBtnId: "btnChangeDeliveryAddr",
+        closeBtnId: "deliveryDialogClose",
+        cancelBtnId: "deliveryDialogCancelBtn",
+        cancelIconId: "deliveryAddCancelIcon",
+        listId: "deliveryAddressList",
+        formId: "deliveryNewAddrForm",
+        targetNameId: "delivName",
+        targetStreetId: "delivStreet",
+        targetCityStateId: "delivCityState",
+        targetPhoneId: "delivPhone",
+        inputFirstNameId: "delivFirstName",
+        inputLastNameId: "delivLastName",
+        inputPhoneId: "delivNewPhone",
+        inputStreetId: "delivNewStreet",
+        inputAreaId: "delivNewArea",
+        inputPinId: "delivNewPin",
+        inputCityId: "delivNewCity",
+        inputStateId: "delivNewState"
       });
 
-      if (addrClose) addrClose.addEventListener("click", () => addrDialog.close());
-      if (addrCancel) addrCancel.addEventListener("click", () => addrDialog.close());
-
-      if (addrForm) {
-        addrForm.addEventListener("submit", function (e) {
-          e.preventDefault();
-          const type = targetTypeInput.value;
-          const name = document.getElementById("inputAddrName").value.trim();
-          const street = document.getElementById("inputAddrStreet").value.trim();
-          const city = document.getElementById("inputAddrCity").value.trim();
-          const state = document.getElementById("inputAddrState").value.trim();
-          const pin = document.getElementById("inputAddrPin").value.trim();
-          const phone = document.getElementById("inputAddrPhone").value.trim();
-
-          const cityStateStr = city + ", " + state + " " + pin;
-          const phoneStr = "Phone: " + phone;
-
-          if (type === "shipping") {
-            document.getElementById("shipName").textContent = name;
-            document.getElementById("shipStreet").textContent = street;
-            document.getElementById("shipCityState").textContent = cityStateStr;
-            document.getElementById("shipPhone").textContent = phoneStr;
-            showToast("Shipping address updated successfully!");
-          } else {
-            document.getElementById("delivName").textContent = name;
-            document.getElementById("delivStreet").textContent = street;
-            document.getElementById("delivCityState").textContent = cityStateStr;
-            document.getElementById("delivPhone").textContent = phoneStr;
-            showToast("Delivery address updated successfully!");
-          }
-
-          addrDialog.close();
-        });
-      }
+      // Initialize Shipping Address Dialog
+      setupAddressDialog({
+        label: "Shipping Address",
+        dialogId: "shippingAddressDialog",
+        openBtnId: "btnChangeShippingAddr",
+        closeBtnId: "shippingDialogClose",
+        cancelBtnId: "shippingDialogCancelBtn",
+        cancelIconId: "shippingAddCancelIcon",
+        listId: "shippingAddressList",
+        formId: "shippingNewAddrForm",
+        targetNameId: "shipName",
+        targetStreetId: "shipStreet",
+        targetCityStateId: "shipCityState",
+        targetPhoneId: "shipPhone",
+        inputFirstNameId: "shipFirstName",
+        inputLastNameId: "shipLastName",
+        inputPhoneId: "shipNewPhone",
+        inputStreetId: "shipNewStreet",
+        inputAreaId: "shipNewArea",
+        inputPinId: "shipNewPin",
+        inputCityId: "shipNewCity",
+        inputStateId: "shipNewState"
+      });
 
       // 3. Payment Method Radio Selection Styling
       const payOptionItems = document.querySelectorAll(".pay-option-item");
@@ -3403,9 +3773,6 @@
 
       if (payBtn && successDialog) {
         payBtn.addEventListener("click", function () {
-          const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked');
-          const methodVal = selectedMethod ? selectedMethod.value : "card";
-
           payBtn.disabled = true;
           payBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Processing Payment...';
 
