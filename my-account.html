@@ -27,33 +27,9 @@
 
   <style>
     /* ========================================================
-       My Account Page Styles — Matching Reference Images
+       My Account Page Styles — Color Scheme Matching activity.html
        ======================================================== */
     :root {
-      --acc-primary: #3b2a1a;
-      --acc-text: #5c4733;
-      --acc-muted: #806b56;
-      --acc-gold: #c9a027;
-      --acc-gold-dark: #a67c1e;
-      --acc-gold-light: #faeed2;
-      --acc-gold-border: #d4a737;
-      --acc-card-bg: #fffdf9;
-      --acc-border: rgba(212, 167, 55, 0.22);
-      --acc-radius: 20px;
-    }
-    /* :root {
-      --acc-primary: #0b1d36;
-      --acc-text: #142033;
-      --acc-muted: #5a6b82;
-      --acc-gold: #c9a027;
-      --acc-gold-dark: #a67c1e;
-      --acc-gold-light: #faeed2;
-      --acc-gold-border: #d4a737;
-      --acc-card-bg: #fffdf9;
-      --acc-border: rgba(212, 167, 55, 0.22);
-      --acc-radius: 20px;
-    } */
-    /* :root {
       --primary: #0b1d36;
       --primary-mid: #122a4a;
       --secondary: #1a4f9c;
@@ -67,24 +43,27 @@
       --muted: #5a6b82;
       --white: #ffffff;
       --border: rgba(15, 40, 80, 0.1);
+      --border-subtle: rgba(15, 40, 80, 0.07);
       --shadow: 0 18px 50px rgba(7, 17, 31, 0.12);
-      --radius: 22px;
-      --radius-sm: 14px;
+      --shadow-sm: 0 4px 20px rgba(7, 17, 31, 0.06);
+      --radius: 20px;
+      --radius-sm: 12px;
       --header-h: 78px;
       --font-display: "Cormorant Garamond", Georgia, serif;
       --font-sans: "DM Sans", system-ui, sans-serif;
       --font-body: "Manrope", system-ui, sans-serif;
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
-      --max: 1180px;
-    } */
+    }
 
     body.account-page {
       background:
-        radial-gradient(ellipse 70% 40% at 10% 0%, rgba(11, 42, 74, 0.04), transparent 50%),
-        linear-gradient(180deg, #fdf8f0 0%, #faf3ea 45%, #fdf8f0 100%);
+        radial-gradient(ellipse 70% 40% at 10% 0%, rgba(26, 79, 156, 0.06), transparent 50%),
+        linear-gradient(180deg, #f7fafc 0%, #edf3f8 45%, #f7fafc 100%);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      color: var(--text);
+      font-family: var(--font-body);
     }
 
     .account-main {
@@ -103,28 +82,28 @@
       align-items: center;
       gap: 8px;
       font-size: 0.86rem;
-      color: var(--acc-muted);
+      color: var(--muted);
       margin-bottom: 24px;
-      font-family: var(--font-body, "Outfit", sans-serif);
+      font-family: var(--font-sans);
     }
 
     .account-breadcrumbs a {
-      color: var(--acc-muted);
+      color: var(--muted);
       text-decoration: none;
       transition: color 0.2s ease;
     }
 
     .account-breadcrumbs a:hover {
-      color: var(--acc-gold-dark);
+      color: var(--royal);
     }
 
     .account-breadcrumbs .sep {
-      color: #b59f88;
+      color: #94a3b8;
       font-size: 0.7rem;
     }
 
     .account-breadcrumbs .current {
-      color: var(--acc-primary);
+      color: var(--primary);
       font-weight: 600;
     }
 
@@ -137,28 +116,28 @@
     }
 
     /* ----------------------------------------------------
-       Left Sidebar Section
+       Left Sidebar Section (Matching activity.html Scheme)
        ---------------------------------------------------- */
     .account-sidebar-card {
-      background: var(--acc-card-bg);
-      border: 1px solid var(--acc-border);
-      border-radius: var(--acc-radius);
-      box-shadow: 0 4px 20px rgba(110, 75, 20, 0.05);
-      padding: 28px 20px 24px;
+      /* background: var(--white); */
+      border-right: 2px solid var(--border);
+      /* border-radius: var(--radius); */
+      /* box-shadow: var(--shadow-sm); */
+      padding: 26px 18px 22px;
       position: sticky;
       top: calc(var(--header-h, 88px) + 20px);
     }
 
     .account-sidebar-title {
-      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-family: var(--font-display);
       font-size: 1.45rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--acc-primary);
-      margin: 0 0 18px 0;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--acc-border);
+      color: var(--primary);
+      margin: 0 0 16px 0;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
       text-align: center;
     }
 
@@ -175,50 +154,60 @@
       width: 100%;
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 12px 16px;
-      border-radius: 12px;
-      border: 1.5px solid transparent;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
       background: transparent;
-      color: var(--acc-text);
-      font-family: var(--font-body, "Outfit", system-ui, sans-serif);
-      font-size: 0.94rem;
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 0.92rem;
       font-weight: 500;
       text-align: left;
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.22s var(--ease);
       outline: none;
+      position: relative;
     }
 
     .account-nav-item:hover {
-      background: #fbf5e9;
-      color: var(--acc-gold-dark);
+      background: #eef5fb;
+      color: var(--royal);
       transform: translateX(2px);
     }
 
     .account-nav-item.is-active {
-      background: var(--acc-gold-light);
-      border-color: var(--acc-gold-border);
-      color: var(--acc-gold-dark);
+      background: #eef5fb;
+      color: var(--primary);
       font-weight: 700;
-      box-shadow: 0 2px 10px rgba(201, 162, 39, 0.12);
+      border-color: rgba(30, 91, 184, 0.25);
+      border-left: 4px solid var(--royal);
+      box-shadow: 0 2px 10px rgba(30, 91, 184, 0.08);
       transform: none;
     }
 
     .account-nav-icon {
-      width: 24px;
-      height: 24px;
+      width: 34px;
+      height: 34px;
       display: grid;
       place-items: center;
-      font-size: 1.05rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
       flex-shrink: 0;
-      color: var(--acc-gold);
-      transition: color 0.2s ease;
+      color: var(--muted);
+      background: #f1f5f9;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+
+    .account-nav-item:hover .account-nav-icon {
+      color: var(--royal);
+      background: #e0ecf8;
     }
 
     .account-nav-item.is-active .account-nav-icon {
-      color: var(--acc-gold-dark);
+      color: #2f6fdb;
+      background: #e8f1fb;
     }
 
     .account-nav-label {
@@ -231,49 +220,55 @@
 
     .account-nav-divider {
       height: 1px;
-      background: var(--acc-border);
+      background: var(--border);
       margin: 8px 0;
       list-style: none;
     }
 
     .account-nav-item--logout {
-      color: #99402e;
-    }
-
-    .account-nav-item--logout .account-nav-icon {
-      color: #b94b35;
-    }
-
-    .account-nav-item--logout:hover {
-      background: #fdf0ee;
       color: #b91c1c;
     }
 
+    .account-nav-item--logout .account-nav-icon {
+      color: #dc2626;
+      background: #fee2e2;
+    }
+
+    .account-nav-item--logout:hover {
+      background: #fef2f2;
+      color: #991b1b;
+    }
+
+    .account-nav-item--logout:hover .account-nav-icon {
+      background: #fecaca;
+      color: #7f1d1d;
+    }
+
     /* ----------------------------------------------------
-       Right Content Section
+       Right Content Section (Matching activity.html Scheme)
        ---------------------------------------------------- */
     .account-content-card {
-      background: var(--acc-card-bg);
-      border: 1px solid var(--acc-border);
-      border-radius: var(--acc-radius);
-      box-shadow: 0 6px 24px rgba(110, 75, 20, 0.06);
-      padding: 36px 40px 48px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      padding: 34px 38px 46px;
       min-width: 0;
     }
 
     .account-card-header {
       padding-bottom: 16px;
       margin-bottom: 28px;
-      border-bottom: 1px solid var(--acc-border);
+      border-bottom: 1px solid var(--border);
     }
 
     .account-section-title {
-      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-family: var(--font-display);
       font-size: clamp(1.5rem, 2.5vw, 1.95rem);
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: var(--acc-primary);
+      color: var(--primary);
       margin: 0;
       line-height: 1.25;
     }
@@ -284,7 +279,7 @@
     }
 
     .account-tab-panel {
-      animation: accountFadeIn 0.26s cubic-bezier(0.22, 1, 0.36, 1);
+      animation: accountFadeIn 0.28s var(--ease);
     }
 
     @keyframes accountFadeIn {
@@ -309,26 +304,26 @@
     .info-row {
       display: flex;
       align-items: center;
-      padding: 20px 0;
-      border-bottom: 1px solid rgba(212, 167, 55, 0.16);
-      font-family: var(--font-body, "Outfit", sans-serif);
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      font-family: var(--font-sans);
     }
 
     .info-row:first-child {
-      padding-top: 6px;
+      padding-top: 4px;
     }
 
     .info-label {
       min-width: 180px;
       font-weight: 700;
-      color: var(--acc-primary);
-      font-size: 0.96rem;
+      color: var(--primary);
+      font-size: 0.94rem;
       flex-shrink: 0;
     }
 
     .info-value {
-      color: var(--acc-text);
-      font-size: 0.96rem;
+      color: var(--text);
+      font-size: 0.94rem;
       flex: 1;
     }
 
@@ -343,55 +338,57 @@
       margin-top: 32px;
     }
 
-    /* Buttons */
+    /* Primary Solid Action Button (Royal / Navy Theme) */
     .btn-gold-solid {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       padding: 11px 26px;
-      background: var(--acc-gold);
+      background: var(--royal);
       color: #ffffff;
-      font-family: var(--font-body, "Outfit", sans-serif);
+      font-family: var(--font-sans);
       font-size: 0.88rem;
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(201, 162, 39, 0.22);
-      transition: all 0.22s ease;
+      box-shadow: 0 4px 14px rgba(30, 91, 184, 0.24);
+      transition: all 0.22s var(--ease);
       text-decoration: none;
     }
 
     .btn-gold-solid:hover {
-      background: var(--acc-gold-dark);
+      background: var(--secondary);
       transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(201, 162, 39, 0.32);
+      box-shadow: 0 6px 18px rgba(30, 91, 184, 0.32);
       color: #ffffff;
     }
 
+    /* Outline Secondary Button */
     .btn-outline-gold {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 16px;
-      border: 1.5px solid var(--acc-gold-border);
-      background: #fffdf8;
-      color: var(--acc-gold-dark);
-      font-family: var(--font-body, "Outfit", sans-serif);
+      padding: 7px 16px;
+      border: 1.5px solid rgba(26, 79, 156, 0.25);
+      background: #eef5fb;
+      color: var(--secondary);
+      font-family: var(--font-sans);
       font-size: 0.84rem;
       font-weight: 600;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
       transition: all 0.2s ease;
       text-decoration: none;
     }
 
     .btn-outline-gold:hover {
-      background: var(--acc-gold-light);
-      border-color: var(--acc-gold-dark);
+      background: var(--secondary);
+      border-color: var(--secondary);
+      color: #ffffff;
       transform: translateY(-1px);
     }
 
@@ -405,7 +402,7 @@
       margin-bottom: 24px;
       overflow-x: auto;
       padding-bottom: 6px;
-      border-bottom: 1px solid rgba(212, 167, 55, 0.16);
+      border-bottom: 1px solid var(--border);
     }
 
     .order-filter-btn {
@@ -413,9 +410,9 @@
       background: transparent;
       border: none;
       border-bottom: 3px solid transparent;
-      color: var(--acc-muted);
-      font-family: var(--font-body, "Outfit", sans-serif);
-      font-size: 0.94rem;
+      color: var(--muted);
+      font-family: var(--font-sans);
+      font-size: 0.92rem;
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
@@ -425,12 +422,12 @@
     }
 
     .order-filter-btn:hover {
-      color: var(--acc-gold-dark);
+      color: var(--royal);
     }
 
     .order-filter-btn.is-active {
-      color: var(--acc-gold-dark);
-      border-bottom-color: var(--acc-gold);
+      color: var(--secondary);
+      border-bottom-color: var(--royal);
       font-weight: 700;
     }
 
@@ -441,18 +438,18 @@
     }
 
     .order-card {
-      background: #ffffff;
-      border: 1px solid rgba(212, 167, 55, 0.2);
-      border-radius: 14px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
       padding: 20px 24px;
-      box-shadow: 0 2px 10px rgba(110, 75, 20, 0.04);
+      box-shadow: var(--shadow-sm);
       transition: all 0.2s ease;
     }
 
     .order-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(110, 75, 20, 0.08);
-      border-color: rgba(212, 167, 55, 0.4);
+      box-shadow: 0 8px 24px rgba(7, 17, 31, 0.08);
+      border-color: rgba(30, 91, 184, 0.25);
     }
 
     .order-card-head {
@@ -462,7 +459,7 @@
       gap: 12px;
       padding-bottom: 14px;
       margin-bottom: 14px;
-      border-bottom: 1px solid rgba(212, 167, 55, 0.12);
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .order-meta {
@@ -472,16 +469,16 @@
     }
 
     .order-id {
-      font-family: var(--font-body, "Outfit", sans-serif);
-      font-size: 1rem;
+      font-family: var(--font-sans);
+      font-size: 0.98rem;
       font-weight: 700;
-      color: var(--acc-primary);
+      color: var(--primary);
     }
 
     .order-date {
       font-size: 0.82rem;
-      color: var(--acc-muted);
-      font-family: var(--font-body, "Outfit", sans-serif);
+      color: var(--muted);
+      font-family: var(--font-sans);
     }
 
     .order-status-badge {
@@ -492,25 +489,25 @@
       border-radius: 999px;
       font-size: 0.8rem;
       font-weight: 600;
-      font-family: var(--font-body, "Outfit", sans-serif);
+      font-family: var(--font-sans);
     }
 
     .status--delivered {
-      background: #e6f7ec;
-      color: #166534;
-      border: 1px solid #bbf7d0;
+      background: #e7f6ea;
+      color: #15803d;
+      border: 1px solid rgba(46, 160, 67, 0.25);
     }
 
     .status--processing {
-      background: #fef3c7;
+      background: #fbf3d8;
       color: #b45309;
       border: 1px solid #fde68a;
     }
 
     .status--delivery {
-      background: #e0f2fe;
-      color: #0369a1;
-      border: 1px solid #bae6fd;
+      background: #e8f1fb;
+      color: #1e5bb8;
+      border: 1px solid rgba(30, 91, 184, 0.25);
     }
 
     .order-card-body {
@@ -524,34 +521,37 @@
       height: 72px;
       border-radius: 10px;
       object-fit: cover;
-      background: #f8f4ed;
-      border: 1px solid rgba(212, 167, 55, 0.2);
+      background: #f8fafc;
+      border: 1px solid var(--border);
       flex-shrink: 0;
     }
 
     .order-item-details {
       flex: 1;
       min-width: 0;
-      font-family: var(--font-body, "Outfit", sans-serif);
+      font-family: var(--font-body);
     }
 
     .order-item-title {
-      font-size: 1.02rem;
-      font-weight: 600;
-      color: var(--acc-primary);
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
       margin: 0 0 3px 0;
     }
 
     .order-item-qty {
       font-size: 0.82rem;
-      color: var(--acc-muted);
+      color: var(--muted);
       margin: 0 0 4px 0;
+      font-family: var(--font-sans);
     }
 
     .order-item-price {
-      font-size: 0.95rem;
+      font-size: 0.96rem;
       font-weight: 700;
-      color: var(--acc-gold-dark);
+      color: var(--secondary);
+      font-family: var(--font-sans);
       margin: 0;
     }
 
@@ -562,22 +562,22 @@
       gap: 16px;
       margin-top: 14px;
       padding-top: 12px;
-      border-top: 1px solid rgba(212, 167, 55, 0.12);
+      border-top: 1px solid var(--border-subtle);
     }
 
     .order-footnote {
       font-size: 0.84rem;
-      color: var(--acc-muted);
-      font-family: var(--font-body, "Outfit", sans-serif);
+      color: var(--muted);
+      font-family: var(--font-sans);
     }
 
     .order-arrow-btn {
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: #edd3a5;
-      color: #8a5a1e;
-      border: none;
+      background: #eef5fb;
+      color: var(--secondary);
+      border: 1px solid rgba(26, 79, 156, 0.15);
       display: grid;
       place-items: center;
       cursor: pointer;
@@ -587,8 +587,9 @@
     }
 
     .order-arrow-btn:hover {
-      background: #e2be82;
-      color: #613e11;
+      background: var(--secondary);
+      color: #ffffff;
+      border-color: var(--secondary);
       transform: translateX(2px);
     }
 
@@ -606,11 +607,11 @@
     }
 
     .address-card {
-      background: #ffffff;
-      border: 1px solid rgba(212, 167, 55, 0.22);
-      border-radius: 14px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
       padding: 22px 20px;
-      box-shadow: 0 2px 10px rgba(110, 75, 20, 0.04);
+      box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -619,8 +620,8 @@
 
     .address-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(110, 75, 20, 0.08);
-      border-color: rgba(212, 167, 55, 0.45);
+      box-shadow: 0 8px 24px rgba(7, 17, 31, 0.08);
+      border-color: rgba(30, 91, 184, 0.28);
     }
 
     .address-card-header {
@@ -628,46 +629,47 @@
       align-items: center;
       gap: 8px;
       margin-bottom: 12px;
-      font-family: var(--font-body, "Outfit", sans-serif);
+      font-family: var(--font-sans);
     }
 
     .address-pin-icon {
-      color: #3b2a1a;
+      color: var(--royal);
       font-size: 0.95rem;
     }
 
     .address-label-name {
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       font-weight: 700;
-      color: var(--acc-primary);
+      color: var(--primary);
     }
 
     .address-tag-default {
       margin-left: auto;
-      background: #fdf5e6;
-      color: var(--acc-gold-dark);
+      background: #eef5fb;
+      color: var(--secondary);
       font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       padding: 3px 9px;
       border-radius: 999px;
-      border: 1px solid rgba(212, 167, 55, 0.3);
+      border: 1px solid rgba(26, 79, 156, 0.2);
     }
 
     .address-card-body {
-      font-family: var(--font-body, "Outfit", sans-serif);
+      font-family: var(--font-body);
       font-size: 0.88rem;
-      color: var(--acc-text);
+      color: var(--text);
       line-height: 1.5;
       margin-bottom: 20px;
     }
 
     .address-user-name {
       font-weight: 700;
-      color: var(--acc-primary);
+      color: var(--primary);
       margin: 0 0 4px 0;
       font-size: 0.94rem;
+      font-family: var(--font-sans);
     }
 
     .address-line {
@@ -676,8 +678,9 @@
 
     .address-phone {
       margin: 6px 0 0 0;
-      color: var(--acc-primary);
+      color: var(--primary);
       font-weight: 600;
+      font-family: var(--font-sans);
     }
 
     .address-card-actions {
@@ -688,27 +691,28 @@
     .address-btn {
       flex: 1;
       padding: 8px 14px;
-      background: #fffdf8;
-      border: 1.5px solid var(--acc-gold-border);
-      color: var(--acc-gold-dark);
-      font-family: var(--font-body, "Outfit", sans-serif);
+      background: #eef5fb;
+      border: 1px solid rgba(26, 79, 156, 0.25);
+      color: var(--secondary);
+      font-family: var(--font-sans);
       font-size: 0.86rem;
       font-weight: 600;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
       text-align: center;
       transition: all 0.2s ease;
     }
 
     .address-btn:hover {
-      background: var(--acc-gold-light);
-      border-color: var(--acc-gold-dark);
+      background: var(--secondary);
+      color: #ffffff;
+      border-color: var(--secondary);
     }
 
     .address-btn--delete:hover {
-      background: #fdf0ee;
-      color: #b91c1c;
-      border-color: #fca5a5;
+      background: #fef2f2;
+      color: #dc2626;
+      border-color: #fecaca;
     }
 
     /* ----------------------------------------------------
@@ -722,12 +726,12 @@
     }
 
     .support-card {
-      background: #ffffff;
-      border: 1px solid rgba(212, 167, 55, 0.22);
-      border-radius: 14px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
       padding: 28px 24px;
       text-align: center;
-      box-shadow: 0 2px 10px rgba(110, 75, 20, 0.04);
+      box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -737,61 +741,61 @@
 
     .support-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(110, 75, 20, 0.08);
-      border-color: rgba(212, 167, 55, 0.45);
+      box-shadow: 0 8px 24px rgba(7, 17, 31, 0.08);
+      border-color: rgba(30, 91, 184, 0.28);
     }
 
     .support-icon {
-      font-size: 1.35rem;
-      color: var(--acc-gold);
+      font-size: 1.45rem;
+      color: var(--royal);
       margin-bottom: 10px;
     }
 
     .support-title {
-      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-family: var(--font-display);
       font-size: 1.2rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--acc-primary);
+      color: var(--primary);
       margin: 0 0 10px 0;
     }
 
     .support-link {
-      font-family: var(--font-body, "Outfit", sans-serif);
+      font-family: var(--font-sans);
       font-size: 1rem;
       font-weight: 600;
-      color: var(--acc-gold-dark);
+      color: var(--secondary);
       text-decoration: none;
       margin-bottom: 8px;
       transition: color 0.2s ease;
     }
 
     .support-link:hover {
-      color: #78530d;
+      color: var(--royal);
       text-decoration: underline;
     }
 
     .support-note {
-      font-family: var(--font-body, "Outfit", sans-serif);
+      font-family: var(--font-sans);
       font-size: 0.82rem;
-      color: var(--acc-muted);
+      color: var(--muted);
       margin: 0;
     }
 
     /* Contact Form Box */
     .contact-form-section {
-      background: #fdfaf4;
-      border: 1px solid rgba(212, 167, 55, 0.18);
-      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 16px;
       padding: 28px;
     }
 
     .contact-form-title {
-      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
-      font-size: 1.25rem;
+      font-family: var(--font-display);
+      font-size: 1.28rem;
       font-weight: 700;
-      color: var(--acc-primary);
+      color: var(--primary);
       margin: 0 0 18px 0;
     }
 
@@ -799,7 +803,7 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
-      font-family: var(--font-body, "Outfit", sans-serif);
+      font-family: var(--font-sans);
     }
 
     .form-row-2 {
@@ -817,19 +821,19 @@
     .form-field label {
       font-size: 0.86rem;
       font-weight: 600;
-      color: var(--acc-primary);
+      color: var(--primary);
     }
 
     .form-field input,
     .form-field textarea,
     .form-field select {
       padding: 10px 14px;
-      border: 1px solid rgba(212, 167, 55, 0.3);
+      border: 1px solid var(--border);
       border-radius: 8px;
-      font-family: var(--font-body, "Outfit", sans-serif);
+      font-family: var(--font-sans);
       font-size: 0.92rem;
       background: #ffffff;
-      color: var(--acc-primary);
+      color: var(--text);
       outline: none;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
@@ -837,8 +841,8 @@
     .form-field input:focus,
     .form-field textarea:focus,
     .form-field select:focus {
-      border-color: var(--acc-gold);
-      box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.15);
+      border-color: var(--royal);
+      box-shadow: 0 0 0 3px rgba(30, 91, 184, 0.12);
     }
 
     /* ----------------------------------------------------
@@ -851,18 +855,18 @@
       background: transparent;
       max-width: 520px;
       width: calc(100% - 2rem);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 25px 60px rgba(7, 17, 31, 0.3);
       margin: auto;
     }
 
     .account-dialog::backdrop {
-      background: rgba(14, 26, 40, 0.65);
+      background: rgba(7, 17, 31, 0.65);
       backdrop-filter: blur(4px);
     }
 
     .account-dialog-card {
-      background: #fffdf9;
-      border: 1px solid rgba(212, 167, 55, 0.35);
+      background: var(--white);
+      border: 1px solid var(--border);
       border-radius: 20px;
       padding: 32px 28px;
       position: relative;
@@ -875,9 +879,9 @@
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      border: 1px solid rgba(212, 167, 55, 0.3);
+      border: 1px solid var(--border);
       background: #ffffff;
-      color: var(--acc-muted);
+      color: var(--muted);
       display: grid;
       place-items: center;
       cursor: pointer;
@@ -886,24 +890,24 @@
     }
 
     .account-dialog-close:hover {
-      background: #fdf0ee;
+      background: #fef2f2;
       color: #b91c1c;
-      border-color: #fca5a5;
+      border-color: #fecaca;
     }
 
     .account-dialog-title {
-      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-family: var(--font-display);
       font-size: 1.45rem;
       font-weight: 700;
-      color: var(--acc-primary);
+      color: var(--primary);
       margin: 0 0 6px 0;
     }
 
     .account-dialog-sub {
       font-size: 0.86rem;
-      color: var(--acc-muted);
+      color: var(--muted);
       margin: 0 0 22px 0;
-      font-family: var(--font-body, "Outfit", sans-serif);
+      font-family: var(--font-sans);
     }
 
     .account-dialog-form {
@@ -920,10 +924,10 @@
 
     .btn-secondary {
       padding: 11px 22px;
-      background: #f1ebd8;
-      border: 1px solid rgba(212, 167, 55, 0.3);
-      color: var(--acc-primary);
-      font-family: var(--font-body, "Outfit", sans-serif);
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--font-sans);
       font-size: 0.88rem;
       font-weight: 600;
       border-radius: 8px;
@@ -932,7 +936,7 @@
     }
 
     .btn-secondary:hover {
-      background: #e6dfc8;
+      background: #e2e8f0;
     }
 
     /* Toast Notification */
@@ -941,20 +945,20 @@
       bottom: 28px;
       right: 28px;
       z-index: 10000;
-      background: var(--acc-primary);
+      background: var(--primary);
       color: #ffffff;
       padding: 14px 22px;
       border-radius: 12px;
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 12px 36px rgba(7, 17, 31, 0.25);
       display: flex;
       align-items: center;
       gap: 12px;
-      font-family: var(--font-body, "Outfit", sans-serif);
+      font-family: var(--font-sans);
       font-size: 0.9rem;
       font-weight: 500;
       transform: translateY(100px);
       opacity: 0;
-      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: all 0.3s var(--ease);
       pointer-events: none;
     }
 
@@ -964,7 +968,7 @@
     }
 
     .account-toast i {
-      color: var(--acc-gold);
+      color: var(--gold-bright);
       font-size: 1.1rem;
     }
 
