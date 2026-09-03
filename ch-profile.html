@@ -571,13 +571,34 @@
       scrollbar-width: thin;
       scrollbar-color: rgba(26, 79, 156, 0.25) transparent;
     }
+    .page-profile .msg-day-sep {
+      align-self: center;
+      margin: 0.35rem 0 0.15rem;
+      padding: 0.22rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+      box-shadow: 0 1px 4px rgba(7, 17, 31, 0.06);
+    }
     .page-profile .msg-bubble {
       max-width: 82%;
-      padding: 0.55rem 0.8rem;
+      padding: 0.55rem 0.8rem 0.4rem;
       border-radius: 16px;
       font-size: 0.86rem;
       line-height: 1.4;
       word-break: break-word;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .page-profile .msg-bubble-text {
+      margin: 0;
+      white-space: pre-wrap;
     }
     .page-profile .msg-bubble.is-in {
       align-self: flex-start;
@@ -593,10 +614,37 @@
       border-bottom-right-radius: 4px;
     }
     .page-profile .msg-bubble-meta {
-      display: block;
-      margin-top: 0.25rem;
-      font-size: 0.65rem;
-      opacity: 0.75;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.28rem;
+      margin-top: 0.08rem;
+      font-size: 0.68rem;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .page-profile .msg-bubble.is-in .msg-bubble-meta {
+      color: var(--muted);
+      opacity: 1;
+    }
+    .page-profile .msg-bubble.is-out .msg-bubble-meta {
+      color: rgba(255, 255, 255, 0.82);
+      opacity: 1;
+    }
+    .page-profile .msg-ticks {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.78rem;
+      line-height: 1;
+    }
+    .page-profile .msg-ticks.is-sent {
+      opacity: 0.82;
+    }
+    .page-profile .msg-ticks.is-delivered {
+      opacity: 0.95;
+    }
+    .page-profile .msg-ticks.is-read {
+      color: #9ae6ff;
     }
     .page-profile .msg-attach-preview {
       display: flex;
@@ -713,6 +761,12 @@
       .page-profile .msg-avatar-wrap {
         width: 50px;
         height: 50px;
+      }
+      .page-profile .msg-bubble {
+        max-width: 88%;
+      }
+      .page-profile .msg-day-sep {
+        font-size: 0.68rem;
       }
     }
   </style>

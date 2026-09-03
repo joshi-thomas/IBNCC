@@ -1008,39 +1008,53 @@
   const msgAttachPreview = document.getElementById("msgAttachPreview");
   const msgSendBtn = document.getElementById("msgSendBtn");
 
+  function atDaysAgo(days, hours, minutes) {
+    const d = new Date();
+    d.setSeconds(0, 0);
+    d.setMilliseconds(0);
+    d.setDate(d.getDate() - days);
+    d.setHours(hours, minutes, 0, 0);
+    return d.toISOString();
+  }
+
   const conversationThreads = {
     vivek: [
-      { text: "Hi George, hope you're doing well!", out: false },
-      { text: "Doing great, Vivek. How about you?", out: true },
-      { text: "All good. Are you joining the Kochi conclave?", out: false },
+      { text: "Hi George, hope you're doing well!", out: false, at: atDaysAgo(1, 9, 12) },
+      { text: "Doing great, Vivek. How about you?", out: true, at: atDaysAgo(1, 9, 18), status: "read" },
+      { text: "All good. Are you joining the Kochi conclave?", out: false, at: atDaysAgo(0, 10, 4) },
+      { text: "Yes — I'll be there on day one.", out: true, at: atDaysAgo(0, 10, 8), status: "delivered" },
     ],
     jaleel: [
-      { text: "Can we connect on the networking session?", out: false },
-      { text: "Absolutely — I'll be there after lunch.", out: true },
+      { text: "Can we connect on the networking session?", out: false, at: atDaysAgo(0, 11, 5) },
+      { text: "Absolutely — I'll be there after lunch.", out: true, at: atDaysAgo(0, 11, 12), status: "read" },
     ],
     joseph: [
-      { text: "Aahaaa", out: false },
+      { text: "Aahaaa", out: false, at: atDaysAgo(2, 16, 40) },
+      { text: "Haha, that was a great session!", out: true, at: atDaysAgo(2, 16, 48), status: "read" },
     ],
     bejois: [
-      { text: "Sending over the event flyer shortly.", out: false },
-      { text: "Please check the seating update as well.", out: false },
-      { text: "Thanks Bejois, received!", out: true },
+      { text: "Sending over the event flyer shortly.", out: false, at: atDaysAgo(5, 14, 10) },
+      { text: "Please check the seating update as well.", out: false, at: atDaysAgo(5, 14, 16) },
+      { text: "Thanks Bejois, received!", out: true, at: atDaysAgo(5, 14, 22), status: "read" },
+      { text: "Updated the guest list for today.", out: false, at: atDaysAgo(0, 8, 40) },
     ],
     anoop: [
-      { text: "Reacted 👍 to your message", out: false },
-      { text: "Looking forward to collaborating.", out: true },
+      { text: "Reacted 👍 to your message", out: false, at: atDaysAgo(7, 18, 20) },
+      { text: "Looking forward to collaborating.", out: true, at: atDaysAgo(7, 18, 28), status: "read" },
     ],
     maria: [
-      { text: "Looking forward to the conclave", out: false },
-      { text: "Same here — see you in Kochi!", out: true },
+      { text: "Looking forward to the conclave", out: false, at: atDaysAgo(3, 13, 5) },
+      { text: "Same here — see you in Kochi!", out: true, at: atDaysAgo(3, 13, 12), status: "read" },
     ],
     rahul: [
-      { text: "Quick question about the trading desk timings.", out: false },
+      { text: "Quick question about the trading desk timings.", out: false, at: atDaysAgo(0, 15, 20) },
+      { text: "We're open until 6 PM today.", out: true, at: atDaysAgo(0, 15, 24), status: "sent" },
     ],
   };
 
   let pendingFiles = [];
   let activeChatId = null;
+  let lastRenderedDayKey = null;
 
   function setMessagesOpen(open) {
     if (!messagesPanel || !openMessagesBtn) return;
@@ -1085,17 +1099,114 @@
     });
   }
 
-  function appendBubble(text, outgoing) {
+  function startOfDay(date) {
+    const d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+    return d;
+  }
+
+  function dayKey(date) {
+    const d = new Date(date);
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  }
+
+  function dateLabel(date) {
+    const target = startOfDay(date);
+    const today = startOfDay(new Date());
+    const diffDays = Math.round((today - target) / 86400000);
+    if (diffDays === 0) return "Today";
+    if (diffDays === 1) return "Yesterday";
+    return new Intl.DateTimeFormat("en-IN", {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      year: today.getFullYear() !== target.getFullYear() ? "numeric" : undefined,
+    }).format(target);
+  }
+
+  function timeLabel(date) {
+    return new Intl.DateTimeFormat("en-IN", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    }).format(new Date(date));
+  }
+
+  function tickIcon(status) {
+    return status === "sent" ? "fa-check" : "fa-check-double";
+  }
+
+  function tickAriaLabel(status) {
+    if (status === "read") return "Seen";
+    if (status === "delivered") return "Delivered";
+    return "Sent";
+  }
+
+  function appendDaySeparator(date) {
     if (!msgChatLog) return;
+    const sep = document.createElement("div");
+    sep.className = "msg-day-sep";
+    sep.setAttribute("role", "separator");
+    const time = document.createElement("time");
+    time.dateTime = dayKey(date);
+    time.textContent = dateLabel(date);
+    sep.appendChild(time);
+    msgChatLog.appendChild(sep);
+  }
+
+  function ensureDaySeparator(date) {
+    const key = dayKey(date);
+    if (lastRenderedDayKey === key) return;
+    appendDaySeparator(date);
+    lastRenderedDayKey = key;
+  }
+
+  function setTickStatus(ticks, status) {
+    if (!ticks) return;
+    ticks.className = `msg-ticks is-${status}`;
+    ticks.dataset.status = status;
+    ticks.title = tickAriaLabel(status);
+    ticks.setAttribute("aria-label", tickAriaLabel(status));
+    const icon = ticks.querySelector("i");
+    if (icon) {
+      icon.className = `fa-solid ${tickIcon(status)}`;
+    }
+  }
+
+  function appendBubble(text, outgoing, options = {}) {
+    if (!msgChatLog) return;
+    const when = options.at ? new Date(options.at) : new Date();
+    const status = outgoing ? (options.status || "sent") : null;
+
+    ensureDaySeparator(when);
+
     const bubble = document.createElement("div");
     bubble.className = `msg-bubble ${outgoing ? "is-out" : "is-in"}`;
-    bubble.textContent = text;
-    const meta = document.createElement("span");
+
+    const textEl = document.createElement("p");
+    textEl.className = "msg-bubble-text";
+    textEl.textContent = text;
+    bubble.appendChild(textEl);
+
+    const meta = document.createElement("div");
     meta.className = "msg-bubble-meta";
-    meta.textContent = outgoing ? "Just now" : "";
-    if (outgoing) bubble.appendChild(meta);
+
+    const timeEl = document.createElement("time");
+    timeEl.dateTime = when.toISOString();
+    timeEl.textContent = timeLabel(when);
+    meta.appendChild(timeEl);
+
+    if (outgoing) {
+      const ticks = document.createElement("span");
+      ticks.innerHTML = `<i class="fa-solid ${tickIcon(status)}" aria-hidden="true"></i>`;
+      setTickStatus(ticks, status);
+      meta.appendChild(ticks);
+    }
+
+    bubble.appendChild(meta);
     msgChatLog.appendChild(bubble);
     msgChatLog.scrollTop = msgChatLog.scrollHeight;
+    return bubble;
   }
 
   function openChatFromRow(row) {
@@ -1118,10 +1229,12 @@
 
     if (msgChatLog) {
       msgChatLog.innerHTML = "";
+      lastRenderedDayKey = null;
       const thread = conversationThreads[activeChatId] || [
-        { text: `Start a conversation with ${name}.`, out: false },
+        { text: `Start a conversation with ${name}.`, out: false, at: new Date().toISOString() },
       ];
-      thread.forEach((msg) => appendBubble(msg.text, msg.out));
+      conversationThreads[activeChatId] = thread;
+      thread.forEach((msg) => appendBubble(msg.text, msg.out, { at: msg.at, status: msg.status }));
     }
 
     window.requestAnimationFrame(() => msgChatInput?.focus());
@@ -1183,13 +1296,27 @@
     const hasFiles = pendingFiles.length > 0;
     if (!text && !hasFiles) return;
 
-    if (hasFiles) {
-      const names = pendingFiles.map((f) => f.name).join(", ");
-      appendBubble(text ? `${text}\n📎 ${names}` : `📎 ${names}`, true);
-      clearPendingFiles();
-    } else {
-      appendBubble(text, true);
-    }
+    const now = new Date();
+    const outgoingText = hasFiles
+      ? (text ? `${text}\n📎 ${pendingFiles.map((f) => f.name).join(", ")}` : `📎 ${pendingFiles.map((f) => f.name).join(", ")}`)
+      : text;
+
+    if (hasFiles) clearPendingFiles();
+
+    const thread = conversationThreads[activeChatId] || (conversationThreads[activeChatId] = []);
+    const outgoingMsg = { text: outgoingText, out: true, at: now.toISOString(), status: "sent" };
+    thread.push(outgoingMsg);
+    const bubble = appendBubble(outgoingText, true, { at: now.toISOString(), status: "sent" });
+    const ticks = bubble?.querySelector(".msg-ticks");
+
+    window.setTimeout(() => {
+      setTickStatus(ticks, "delivered");
+      outgoingMsg.status = "delivered";
+    }, 700);
+    window.setTimeout(() => {
+      setTickStatus(ticks, "read");
+      outgoingMsg.status = "read";
+    }, 1800);
 
     if (msgChatInput) {
       msgChatInput.value = "";
@@ -1198,8 +1325,11 @@
     }
 
     window.setTimeout(() => {
-      appendBubble("Thanks — I'll reply shortly.", false);
-    }, 700);
+      const replyAt = new Date();
+      const reply = { text: "Thanks — I'll reply shortly.", out: false, at: replyAt.toISOString() };
+      thread.push(reply);
+      appendBubble(reply.text, false, { at: reply.at });
+    }, 900);
   });
 
   /* ---------- App nav dropdown (Activity / Logout) ---------- */
