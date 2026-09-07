@@ -467,6 +467,14 @@
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
+.register-verify-btn[hidden],
+.register-verified-badge[hidden],
+.register-inline-otp[hidden],
+.register-inline-otp-demo[hidden],
+.register-inline-otp-msg[hidden] {
+  display: none !important;
+}
+
 .register-verify-btn:hover {
   background: #1d6fd8;
   color: #ffffff;
