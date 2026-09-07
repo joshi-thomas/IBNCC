@@ -862,7 +862,7 @@
         </span>
         <span class="app-nav-label">Messages</span>
       </a>
-      <a href="#admin-messages" class="app-nav-item" aria-label="Admin Messages, 5 unread" aria-haspopup="menu" aria-expanded="false">
+      <a href="#admin-messages" class="app-nav-item" id="openAdminMessagesBtn" aria-label="Admin Messages, 5 unread" aria-controls="adminMessagesDropdown" aria-haspopup="dialog" aria-expanded="false">
         <span class="app-nav-icon app-nav-icon--admin">
           <i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i>
           <span class="app-nav-badge" aria-hidden="true">5</span>
@@ -891,6 +891,119 @@
         <span class="app-nav-dropdown-icon" aria-hidden="true"><i class="fa-solid fa-right-from-bracket"></i></span>
         <span>Logout</span>
       </a>
+    </div>
+
+    <div class="admin-messages-dropdown" id="adminMessagesDropdown" hidden role="dialog" aria-labelledby="adminMessagesTitle">
+      <header class="admin-messages-header">
+        <div class="admin-messages-heading">
+          <span class="admin-messages-heading-icon" aria-hidden="true">
+            <i class="fa-solid fa-shield-halved"></i>
+          </span>
+          <div>
+            <h2 id="adminMessagesTitle">Admin Messages</h2>
+            <p class="admin-messages-subtitle">Official updates from IBNCC</p>
+          </div>
+        </div>
+        <span class="admin-messages-count" id="adminMessagesCount">5 new</span>
+      </header>
+
+      <ul class="admin-messages-list" id="adminMessagesList">
+        <li class="admin-message-item is-unread">
+          <div class="admin-message-avatar" aria-hidden="true">
+            <i class="fa-solid fa-user-shield"></i>
+          </div>
+          <div class="admin-message-body">
+            <div class="admin-message-meta">
+              <strong class="admin-message-sender">IBNCC Admin</strong>
+              <time datetime="2026-09-07T08:15:00">2h ago</time>
+            </div>
+            <p class="admin-message-subject">Global Business Conclave Reminder</p>
+            <p class="admin-message-text">
+              Reminder: The Global Business Conclave is scheduled for 13th September, 9 AM to 8 PM at Monsoon Empress Hotel, Kochi. Kindly arrive 30 minutes early for registration.
+            </p>
+          </div>
+        </li>
+
+        <li class="admin-message-item is-unread">
+          <div class="admin-message-avatar" aria-hidden="true">
+            <i class="fa-solid fa-user-shield"></i>
+          </div>
+          <div class="admin-message-body">
+            <div class="admin-message-meta">
+              <strong class="admin-message-sender">IBNCC Admin</strong>
+              <time datetime="2026-09-06T18:40:00">Yesterday</time>
+            </div>
+            <p class="admin-message-subject">Profile Verification Update</p>
+            <p class="admin-message-text">
+              Your profile verification documents have been reviewed. Please confirm your parish and diocese details under Personal Information to complete verification.
+            </p>
+          </div>
+        </li>
+
+        <li class="admin-message-item is-unread">
+          <div class="admin-message-avatar" aria-hidden="true">
+            <i class="fa-solid fa-user-shield"></i>
+          </div>
+          <div class="admin-message-body">
+            <div class="admin-message-meta">
+              <strong class="admin-message-sender">IBNCC Admin</strong>
+              <time datetime="2026-09-05T11:20:00">2d ago</time>
+            </div>
+            <p class="admin-message-subject">Networking Session Access</p>
+            <p class="admin-message-text">
+              You have been granted early access to the networking lounge. Explore saved and shared profiles from the Activity section before the conclave begins.
+            </p>
+          </div>
+        </li>
+
+        <li class="admin-message-item is-unread">
+          <div class="admin-message-avatar" aria-hidden="true">
+            <i class="fa-solid fa-user-shield"></i>
+          </div>
+          <div class="admin-message-body">
+            <div class="admin-message-meta">
+              <strong class="admin-message-sender">IBNCC Admin</strong>
+              <time datetime="2026-09-04T09:05:00">3d ago</time>
+            </div>
+            <p class="admin-message-subject">Trading Desk Guidelines</p>
+            <p class="admin-message-text">
+              New trading desk guidelines are now available. Review the updated terms for product listings, delivery timelines, and payment settlement before posting offers.
+            </p>
+          </div>
+        </li>
+
+        <li class="admin-message-item is-unread">
+          <div class="admin-message-avatar" aria-hidden="true">
+            <i class="fa-solid fa-user-shield"></i>
+          </div>
+          <div class="admin-message-body">
+            <div class="admin-message-meta">
+              <strong class="admin-message-sender">IBNCC Admin</strong>
+              <time datetime="2026-09-02T16:30:00">5d ago</time>
+            </div>
+            <p class="admin-message-subject">Welcome to CC Hub</p>
+            <p class="admin-message-text">
+              Welcome to the International Business Network of Catholic Congress. Stay connected for official announcements, event invites, and community updates from the admin team.
+            </p>
+          </div>
+        </li>
+
+        <li class="admin-message-item">
+          <div class="admin-message-avatar" aria-hidden="true">
+            <i class="fa-solid fa-user-shield"></i>
+          </div>
+          <div class="admin-message-body">
+            <div class="admin-message-meta">
+              <strong class="admin-message-sender">IBNCC Admin</strong>
+              <time datetime="2026-08-28T12:00:00">1w ago</time>
+            </div>
+            <p class="admin-message-subject">Account Security Notice</p>
+            <p class="admin-message-text">
+              For your security, never share OTPs or passwords with anyone. IBNCC admin will never ask for your login credentials through messages or phone calls.
+            </p>
+          </div>
+        </li>
+      </ul>
     </div>
   </nav>
 
