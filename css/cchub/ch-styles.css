@@ -3061,6 +3061,165 @@ button {
   flex-shrink: 0;
 }
 
+.register-verify-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.register-field--verify {
+  gap: 10px;
+}
+
+.register-verify-btn {
+  flex-shrink: 0;
+  align-self: center;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1.5px solid #1d6fd8;
+  background: #eef5ff;
+  color: #1d6fd8;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.register-verify-btn:hover {
+  background: #1d6fd8;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.register-verify-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.register-verified-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #e7f6ea;
+  color: #15803d;
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.register-inline-otp {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1.5px dashed rgba(29, 111, 216, 0.35);
+  background: #f7fbff;
+  animation: registerOtpIn 0.28s ease;
+}
+
+@keyframes registerOtpIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.register-inline-otp-hint {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--navy, #0b2a4a);
+}
+
+.register-inline-otp-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.register-inline-otp-input {
+  flex: 1;
+  min-width: 0;
+  height: 42px;
+  padding: 0 12px;
+  border: 1.5px solid #d5dde6;
+  border-radius: 10px;
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--navy, #0b2a4a);
+  outline: none;
+}
+
+.register-inline-otp-input:focus {
+  border-color: #1d6fd8;
+  box-shadow: 0 0 0 3px rgba(29, 111, 216, 0.14);
+}
+
+.register-otp-confirm {
+  flex-shrink: 0;
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: none;
+  background: #1d6fd8;
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.register-otp-confirm:hover {
+  background: #1557ad;
+  transform: translateY(-1px);
+}
+
+.register-inline-otp-demo {
+  margin: 8px 0 0;
+  font-size: 0.76rem;
+  color: var(--ink-soft, #4a5b6e);
+}
+
+.register-inline-otp-demo strong {
+  color: var(--navy, #0b2a4a);
+  letter-spacing: 0.08em;
+}
+
+.register-inline-otp-msg {
+  margin: 8px 0 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.register-inline-otp-msg.is-error {
+  color: #b91c1c;
+}
+
+.register-inline-otp-msg.is-success {
+  color: #15803d;
+}
+
+@media (max-width: 480px) {
+  .register-inline-otp-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .register-otp-confirm {
+    width: 100%;
+  }
+}
+
 .register-submit {
   margin-top: 6px;
 }

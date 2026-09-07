@@ -408,13 +408,205 @@
       document.getElementById("registerConfirm")?.focus();
       return;
     }
+
+    const phoneVerified = document.getElementById("registerPhoneField")?.dataset.verified === "true";
+    const emailValue = document.getElementById("registerEmail")?.value.trim() || "";
+    const emailVerified = document.getElementById("registerEmailField")?.dataset.verified === "true";
+
+    if (document.getElementById("registerPhoneVerifyBtn") && !phoneVerified) {
+      window.alert("Please verify your phone number before signing up.");
+      document.getElementById("registerPhone")?.focus();
+      return;
+    }
+
+    if (emailValue && document.getElementById("registerEmailVerifyBtn") && !emailVerified) {
+      window.alert("Please verify your email address before signing up.");
+      document.getElementById("registerEmail")?.focus();
+      return;
+    }
+
     saveAccount({
       name: document.getElementById("registerName")?.value || "",
       phone: document.getElementById("registerPhone")?.value || "",
-      email: document.getElementById("registerEmail")?.value || "",
+      email: emailValue,
       password,
     });
     closeDialog(registerModal);
+  });
+
+  /* ---------- Inline phone / email OTP verification (register form) ---------- */
+  function setupRegisterContactVerification(options) {
+    const {
+      type,
+      field,
+      input,
+      verifyBtn,
+      verifiedBadge,
+      otpPanel,
+      otpInput,
+      confirmBtn,
+      demoEl,
+      msgEl,
+      validate,
+      sentLabel,
+    } = options;
+
+    if (!field || !input || !verifyBtn || !otpPanel || !otpInput || !confirmBtn) return;
+
+    let pendingCode = "";
+    let verifiedValue = "";
+
+    function setMsg(text, kind) {
+      if (!msgEl) return;
+      if (!text) {
+        msgEl.hidden = true;
+        msgEl.textContent = "";
+        msgEl.classList.remove("is-error", "is-success");
+        return;
+      }
+      msgEl.hidden = false;
+      msgEl.textContent = text;
+      msgEl.classList.toggle("is-error", kind === "error");
+      msgEl.classList.toggle("is-success", kind === "success");
+    }
+
+    function showVerifyBtn() {
+      if (field.dataset.verified === "true") return;
+      verifyBtn.hidden = false;
+    }
+
+    function markVerified() {
+      field.dataset.verified = "true";
+      verifyBtn.hidden = true;
+      if (verifiedBadge) verifiedBadge.hidden = false;
+      otpPanel.hidden = true;
+      otpInput.value = "";
+      if (demoEl) demoEl.hidden = true;
+      setMsg("", "");
+      input.readOnly = true;
+    }
+
+    function resetVerification() {
+      field.dataset.verified = "false";
+      pendingCode = "";
+      verifiedValue = "";
+      input.readOnly = false;
+      if (verifiedBadge) verifiedBadge.hidden = true;
+      otpPanel.hidden = true;
+      otpInput.value = "";
+      if (demoEl) {
+        demoEl.hidden = true;
+        demoEl.textContent = "";
+      }
+      setMsg("", "");
+      verifyBtn.hidden = true;
+      verifyBtn.disabled = false;
+      verifyBtn.textContent = "Verify";
+    }
+
+    field.addEventListener("click", showVerifyBtn);
+    field.addEventListener("focusin", showVerifyBtn);
+
+    verifyBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const value = input.value.trim();
+      const error = validate(value);
+      if (error) {
+        input.setCustomValidity(error);
+        input.reportValidity();
+        input.focus();
+        return;
+      }
+      input.setCustomValidity("");
+
+      pendingCode = generateOtp();
+      verifiedValue = value;
+      otpPanel.hidden = false;
+      otpInput.value = "";
+      setMsg("", "");
+      if (demoEl) {
+        demoEl.hidden = false;
+        demoEl.innerHTML = `${sentLabel} <strong>${pendingCode}</strong>`;
+      }
+      verifyBtn.textContent = "Resend";
+      window.requestAnimationFrame(() => otpInput.focus());
+    });
+
+    input.addEventListener("input", () => {
+      input.setCustomValidity("");
+      if (field.dataset.verified === "true" && input.value.trim() !== verifiedValue) {
+        resetVerification();
+        showVerifyBtn();
+      }
+    });
+
+    confirmBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const entered = otpInput.value.replace(/\D/g, "");
+      if (entered.length !== 6) {
+        setMsg("Enter the complete 6-digit OTP.", "error");
+        otpInput.focus();
+        return;
+      }
+      if (entered !== pendingCode) {
+        setMsg("Incorrect OTP. Please try again.", "error");
+        otpInput.focus();
+        return;
+      }
+      setMsg(`${type === "phone" ? "Phone number" : "Email"} verified successfully.`, "success");
+      markVerified();
+    });
+
+    otpInput.addEventListener("input", () => {
+      otpInput.value = otpInput.value.replace(/\D/g, "").slice(0, 6);
+      setMsg("", "");
+    });
+
+    otpInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        confirmBtn.click();
+      }
+    });
+  }
+
+  setupRegisterContactVerification({
+    type: "phone",
+    field: document.getElementById("registerPhoneField"),
+    input: document.getElementById("registerPhone"),
+    verifyBtn: document.getElementById("registerPhoneVerifyBtn"),
+    verifiedBadge: document.getElementById("registerPhoneVerified"),
+    otpPanel: document.getElementById("registerPhoneOtpPanel"),
+    otpInput: document.getElementById("registerPhoneOtpInput"),
+    confirmBtn: document.getElementById("registerPhoneOtpConfirm"),
+    demoEl: document.getElementById("registerPhoneOtpDemo"),
+    msgEl: document.getElementById("registerPhoneOtpMsg"),
+    sentLabel: "Demo OTP sent to your phone:",
+    validate(value) {
+      const digits = normalizePhone(value);
+      if (digits.length < 10) return "Enter a valid phone number (at least 10 digits).";
+      return "";
+    },
+  });
+
+  setupRegisterContactVerification({
+    type: "email",
+    field: document.getElementById("registerEmailField"),
+    input: document.getElementById("registerEmail"),
+    verifyBtn: document.getElementById("registerEmailVerifyBtn"),
+    verifiedBadge: document.getElementById("registerEmailVerified"),
+    otpPanel: document.getElementById("registerEmailOtpPanel"),
+    otpInput: document.getElementById("registerEmailOtpInput"),
+    confirmBtn: document.getElementById("registerEmailOtpConfirm"),
+    demoEl: document.getElementById("registerEmailOtpDemo"),
+    msgEl: document.getElementById("registerEmailOtpMsg"),
+    sentLabel: "Demo OTP sent to your email:",
+    validate(value) {
+      if (!value) return "Enter an email address to verify.";
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return "Enter a valid email address.";
+      return "";
+    },
   });
 
   document.getElementById("otpForm")?.addEventListener("submit", verifyOtp);
