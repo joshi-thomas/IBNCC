@@ -65,4 +65,23 @@
   document.querySelector(".trading-page .search-bar")?.addEventListener("submit", (e) => {
     e.preventDefault();
   });
+
+  /* Trading / Marketplace mode tabs */
+  const modeTabs = Array.from(document.querySelectorAll(".trading-mode-tab"));
+  if (modeTabs.length) {
+    const initialTab = document.querySelector(".trading-mode-tab.is-active") || modeTabs[0];
+    document.body.dataset.tradingMode = initialTab?.dataset.mode || "marketplace";
+
+    modeTabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const mode = tab.dataset.mode || "marketplace";
+        modeTabs.forEach((item) => {
+          const active = item === tab;
+          item.classList.toggle("is-active", active);
+          item.setAttribute("aria-selected", active ? "true" : "false");
+        });
+        document.body.dataset.tradingMode = mode;
+      });
+    });
+  }
 })();
