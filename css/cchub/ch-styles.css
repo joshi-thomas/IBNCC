@@ -1503,6 +1503,51 @@ button {
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 
+.networking-location-group {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 12px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.networking-location-group .networking-location {
+  justify-self: auto;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.networking-profile-icon.app-nav-icon--profile,
+.networking-location-group .app-nav-icon--profile {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #e8f1fb;
+  color: #2f6fdb;
+  flex-shrink: 0;
+  text-decoration: none;
+  border: 1px solid rgba(47, 111, 219, 0.18);
+  box-shadow: 0 2px 8px rgba(11, 42, 74, 0.06);
+  transition: background var(--transition), color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.networking-profile-icon.app-nav-icon--profile i,
+.networking-location-group .app-nav-icon--profile i {
+  font-size: 1.15rem;
+}
+
+.networking-profile-icon.app-nav-icon--profile:hover,
+.networking-location-group .app-nav-icon--profile:hover {
+  background: #2f6fdb;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(47, 111, 219, 0.28);
+}
+
 .networking-location:hover {
   border-color: rgba(11, 42, 74, 0.28);
   box-shadow: var(--shadow-sm);
@@ -2394,6 +2439,11 @@ button {
     justify-self: stretch;
   }
 
+  .networking-location-group {
+    grid-column: 1 / -1;
+    justify-self: stretch;
+  }
+
   .networking-body {
     grid-template-columns: 280px minmax(0, 1fr);
   }
@@ -2603,6 +2653,11 @@ button {
 
   .networking-location {
     grid-column: auto;
+  }
+
+  .networking-location-group {
+    grid-column: auto;
+    width: 100%;
   }
 
   .profile-card {
