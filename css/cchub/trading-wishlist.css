@@ -1,0 +1,56 @@
+/* Trading wishlist — pl-card layout inside wishlist page chrome */
+
+.trading-wishlist-page .wishlist-grid .wishlist-card.pl-card {
+  overflow: visible;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: none;
+  border: 1px solid var(--border, rgba(11, 42, 74, 0.12));
+  background: var(--white, #fff);
+  gap: 8px;
+}
+
+.trading-wishlist-page .wishlist-grid .wishlist-card.pl-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md, 0 8px 24px rgba(11, 42, 74, 0.1));
+  border-color: rgba(11, 42, 74, 0.16);
+}
+
+.trading-wishlist-page .wishlist-grid .wishlist-card.pl-card.is-removing {
+  overflow: hidden;
+}
+
+.trading-wishlist-page .wishlist-card.pl-card .wishlist-remove-btn {
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  font-size: 0.82rem;
+  z-index: 3;
+}
+
+.trading-wishlist-page .wishlist-card.pl-card .wishlist-remove-btn:hover {
+  color: #c53030;
+  border-color: rgba(197, 48, 48, 0.3);
+}
+
+.trading-wishlist-page .wishlist-card.pl-card .pl-card-img-wrap {
+  margin-top: 0;
+}
+
+.trading-wishlist-page .wishlist-card.pl-card .pl-card-actions {
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.trading-wishlist-page .wishlist-card.pl-card .pl-card-actions .pl-btn-cart {
+  flex: 1 1 100%;
+  width: 100%;
+  max-width: none;
+}
+
+@media (max-width: 640px) {
+  .trading-wishlist-page .wishlist-card.pl-card .pl-card-actions .pl-btn-cart {
+    min-height: 42px;
+  }
+}
