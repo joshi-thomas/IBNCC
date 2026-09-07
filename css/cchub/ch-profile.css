@@ -424,6 +424,292 @@
   }
 }
 
+/* ---------- Share Profile Dropdown ---------- */
+
+.share-profile-dropdown[hidden] {
+  display: none !important;
+}
+
+.share-profile-dropdown {
+  position: absolute;
+  top: calc(100% - 2px);
+  left: 50%;
+  z-index: 1100;
+  width: min(400px, calc(100vw - 1.5rem));
+  max-height: min(460px, 72vh);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 1px solid rgba(15, 40, 80, 0.12);
+  box-shadow: 0 22px 48px rgba(7, 17, 31, 0.18);
+  animation: appNavDropdownIn 0.2s ease;
+}
+
+.share-profile-header {
+  padding: 0.95rem 1rem 0.75rem;
+  border-bottom: 1px solid rgba(15, 40, 80, 0.08);
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+  flex-shrink: 0;
+}
+
+.share-profile-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.share-profile-heading-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(26, 79, 156, 0.1);
+  color: #1a4f9c;
+  flex-shrink: 0;
+  font-size: 0.95rem;
+}
+
+.share-profile-heading h2 {
+  margin: 0;
+  font-family: var(--font-sans, "DM Sans", system-ui, sans-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0b1d36;
+  line-height: 1.2;
+}
+
+.share-profile-subtitle {
+  margin: 0.15rem 0 0;
+  font-size: 0.75rem;
+  color: #5a6b82;
+  font-family: var(--font-sans, "DM Sans", system-ui, sans-serif);
+}
+
+.share-profile-link-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem 0.35rem;
+}
+
+.share-profile-link {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 12px;
+  background: #f4f8fc;
+  border: 1px solid rgba(15, 40, 80, 0.1);
+  color: #1a4f9c;
+  text-decoration: none;
+  font-family: var(--font-sans, "DM Sans", system-ui, sans-serif);
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.share-profile-link:hover {
+  background: #eaf3fb;
+  border-color: rgba(26, 79, 156, 0.28);
+}
+
+.share-profile-link i {
+  flex-shrink: 0;
+  color: #1a4f9c;
+}
+
+.share-profile-link span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.share-profile-copy {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  border: 1px solid rgba(26, 79, 156, 0.2);
+  background: #eef5ff;
+  color: #1a4f9c;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.share-profile-copy:hover {
+  background: #1a4f9c;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.share-profile-copy.is-copied {
+  background: #e7f6ea;
+  border-color: rgba(46, 160, 67, 0.3);
+  color: #15803d;
+}
+
+.share-profile-copy-status {
+  margin: 0 1rem 0.35rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #15803d;
+  font-family: var(--font-sans, "DM Sans", system-ui, sans-serif);
+}
+
+.share-profile-copy-status[hidden] {
+  display: none !important;
+}
+
+.share-profile-search {
+  position: relative;
+  margin: 0.35rem 1rem 0.55rem;
+  flex-shrink: 0;
+}
+
+.share-profile-search > i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7a8a9a;
+  font-size: 0.82rem;
+  pointer-events: none;
+}
+
+.share-profile-search input {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px 0 36px;
+  border-radius: 12px;
+  border: 1.5px solid #d5dde6;
+  background: #ffffff;
+  font-family: var(--font-sans, "DM Sans", system-ui, sans-serif);
+  font-size: 0.86rem;
+  color: #0b1d36;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.share-profile-search input::placeholder {
+  color: #9aa6b4;
+}
+
+.share-profile-search input:focus {
+  border-color: #1a4f9c;
+  box-shadow: 0 0 0 3px rgba(26, 79, 156, 0.12);
+}
+
+.share-profile-results {
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem 0.55rem 0.7rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: min(240px, 42vh);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(26, 79, 156, 0.35) transparent;
+}
+
+.share-profile-results::-webkit-scrollbar {
+  width: 6px;
+}
+
+.share-profile-results::-webkit-scrollbar-thumb {
+  background: rgba(26, 79, 156, 0.3);
+  border-radius: 999px;
+}
+
+.share-profile-result {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 0.6rem;
+  border-radius: 12px;
+  cursor: default;
+  transition: background 0.2s ease;
+}
+
+.share-profile-result:hover {
+  background: rgba(26, 79, 156, 0.06);
+}
+
+.share-profile-result[hidden] {
+  display: none !important;
+}
+
+.share-profile-result img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #e8eef5;
+  border: 2px solid rgba(26, 79, 156, 0.1);
+}
+
+.share-profile-result-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.share-profile-result-copy strong {
+  font-family: var(--font-sans, "DM Sans", system-ui, sans-serif);
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #0b1d36;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.share-profile-result-copy em {
+  font-style: normal;
+  font-size: 0.74rem;
+  color: #5a6b82;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.share-profile-empty {
+  margin: 0 1rem 0.9rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 12px;
+  background: #f7fafc;
+  color: #5a6b82;
+  font-size: 0.8rem;
+  text-align: center;
+  font-family: var(--font-sans, "DM Sans", system-ui, sans-serif);
+}
+
+.share-profile-empty[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 640px) {
+  .share-profile-dropdown {
+    width: min(100vw - 1rem, 400px);
+    max-height: min(70vh, 480px);
+    left: 0.5rem !important;
+    right: 0.5rem;
+  }
+
+  .share-profile-results {
+    max-height: min(38vh, 240px);
+  }
+}
+
 /* ---------- Profile Main ---------- */
 
 .profile-main {

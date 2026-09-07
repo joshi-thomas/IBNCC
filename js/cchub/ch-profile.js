@@ -1332,14 +1332,24 @@
     }, 900);
   });
 
-  /* ---------- App nav dropdown (Account + Admin Messages) ---------- */
+  /* ---------- App nav dropdown (Account + Admin Messages + Share) ---------- */
 
   const appNav = document.querySelector(".app-nav");
   const appNavDropdown = document.getElementById("appNavDropdown");
   const adminMessagesDropdown = document.getElementById("adminMessagesDropdown");
+  const shareProfileDropdown = document.getElementById("shareProfileDropdown");
   const openAdminMessagesBtn = document.getElementById("openAdminMessagesBtn");
+  const openShareProfileBtn = document.getElementById("openShareProfileBtn");
+  const shareProfileLink = document.getElementById("shareProfileLink");
+  const shareProfileLinkText = document.getElementById("shareProfileLinkText");
+  const shareProfileCopyBtn = document.getElementById("shareProfileCopyBtn");
+  const shareProfileCopyStatus = document.getElementById("shareProfileCopyStatus");
+  const shareProfileSearch = document.getElementById("shareProfileSearch");
+  const shareProfileResults = document.getElementById("shareProfileResults");
+  const shareProfileEmpty = document.getElementById("shareProfileEmpty");
   const appNavItems = Array.from(document.querySelectorAll(".app-nav .app-nav-item"));
   let appNavDropdownAnchor = null;
+  let shareCopyTimer = 0;
 
   function setAppNavExpanded(item, expanded) {
     appNavItems.forEach((navItem) => {
@@ -1366,10 +1376,65 @@
     positionDropdownUnderItem(adminMessagesDropdown, item, 420);
   }
 
+  function positionShareProfileDropdown(item) {
+    positionDropdownUnderItem(shareProfileDropdown, item, 400);
+  }
+
+  function getShareProfileUrl() {
+    const path =
+      shareProfileDropdown?.dataset.profilePath ||
+      (document.body.classList.contains("page-other-profile")
+        ? "ch-other-profile.html"
+        : "ch-profile.html");
+    try {
+      return new URL(path, window.location.href).href;
+    } catch {
+      return path;
+    }
+  }
+
+  function syncShareProfileLink() {
+    const url = getShareProfileUrl();
+    if (shareProfileLink) shareProfileLink.href = url;
+    if (shareProfileLinkText) {
+      const short =
+        url.replace(/^https?:\/\//, "").length > 42
+          ? `${url.replace(/^https?:\/\//, "").slice(0, 39)}...`
+          : url.replace(/^https?:\/\//, "");
+      shareProfileLinkText.textContent = short;
+      shareProfileLinkText.title = url;
+    }
+  }
+
+  function filterShareProfileResults(query) {
+    if (!shareProfileResults) return;
+    const q = String(query || "").trim().toLowerCase();
+    let visible = 0;
+    shareProfileResults.querySelectorAll(".share-profile-result").forEach((item) => {
+      const name = (item.dataset.name || "").toLowerCase();
+      const role = (item.dataset.role || "").toLowerCase();
+      const text = item.textContent.toLowerCase();
+      const match = !q || name.includes(q) || role.includes(q) || text.includes(q);
+      item.hidden = !match;
+      if (match) visible += 1;
+    });
+    if (shareProfileEmpty) shareProfileEmpty.hidden = visible > 0;
+  }
+
   function closeAdminMessagesDropdown() {
     if (!adminMessagesDropdown) return;
     adminMessagesDropdown.hidden = true;
     if (openAdminMessagesBtn) openAdminMessagesBtn.setAttribute("aria-expanded", "false");
+  }
+
+  function closeShareProfileDropdown() {
+    if (!shareProfileDropdown) return;
+    shareProfileDropdown.hidden = true;
+    if (openShareProfileBtn) openShareProfileBtn.setAttribute("aria-expanded", "false");
+    if (shareProfileSearch) shareProfileSearch.value = "";
+    filterShareProfileResults("");
+    if (shareProfileCopyStatus) shareProfileCopyStatus.hidden = true;
+    shareProfileCopyBtn?.classList.remove("is-copied");
   }
 
   function closeAppNavDropdown() {
@@ -1382,11 +1447,13 @@
   function closeAllAppNavMenus() {
     closeAppNavDropdown();
     closeAdminMessagesDropdown();
+    closeShareProfileDropdown();
   }
 
   function openAppNavDropdown(item) {
     if (!appNavDropdown || !item) return;
     closeAdminMessagesDropdown();
+    closeShareProfileDropdown();
     if (typeof setMessagesOpen === "function") setMessagesOpen(false);
     appNavDropdown.hidden = false;
     appNavDropdownAnchor = item;
@@ -1400,10 +1467,24 @@
   function openAdminMessagesDropdown(item) {
     if (!adminMessagesDropdown || !item) return;
     closeAppNavDropdown();
+    closeShareProfileDropdown();
     if (typeof setMessagesOpen === "function") setMessagesOpen(false);
     adminMessagesDropdown.hidden = false;
     setAppNavExpanded(item, true);
     positionAdminMessagesDropdown(item);
+  }
+
+  function openShareProfileDropdown(item) {
+    if (!shareProfileDropdown || !item) return;
+    closeAppNavDropdown();
+    closeAdminMessagesDropdown();
+    if (typeof setMessagesOpen === "function") setMessagesOpen(false);
+    syncShareProfileLink();
+    filterShareProfileResults("");
+    shareProfileDropdown.hidden = false;
+    setAppNavExpanded(item, true);
+    positionShareProfileDropdown(item);
+    window.requestAnimationFrame(() => shareProfileSearch?.focus());
   }
 
   function toggleAppNavDropdown(item) {
@@ -1421,6 +1502,17 @@
       setAppNavExpanded(null, false);
     } else {
       openAdminMessagesDropdown(item);
+    }
+  }
+
+  function toggleShareProfileDropdown(item) {
+    if (!item) return;
+    const isOpen = shareProfileDropdown && !shareProfileDropdown.hidden;
+    if (isOpen) {
+      closeShareProfileDropdown();
+      setAppNavExpanded(null, false);
+    } else {
+      openShareProfileDropdown(item);
     }
   }
 
@@ -1443,6 +1535,18 @@
 
       if (item.id === "openAdminMessagesBtn") {
         toggleAdminMessagesDropdown(item);
+        return;
+      }
+
+      if (item.id === "openShareProfileBtn") {
+        toggleShareProfileDropdown(item);
+        return;
+      }
+
+      // Allow "Your Profile" on other-profile to navigate
+      if (item.getAttribute("href") === "ch-profile.html" && !item.classList.contains("is-active")) {
+        closeAllAppNavMenus();
+        window.location.href = "ch-profile.html";
         return;
       }
 
@@ -1472,20 +1576,71 @@
     e.stopPropagation();
   });
 
+  shareProfileDropdown?.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  shareProfileCopyBtn?.addEventListener("click", async () => {
+    const url = getShareProfileUrl();
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(url);
+      } else {
+        const temp = document.createElement("textarea");
+        temp.value = url;
+        temp.setAttribute("readonly", "");
+        temp.style.position = "absolute";
+        temp.style.left = "-9999px";
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand("copy");
+        temp.remove();
+      }
+      shareProfileCopyBtn.classList.add("is-copied");
+      const icon = shareProfileCopyBtn.querySelector("i");
+      if (icon) icon.className = "fa-solid fa-check";
+      if (shareProfileCopyStatus) {
+        shareProfileCopyStatus.hidden = false;
+        shareProfileCopyStatus.textContent = "Profile link copied";
+      }
+      window.clearTimeout(shareCopyTimer);
+      shareCopyTimer = window.setTimeout(() => {
+        shareProfileCopyBtn.classList.remove("is-copied");
+        if (icon) icon.className = "fa-regular fa-copy";
+        if (shareProfileCopyStatus) shareProfileCopyStatus.hidden = true;
+      }, 1800);
+    } catch {
+      if (shareProfileCopyStatus) {
+        shareProfileCopyStatus.hidden = false;
+        shareProfileCopyStatus.textContent = "Unable to copy link";
+      }
+    }
+  });
+
+  shareProfileSearch?.addEventListener("input", () => {
+    filterShareProfileResults(shareProfileSearch.value);
+  });
+
   document.addEventListener("click", (e) => {
     const clickedNav = e.target.closest(".app-nav-item");
     const clickedAccountMenu = e.target.closest("#appNavDropdown");
     const clickedAdminMenu = e.target.closest("#adminMessagesDropdown");
-    if (clickedNav || clickedAccountMenu || clickedAdminMenu) return;
+    const clickedShareMenu = e.target.closest("#shareProfileDropdown");
+    if (clickedNav || clickedAccountMenu || clickedAdminMenu || clickedShareMenu) return;
     closeAllAppNavMenus();
   });
 
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Escape") return;
     const adminOpen = adminMessagesDropdown && !adminMessagesDropdown.hidden;
+    const shareOpen = shareProfileDropdown && !shareProfileDropdown.hidden;
     const accountOpen = appNavDropdown && !appNavDropdown.hidden;
-    if (!adminOpen && !accountOpen) return;
-    const anchor = adminOpen ? openAdminMessagesBtn : appNavDropdownAnchor;
+    if (!adminOpen && !shareOpen && !accountOpen) return;
+    const anchor = adminOpen
+      ? openAdminMessagesBtn
+      : shareOpen
+        ? openShareProfileBtn
+        : appNavDropdownAnchor;
     closeAllAppNavMenus();
     anchor?.focus();
   });
@@ -1497,5 +1652,10 @@
     if (adminMessagesDropdown && !adminMessagesDropdown.hidden && openAdminMessagesBtn) {
       positionAdminMessagesDropdown(openAdminMessagesBtn);
     }
+    if (shareProfileDropdown && !shareProfileDropdown.hidden && openShareProfileBtn) {
+      positionShareProfileDropdown(openShareProfileBtn);
+    }
   });
+
+  syncShareProfileLink();
 })();

@@ -869,7 +869,7 @@
         </span>
         <span class="app-nav-label">Admin Messages</span>
       </a>
-      <a href="#share-profile" class="app-nav-item" aria-label="Share Profile" aria-haspopup="menu" aria-expanded="false">
+      <a href="#share-profile" class="app-nav-item" id="openShareProfileBtn" aria-label="Share Profile" aria-controls="shareProfileDropdown" aria-haspopup="dialog" aria-expanded="false">
         <span class="app-nav-icon app-nav-icon--share">
           <i class="fa-solid fa-share-from-square" aria-hidden="true"></i>
         </span>
@@ -1004,6 +1004,103 @@
           </div>
         </li>
       </ul>
+    </div>
+
+    <div
+      class="share-profile-dropdown"
+      id="shareProfileDropdown"
+      hidden
+      role="dialog"
+      aria-labelledby="shareProfileTitle"
+      data-profile-path="ch-profile.html"
+      data-profile-name="George Mathew"
+    >
+      <header class="share-profile-header">
+        <div class="share-profile-heading">
+          <span class="share-profile-heading-icon" aria-hidden="true">
+            <i class="fa-solid fa-share-nodes"></i>
+          </span>
+          <div>
+            <h2 id="shareProfileTitle">Share Profile</h2>
+            <p class="share-profile-subtitle">Copy the link or find a saved profile</p>
+          </div>
+        </div>
+      </header>
+
+      <div class="share-profile-link-row">
+        <a href="ch-profile.html" class="share-profile-link" id="shareProfileLink" title="Open profile link">
+          <i class="fa-solid fa-link" aria-hidden="true"></i>
+          <span id="shareProfileLinkText">ch-profile.html</span>
+        </a>
+        <button type="button" class="share-profile-copy" id="shareProfileCopyBtn" aria-label="Copy profile link" title="Copy link">
+          <i class="fa-regular fa-copy" aria-hidden="true"></i>
+        </button>
+      </div>
+      <p class="share-profile-copy-status" id="shareProfileCopyStatus" hidden aria-live="polite">Link copied</p>
+
+      <div class="share-profile-search">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <label class="visually-hidden" for="shareProfileSearch">Search saved profiles</label>
+        <input
+          type="search"
+          id="shareProfileSearch"
+          placeholder="Search saved profiles..."
+          autocomplete="off"
+        />
+      </div>
+
+      <ul class="share-profile-results" id="shareProfileResults" role="listbox" aria-label="Saved profiles">
+        <li class="share-profile-result" data-name="Vivek Chembra" data-role="Entrepreneur">
+          <img src="assets/images/cchub/tt2.jpg" alt="" width="36" height="36" />
+          <span class="share-profile-result-copy">
+            <strong>Vivek Chembra</strong>
+            <em>Entrepreneur · Kochi</em>
+          </span>
+        </li>
+        <li class="share-profile-result" data-name="Jaleel Magalath" data-role="Business Consultant">
+          <img src="assets/images/cchub/tt3.webp" alt="" width="36" height="36" />
+          <span class="share-profile-result-copy">
+            <strong>Jaleel Magalath</strong>
+            <em>Business Consultant · Kozhikode</em>
+          </span>
+        </li>
+        <li class="share-profile-result" data-name="Joseph Mathew" data-role="Architect">
+          <img src="assets/images/cchub/tt4.webp" alt="" width="36" height="36" />
+          <span class="share-profile-result-copy">
+            <strong>Joseph Mathew</strong>
+            <em>Architect · Thrissur</em>
+          </span>
+        </li>
+        <li class="share-profile-result" data-name="Bejois T Balan" data-role="Event Coordinator">
+          <img src="assets/images/cchub/tt5.webp" alt="" width="36" height="36" />
+          <span class="share-profile-result-copy">
+            <strong>Bejois T Balan</strong>
+            <em>Event Coordinator · Ernakulam</em>
+          </span>
+        </li>
+        <li class="share-profile-result" data-name="Anoop Kuriakose" data-role="Technology Lead">
+          <img src="assets/images/cchub/tt6.jpg" alt="" width="36" height="36" />
+          <span class="share-profile-result-copy">
+            <strong>Anoop Kuriakose</strong>
+            <em>Technology Lead · Bengaluru</em>
+          </span>
+        </li>
+        <li class="share-profile-result" data-name="Maria Thomas" data-role="Marketing Strategist">
+          <img src="assets/images/cchub/pr1.jpg" alt="" width="36" height="36" />
+          <span class="share-profile-result-copy">
+            <strong>Maria Thomas</strong>
+            <em>Marketing Strategist · Kochi</em>
+          </span>
+        </li>
+        <li class="share-profile-result" data-name="Rahul Jose" data-role="Trader">
+          <img src="assets/images/cchub/pr2.jpg" alt="" width="36" height="36" />
+          <span class="share-profile-result-copy">
+            <strong>Rahul Jose</strong>
+            <em>Trader · Alappuzha</em>
+          </span>
+        </li>
+      </ul>
+      <p class="share-profile-empty" id="shareProfileEmpty" hidden>No saved profiles match your search.</p>
     </div>
   </nav>
 
