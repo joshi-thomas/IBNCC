@@ -281,6 +281,80 @@
       font-weight: 600;
     }
 
+    /* Optional contact / message fields */
+    .pay-contact-card {
+      background: var(--pay-card-bg);
+      border: 1px solid var(--pay-border);
+      border-radius: var(--pay-radius);
+      box-shadow: 0 4px 20px rgba(7, 28, 51, 0.06);
+      padding: 24px 24px 22px;
+      transition: all 0.2s ease;
+    }
+
+    .pay-contact-card:hover {
+      border-color: rgba(26, 166, 214, 0.35);
+      box-shadow: 0 8px 24px rgba(7, 28, 51, 0.08);
+    }
+
+    .pay-contact-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pay-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .pay-field-label {
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--pay-primary);
+      margin: 0;
+    }
+
+    .pay-field-optional {
+      font-weight: 500;
+      color: var(--pay-muted);
+      font-size: 0.84rem;
+    }
+
+    .pay-field-input,
+    .pay-field-textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid rgba(11, 42, 74, 0.14);
+      border-radius: 10px;
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 0.94rem;
+      background: var(--pay-inner-bg);
+      color: var(--pay-primary);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      box-sizing: border-box;
+    }
+
+    .pay-field-input::placeholder,
+    .pay-field-textarea::placeholder {
+      color: var(--pay-muted);
+    }
+
+    .pay-field-input:focus,
+    .pay-field-textarea:focus {
+      border-color: var(--pay-gold);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(232, 185, 35, 0.18);
+    }
+
+    .pay-field-textarea {
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
     /* Payment Methods Card */
     .pay-methods-card {
       background: var(--pay-card-bg);
@@ -940,6 +1014,7 @@
       }
 
       .pay-address-card,
+      .pay-contact-card,
       .pay-summary-card,
       .pay-methods-card,
       .pay-dialog-card {
@@ -2800,6 +2875,50 @@
               <p class="pay-address-line" id="delivStreet">123, Park Street, Apartment 4B</p>
               <p class="pay-address-line" id="delivCityState">Kolkata, West Bengal 700016</p>
               <p class="pay-address-phone" id="delivPhone">Phone: +91 98765 43210</p>
+            </div>
+          </section>
+
+          <!-- Optional email & message -->
+          <section class="pay-contact-card" id="orderContactSection" aria-labelledby="orderContactTitle">
+            <div class="pay-address-head">
+              <div class="pay-address-title-group">
+                <span class="pay-address-icon-badge" aria-hidden="true">
+                  <i class="fa-regular fa-envelope"></i>
+                </span>
+                <h2 class="pay-address-title" id="orderContactTitle">Additional Details</h2>
+              </div>
+            </div>
+
+            <div class="pay-contact-fields">
+              <div class="pay-field">
+                <label class="pay-field-label" for="payEmailAddress">
+                  Email Address
+                  <span class="pay-field-optional">(Optional)</span>
+                </label>
+                <input
+                  type="email"
+                  id="payEmailAddress"
+                  name="email"
+                  class="pay-field-input"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  inputmode="email"
+                />
+              </div>
+
+              <div class="pay-field">
+                <label class="pay-field-label" for="payOrderMessage">
+                  Message
+                  <span class="pay-field-optional">(Optional)</span>
+                </label>
+                <textarea
+                  id="payOrderMessage"
+                  name="message"
+                  class="pay-field-textarea"
+                  rows="5"
+                  placeholder="Add delivery notes, special instructions, or a gift message…"
+                ></textarea>
+              </div>
             </div>
           </section>
 
