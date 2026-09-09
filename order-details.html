@@ -26,16 +26,16 @@
        Order Details Page Styles — Matching Reference Image
        ======================================================== */
     :root {
-      --ord-primary: #3b2a1a;
-      --ord-text: #5c4733;
-      --ord-muted: #806b56;
-      --ord-gold: #c9a027;
-      --ord-gold-dark: #a67c1e;
-      --ord-gold-light: #faeed2;
-      --ord-gold-border: #d4a737;
-      --ord-card-bg: #fffdf9;
-      --ord-outer-bg: #fdfbf7;
-      --ord-border: rgba(212, 167, 55, 0.22);
+      --ord-primary: var(--navy);
+      --ord-text: var(--ink);
+      --ord-muted: var(--ink-muted);
+      --ord-gold: var(--gold);
+      --ord-gold-dark: var(--gold-deep);
+      --ord-gold-light: var(--cream);
+      --ord-gold-border: var(--gold);
+      --ord-card-bg: var(--white);
+      --ord-outer-bg: var(--ivory);
+      --ord-border: var(--border);
       --ord-radius: 18px;
       --ord-font-display: "Cormorant Garamond", Georgia, serif;
       --ord-font-body: "Outfit", system-ui, -apple-system, sans-serif;
@@ -43,8 +43,9 @@
 
     body.order-details-page {
       background:
-        radial-gradient(ellipse 70% 40% at 10% 0%, rgba(11, 42, 74, 0.04), transparent 50%),
-        linear-gradient(180deg, #fdf8f0 0%, #faf3ea 45%, #fdf8f0 100%);
+        radial-gradient(ellipse 80% 50% at 10% -10%, rgba(11, 42, 74, 0.07), transparent 50%),
+        radial-gradient(ellipse 60% 40% at 90% 0%, rgba(26, 166, 214, 0.08), transparent 45%),
+        linear-gradient(180deg, var(--ivory) 0%, var(--cream) 40%, var(--ivory) 100%);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -83,7 +84,7 @@
     }
 
     .order-breadcrumbs .sep {
-      color: #b59f88;
+      color: var(--ink-muted);
       font-size: 0.7rem;
     }
 
@@ -104,7 +105,7 @@
       border-radius: var(--ord-radius);
       padding: 22px 28px;
       margin-bottom: 30px;
-      box-shadow: 0 4px 20px rgba(110, 75, 20, 0.04);
+      box-shadow: 0 4px 20px rgba(7, 28, 51, 0.06);
     }
 
     .order-header-left {
@@ -176,7 +177,7 @@
     }
 
     .btn-order-action--outline {
-      background: #fffdf9;
+      background: var(--white);
       border: 1.5px solid var(--ord-gold-border);
       color: var(--ord-gold-dark);
     }
@@ -194,7 +195,7 @@
     }
 
     .btn-order-action--solid:hover {
-      background: #271a0e;
+      background: var(--navy-deep);
       color: #ffffff;
       transform: translateY(-1px);
     }
@@ -211,19 +212,19 @@
 
     /* Column Card Wrapper */
     .order-col-card {
-      background: #fdfbf7;
-      border: 1px solid rgba(212, 167, 55, 0.22);
+      background: var(--ivory);
+      border: 1px solid rgba(11, 42, 74, 0.12);
       border-radius: var(--ord-radius);
       padding: 24px;
-      box-shadow: 0 4px 20px rgba(110, 75, 20, 0.04);
+      box-shadow: 0 4px 20px rgba(7, 28, 51, 0.06);
       display: flex;
       flex-direction: column;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .order-col-card:hover {
-      box-shadow: 0 8px 28px rgba(110, 75, 20, 0.08);
-      border-color: rgba(212, 167, 55, 0.4);
+      box-shadow: 0 8px 28px rgba(7, 28, 51, 0.08);
+      border-color: rgba(26, 166, 214, 0.35);
     }
 
     /* Section Title with Vertical Gold Bar */
@@ -254,7 +255,7 @@
        ---------------------------------------------------- */
     .product-details-inner {
       background: #ffffff;
-      border: 1px solid rgba(212, 167, 55, 0.14);
+      border: 1px solid rgba(11, 42, 74, 0.1);
       border-radius: 14px;
       padding: 20px 18px;
       display: flex;
@@ -267,13 +268,13 @@
     .product-img-wrapper {
       width: 100%;
       height: 220px;
-      background: #faf7f2;
+      background: var(--cream);
       border-radius: 12px;
       display: grid;
       place-items: center;
       overflow: hidden;
       margin-bottom: 18px;
-      border: 1px solid rgba(212, 167, 55, 0.12);
+      border: 1px solid rgba(11, 42, 74, 0.08);
     }
 
     .product-img-wrapper img {
@@ -304,7 +305,7 @@
       flex-direction: column;
       gap: 12px;
       padding-top: 10px;
-      border-top: 1px solid rgba(212, 167, 55, 0.12);
+      border-top: 1px solid rgba(11, 42, 74, 0.08);
     }
 
     .product-meta-row {
@@ -393,8 +394,8 @@
        3. Column 3: PAYMENT DETAILS
        ---------------------------------------------------- */
     .payment-details-inner {
-      background: #fff9eb;
-      border: 1px solid rgba(212, 167, 55, 0.25);
+      background: var(--cream);
+      border: 1px solid rgba(11, 42, 74, 0.14);
       border-radius: 14px;
       padding: 24px 22px;
       display: flex;
@@ -429,7 +430,7 @@
 
     .payment-divider {
       height: 1px;
-      background: rgba(212, 167, 55, 0.3);
+      background: rgba(11, 42, 74, 0.16);
       margin: 10px 0 16px;
     }
 
@@ -471,7 +472,7 @@
     .payment-meta-footer {
       margin-top: 18px;
       padding-top: 14px;
-      border-top: 1px dashed rgba(212, 167, 55, 0.28);
+      border-top: 1px dashed rgba(11, 42, 74, 0.15);
       font-size: 0.8rem;
       color: var(--ord-muted);
       line-height: 1.5;
@@ -484,7 +485,7 @@
       border: 1px solid var(--ord-border);
       border-radius: var(--ord-radius);
       padding: 28px 32px;
-      box-shadow: 0 4px 20px rgba(110, 75, 20, 0.04);
+      box-shadow: 0 4px 20px rgba(7, 28, 51, 0.06);
     }
 
     .order-secondary-title {

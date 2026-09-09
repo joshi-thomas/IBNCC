@@ -40,11 +40,11 @@
 }
 
 .trading-cart-page .pl-tier.is-active .pl-price {
-  color: var(--cart-primary, #3b2a1a);
+  color: var(--cart-primary, var(--navy, #0b2a4a));
 }
 
 .trading-cart-page .pl-tier.is-active .pl-tier-qty {
-  color: var(--cart-gold-dark, #a67c1e);
+  color: var(--cart-gold-dark, var(--gold-deep, #c9a017));
   font-weight: 600;
 }
 
@@ -59,10 +59,10 @@
   width: 64px;
   min-height: 32px;
   padding: 4px 6px;
-  border: 1px solid #d1c5b8;
+  border: 1px solid var(--border, rgba(11, 42, 74, 0.12));
   border-radius: 8px;
   background: #fff;
-  color: var(--cart-primary, #3b2a1a);
+  color: var(--cart-primary, var(--navy, #0b2a4a));
   font-family: var(--font-body, "Outfit", sans-serif);
   font-size: 0.95rem;
   font-weight: 600;
@@ -79,8 +79,8 @@
 }
 
 .trading-cart-page .cart-qty-input:focus {
-  border-color: var(--cart-gold, #c9a027);
-  box-shadow: 0 0 0 3px rgba(201, 160, 39, 0.18);
+  border-color: var(--cart-gold, var(--gold, #e8b923));
+  box-shadow: 0 0 0 3px rgba(26, 166, 214, 0.2);
 }
 
 @media (max-width: 720px) {
