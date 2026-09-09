@@ -946,6 +946,43 @@
       letter-spacing: 0.12em;
     }
 
+    .guest-otp-submit {
+      width: 100%;
+      margin-top: 4px;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--cyan), var(--navy));
+      color: #ffffff;
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+      box-shadow: 0 4px 14px rgba(11, 42, 74, 0.22);
+    }
+
+    .guest-otp-submit:hover {
+      background: linear-gradient(145deg, var(--cyan-soft), var(--navy-soft));
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(11, 42, 74, 0.28);
+    }
+
+    .guest-otp-submit:active {
+      transform: translateY(0);
+    }
+
+    .guest-otp-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     /* Scrollable Address Options List */
     .pay-dialog-addr-list {
       display: flex;
@@ -3552,6 +3589,9 @@
             autocomplete="one-time-code"
             maxlength="6"
           />
+          <button type="button" class="guest-otp-submit" id="guestOtpSubmit">
+            Submit
+          </button>
           <p class="guest-otp-demo" id="guestOtpDemo" hidden></p>
         </div>
       </form>
@@ -4257,6 +4297,7 @@
       const guestVerifyMsg = document.getElementById("guestVerifyMsg");
       const guestOtpPanel = document.getElementById("guestOtpPanel");
       const guestOtpInput = document.getElementById("guestOtpInput");
+      const guestOtpSubmit = document.getElementById("guestOtpSubmit");
       const guestOtpDemo = document.getElementById("guestOtpDemo");
       const guestOtpHint = document.getElementById("guestOtpHint");
       let guestPendingOtp = "";
@@ -4287,6 +4328,10 @@
           guestVerifyBtn.hidden = true;
           guestVerifyBtn.disabled = false;
           guestVerifyBtn.textContent = "Verify";
+        }
+        if (guestOtpSubmit) {
+          guestOtpSubmit.disabled = false;
+          guestOtpSubmit.textContent = "Submit";
         }
         if (guestOtpPanel) guestOtpPanel.hidden = true;
         if (guestOtpDemo) {
@@ -4330,12 +4375,46 @@
           guestOtpDemo.innerHTML =
             'Demo OTP sent to your mobile: <strong>' + guestPendingOtp + "</strong>";
         }
+        if (guestOtpSubmit) {
+          guestOtpSubmit.disabled = false;
+          guestOtpSubmit.textContent = "Submit";
+        }
         if (guestOtpInput) {
           guestOtpInput.value = "";
           guestOtpInput.focus();
         }
         setGuestMsg("OTP sent successfully to " + maskGuestMobile(local) + ".", "success");
         showToast("OTP sent to " + maskGuestMobile(local));
+      }
+
+      function submitGuestOtp() {
+        if (!guestOtpInput) return;
+        const entered = normalizeGuestPhone(guestOtpInput.value);
+
+        if (entered.length !== 6) {
+          setGuestMsg("Enter the complete 6-digit OTP.", "error");
+          guestOtpInput.focus();
+          return;
+        }
+
+        if (!guestPendingOtp || entered !== guestPendingOtp) {
+          setGuestMsg("Incorrect OTP. Please try again.", "error");
+          guestOtpInput.focus();
+          return;
+        }
+
+        if (guestOtpSubmit) {
+          guestOtpSubmit.disabled = true;
+          guestOtpSubmit.textContent = "Submitting…";
+        }
+
+        setGuestMsg("Mobile number verified successfully.", "success");
+        showToast("Inquiry submitted successfully!");
+
+        setTimeout(function () {
+          if (guestDialog) guestDialog.close();
+          resetGuestVerifyDialog();
+        }, 700);
       }
 
       if (payBtn && guestDialog) {
@@ -4384,6 +4463,10 @@
               guestVerifyBtn.disabled = false;
               guestVerifyBtn.textContent = "Verify";
             }
+            if (guestOtpSubmit) {
+              guestOtpSubmit.disabled = false;
+              guestOtpSubmit.textContent = "Submit";
+            }
           }
         });
       }
@@ -4412,6 +4495,20 @@
       if (guestOtpInput) {
         guestOtpInput.addEventListener("input", function () {
           guestOtpInput.value = normalizeGuestPhone(guestOtpInput.value).slice(0, 6);
+          setGuestMsg("", "");
+        });
+
+        guestOtpInput.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            submitGuestOtp();
+          }
+        });
+      }
+
+      if (guestOtpSubmit) {
+        guestOtpSubmit.addEventListener("click", function () {
+          submitGuestOtp();
         });
       }
 
@@ -4419,7 +4516,10 @@
       if (guestForm) {
         guestForm.addEventListener("submit", function (e) {
           e.preventDefault();
-          if (guestOtpPanel && !guestOtpPanel.hidden) return;
+          if (guestOtpPanel && !guestOtpPanel.hidden) {
+            submitGuestOtp();
+            return;
+          }
           if (guestVerifyBtn && !guestVerifyBtn.hidden) guestVerifyBtn.click();
         });
       }
