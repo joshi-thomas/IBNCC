@@ -474,7 +474,15 @@
 .pl-stock {
   font-size: 0.72rem;
   font-weight: 600;
+  color: #2e7d32;
+}
+
+.pl-stock.is-out {
   color: #c0392b;
+}
+
+.pl-stock.is-in {
+  color: #2e7d32;
 }
 
 .pl-card-actions {
