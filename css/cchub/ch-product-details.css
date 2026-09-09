@@ -137,6 +137,14 @@
   font-weight: 700;
 }
 
+.pd-specs {
+  margin: -6px 0 0;
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--ink-muted);
+  line-height: 1.45;
+}
+
 .pd-meta {
   display: flex;
   flex-wrap: wrap;
