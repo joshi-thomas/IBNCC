@@ -94,6 +94,10 @@
     updateCartBadges();
   }
 
+  function goToPayment() {
+    window.location.href = "payment.html";
+  }
+
   function bindEvents() {
     document.querySelector(".pd-main")?.addEventListener("click", (e) => {
       const thumb = e.target.closest(".pd-thumb");
@@ -108,6 +112,13 @@
       if (thumbPrev || thumbNext) {
         const thumbs = e.target.closest(".pd-product")?.querySelector(".pd-thumbs");
         thumbs?.scrollBy({ left: thumbPrev ? -120 : 120, behavior: "smooth" });
+        return;
+      }
+
+      const buyNow = e.target.closest(".pd-btn-buy");
+      if (buyNow) {
+        e.preventDefault();
+        goToPayment();
         return;
       }
 

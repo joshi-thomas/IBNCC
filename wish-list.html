@@ -24,6 +24,7 @@
   />
   <link rel="stylesheet" href="css/cchub/ch-styles.css" />
   <link rel="stylesheet" href="css/cchub/ch-trading.css" />
+  <link rel="stylesheet" href="css/cchub/ch-product-list.css" />
 
   <style>
     /* ========================================================
@@ -269,58 +270,48 @@
       box-shadow: 0 4px 12px rgba(197, 48, 48, 0.25);
     }
 
-    /* Card Details */
+    /* Card Details — pl-card structure from product list */
     .wishlist-content {
-      padding: 22px 20px 20px;
+      padding: 18px 18px 20px;
       display: flex;
       flex-direction: column;
       flex: 1;
-      text-align: center;
+      gap: 8px;
+      text-align: left;
       background: #ffffff;
     }
 
-    .wishlist-item-title {
-      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
-      font-size: 1.32rem;
-      font-weight: 700;
-      color: var(--wl-primary);
-      margin: 0 0 10px 0;
-      line-height: 1.25;
-      text-decoration: none;
-      transition: color 0.2s ease;
-      display: block;
+    .wishlist-content .pl-card-title {
+      font-size: 0.95rem;
+      margin: 0;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
     }
 
-    .wishlist-item-title:hover {
+    .wishlist-content .pl-card-title a {
+      color: var(--wl-primary);
+      text-decoration: none;
+    }
+
+    .wishlist-content .pl-card-title a:hover {
       color: var(--wl-gold-dark);
     }
 
-    .wishlist-price-wrap {
-      display: flex;
-      align-items: baseline;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 20px;
-      font-family: var(--font-body, "Outfit", sans-serif);
+    .wishlist-content .pl-card-specs {
+      margin: 0;
     }
 
-    .wishlist-price-current {
-      font-size: 1.12rem;
-      font-weight: 700;
-      color: var(--wl-primary);
-    }
-
-    .wishlist-price-original {
-      font-size: 0.92rem;
-      color: #a89a8c;
-      text-decoration: line-through;
+    .wishlist-content .pl-stock {
+      margin: 0;
     }
 
     /* Move To Cart Button */
     .wishlist-btn-cart {
       width: 100%;
+      margin-top: auto;
       padding: 13px 20px;
-      background: var(--wl-btn-bg);
+      /* background: var(--wl-btn-bg); */
+      background: linear-gradient(145deg, var(--cyan), var(--navy));
       color: #ffffff;
       border: none;
       border-radius: 6px;
@@ -335,14 +326,16 @@
       justify-content: center;
       gap: 8px;
       transition: all 0.22s ease;
-      margin-top: auto;
       text-decoration: none;
     }
 
     .wishlist-btn-cart:hover {
-      background: var(--wl-btn-hover);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 14px rgba(74, 51, 37, 0.35);
+      /* background: var(--wl-btn-hover); */
+      background: linear-gradient(145deg, #35d6f4, #1a3f73);
+      transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(26, 63, 115, 0.25);
+      /* transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(74, 51, 37, 0.35); */
       color: #ffffff;
     }
 
@@ -2258,11 +2251,20 @@
             </button>
           </div>
           <div class="wishlist-content">
-            <a href="ch-product-details.html" class="wishlist-item-title">Classic Gold Chain</a>
-            <div class="wishlist-price-wrap">
-              <span class="wishlist-price-current">&#8377;48,500</span>
-              <span class="wishlist-price-original">&#8377;54,900</span>
+            <h3 class="pl-card-title">
+              <a href="ch-product-details.html?product=classic-gold-chain">Classic Gold Chain</a>
+            </h3>
+            <p class="pl-card-specs">22K Gold, Hallmarked, Lobster Clasp, 18 inch</p>
+            <div class="pl-rating-row">
+              <span class="pl-rating-badge">4.7 <i class="fa-solid fa-star"></i></span>
+              <span class="pl-reviews">(8,420)</span>
             </div>
+            <div class="pl-price-row">
+              <span class="pl-price">₹48,500</span>
+              <span class="pl-mrp">₹54,900</span>
+              <span class="pl-discount">12% off</span>
+            </div>
+            <p class="pl-stock is-in">In Stock</p>
             <button type="button" class="wishlist-btn-cart" data-action="move-to-cart">
               <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
               MOVE TO CART
@@ -2279,10 +2281,18 @@
             </button>
           </div>
           <div class="wishlist-content">
-            <a href="ch-product-details.html" class="wishlist-item-title">Rose Gold Bracelet</a>
-            <div class="wishlist-price-wrap">
-              <span class="wishlist-price-current">&#8377;36,500</span>
+            <h3 class="pl-card-title">
+              <a href="ch-product-details.html?product=rose-gold-bracelet">Rose Gold Bracelet</a>
+            </h3>
+            <p class="pl-card-specs">18K Rose Gold, Adjustable Fit, Soft Polish Finish</p>
+            <div class="pl-rating-row">
+              <span class="pl-rating-badge">4.6 <i class="fa-solid fa-star"></i></span>
+              <span class="pl-reviews">(5,180)</span>
             </div>
+            <div class="pl-price-row">
+              <span class="pl-price">₹36,500</span>
+            </div>
+            <p class="pl-stock is-in">In Stock</p>
             <button type="button" class="wishlist-btn-cart" data-action="move-to-cart">
               <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
               MOVE TO CART
@@ -2299,11 +2309,20 @@
             </button>
           </div>
           <div class="wishlist-content">
-            <a href="ch-product-details.html" class="wishlist-item-title">Pearl & Diamond Earrings</a>
-            <div class="wishlist-price-wrap">
-              <span class="wishlist-price-current">&#8377;52,000</span>
-              <span class="wishlist-price-original">&#8377;59,900</span>
+            <h3 class="pl-card-title">
+              <a href="ch-product-details.html?product=pearl-diamond-earrings">Pearl &amp; Diamond Earrings</a>
+            </h3>
+            <p class="pl-card-specs">Freshwater Pearls, Diamond Accents, Sterling Posts</p>
+            <div class="pl-rating-row">
+              <span class="pl-rating-badge">4.8 <i class="fa-solid fa-star"></i></span>
+              <span class="pl-reviews">(3,940)</span>
             </div>
+            <div class="pl-price-row">
+              <span class="pl-price">₹52,000</span>
+              <span class="pl-mrp">₹59,900</span>
+              <span class="pl-discount">13% off</span>
+            </div>
+            <p class="pl-stock is-in">In Stock</p>
             <button type="button" class="wishlist-btn-cart" data-action="move-to-cart">
               <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
               MOVE TO CART
@@ -2320,11 +2339,20 @@
             </button>
           </div>
           <div class="wishlist-content">
-            <a href="ch-product-details.html" class="wishlist-item-title">Traditional Temple Necklace</a>
-            <div class="wishlist-price-wrap">
-              <span class="wishlist-price-current">&#8377;89,000</span>
-              <span class="wishlist-price-original">&#8377;98,000</span>
+            <h3 class="pl-card-title">
+              <a href="ch-product-details.html?product=traditional-temple-necklace">Traditional Temple Necklace</a>
+            </h3>
+            <p class="pl-card-specs">Temple Motif, Antique Finish, Bridal Wear, Gold Plated</p>
+            <div class="pl-rating-row">
+              <span class="pl-rating-badge">4.5 <i class="fa-solid fa-star"></i></span>
+              <span class="pl-reviews">(2,760)</span>
             </div>
+            <div class="pl-price-row">
+              <span class="pl-price">₹89,000</span>
+              <span class="pl-mrp">₹98,000</span>
+              <span class="pl-discount">9% off</span>
+            </div>
+            <p class="pl-stock is-out">Out of Stock</p>
             <button type="button" class="wishlist-btn-cart" data-action="move-to-cart">
               <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
               MOVE TO CART
@@ -2341,11 +2369,20 @@
             </button>
           </div>
           <div class="wishlist-content">
-            <a href="ch-product-details.html" class="wishlist-item-title">Elegant Solitaire Ring</a>
-            <div class="wishlist-price-wrap">
-              <span class="wishlist-price-current">&#8377;64,500</span>
-              <span class="wishlist-price-original">&#8377;72,000</span>
+            <h3 class="pl-card-title">
+              <a href="ch-product-details.html?product=elegant-solitaire-ring">Elegant Solitaire Ring</a>
+            </h3>
+            <p class="pl-card-specs">18K White Gold, 0.40 Carat, VS Clarity, Solitaire</p>
+            <div class="pl-rating-row">
+              <span class="pl-rating-badge">4.9 <i class="fa-solid fa-star"></i></span>
+              <span class="pl-reviews">(6,210)</span>
             </div>
+            <div class="pl-price-row">
+              <span class="pl-price">₹64,500</span>
+              <span class="pl-mrp">₹72,000</span>
+              <span class="pl-discount">10% off</span>
+            </div>
+            <p class="pl-stock is-in">In Stock</p>
             <button type="button" class="wishlist-btn-cart" data-action="move-to-cart">
               <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
               MOVE TO CART
@@ -2362,10 +2399,18 @@
             </button>
           </div>
           <div class="wishlist-content">
-            <a href="ch-product-details.html" class="wishlist-item-title">Royal Kundan Bangles Set</a>
-            <div class="wishlist-price-wrap">
-              <span class="wishlist-price-current">&#8377;42,000</span>
+            <h3 class="pl-card-title">
+              <a href="ch-product-details.html?product=royal-kundan-bangles">Royal Kundan Bangles Set</a>
+            </h3>
+            <p class="pl-card-specs">Kundan Work, Set of 2, Meenakari Detail, Bridal</p>
+            <div class="pl-rating-row">
+              <span class="pl-rating-badge">4.4 <i class="fa-solid fa-star"></i></span>
+              <span class="pl-reviews">(1,890)</span>
             </div>
+            <div class="pl-price-row">
+              <span class="pl-price">₹42,000</span>
+            </div>
+            <p class="pl-stock is-in">In Stock</p>
             <button type="button" class="wishlist-btn-cart" data-action="move-to-cart">
               <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
               MOVE TO CART

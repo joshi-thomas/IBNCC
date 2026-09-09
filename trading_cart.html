@@ -3458,7 +3458,15 @@
 
       if (checkoutBtn) {
         checkoutBtn.addEventListener("click", function () {
-          showToast("Proceeding to secure checkout...");
+          const cards = document.querySelectorAll(".cart-item-card");
+          if (cards.length === 0) {
+            alert("Your cart is empty. Please add products to checkout.");
+            return;
+          }
+          showToast("Redirecting to Payment & Checkout...");
+          setTimeout(function () {
+            window.location.href = "payment.html";
+          }, 600);
         });
       }
     });
