@@ -289,11 +289,29 @@ button {
 /* ---------- Category Nav ---------- */
 
 .category-nav {
-  position: relative;
-  z-index: 80;
+  position: sticky;
+  top: var(--header-h-sticky, var(--header-h));
+  z-index: 90;
   background: var(--white);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.32s ease;
+  will-change: transform;
+}
+
+/* Hide under the sticky header while scrolling down */
+.category-nav.is-scroll-hidden {
+  transform: translate3d(0, calc(-100% - 2px), 0);
+  box-shadow: none;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .category-nav {
+    transition: none;
+  }
 }
 
 .category-nav-inner {
