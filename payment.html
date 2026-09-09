@@ -281,6 +281,46 @@
       font-weight: 600;
     }
 
+    .pay-address-title .pay-field-optional {
+      margin-left: 6px;
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 0.88rem;
+      font-weight: 500;
+      vertical-align: middle;
+    }
+
+    .pay-address-empty {
+      font-family: var(--font-body, "Outfit", sans-serif);
+      color: var(--pay-muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .pay-address-details[hidden],
+    .pay-address-empty[hidden] {
+      display: none !important;
+    }
+
+    .btn-clear-addr {
+      margin-top: 12px;
+      padding: 0;
+      border: none;
+      background: none;
+      color: var(--pay-muted);
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: color 0.2s ease;
+    }
+
+    .btn-clear-addr:hover {
+      color: #b91c1c;
+    }
+
     /* Optional contact / message fields */
     .pay-contact-card {
       background: var(--pay-card-bg);
@@ -2835,30 +2875,10 @@
       <!-- Payment Layout Grid -->
       <div class="payment-layout-grid">
         
-        <!-- 1. LEFT COLUMN: Shipping Address, Delivery Address, Payment Methods -->
+        <!-- 1. LEFT COLUMN: Delivery Address, Shipping Address (optional), contact details -->
         <div class="payment-details-col">
 
-          <!-- Section 1: Shipping Address (Matching Reference Image 2) -->
-          <section class="pay-address-card" id="shippingAddressSection" aria-labelledby="shippingAddressTitle">
-            <div class="pay-address-head">
-              <div class="pay-address-title-group">
-                <span class="pay-address-icon-badge" aria-hidden="true">
-                  <i class="fa-solid fa-box-open"></i>
-                </span>
-                <h2 class="pay-address-title" id="shippingAddressTitle">Shipping Address</h2>
-              </div>
-              <button type="button" class="btn-change-addr" id="btnChangeShippingAddr" data-target-addr="shipping">Change</button>
-            </div>
-
-            <div class="pay-address-inner-box">
-              <p class="pay-address-name" id="shipName">John Doe</p>
-              <p class="pay-address-line" id="shipStreet">123, Park Street, Apartment 4B</p>
-              <p class="pay-address-line" id="shipCityState">Kolkata, West Bengal 700016</p>
-              <p class="pay-address-phone" id="shipPhone">Phone: +91 98765 43210</p>
-            </div>
-          </section>
-
-          <!-- Section 2: Delivery Address (Matching Reference Image 2) -->
+          <!-- Section 1: Delivery Address -->
           <section class="pay-address-card" id="deliveryAddressSection" aria-labelledby="deliveryAddressTitle">
             <div class="pay-address-head">
               <div class="pay-address-title-group">
@@ -2875,6 +2895,35 @@
               <p class="pay-address-line" id="delivStreet">123, Park Street, Apartment 4B</p>
               <p class="pay-address-line" id="delivCityState">Kolkata, West Bengal 700016</p>
               <p class="pay-address-phone" id="delivPhone">Phone: +91 98765 43210</p>
+            </div>
+          </section>
+
+          <!-- Section 2: Shipping Address (Optional) -->
+          <section class="pay-address-card" id="shippingAddressSection" aria-labelledby="shippingAddressTitle" data-optional="true">
+            <div class="pay-address-head">
+              <div class="pay-address-title-group">
+                <span class="pay-address-icon-badge" aria-hidden="true">
+                  <i class="fa-solid fa-box-open"></i>
+                </span>
+                <h2 class="pay-address-title" id="shippingAddressTitle">
+                  Shipping Address
+                  <span class="pay-field-optional">(Optional)</span>
+                </h2>
+              </div>
+              <button type="button" class="btn-change-addr" id="btnChangeShippingAddr" data-target-addr="shipping">Add</button>
+            </div>
+
+            <div class="pay-address-inner-box">
+              <p class="pay-address-empty" id="shippingAddressEmpty">
+                No shipping address added. You can continue checkout without one.
+              </p>
+              <div class="pay-address-details" id="shippingAddressDetails" hidden>
+                <p class="pay-address-name" id="shipName"></p>
+                <p class="pay-address-line" id="shipStreet"></p>
+                <p class="pay-address-line" id="shipCityState"></p>
+                <p class="pay-address-phone" id="shipPhone"></p>
+                <button type="button" class="btn-clear-addr" id="btnClearShippingAddr">Remove shipping address</button>
+              </div>
             </div>
           </section>
 
@@ -3026,7 +3075,7 @@
             
             <div class="pay-items-mini-list">
               <div class="mini-item-row">
-                <img src="assets/images/lr1.jpg" alt="Royal Kundan Necklace Set" class="mini-item-img" />
+                <img src="assets/images/pd1.jpg" alt="Royal Kundan Necklace Set" class="mini-item-img" />
                 <div class="mini-item-info">
                   <p class="mini-item-title">Royal Kundan Necklace Set</p>
                   <p class="mini-item-qty">Qty: 1</p>
@@ -3035,7 +3084,7 @@
               </div>
 
               <div class="mini-item-row">
-                <img src="assets/images/tt1.webp" alt="Diamond Solitaire Ring" class="mini-item-img" />
+                <img src="assets/images/pd2.jpg" alt="Diamond Solitaire Ring" class="mini-item-img" />
                 <div class="mini-item-info">
                   <p class="mini-item-title">Diamond Solitaire Ring</p>
                   <p class="mini-item-qty">Qty: 1</p>
@@ -3044,7 +3093,7 @@
               </div>
 
               <div class="mini-item-row">
-                <img src="assets/images/lr2.jpg" alt="Antique Gold Jhumkas" class="mini-item-img" />
+                <img src="assets/images/pd3.jpg" alt="Antique Gold Jhumkas" class="mini-item-img" />
                 <div class="mini-item-info">
                   <p class="mini-item-title">Antique Gold Jhumkas</p>
                   <p class="mini-item-qty">Qty: 1</p>
@@ -3171,12 +3220,12 @@
         <i class="fa-solid fa-xmark" aria-hidden="true"></i>
       </button>
       
-      <h2 class="pay-dialog-title" id="shippingDialogTitle">Select a shipping address</h2>
+      <h2 class="pay-dialog-title" id="shippingDialogTitle">Select a shipping address <span class="pay-field-optional">(Optional)</span></h2>
 
       <!-- Scrollable Existing Addresses List -->
       <div class="pay-dialog-addr-list" id="shippingAddressList" role="radiogroup" aria-label="Shipping Address Options">
-        <!-- Address Option 1 (Default Active / Selected) -->
-        <div class="addr-select-card is-selected" data-name="John Doe" data-street="123, Park Street, Apartment 4B" data-citystate="Kolkata, West Bengal 700016" data-phone="+91 98765 43210">
+        <!-- Address Option 1 -->
+        <div class="addr-select-card" data-name="John Doe" data-street="123, Park Street, Apartment 4B" data-citystate="Kolkata, West Bengal 700016" data-phone="+91 98765 43210">
           <div class="addr-radio-outer">
             <div class="addr-radio-inner"></div>
           </div>
@@ -3776,8 +3825,45 @@
         const cancelIcon = document.getElementById(config.cancelIconId);
         const listContainer = document.getElementById(config.listId);
         const form = document.getElementById(config.formId);
+        const emptyEl = config.emptyId ? document.getElementById(config.emptyId) : null;
+        const detailsEl = config.detailsId ? document.getElementById(config.detailsId) : null;
+        const clearBtn = config.clearBtnId ? document.getElementById(config.clearBtnId) : null;
 
         if (!dialog) return;
+
+        function showFilledAddress() {
+          if (!config.optional) return;
+          if (emptyEl) emptyEl.hidden = true;
+          if (detailsEl) detailsEl.hidden = false;
+          if (openBtn) openBtn.textContent = "Change";
+        }
+
+        function showEmptyAddress() {
+          if (!config.optional) return;
+          if (emptyEl) emptyEl.hidden = false;
+          if (detailsEl) detailsEl.hidden = true;
+          if (openBtn) openBtn.textContent = "Add";
+          const nameEl = document.getElementById(config.targetNameId);
+          const streetEl = document.getElementById(config.targetStreetId);
+          const cityEl = document.getElementById(config.targetCityStateId);
+          const phoneEl = document.getElementById(config.targetPhoneId);
+          if (nameEl) nameEl.textContent = "";
+          if (streetEl) streetEl.textContent = "";
+          if (cityEl) cityEl.textContent = "";
+          if (phoneEl) phoneEl.textContent = "";
+          if (listContainer) {
+            listContainer.querySelectorAll(".addr-select-card").forEach((c) => c.classList.remove("is-selected"));
+          }
+        }
+
+        function applyAddress(name, street, citystate, phone) {
+          document.getElementById(config.targetNameId).textContent = name;
+          document.getElementById(config.targetStreetId).textContent = street;
+          document.getElementById(config.targetCityStateId).textContent = citystate;
+          document.getElementById(config.targetPhoneId).textContent =
+            phone.startsWith("Phone:") ? phone : "Phone: " + phone;
+          showFilledAddress();
+        }
 
         // Open Dialog
         if (openBtn) {
@@ -3795,6 +3881,13 @@
         if (cancelBtn) cancelBtn.addEventListener("click", closeDialog);
         if (cancelIcon) cancelIcon.addEventListener("click", closeDialog);
 
+        if (clearBtn) {
+          clearBtn.addEventListener("click", function () {
+            showEmptyAddress();
+            showToast(config.label + " removed. You can continue without one.");
+          });
+        }
+
         // Click on Existing Address Options
         if (listContainer) {
           listContainer.addEventListener("click", function (e) {
@@ -3811,11 +3904,7 @@
             const citystate = card.getAttribute("data-citystate");
             const phone = card.getAttribute("data-phone");
 
-            // Update main page card
-            document.getElementById(config.targetNameId).textContent = name;
-            document.getElementById(config.targetStreetId).textContent = street;
-            document.getElementById(config.targetCityStateId).textContent = citystate;
-            document.getElementById(config.targetPhoneId).textContent = phone.startsWith("Phone:") ? phone : "Phone: " + phone;
+            applyAddress(name, street, citystate, phone);
 
             showToast(config.label + " selected successfully!");
             setTimeout(closeDialog, 250);
@@ -3832,7 +3921,6 @@
             const fullName = firstName + " " + lastName;
             const phone = document.getElementById(config.inputPhoneId).value.trim();
             const street = document.getElementById(config.inputStreetId).value.trim();
-            const area = document.getElementById(config.inputAreaId).value.trim();
             const pin = document.getElementById(config.inputPinId).value.trim();
             const city = document.getElementById(config.inputCityId).value.trim();
             const state = document.getElementById(config.inputStateId).value.trim();
@@ -3863,11 +3951,7 @@
             listContainer.querySelectorAll(".addr-select-card").forEach((c) => c.classList.remove("is-selected"));
             listContainer.prepend(newCard);
 
-            // Update main page card
-            document.getElementById(config.targetNameId).textContent = fullName;
-            document.getElementById(config.targetStreetId).textContent = street;
-            document.getElementById(config.targetCityStateId).textContent = cityStateStr;
-            document.getElementById(config.targetPhoneId).textContent = "Phone: " + phone;
+            applyAddress(fullName, street, cityStateStr, phone);
 
             form.reset();
             showToast("New " + config.label.toLowerCase() + " saved and selected!");
@@ -3900,7 +3984,7 @@
         inputStateId: "delivNewState"
       });
 
-      // Initialize Shipping Address Dialog
+      // Initialize Shipping Address Dialog (optional — checkout may proceed without it)
       setupAddressDialog({
         label: "Shipping Address",
         dialogId: "shippingAddressDialog",
@@ -3921,7 +4005,11 @@
         inputAreaId: "shipNewArea",
         inputPinId: "shipNewPin",
         inputCityId: "shipNewCity",
-        inputStateId: "shipNewState"
+        inputStateId: "shipNewState",
+        optional: true,
+        emptyId: "shippingAddressEmpty",
+        detailsId: "shippingAddressDetails",
+        clearBtnId: "btnClearShippingAddr"
       });
 
       // 3. Payment Method Radio Selection Styling
@@ -3936,6 +4024,7 @@
       });
 
       // 4. Proceed to Payment / Pay Now Action
+      // Shipping address is optional — payment does not require it.
       const payBtn = document.getElementById("btnPayNow");
       const successDialog = document.getElementById("paymentSuccessDialog");
 
