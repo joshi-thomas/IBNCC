@@ -1,0 +1,106 @@
+/* Trading cart — quantity tier prices + qty input */
+
+.trading-cart-page .cart-item-price-qty-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.trading-cart-page .cart-item-info .pl-price-row.pl-tier-prices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px 28px;
+  width: 100%;
+  max-width: 520px;
+  align-items: start;
+}
+
+.trading-cart-page .pl-tier {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.trading-cart-page .pl-tier .pl-price {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.trading-cart-page .pl-tier-qty {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: #666666;
+  line-height: 1.3;
+}
+
+.trading-cart-page .pl-tier.is-active .pl-price {
+  color: var(--cart-primary, #3b2a1a);
+}
+
+.trading-cart-page .pl-tier.is-active .pl-tier-qty {
+  color: var(--cart-gold-dark, #a67c1e);
+  font-weight: 600;
+}
+
+.trading-cart-page .cart-qty-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 0;
+}
+
+.trading-cart-page .cart-qty-input {
+  width: 64px;
+  min-height: 32px;
+  padding: 4px 6px;
+  border: 1px solid #d1c5b8;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--cart-primary, #3b2a1a);
+  font-family: var(--font-body, "Outfit", sans-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.trading-cart-page .cart-qty-input::-webkit-outer-spin-button,
+.trading-cart-page .cart-qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.trading-cart-page .cart-qty-input:focus {
+  border-color: var(--cart-gold, #c9a027);
+  box-shadow: 0 0 0 3px rgba(201, 160, 39, 0.18);
+}
+
+@media (max-width: 720px) {
+  .trading-cart-page .cart-item-info .pl-price-row.pl-tier-prices {
+    gap: 10px 16px;
+    max-width: 100%;
+  }
+
+  .trading-cart-page .pl-tier .pl-price {
+    font-size: 0.95rem;
+  }
+
+  .trading-cart-page .pl-tier-qty {
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .trading-cart-page .cart-item-info .pl-price-row.pl-tier-prices {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
