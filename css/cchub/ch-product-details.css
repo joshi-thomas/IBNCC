@@ -199,11 +199,19 @@
   text-decoration: line-through;
 }
 
-.pd-stock {
+.pd-stock,
+.pd-info .pl-stock {
   display: block;
-  margin-top: 6px;
+  margin: 0;
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 600;
+}
+
+.pd-info .pl-stock.is-in {
+  color: #2e7d32;
+}
+
+.pd-info .pl-stock.is-out {
   color: #c0392b;
 }
 
