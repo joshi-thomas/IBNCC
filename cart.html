@@ -24,6 +24,7 @@
   />
   <link rel="stylesheet" href="css/cchub/ch-styles.css" />
   <link rel="stylesheet" href="css/cchub/ch-trading.css" />
+  <link rel="stylesheet" href="css/cchub/ch-product-list.css" />
 
   <style>
     /* ========================================================
@@ -224,20 +225,44 @@
       padding-right: 32px;
     }
 
-    .cart-item-title {
-      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
-      font-size: 1.28rem;
-      font-weight: 700;
+    /* Product-list card info adapted for cart layout */
+    .cart-item-info .pl-card-title {
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 1.05rem;
+      font-weight: 600;
       color: var(--cart-primary);
-      margin: 0 0 10px 0;
-      line-height: 1.3;
+      margin: 0 0 6px;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+    }
+
+    .cart-item-info .pl-card-title a {
+      color: inherit;
       text-decoration: none;
-      display: inline-block;
       transition: color 0.2s ease;
     }
 
-    .cart-item-title:hover {
+    .cart-item-info .pl-card-title a:hover {
       color: var(--cart-gold-dark);
+    }
+
+    .cart-item-info .pl-card-specs {
+      margin: 0 0 8px;
+      font-size: 0.8rem;
+      color: var(--cart-muted, #806b56);
+    }
+
+    .cart-item-info .pl-rating-row {
+      margin-bottom: 10px;
+    }
+
+    .cart-item-info .pl-price-row {
+      margin: 0;
+    }
+
+    .cart-item-info .pl-price {
+      font-size: 1.15rem;
+      color: var(--cart-primary);
     }
 
     /* Pricing & Quantity Row */
@@ -247,25 +272,6 @@
       gap: 16px;
       flex-wrap: wrap;
       margin-bottom: 12px;
-    }
-
-    .cart-item-prices {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      font-family: var(--font-body, "Outfit", sans-serif);
-    }
-
-    .cart-price-current {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--cart-primary);
-    }
-
-    .cart-price-original {
-      font-size: 0.92rem;
-      color: #a89a8c;
-      text-decoration: line-through;
     }
 
     /* Round Quantity Controls */
@@ -2477,12 +2483,23 @@
               </div>
 
               <div class="cart-item-info">
-                <a href="ch-product-details.html" class="cart-item-title">Royal Kundan Necklace Set</a>
-                
+                <h3 class="pl-card-title cart-item-title">
+                  <a href="ch-product-details.html?product=royal-kundan-necklace">Royal Kundan Necklace Set</a>
+                </h3>
+                <p class="pl-card-specs">
+                  Traditional, 22K Gold Plated, Kundan Stone Work, Bridal Set
+                </p>
+                <div class="pl-rating-row">
+                  <span class="pl-rating-badge">4.7 <i class="fa-solid fa-star"></i></span>
+                  <span class="pl-reviews">(12,480)</span>
+                  <span class="pl-assured"><i class="fa-solid fa-shield-halved"></i> Assured</span>
+                </div>
+
                 <div class="cart-item-price-qty-row">
-                  <div class="cart-item-prices">
-                    <span class="cart-price-current">&#8377;2,50,000</span>
-                    <span class="cart-price-original">&#8377;2,87,500</span>
+                  <div class="pl-price-row">
+                    <span class="pl-price">₹2,50,000</span>
+                    <span class="pl-mrp">₹2,87,500</span>
+                    <span class="pl-discount">13% off</span>
                   </div>
 
                   <div class="cart-qty-control" role="group" aria-label="Quantity for Royal Kundan Necklace Set">
@@ -2529,12 +2546,23 @@
               </div>
 
               <div class="cart-item-info">
-                <a href="ch-product-details.html" class="cart-item-title">Diamond Solitaire Ring</a>
-                
+                <h3 class="pl-card-title cart-item-title">
+                  <a href="ch-product-details.html?product=diamond-solitaire-ring">Diamond Solitaire Ring</a>
+                </h3>
+                <p class="pl-card-specs">
+                  18K White Gold, 0.50 Carat, VS Clarity, Solitaire Setting
+                </p>
+                <div class="pl-rating-row">
+                  <span class="pl-rating-badge">4.8 <i class="fa-solid fa-star"></i></span>
+                  <span class="pl-reviews">(8,920)</span>
+                  <span class="pl-assured"><i class="fa-solid fa-shield-halved"></i> Assured</span>
+                </div>
+
                 <div class="cart-item-price-qty-row">
-                  <div class="cart-item-prices">
-                    <span class="cart-price-current">&#8377;85,000</span>
-                    <span class="cart-price-original">&#8377;97,750</span>
+                  <div class="pl-price-row">
+                    <span class="pl-price">₹85,000</span>
+                    <span class="pl-mrp">₹97,750</span>
+                    <span class="pl-discount">13% off</span>
                   </div>
 
                   <div class="cart-qty-control" role="group" aria-label="Quantity for Diamond Solitaire Ring">
@@ -2581,12 +2609,23 @@
               </div>
 
               <div class="cart-item-info">
-                <a href="ch-product-details.html" class="cart-item-title">Antique Gold Jhumkas</a>
-                
+                <h3 class="pl-card-title cart-item-title">
+                  <a href="ch-product-details.html?product=antique-gold-jhumkas">Antique Gold Jhumkas</a>
+                </h3>
+                <p class="pl-card-specs">
+                  Antique Finish, Temple Motif, Pearl Drop, Handcrafted Pair
+                </p>
+                <div class="pl-rating-row">
+                  <span class="pl-rating-badge">4.6 <i class="fa-solid fa-star"></i></span>
+                  <span class="pl-reviews">(5,340)</span>
+                  <span class="pl-assured"><i class="fa-solid fa-shield-halved"></i> Assured</span>
+                </div>
+
                 <div class="cart-item-price-qty-row">
-                  <div class="cart-item-prices">
-                    <span class="cart-price-current">&#8377;90,000</span>
-                    <span class="cart-price-original">&#8377;1,02,500</span>
+                  <div class="pl-price-row">
+                    <span class="pl-price">₹90,000</span>
+                    <span class="pl-mrp">₹1,02,500</span>
+                    <span class="pl-discount">12% off</span>
                   </div>
 
                   <div class="cart-qty-control" role="group" aria-label="Quantity for Antique Gold Jhumkas">
