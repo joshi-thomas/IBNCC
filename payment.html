@@ -753,6 +753,199 @@
       line-height: 1.25;
     }
 
+    .pay-dialog-sub {
+      font-family: var(--font-body, "Outfit", sans-serif);
+      font-size: 0.92rem;
+      color: var(--pay-muted);
+      margin: -6px 0 20px;
+      line-height: 1.5;
+    }
+
+    /* Guest mobile verification popup */
+    .guest-verify-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      font-family: var(--font-body, "Outfit", sans-serif);
+    }
+
+    .guest-verify-label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--pay-primary);
+      margin: 0 0 8px;
+    }
+
+    .guest-mobile-row {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      border: 1.5px solid rgba(11, 42, 74, 0.14);
+      border-radius: 12px;
+      background: var(--pay-inner-bg);
+      overflow: hidden;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .guest-mobile-row:focus-within {
+      border-color: var(--pay-gold);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(232, 185, 35, 0.18);
+    }
+
+    .guest-mobile-prefix {
+      display: inline-flex;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--pay-primary);
+      background: rgba(11, 42, 74, 0.04);
+      border-right: 1px solid rgba(11, 42, 74, 0.1);
+      white-space: nowrap;
+    }
+
+    .guest-mobile-input {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      outline: none;
+      background: transparent;
+      padding: 13px 12px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--pay-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .guest-mobile-input::placeholder {
+      color: var(--pay-muted);
+      font-weight: 500;
+      letter-spacing: normal;
+    }
+
+    .guest-verify-btn {
+      flex-shrink: 0;
+      align-self: center;
+      margin: 6px 8px 6px 0;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1.5px solid var(--cyan);
+      background: rgba(26, 166, 214, 0.1);
+      color: var(--navy);
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .guest-verify-btn[hidden] {
+      display: none !important;
+    }
+
+    .guest-verify-btn:hover {
+      background: linear-gradient(145deg, var(--cyan), var(--navy));
+      border-color: transparent;
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .guest-verify-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .guest-verify-msg {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .guest-verify-msg[hidden] {
+      display: none !important;
+    }
+
+    .guest-verify-msg.is-error {
+      color: #b91c1c;
+    }
+
+    .guest-verify-msg.is-success {
+      color: #15803d;
+    }
+
+    .guest-otp-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 14px 14px 16px;
+      border-radius: 12px;
+      border: 1.5px dashed rgba(26, 166, 214, 0.35);
+      background: rgba(242, 247, 251, 0.9);
+      animation: guestOtpIn 0.28s ease;
+    }
+
+    .guest-otp-panel[hidden] {
+      display: none !important;
+    }
+
+    @keyframes guestOtpIn {
+      from {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .guest-otp-hint {
+      margin: 0;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--pay-primary);
+    }
+
+    .guest-otp-input {
+      width: 100%;
+      height: 46px;
+      padding: 0 14px;
+      border: 1.5px solid rgba(11, 42, 74, 0.14);
+      border-radius: 10px;
+      background: #ffffff;
+      font-family: inherit;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-align: center;
+      color: var(--pay-primary);
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .guest-otp-input:focus {
+      border-color: var(--pay-gold);
+      box-shadow: 0 0 0 3px rgba(232, 185, 35, 0.18);
+    }
+
+    .guest-otp-demo {
+      margin: 0;
+      font-size: 0.8rem;
+      color: var(--pay-muted);
+    }
+
+    .guest-otp-demo strong {
+      color: var(--pay-primary);
+      letter-spacing: 0.12em;
+    }
+
     /* Scrollable Address Options List */
     .pay-dialog-addr-list {
       display: flex;
@@ -3054,10 +3247,10 @@
               </div>
             </div>
 
-            <!-- Proceed to Payment Button -->
+            <!-- Send Inquiry Button -->
             <button type="button" class="btn-pay-now" id="btnPayNow">
-              <i class="fa-solid fa-lock" aria-hidden="true"></i>
-              Proceed to Payment
+              <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+              Send Inquiry
             </button>
 
             <div class="pay-security-note">
@@ -3311,25 +3504,57 @@
     </div>
   </dialog>
 
-  <!-- Payment Processing / Order Confirmation Dialog -->
-  <dialog class="pay-dialog" id="paymentSuccessDialog" aria-labelledby="paymentSuccessTitle">
-    <div class="pay-dialog-card" style="text-align: center;">
-      <div style="width: 72px; height: 72px; border-radius: 50%; background: #e8f5e9; color: #2e7d32; display: grid; place-items: center; font-size: 2rem; margin: 0 auto 18px;">
-        <i class="fa-solid fa-circle-check"></i>
-      </div>
-      <h2 class="pay-dialog-title" id="paymentSuccessTitle" style="color: #2e7d32; margin-bottom: 8px;">Payment Successful!</h2>
-      <p class="pay-dialog-sub" style="margin-bottom: 18px;">Thank you for your purchase. Your order <strong>#ORD-98421</strong> has been placed successfully.</p>
-      
-      <div style="background: var(--ivory); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 24px; text-align: left; font-family: var(--font-body, 'Outfit', sans-serif); font-size: 0.9rem;">
-        <p style="margin: 0 0 4px 0; color: #5c4733;"><strong>Amount Paid:</strong> &#8377; 4,05,019</p>
-        <p style="margin: 0 0 4px 0; color: #5c4733;"><strong>Estimated Delivery:</strong> 3 - 5 Business Days</p>
-        <p style="margin: 0; color: #5c4733;"><strong>Order Status:</strong> Processing</p>
-      </div>
+  <!-- Guest mobile verification dialog (Send Inquiry) -->
+  <dialog class="pay-dialog" id="guestVerifyDialog" aria-labelledby="guestVerifyTitle">
+    <div class="pay-dialog-card">
+      <button type="button" class="pay-dialog-close" id="guestVerifyDialogClose" aria-label="Close verification dialog">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
 
-      <div class="dialog-btn-row" style="justify-content: center; display: flex; gap: 12px;">
-        <a href="my-account.html#orders" class="btn-save-addr" style="text-decoration: none; text-align: center; display: inline-block; flex: none;">VIEW ORDER IN ACCOUNT</a>
-        <a href="ch-trading.html" class="btn-cancel-addr" style="text-decoration: none; text-align: center; display: inline-block; flex: none;">CONTINUE SHOPPING</a>
-      </div>
+      <h2 class="pay-dialog-title" id="guestVerifyTitle">Verify Mobile Number</h2>
+      <p class="pay-dialog-sub">
+        Enter your mobile number to verify your inquiry as a guest user. We’ll send a one-time password (OTP) to this number.
+      </p>
+
+      <form class="guest-verify-form" id="guestVerifyForm" novalidate>
+        <div class="guest-mobile-field">
+          <label class="guest-verify-label" for="guestMobileInput">Mobile Number</label>
+          <div class="guest-mobile-row">
+            <span class="guest-mobile-prefix" aria-hidden="true">+91</span>
+            <input
+              type="tel"
+              id="guestMobileInput"
+              class="guest-mobile-input"
+              name="guestMobile"
+              placeholder="Enter 10-digit mobile number"
+              inputmode="numeric"
+              autocomplete="tel-national"
+              maxlength="14"
+              aria-describedby="guestVerifyMsg"
+            />
+            <button type="button" class="guest-verify-btn" id="guestVerifyBtn" hidden>
+              Verify
+            </button>
+          </div>
+          <p class="guest-verify-msg" id="guestVerifyMsg" hidden role="status" aria-live="polite"></p>
+        </div>
+
+        <div class="guest-otp-panel" id="guestOtpPanel" hidden>
+          <label class="guest-verify-label" for="guestOtpInput">Enter OTP</label>
+          <p class="guest-otp-hint" id="guestOtpHint">Enter the 6-digit OTP sent to your mobile number</p>
+          <input
+            type="text"
+            id="guestOtpInput"
+            class="guest-otp-input"
+            name="guestOtp"
+            placeholder="••••••"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            maxlength="6"
+          />
+          <p class="guest-otp-demo" id="guestOtpDemo" hidden></p>
+        </div>
+      </form>
     </div>
   </dialog>
 
@@ -4023,21 +4248,179 @@
         });
       });
 
-      // 4. Proceed to Payment / Pay Now Action
-      // Shipping address is optional — payment does not require it.
+      // 4. Send Inquiry → Guest mobile verification popup
       const payBtn = document.getElementById("btnPayNow");
-      const successDialog = document.getElementById("paymentSuccessDialog");
+      const guestDialog = document.getElementById("guestVerifyDialog");
+      const guestCloseBtn = document.getElementById("guestVerifyDialogClose");
+      const guestMobileInput = document.getElementById("guestMobileInput");
+      const guestVerifyBtn = document.getElementById("guestVerifyBtn");
+      const guestVerifyMsg = document.getElementById("guestVerifyMsg");
+      const guestOtpPanel = document.getElementById("guestOtpPanel");
+      const guestOtpInput = document.getElementById("guestOtpInput");
+      const guestOtpDemo = document.getElementById("guestOtpDemo");
+      const guestOtpHint = document.getElementById("guestOtpHint");
+      let guestPendingOtp = "";
 
-      if (payBtn && successDialog) {
+      function normalizeGuestPhone(value) {
+        return String(value || "").replace(/\D/g, "");
+      }
+
+      function setGuestMsg(text, type) {
+        if (!guestVerifyMsg) return;
+        if (!text) {
+          guestVerifyMsg.hidden = true;
+          guestVerifyMsg.textContent = "";
+          guestVerifyMsg.classList.remove("is-error", "is-success");
+          return;
+        }
+        guestVerifyMsg.hidden = false;
+        guestVerifyMsg.textContent = text;
+        guestVerifyMsg.classList.toggle("is-error", type === "error");
+        guestVerifyMsg.classList.toggle("is-success", type === "success");
+      }
+
+      function resetGuestVerifyDialog() {
+        guestPendingOtp = "";
+        if (guestMobileInput) guestMobileInput.value = "";
+        if (guestOtpInput) guestOtpInput.value = "";
+        if (guestVerifyBtn) {
+          guestVerifyBtn.hidden = true;
+          guestVerifyBtn.disabled = false;
+          guestVerifyBtn.textContent = "Verify";
+        }
+        if (guestOtpPanel) guestOtpPanel.hidden = true;
+        if (guestOtpDemo) {
+          guestOtpDemo.hidden = true;
+          guestOtpDemo.textContent = "";
+        }
+        setGuestMsg("", "");
+      }
+
+      function showGuestVerifyBtn() {
+        if (guestVerifyBtn) guestVerifyBtn.hidden = false;
+      }
+
+      function isValidGuestMobile(value) {
+        const digits = normalizeGuestPhone(value);
+        // Accept 10-digit Indian mobiles, or 12 digits starting with 91
+        if (digits.length === 10) return true;
+        if (digits.length === 12 && digits.startsWith("91")) return true;
+        return false;
+      }
+
+      function maskGuestMobile(value) {
+        const digits = normalizeGuestPhone(value);
+        const local = digits.length === 12 ? digits.slice(2) : digits;
+        if (local.length < 4) return "+91 " + local;
+        return "+91 " + local.slice(0, 2) + "******" + local.slice(-2);
+      }
+
+      function sendGuestOtp(mobileValue) {
+        const digits = normalizeGuestPhone(mobileValue);
+        const local = digits.length === 12 ? digits.slice(2) : digits;
+        guestPendingOtp = String(Math.floor(100000 + Math.random() * 900000));
+
+        if (guestOtpPanel) guestOtpPanel.hidden = false;
+        if (guestOtpHint) {
+          guestOtpHint.textContent =
+            "Enter the 6-digit OTP sent to " + maskGuestMobile(local);
+        }
+        if (guestOtpDemo) {
+          guestOtpDemo.hidden = false;
+          guestOtpDemo.innerHTML =
+            'Demo OTP sent to your mobile: <strong>' + guestPendingOtp + "</strong>";
+        }
+        if (guestOtpInput) {
+          guestOtpInput.value = "";
+          guestOtpInput.focus();
+        }
+        setGuestMsg("OTP sent successfully to " + maskGuestMobile(local) + ".", "success");
+        showToast("OTP sent to " + maskGuestMobile(local));
+      }
+
+      if (payBtn && guestDialog) {
         payBtn.addEventListener("click", function () {
-          payBtn.disabled = true;
-          payBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Processing Payment...';
+          resetGuestVerifyDialog();
+          guestDialog.showModal();
+          setTimeout(function () {
+            if (guestMobileInput) guestMobileInput.focus();
+          }, 50);
+        });
+      }
 
-          setTimeout(() => {
-            payBtn.disabled = false;
-            payBtn.innerHTML = '<i class="fa-solid fa-lock" aria-hidden="true"></i> Proceed to Payment';
-            successDialog.showModal();
-          }, 1200);
+      if (guestCloseBtn && guestDialog) {
+        guestCloseBtn.addEventListener("click", function () {
+          guestDialog.close();
+          resetGuestVerifyDialog();
+        });
+      }
+
+      if (guestDialog) {
+        guestDialog.addEventListener("click", function (e) {
+          if (e.target === guestDialog) {
+            guestDialog.close();
+            resetGuestVerifyDialog();
+          }
+        });
+        guestDialog.addEventListener("close", resetGuestVerifyDialog);
+      }
+
+      if (guestMobileInput) {
+        guestMobileInput.addEventListener("focus", showGuestVerifyBtn);
+        guestMobileInput.addEventListener("click", showGuestVerifyBtn);
+        guestMobileInput.addEventListener("input", function () {
+          // Keep digits and common separators lightly cleaned for display
+          const digits = normalizeGuestPhone(guestMobileInput.value).slice(0, 12);
+          guestMobileInput.value = digits;
+          setGuestMsg("", "");
+          if (guestOtpPanel && !guestOtpPanel.hidden) {
+            guestOtpPanel.hidden = true;
+            guestPendingOtp = "";
+            if (guestOtpDemo) {
+              guestOtpDemo.hidden = true;
+              guestOtpDemo.textContent = "";
+            }
+            if (guestVerifyBtn) {
+              guestVerifyBtn.disabled = false;
+              guestVerifyBtn.textContent = "Verify";
+            }
+          }
+        });
+      }
+
+      if (guestVerifyBtn) {
+        guestVerifyBtn.addEventListener("click", function () {
+          const value = guestMobileInput ? guestMobileInput.value.trim() : "";
+          if (!isValidGuestMobile(value)) {
+            setGuestMsg("Enter a valid 10-digit mobile number.", "error");
+            if (guestMobileInput) guestMobileInput.focus();
+            return;
+          }
+
+          guestVerifyBtn.disabled = true;
+          guestVerifyBtn.textContent = "Sending…";
+          setGuestMsg("Sending OTP…", "success");
+
+          setTimeout(function () {
+            sendGuestOtp(value);
+            guestVerifyBtn.disabled = false;
+            guestVerifyBtn.textContent = "Resend";
+          }, 600);
+        });
+      }
+
+      if (guestOtpInput) {
+        guestOtpInput.addEventListener("input", function () {
+          guestOtpInput.value = normalizeGuestPhone(guestOtpInput.value).slice(0, 6);
+        });
+      }
+
+      const guestForm = document.getElementById("guestVerifyForm");
+      if (guestForm) {
+        guestForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          if (guestOtpPanel && !guestOtpPanel.hidden) return;
+          if (guestVerifyBtn && !guestVerifyBtn.hidden) guestVerifyBtn.click();
         });
       }
     });
