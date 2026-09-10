@@ -634,12 +634,16 @@
   gap: 0.7rem;
   padding: 0.55rem 0.6rem;
   border-radius: 12px;
-  cursor: default;
+  cursor: pointer;
   transition: background 0.2s ease;
 }
 
 .share-profile-result:hover {
   background: rgba(26, 79, 156, 0.06);
+}
+
+.share-profile-result.is-selected {
+  background: rgba(26, 79, 156, 0.1);
 }
 
 .share-profile-result[hidden] {
@@ -658,9 +662,42 @@
 
 .share-profile-result-copy {
   min-width: 0;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
+}
+
+.share-profile-send {
+  flex-shrink: 0;
+  margin-left: auto;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(26, 79, 156, 0.22);
+  background: #1a4f9c;
+  color: #ffffff;
+  font-family: var(--font-sans, "DM Sans", system-ui, sans-serif);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.share-profile-send:hover {
+  background: #153f7d;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(26, 79, 156, 0.25);
+}
+
+.share-profile-send:focus-visible {
+  outline: 2px solid #1a4f9c;
+  outline-offset: 2px;
+}
+
+.share-profile-send[hidden] {
+  display: none !important;
 }
 
 .share-profile-result-copy strong {

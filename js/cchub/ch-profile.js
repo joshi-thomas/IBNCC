@@ -1440,10 +1440,32 @@
     }
   }
 
+  function clearShareProfileSelection() {
+    if (!shareProfileResults) return;
+    shareProfileResults.querySelectorAll(".share-profile-result.is-selected").forEach((item) => {
+      item.classList.remove("is-selected");
+      item.setAttribute("aria-selected", "false");
+      const sendBtn = item.querySelector(".share-profile-send");
+      if (sendBtn) sendBtn.hidden = true;
+    });
+  }
+
+  function selectShareProfileResult(item) {
+    if (!item || !shareProfileResults) return;
+    shareProfileResults.querySelectorAll(".share-profile-result").forEach((result) => {
+      const isSelected = result === item;
+      result.classList.toggle("is-selected", isSelected);
+      result.setAttribute("aria-selected", isSelected ? "true" : "false");
+      const sendBtn = result.querySelector(".share-profile-send");
+      if (sendBtn) sendBtn.hidden = !isSelected;
+    });
+  }
+
   function filterShareProfileResults(query) {
     if (!shareProfileResults) return;
     const q = String(query || "").trim().toLowerCase();
     let visible = 0;
+    let selectedHidden = false;
     shareProfileResults.querySelectorAll(".share-profile-result").forEach((item) => {
       const name = (item.dataset.name || "").toLowerCase();
       const role = (item.dataset.role || "").toLowerCase();
@@ -1451,7 +1473,9 @@
       const match = !q || name.includes(q) || role.includes(q) || text.includes(q);
       item.hidden = !match;
       if (match) visible += 1;
+      if (!match && item.classList.contains("is-selected")) selectedHidden = true;
     });
+    if (selectedHidden) clearShareProfileSelection();
     if (shareProfileEmpty) shareProfileEmpty.hidden = visible > 0;
   }
 
@@ -1466,6 +1490,7 @@
     shareProfileDropdown.hidden = true;
     if (openShareProfileBtn) openShareProfileBtn.setAttribute("aria-expanded", "false");
     if (shareProfileSearch) shareProfileSearch.value = "";
+    clearShareProfileSelection();
     filterShareProfileResults("");
     if (shareProfileCopyStatus) shareProfileCopyStatus.hidden = true;
     shareProfileCopyBtn?.classList.remove("is-copied");
@@ -1514,6 +1539,7 @@
     closeAdminMessagesDropdown();
     if (typeof setMessagesOpen === "function") setMessagesOpen(false);
     syncShareProfileLink();
+    clearShareProfileSelection();
     filterShareProfileResults("");
     shareProfileDropdown.hidden = false;
     setAppNavExpanded(item, true);
@@ -1612,6 +1638,17 @@
 
   shareProfileDropdown?.addEventListener("click", (e) => {
     e.stopPropagation();
+    const sendBtn = e.target.closest(".share-profile-send");
+    if (sendBtn) {
+      const item = sendBtn.closest(".share-profile-result");
+      const name = item?.dataset.name || "profile";
+      console.info(`Share profile sent to ${name}`);
+      return;
+    }
+    const result = e.target.closest(".share-profile-result");
+    if (result && shareProfileResults?.contains(result) && !result.hidden) {
+      selectShareProfileResult(result);
+    }
   });
 
   shareProfileCopyBtn?.addEventListener("click", async () => {
