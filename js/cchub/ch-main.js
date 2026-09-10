@@ -14,12 +14,11 @@
   const nextBtn = document.getElementById("heroNext");
   const dotsWrap = document.getElementById("heroDots");
 
-  if (!track || !slider) return;
-
+  if (track && slider) {
   const originalSlides = Array.from(track.querySelectorAll(".hero-slide"));
   const total = originalSlides.length;
-  if (!total) return;
 
+  if (total) {
   /* Clone edges so adjacent peeks + wrap feel continuous */
   const firstClone = originalSlides[0].cloneNode(true);
   const lastClone = originalSlides[total - 1].cloneNode(true);
@@ -59,6 +58,7 @@
   }
 
   function buildDots() {
+    if (!dotsWrap) return;
     dotsWrap.innerHTML = "";
     originalSlides.forEach((_, i) => {
       const dot = document.createElement("button");
@@ -82,7 +82,7 @@
       );
     });
 
-    const dots = dotsWrap.querySelectorAll(".hero-dot");
+    const dots = dotsWrap?.querySelectorAll(".hero-dot") || [];
     dots.forEach((dot, i) => {
       const active = i === activeReal;
       dot.classList.toggle("is-active", active);
@@ -206,6 +206,8 @@
   setTrackPosition(current, true);
   updateActiveStates();
   startAutoplay();
+  }
+  }
 
   /* ---------- Feature Tabs ---------- */
 
@@ -308,6 +310,76 @@
       console.info(`Networking search: ${query}`);
     }
   });
+
+  const networkingMobileMq = window.matchMedia("(max-width: 900px)");
+
+  function syncNetworkingFiltersLayout() {
+    document.querySelectorAll(".networking-body").forEach((body, index) => {
+      const aside = body.querySelector(":scope > .networking-filters");
+      const header = aside?.querySelector(".filters-header");
+      const top =
+        body.querySelector(":scope > .filters-header-top") ||
+        header?.querySelector(".filters-header-top");
+      const results = body.querySelector(":scope > .networking-results");
+      if (!aside || !header || !top || !results) return;
+
+      if (networkingMobileMq.matches) {
+        if (top.parentElement !== body) {
+          body.insertBefore(top, aside);
+        }
+        // DOM: header bar → filters panel → results (CSS order keeps results under the bar when collapsed)
+        body.appendChild(top);
+        body.appendChild(aside);
+        body.appendChild(results);
+
+        const panelId = aside.id || `networkingFiltersPanel-${index}`;
+        aside.id = panelId;
+        top.setAttribute("role", "button");
+        top.setAttribute("tabindex", "0");
+        top.setAttribute(
+          "aria-expanded",
+          body.classList.contains("filters-open") ? "true" : "false"
+        );
+        top.setAttribute("aria-controls", panelId);
+      } else {
+        body.classList.remove("filters-open");
+        top.removeAttribute("role");
+        top.removeAttribute("tabindex");
+        top.removeAttribute("aria-expanded");
+        top.removeAttribute("aria-controls");
+        if (top.parentElement !== header) {
+          header.insertBefore(top, header.firstChild);
+        }
+      }
+    });
+  }
+
+  document.querySelectorAll(".networking-body").forEach((body) => {
+    body.addEventListener("click", (e) => {
+      const headerTop = e.target.closest(".filters-header-top");
+      if (!headerTop || !body.contains(headerTop)) return;
+      if (!networkingMobileMq.matches) return;
+      const open = body.classList.toggle("filters-open");
+      headerTop.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+
+    body.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      const headerTop = e.target.closest?.(".filters-header-top");
+      if (!headerTop || headerTop.parentElement !== body) return;
+      if (!networkingMobileMq.matches) return;
+      e.preventDefault();
+      const open = body.classList.toggle("filters-open");
+      headerTop.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
+
+  syncNetworkingFiltersLayout();
+  if (typeof networkingMobileMq.addEventListener === "function") {
+    networkingMobileMq.addEventListener("change", syncNetworkingFiltersLayout);
+  } else {
+    networkingMobileMq.addListener(syncNetworkingFiltersLayout);
+  }
 
   const officialToggle = document.getElementById("officialFilterToggle");
   const officialExtraFilters = document.getElementById("officialExtraFilters");

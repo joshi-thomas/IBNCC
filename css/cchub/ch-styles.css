@@ -1410,6 +1410,14 @@ button {
 .networking-hero-bar {
   position: relative;
   overflow: hidden;
+  /* background:
+    
+    url("../../assets/images/network.png")
+      right center / cover no-repeat; */
+  /* background:
+    linear-gradient(105deg, rgba(247, 251, 254, 0.96) 0%, rgba(247, 251, 254, 0.88) 55%, rgba(247, 251, 254, 0.55) 100%),
+    url("../../assets/images/network.png")
+      right center / cover no-repeat; */
   background:
     linear-gradient(105deg, rgba(247, 251, 254, 0.96) 0%, rgba(247, 251, 254, 0.88) 55%, rgba(247, 251, 254, 0.55) 100%),
     url("https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&q=70")
@@ -2562,6 +2570,76 @@ button {
 
   .networking-filters {
     position: static;
+  }
+
+  /* Mobile filters: header bar on top, results next; groups expand on toggle */
+  .networking-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .networking-body > .filters-header-top {
+    order: 1;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    user-select: none;
+    justify-content: flex-start;
+  }
+
+  .networking-body > .filters-header-top::after {
+    content: "\f078";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 0.78rem;
+    margin-left: auto;
+    color: var(--maroon);
+    transition: transform 0.2s ease;
+  }
+
+  .networking-body.filters-open > .filters-header-top::after {
+    transform: rotate(180deg);
+  }
+
+  .networking-body > .filters-header-top:focus-visible {
+    outline: 2px solid rgba(11, 42, 74, 0.35);
+    outline-offset: 2px;
+  }
+
+  .networking-body > .networking-filters {
+    order: 2;
+    display: none;
+  }
+
+  .networking-body.filters-open > .networking-filters {
+    display: block;
+  }
+
+  .networking-body > .networking-filters .filters-header {
+    display: none;
+  }
+
+  .networking-body > .networking-filters .filter-group {
+    display: none;
+  }
+
+  .networking-body.filters-open > .networking-filters .filter-group {
+    display: block;
+  }
+
+  .networking-body.filters-open > .networking-filters .official-extra-grid .filter-group {
+    display: block;
+  }
+
+  .networking-body > .networking-results {
+    order: 3;
   }
 
   .feature-panel-content {
