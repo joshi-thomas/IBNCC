@@ -2764,12 +2764,67 @@ button {
   }
 
   .profile-card {
-    grid-template-columns: 1fr auto;
+    position: relative;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-areas:
-      "main open"
-      "location location"
-      "contact contact";
-    gap: 14px;
+      "main main"
+      "location contact";
+    gap: 14px 0;
+    align-items: center;
+  }
+
+  .profile-main {
+    grid-area: main;
+    min-width: 0;
+    padding-right: 42px;
+  }
+
+  .profile-open {
+    grid-area: unset;
+    position: absolute;
+    top: 16px;
+    right: 14px;
+    z-index: 1;
+  }
+
+  .profile-location,
+  .profile-contact {
+    align-self: center;
+    justify-self: stretch;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .profile-location {
+    grid-area: location;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 4px 12px 4px 4px;
+    border-right: 1px solid var(--border);
+  }
+
+  .profile-location > i {
+    margin-top: 0;
+  }
+
+  .profile-contact {
+    grid-area: contact;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 4px 4px 4px 12px;
+  }
+
+  .profile-contact a {
+    justify-content: center;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .section-title::before,
@@ -2783,6 +2838,56 @@ button {
 
   .feature-tab-title {
     font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 459px) {
+  .profile-card {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "main"
+      "location"
+      "contact";
+    gap: 12px;
+    justify-items: center;
+  }
+
+  .profile-main {
+    grid-area: main;
+    justify-self: stretch;
+    width: 100%;
+    padding-right: 42px;
+  }
+
+  .profile-location,
+  .profile-contact {
+    grid-area: unset;
+    justify-self: center;
+    align-self: center;
+    width: fit-content;
+    max-width: 100%;
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .profile-location {
+    grid-area: location;
+    justify-content: center;
+    text-align: center;
+    border-right: none;
+    padding: 0;
+  }
+
+  .profile-contact {
+    grid-area: contact;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .profile-contact a {
+    justify-content: center;
   }
 }
 
