@@ -2577,6 +2577,7 @@ button {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    min-height: calc(100svh - var(--header-h, 148px) - 1rem);
   }
 
   .networking-body > .filters-header-top {
@@ -2640,6 +2641,18 @@ button {
 
   .networking-body > .networking-results {
     order: 3;
+    width: 100%;
+    margin-inline: auto;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100svh - var(--header-h, 148px) - 10.5rem);
+  }
+
+  .networking-body.filters-open > .networking-results {
+    justify-content: flex-start;
+    min-height: 0;
   }
 
   .feature-panel-content {
