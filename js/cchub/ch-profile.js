@@ -90,6 +90,7 @@
       "Tour Guide",
       "Housekeeper",
       "Event Manager",
+      "Chef",
     ],
     "Healthcare & Medical": [
       "Doctor",
@@ -278,8 +279,101 @@
     if (!item) return;
     item.classList.remove("is-editing");
     item.querySelector(".detail-grid")?.removeAttribute("hidden");
-    item.querySelector(".detail-edit-form")?.remove();
+    const form = item.querySelector(".detail-edit-form");
+    if (form) {
+      form.hidden = true;
+      closeAllOptionDropdowns(form);
+    }
     item.querySelector('[data-action="edit"]')?.setAttribute("aria-pressed", "false");
+  }
+
+  function syncDetailFormFromGrid(item, form) {
+    const grid = item.querySelector(".detail-grid");
+    if (!grid || !form) return;
+    const rows = [...grid.querySelectorAll(":scope > div")];
+    rows.forEach((row, index) => {
+      const value = row.querySelector("dd")?.textContent.trim() || "";
+      const input = form.querySelector(`[name="detail-${index}"]`);
+      if (input) input.value = value;
+      const select = form.querySelector(`.detail-option-select[data-option-target="detail-${index}"]`);
+      if (select) {
+        [...select.options].forEach((option) => {
+          option.selected = option.value === value;
+        });
+      }
+    });
+
+    const sectionLabel = item.querySelector(".detail-label")?.textContent.trim() || "";
+    if (sectionLabel === "Job Details") {
+      const categoryInput = form.querySelector('[name="detail-0"]');
+      const jobInput = form.querySelector('[name="detail-1"]');
+      updateJobOptions(form, categoryInput?.value.trim() || "", jobInput?.value.trim() || "");
+    }
+  }
+
+  function bindDetailEditForm(form, item) {
+    if (!form || form.dataset.bound === "1") return;
+    form.dataset.bound = "1";
+
+    const grid = item.querySelector(".detail-grid");
+    const rows = [...(grid?.querySelectorAll(":scope > div") || [])];
+    const sectionLabel = item.querySelector(".detail-label")?.textContent.trim() || "";
+
+    form.querySelectorAll(".detail-input-wrap input").forEach((input) => {
+      input.addEventListener("click", () => {
+        const field = input.closest(".detail-edit-field.has-options");
+        if (!field) return;
+        setOptionDropdownOpen(field, !field.classList.contains("is-open"));
+      });
+    });
+
+    form.querySelectorAll(".detail-option-toggle").forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        const field = toggle.closest(".detail-edit-field.has-options");
+        if (!field) return;
+        setOptionDropdownOpen(field, !field.classList.contains("is-open"));
+        field.querySelector("input")?.focus();
+      });
+    });
+
+    form.querySelectorAll(".detail-option-select").forEach((select) => {
+      select.addEventListener("change", () => {
+        const input = form.querySelector(`[name="${select.dataset.optionTarget}"]`);
+        if (!input) return;
+        input.value = select.value;
+        if (select.dataset.optionRole === "category") {
+          updateJobOptions(form, select.value, "");
+        }
+        setOptionDropdownOpen(select.closest(".detail-edit-field.has-options"), false);
+        input.focus();
+      });
+    });
+
+    form.addEventListener("click", (e) => {
+      if (!e.target.closest(".detail-edit-field.has-options")) {
+        closeAllOptionDropdowns(form);
+      }
+    });
+
+    if (sectionLabel === "Job Details") {
+      form.querySelector('[name="detail-0"]')?.addEventListener("input", (e) => {
+        updateJobOptions(form, e.target.value.trim(), form.querySelector('[name="detail-1"]')?.value.trim() || "");
+      });
+    }
+
+    form.querySelector("[data-edit-cancel], .sidebar-btn-secondary")?.addEventListener("click", () => {
+      closeDetailEditor(item);
+    });
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      rows.forEach((row, index) => {
+        const dd = row.querySelector("dd");
+        if (dd) dd.textContent = data.get(`detail-${index}`)?.toString().trim() || "";
+      });
+      closeDetailEditor(item);
+    });
   }
 
   function openDetailEditor(item) {
@@ -289,14 +383,27 @@
 
     const grid = item.querySelector(".detail-grid");
     const content = item.querySelector(".detail-content");
-    const rows = [...(grid?.querySelectorAll(":scope > div") || [])];
-    const sectionLabel = item.querySelector(".detail-label")?.textContent.trim() || "";
-    if (!grid || !content || !rows.length) return;
+    const existingForm = item.querySelector(".detail-edit-form");
+    if (!grid || !content) return;
 
     item.open = true;
     item.classList.add("is-editing");
     item.querySelector('[data-action="edit"]')?.setAttribute("aria-pressed", "true");
     grid.hidden = true;
+
+    // Prefer static markup from ch-profile.html when present
+    if (existingForm) {
+      syncDetailFormFromGrid(item, existingForm);
+      bindDetailEditForm(existingForm, item);
+      existingForm.hidden = false;
+      existingForm.querySelector("input")?.focus();
+      return;
+    }
+
+    // Fallback for pages without pre-baked edit forms
+    const rows = [...(grid.querySelectorAll(":scope > div") || [])];
+    const sectionLabel = item.querySelector(".detail-label")?.textContent.trim() || "";
+    if (!rows.length) return;
 
     const form = document.createElement("form");
     form.className = "detail-edit-form";
@@ -328,7 +435,7 @@
           .join("")}
       </div>
       <div class="detail-edit-actions">
-        <button type="button" class="sidebar-btn-secondary">Cancel</button>
+        <button type="button" class="sidebar-btn-secondary" data-edit-cancel>Cancel</button>
         <button type="submit" class="sidebar-btn-primary">Save</button>
       </div>
     `;
@@ -351,65 +458,8 @@
     }
 
     content.appendChild(form);
+    bindDetailEditForm(form, item);
     form.querySelector("input")?.focus();
-
-    form.querySelectorAll(".detail-input-wrap input").forEach((input) => {
-      input.addEventListener("click", () => {
-        const field = input.closest(".detail-edit-field.has-options");
-        if (!field) return;
-        const shouldOpen = !field.classList.contains("is-open");
-        setOptionDropdownOpen(field, shouldOpen);
-      });
-    });
-
-    form.querySelectorAll(".detail-option-toggle").forEach((toggle) => {
-      toggle.addEventListener("click", () => {
-        const field = toggle.closest(".detail-edit-field.has-options");
-        if (!field) return;
-        const shouldOpen = !field.classList.contains("is-open");
-        setOptionDropdownOpen(field, shouldOpen);
-        field.querySelector("input")?.focus();
-      });
-    });
-
-    form.querySelectorAll(".detail-option-select").forEach((select) => {
-      select.addEventListener("change", () => {
-        const input = form.querySelector(`[name="${select.dataset.optionTarget}"]`);
-        if (!input) return;
-        input.value = select.value;
-        if (select.dataset.optionRole === "category") {
-          updateJobOptions(form, select.value, "");
-        }
-        setOptionDropdownOpen(select.closest(".detail-edit-field.has-options"), false);
-        input.focus();
-      });
-    });
-
-    form.addEventListener("click", (e) => {
-      if (!e.target.closest(".detail-edit-field.has-options")) {
-        closeAllOptionDropdowns(form);
-      }
-    });
-
-    if (sectionLabel === "Job Details") {
-      form.querySelector('[name="detail-0"]')?.addEventListener("input", (e) => {
-        updateJobOptions(form, e.target.value.trim(), form.querySelector('[name="detail-1"]')?.value.trim() || "");
-      });
-    }
-
-    form.querySelector(".sidebar-btn-secondary")?.addEventListener("click", () => {
-      closeDetailEditor(item);
-    });
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const data = new FormData(form);
-      rows.forEach((row, index) => {
-        const dd = row.querySelector("dd");
-        if (dd) dd.textContent = data.get(`detail-${index}`)?.toString().trim() || "";
-      });
-      closeDetailEditor(item);
-    });
   }
 
   document.querySelectorAll("[data-action]").forEach((btn) => {
@@ -1008,53 +1058,27 @@
   const msgAttachPreview = document.getElementById("msgAttachPreview");
   const msgSendBtn = document.getElementById("msgSendBtn");
 
-  function atDaysAgo(days, hours, minutes) {
-    const d = new Date();
-    d.setSeconds(0, 0);
-    d.setMilliseconds(0);
-    d.setDate(d.getDate() - days);
-    d.setHours(hours, minutes, 0, 0);
-    return d.toISOString();
-  }
-
-  const conversationThreads = {
-    vivek: [
-      { text: "Hi George, hope you're doing well!", out: false, at: atDaysAgo(1, 9, 12) },
-      { text: "Doing great, Vivek. How about you?", out: true, at: atDaysAgo(1, 9, 18), status: "read" },
-      { text: "All good. Are you joining the Kochi conclave?", out: false, at: atDaysAgo(0, 10, 4) },
-      { text: "Yes — I'll be there on day one.", out: true, at: atDaysAgo(0, 10, 8), status: "delivered" },
-    ],
-    jaleel: [
-      { text: "Can we connect on the networking session?", out: false, at: atDaysAgo(0, 11, 5) },
-      { text: "Absolutely — I'll be there after lunch.", out: true, at: atDaysAgo(0, 11, 12), status: "read" },
-    ],
-    joseph: [
-      { text: "Aahaaa", out: false, at: atDaysAgo(2, 16, 40) },
-      { text: "Haha, that was a great session!", out: true, at: atDaysAgo(2, 16, 48), status: "read" },
-    ],
-    bejois: [
-      { text: "Sending over the event flyer shortly.", out: false, at: atDaysAgo(5, 14, 10) },
-      { text: "Please check the seating update as well.", out: false, at: atDaysAgo(5, 14, 16) },
-      { text: "Thanks Bejois, received!", out: true, at: atDaysAgo(5, 14, 22), status: "read" },
-      { text: "Updated the guest list for today.", out: false, at: atDaysAgo(0, 8, 40) },
-    ],
-    anoop: [
-      { text: "Reacted 👍 to your message", out: false, at: atDaysAgo(7, 18, 20) },
-      { text: "Looking forward to collaborating.", out: true, at: atDaysAgo(7, 18, 28), status: "read" },
-    ],
-    maria: [
-      { text: "Looking forward to the conclave", out: false, at: atDaysAgo(3, 13, 5) },
-      { text: "Same here — see you in Kochi!", out: true, at: atDaysAgo(3, 13, 12), status: "read" },
-    ],
-    rahul: [
-      { text: "Quick question about the trading desk timings.", out: false, at: atDaysAgo(0, 15, 20) },
-      { text: "We're open until 6 PM today.", out: true, at: atDaysAgo(0, 15, 24), status: "sent" },
-    ],
-  };
-
   let pendingFiles = [];
   let activeChatId = null;
   let lastRenderedDayKey = null;
+
+  function getActiveThreadEl() {
+    if (!msgChatLog || !activeChatId) return null;
+    return msgChatLog.querySelector(`.msg-thread[data-thread-id="${activeChatId}"]`);
+  }
+
+  function ensureThreadEl(chatId) {
+    if (!msgChatLog || !chatId) return null;
+    let el = msgChatLog.querySelector(`.msg-thread[data-thread-id="${chatId}"]`);
+    if (!el) {
+      el = document.createElement("div");
+      el.className = "msg-thread";
+      el.dataset.threadId = chatId;
+      el.hidden = true;
+      msgChatLog.appendChild(el);
+    }
+    return el;
+  }
 
   function setMessagesOpen(open) {
     if (!messagesPanel || !openMessagesBtn) return;
@@ -1143,7 +1167,8 @@
   }
 
   function appendDaySeparator(date) {
-    if (!msgChatLog) return;
+    const host = getActiveThreadEl() || msgChatLog;
+    if (!host) return;
     const sep = document.createElement("div");
     sep.className = "msg-day-sep";
     sep.setAttribute("role", "separator");
@@ -1151,7 +1176,7 @@
     time.dateTime = dayKey(date);
     time.textContent = dateLabel(date);
     sep.appendChild(time);
-    msgChatLog.appendChild(sep);
+    host.appendChild(sep);
   }
 
   function ensureDaySeparator(date) {
@@ -1174,7 +1199,8 @@
   }
 
   function appendBubble(text, outgoing, options = {}) {
-    if (!msgChatLog) return;
+    const host = getActiveThreadEl() || msgChatLog;
+    if (!host) return null;
     const when = options.at ? new Date(options.at) : new Date();
     const status = outgoing ? (options.status || "sent") : null;
 
@@ -1204,8 +1230,8 @@
     }
 
     bubble.appendChild(meta);
-    msgChatLog.appendChild(bubble);
-    msgChatLog.scrollTop = msgChatLog.scrollHeight;
+    host.appendChild(bubble);
+    if (msgChatLog) msgChatLog.scrollTop = msgChatLog.scrollHeight;
     return bubble;
   }
 
@@ -1228,13 +1254,29 @@
     clearPendingFiles();
 
     if (msgChatLog) {
-      msgChatLog.innerHTML = "";
-      lastRenderedDayKey = null;
-      const thread = conversationThreads[activeChatId] || [
-        { text: `Start a conversation with ${name}.`, out: false, at: new Date().toISOString() },
-      ];
-      conversationThreads[activeChatId] = thread;
-      thread.forEach((msg) => appendBubble(msg.text, msg.out, { at: msg.at, status: msg.status }));
+      msgChatLog.querySelectorAll(".msg-thread").forEach((thread) => {
+        thread.hidden = true;
+      });
+      const threadEl = ensureThreadEl(activeChatId);
+      if (threadEl) {
+        threadEl.hidden = false;
+        const lastSep = [...threadEl.querySelectorAll(".msg-day-sep time")].pop();
+        const lastSepLabel = lastSep?.textContent?.trim() || "";
+        if (lastSepLabel === "Today") {
+          lastRenderedDayKey = dayKey(new Date());
+        } else if (lastSepLabel === "Yesterday") {
+          const y = new Date();
+          y.setDate(y.getDate() - 1);
+          lastRenderedDayKey = dayKey(y);
+        } else {
+          lastRenderedDayKey = null;
+        }
+        if (!threadEl.children.length) {
+          lastRenderedDayKey = null;
+          appendBubble(`Start a conversation with ${name}.`, false, { at: new Date().toISOString() });
+        }
+        msgChatLog.scrollTop = msgChatLog.scrollHeight;
+      }
     }
 
     window.requestAnimationFrame(() => msgChatInput?.focus());
@@ -1303,19 +1345,14 @@
 
     if (hasFiles) clearPendingFiles();
 
-    const thread = conversationThreads[activeChatId] || (conversationThreads[activeChatId] = []);
-    const outgoingMsg = { text: outgoingText, out: true, at: now.toISOString(), status: "sent" };
-    thread.push(outgoingMsg);
     const bubble = appendBubble(outgoingText, true, { at: now.toISOString(), status: "sent" });
     const ticks = bubble?.querySelector(".msg-ticks");
 
     window.setTimeout(() => {
       setTickStatus(ticks, "delivered");
-      outgoingMsg.status = "delivered";
     }, 700);
     window.setTimeout(() => {
       setTickStatus(ticks, "read");
-      outgoingMsg.status = "read";
     }, 1800);
 
     if (msgChatInput) {
@@ -1325,10 +1362,7 @@
     }
 
     window.setTimeout(() => {
-      const replyAt = new Date();
-      const reply = { text: "Thanks — I'll reply shortly.", out: false, at: replyAt.toISOString() };
-      thread.push(reply);
-      appendBubble(reply.text, false, { at: reply.at });
+      appendBubble("Thanks — I'll reply shortly.", false, { at: new Date().toISOString() });
     }, 900);
   });
 

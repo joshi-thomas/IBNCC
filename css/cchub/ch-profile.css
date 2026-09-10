@@ -1106,6 +1106,14 @@
   border-radius: 10px;
 }
 
+.detail-edit-form[hidden] {
+  display: none !important;
+}
+
+.msg-thread[hidden] {
+  display: none !important;
+}
+
 .detail-edit-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
