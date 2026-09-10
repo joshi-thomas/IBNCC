@@ -1,1089 +1,1583 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>George Mathew — Member Profile | CC Hub</title>
-  <meta name="description" content="View George Mathew's public profile on CC Hub — send a message and discover similar members." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Manrope:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/cchub/ch-styles.css" />
-  <link rel="stylesheet" href="css/cchub/ch-profile.css" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>George Mathew — Member Profile | CC Hub</title>
+    <meta
+      name="description"
+      content="View George Mathew's public profile on CC Hub — send a message and discover similar members."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Manrope:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/cchub/ch-styles.css" />
+    <link rel="stylesheet" href="css/cchub/ch-profile.css" />
 
-  <style>
-    :root {
-      --primary: #0b1d36;
-      --primary-mid: #122a4a;
-      --secondary: #1a4f9c;
-      --royal: #1e5bb8;
-      --gold: #c9a227;
-      --gold-bright: #e0b93a;
-      --gold-soft: #f3e4b0;
-      --dark: #07111f;
-      --light: #f7fafc;
-      --text: #142033;
-      --muted: #5a6b82;
-      --white: #ffffff;
-      --border: rgba(15, 40, 80, 0.1);
-      --shadow: 0 18px 50px rgba(7, 17, 31, 0.12);
-      --radius: 22px;
-      --radius-sm: 14px;
-      --header-h: 78px;
-      --font-display: "Cormorant Garamond", Georgia, serif;
-      --font-sans: "DM Sans", system-ui, sans-serif;
-      --font-body: "Manrope", system-ui, sans-serif;
-      --ease: cubic-bezier(0.22, 1, 0.36, 1);
-      --max: 1180px;
-    }
-    .page-profile .site-header {
-      position: fixed;
-      inset: 0 0 auto 0;
-      z-index: 1000;
-      height: var(--header-h);
-      overflow: visible;
-      transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
-      background: rgba(255, 255, 255, 0.42);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.35);
-    }
-    .page-profile .site-header.is-scrolled {
-      background: rgba(255, 255, 255, 0.92);
-      box-shadow: 0 8px 30px rgba(7, 17, 31, 0.08);
-      border-bottom-color: var(--border);
-    }
-    .page-profile .header-inner {
-      width: min(100% - 2rem, 1280px);
-      margin-inline: auto;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0;
-      min-height: unset;
-      max-width: unset;
-      grid-template-columns: unset;
-    }
-    .page-profile .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      min-width: 0;
-      flex-shrink: 1;
-      transition: none;
-    }
-    .page-profile .brand-logo {
-      width: 105px;
-      height: auto;
-      object-fit: contain;
-      border-radius: 10px;
-      flex-shrink: 0;
-      display: block;
-      color: inherit;
-      border-spacing: unset;
-    }
-    .page-profile .brand-logo svg,
-    .page-profile .brand-logo img {
-      height: auto;
-      width: 105px;
-      max-width: 100%;
-      object-fit: contain;
-      display: block;
-    }
-    .page-profile .brand-text {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.2rem;
-      line-height: 1.15;
-      min-width: 0;
-      flex-shrink: 0;
-    }
-    .page-profile .brand-tagline {
-      display: block;
-      font-family: var(--font-sans);
-      font-size: clamp(0.5rem, 1.15vw + 0.36rem, 0.58rem);
-      font-weight: 600;
-      letter-spacing: 0.055em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-align: center;
-      line-height: 1.28;
-      max-width: min(13.25rem, 62vw);
-      min-width: min(10.75rem, 52vw);
-      white-space: normal;
-      overflow: visible;
-    }
-    .page-profile .nav-desktop {
-      display: none;
-      align-items: center;
-      gap: 0.35rem;
-      text-transform: uppercase;
-    }
-    .page-profile .nav-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.55rem 0.85rem;
-      border-radius: 999px;
-      font-family: var(--font-sans);
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--text);
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-    .page-profile .nav-link:hover,
-    .page-profile .nav-link.active {
-      background: rgba(26, 79, 156, 0.08);
-      color: var(--primary);
-    }
-    .page-profile .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      flex-shrink: 0;
-    }
-    .page-profile .header-notice {
-      display: none;
-      align-items: center;
-      gap: 0.55rem;
-      max-width: min(380px, 34vw);
-      height: 38px;
-      padding: 0 0.65rem 0 0.45rem;
-      border-radius: 999px;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(247, 250, 252, 0.92));
-      border: 1px solid rgba(26, 79, 156, 0.18);
-      box-shadow: 0 4px 16px rgba(18, 58, 107, 0.1), 0 0 0 1px rgba(201, 162, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-      overflow: hidden;
-    }
-    .page-profile .menu-toggle {
-      width: 44px;
-      height: 44px;
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.7);
-    }
-    @media (max-width: 767px) {
-      .page-profile .header-notice:not(.header-notice--mobile) { display: none !important; }
-    }
-    @media (min-width: 768px) {
-      .page-profile .header-notice:not(.header-notice--mobile) { display: flex; max-width: min(280px, 38vw); }
-    }
-    @media (min-width: 1024px) {
-      .page-profile .nav-desktop { display: flex; }
-      .page-profile .header-notice:not(.header-notice--mobile) { display: flex; max-width: min(340px, 30vw); }
-      .page-profile .menu-toggle { display: none; }
-      .page-profile .nav-mobile { display: none !important; }
-      .page-profile .brand-tagline { max-width: none; min-width: 0; font-size: 0.58rem; letter-spacing: 0.11em; white-space: nowrap; }
-    }
-    @media (min-width: 1200px) {
-      .page-profile .nav-desktop { gap: 0.35rem; }
-      .page-profile .nav-link { padding: 0.55rem 0.7rem; font-size: 0.84rem; }
-      .page-profile .header-notice:not(.header-notice--mobile) { max-width: min(400px, 32vw); }
-    }
-    @media (min-width: 1320px) {
-      .page-profile .nav-desktop { gap: 0.5rem; }
-      .page-profile .nav-link { padding: 0.55rem 0.85rem; font-size: 0.88rem; }
-      .page-profile .header-notice:not(.header-notice--mobile) { max-width: 420px; }
-    }
-
-    /* ---------- Profile-style app navigation ---------- */
-    .page-profile .app-nav {
-      position: sticky;
-      top: var(--header-h);
-      margin-top: var(--header-h);
-      z-index: 999;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      box-shadow: none;
-      overflow: visible;
-    }
-    .page-profile .app-nav-inner {
-      width: min(100% - 2rem, 1280px);
-      margin-inline: auto;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      gap: 1.9rem;
-      padding: 0.7rem 0 0.6rem;
-      max-width: unset;
-    }
-    .page-profile .app-nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0;
-      min-width: 0;
-      border-radius: 0;
-      border-bottom: none;
-      background: transparent;
-      font-family: var(--font-sans);
-      font-size: 0.76rem;
-      font-weight: 600;
-      color: #1a2340;
-      text-decoration: none;
-      transition: opacity 0.2s ease;
-      flex-shrink: 0;
-    }
-    .page-profile .app-nav-item:hover,
-    .page-profile .app-nav-item.is-active {
-      background: transparent;
-      color: #1a2340;
-      border-bottom-color: transparent;
-      opacity: 0.85;
-    }
-    .page-profile .app-nav-icon {
-      position: relative;
-      display: grid;
-      place-items: center;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-    }
-    .page-profile .app-nav-icon i {
-      font-size: 1.2rem;
-    }
-    .page-profile .app-nav-icon--save {
-      background: #f3e8ff;
-      color: #8b5cf6;
-    }
-    .page-profile .app-nav-icon--block {
-      background: #fde8e8;
-      /* color: #dc3545; */
-      color: #c67179;
-    }
-    .page-profile .app-nav-icon--share {
-      background: #e7f6ea;
-      color: #2ea043;
-    }
-    .page-profile .app-nav-icon--profile {
-      background: #e8f1fb;
-      color: #2f6fdb;
-    }
-    .page-profile .app-nav-label {
-      white-space: nowrap;
-      text-align: center;
-    }
-
-    /* Restore index.html footer look over ch-styles.css */
-    .page-profile .site-footer {
-      position: relative;
-      text-align: initial;
-      padding: 4.75rem 0 0;
-      color: rgba(255, 255, 255, 0.78);
-      font-size: inherit;
-      border-top: none;
-      background: transparent;
-      background-image: url("assets/images/foot.png");
-      overflow: hidden;
-    }
-
-    /* ---------- Other profile social icons ---------- */
-    .page-profile.other-profile-page .other-social-links {
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border);
-    }
-    .page-profile.other-profile-page .other-social-label {
-      margin: 0 0 0.7rem;
-      font-family: var(--font-sans);
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .page-profile.other-profile-page .other-social-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.65rem;
-    }
-    .page-profile.other-profile-page .other-social-link {
-      width: 36px;
-      height: 36px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      background: var(--light);
-      color: var(--primary-mid);
-      font-size: 1.05rem;
-      text-decoration: none;
-      transition:
-        transform 0.22s var(--ease),
-        background 0.22s ease,
-        color 0.22s ease,
-        border-color 0.22s ease,
-        box-shadow 0.22s ease;
-    }
-    .page-profile.other-profile-page .other-social-link:hover,
-    .page-profile.other-profile-page .other-social-link:focus-visible {
-      transform: translateY(-3px);
-      color: var(--white);
-      outline: none;
-      box-shadow: 0 8px 18px rgba(11, 29, 54, 0.14);
-    }
-    .page-profile.other-profile-page .other-social-link--instagram:hover,
-    .page-profile.other-profile-page .other-social-link--instagram:focus-visible {
-      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-      border-color: transparent;
-    }
-    .page-profile.other-profile-page .other-social-link--facebook:hover,
-    .page-profile.other-profile-page .other-social-link--facebook:focus-visible {
-      background: #1877f2;
-      border-color: #1877f2;
-    }
-    .page-profile.other-profile-page .other-social-link--youtube:hover,
-    .page-profile.other-profile-page .other-social-link--youtube:focus-visible {
-      background: #ff0000;
-      border-color: #ff0000;
-    }
-    .page-profile.other-profile-page .other-social-link--x:hover,
-    .page-profile.other-profile-page .other-social-link--x:focus-visible {
-      background: #0f1419;
-      border-color: #0f1419;
-    }
-    @media (max-width: 480px) {
-      .page-profile.other-profile-page .other-social-link {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
+    <style>
+      :root {
+        --primary: #0b1d36;
+        --primary-mid: #122a4a;
+        --secondary: #1a4f9c;
+        --royal: #1e5bb8;
+        --gold: #c9a227;
+        --gold-bright: #e0b93a;
+        --gold-soft: #f3e4b0;
+        --dark: #07111f;
+        --light: #f7fafc;
+        --text: #142033;
+        --muted: #5a6b82;
+        --white: #ffffff;
+        --border: rgba(15, 40, 80, 0.1);
+        --shadow: 0 18px 50px rgba(7, 17, 31, 0.12);
+        --radius: 22px;
+        --radius-sm: 14px;
+        --header-h: 78px;
+        --font-display: "Cormorant Garamond", Georgia, serif;
+        --font-sans: "DM Sans", system-ui, sans-serif;
+        --font-body: "Manrope", system-ui, sans-serif;
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
+        --max: 1180px;
       }
-    }
-  </style>
-</head>
-<body class="profile-page other-profile-page page-profile">
-  <header class="site-header" id="site-header">
-    <div class="header-inner">
-      <a href="index.html#home" class="brand" aria-label="IBNCC Home">
-        <span class="brand-text">
-          <img src="assets/images/logo_full.png" alt="IBNCC logo" class="brand-logo" width="52" height="52" />
-          <span class="brand-tagline">AN INITIATIVE OF CATHOLIC CONGRESS</span>
-        </span>
-      </a>
+      .page-profile .site-header {
+        position: fixed;
+        inset: 0 0 auto 0;
+        z-index: 1000;
+        height: var(--header-h);
+        overflow: visible;
+        transition:
+          background 0.4s ease,
+          box-shadow 0.4s ease,
+          backdrop-filter 0.4s ease,
+          border-color 0.4s ease;
+        background: rgba(255, 255, 255, 0.42);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+      }
+      .page-profile .site-header.is-scrolled {
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 8px 30px rgba(7, 17, 31, 0.08);
+        border-bottom-color: var(--border);
+      }
+      .page-profile .header-inner {
+        width: min(100% - 2rem, 1280px);
+        margin-inline: auto;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0;
+        min-height: unset;
+        max-width: unset;
+        grid-template-columns: unset;
+      }
+      .page-profile .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+        flex-shrink: 1;
+        transition: none;
+      }
+      .page-profile .brand-logo {
+        width: 105px;
+        height: auto;
+        object-fit: contain;
+        border-radius: 10px;
+        flex-shrink: 0;
+        display: block;
+        color: inherit;
+        border-spacing: unset;
+      }
+      .page-profile .brand-logo svg,
+      .page-profile .brand-logo img {
+        height: auto;
+        width: 105px;
+        max-width: 100%;
+        object-fit: contain;
+        display: block;
+      }
+      .page-profile .brand-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.2rem;
+        line-height: 1.15;
+        min-width: 0;
+        flex-shrink: 0;
+      }
+      .page-profile .brand-tagline {
+        display: block;
+        font-family: var(--font-sans);
+        font-size: clamp(0.5rem, 1.15vw + 0.36rem, 0.58rem);
+        font-weight: 600;
+        letter-spacing: 0.055em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-align: center;
+        line-height: 1.28;
+        max-width: min(13.25rem, 62vw);
+        min-width: min(10.75rem, 52vw);
+        white-space: normal;
+        overflow: visible;
+      }
+      .page-profile .nav-desktop {
+        display: none;
+        align-items: center;
+        gap: 0.35rem;
+        text-transform: uppercase;
+      }
+      .page-profile .nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.55rem 0.85rem;
+        border-radius: 999px;
+        font-family: var(--font-sans);
+        font-size: 0.88rem;
+        font-weight: 500;
+        color: var(--text);
+        transition:
+          background 0.3s ease,
+          color 0.3s ease;
+      }
+      .page-profile .nav-link:hover,
+      .page-profile .nav-link.active {
+        background: rgba(26, 79, 156, 0.08);
+        color: var(--primary);
+      }
+      .page-profile .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        flex-shrink: 0;
+      }
+      .page-profile .header-notice {
+        display: none;
+        align-items: center;
+        gap: 0.55rem;
+        max-width: min(380px, 34vw);
+        height: 38px;
+        padding: 0 0.65rem 0 0.45rem;
+        border-radius: 999px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.88),
+          rgba(247, 250, 252, 0.92)
+        );
+        border: 1px solid rgba(26, 79, 156, 0.18);
+        box-shadow:
+          0 4px 16px rgba(18, 58, 107, 0.1),
+          0 0 0 1px rgba(201, 162, 39, 0.08),
+          inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        overflow: hidden;
+      }
+      .page-profile .menu-toggle {
+        width: 44px;
+        height: 44px;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.7);
+      }
+      @media (max-width: 767px) {
+        .page-profile .header-notice:not(.header-notice--mobile) {
+          display: none !important;
+        }
+      }
+      @media (min-width: 768px) {
+        .page-profile .header-notice:not(.header-notice--mobile) {
+          display: flex;
+          max-width: min(280px, 38vw);
+        }
+      }
+      @media (min-width: 1024px) {
+        .page-profile .nav-desktop {
+          display: flex;
+        }
+        .page-profile .header-notice:not(.header-notice--mobile) {
+          display: flex;
+          max-width: min(340px, 30vw);
+        }
+        .page-profile .menu-toggle {
+          display: none;
+        }
+        .page-profile .nav-mobile {
+          display: none !important;
+        }
+        .page-profile .brand-tagline {
+          max-width: none;
+          min-width: 0;
+          font-size: 0.58rem;
+          letter-spacing: 0.11em;
+          white-space: nowrap;
+        }
+      }
+      @media (min-width: 1200px) {
+        .page-profile .nav-desktop {
+          gap: 0.35rem;
+        }
+        .page-profile .nav-link {
+          padding: 0.55rem 0.7rem;
+          font-size: 0.84rem;
+        }
+        .page-profile .header-notice:not(.header-notice--mobile) {
+          max-width: min(400px, 32vw);
+        }
+      }
+      @media (min-width: 1320px) {
+        .page-profile .nav-desktop {
+          gap: 0.5rem;
+        }
+        .page-profile .nav-link {
+          padding: 0.55rem 0.85rem;
+          font-size: 0.88rem;
+        }
+        .page-profile .header-notice:not(.header-notice--mobile) {
+          max-width: 420px;
+        }
+      }
 
-      <nav class="nav-desktop" aria-label="Primary">
-        <a href="index.html#home" class="nav-link" data-section="home"><span>Home</span></a>
-        <a href="index.html#about" class="nav-link" data-section="about"><span>About</span></a>
-        <a href="index.html#events" class="nav-link" data-section="events"><span>Events</span></a>
-        <a href="networking.html" class="nav-link" data-section="networking"><span>Networking</span></a>
-        <a href="ch-trading.html" class="nav-link" data-section="trading"><span>Trading</span></a>
-      </nav>
+      /* ---------- Profile-style app navigation ---------- */
+      .page-profile .app-nav {
+        position: sticky;
+        top: var(--header-h);
+        margin-top: var(--header-h);
+        z-index: 999;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+        box-shadow: none;
+        overflow: visible;
+      }
+      .page-profile .app-nav-inner {
+        width: min(100% - 2rem, 1280px);
+        margin-inline: auto;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 1.9rem;
+        padding: 0.7rem 0 0.6rem;
+        max-width: unset;
+      }
+      .page-profile .app-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0;
+        min-width: 0;
+        border-radius: 0;
+        border-bottom: none;
+        background: transparent;
+        font-family: var(--font-sans);
+        font-size: 0.76rem;
+        font-weight: 600;
+        color: #1a2340;
+        text-decoration: none;
+        transition: opacity 0.2s ease;
+        flex-shrink: 0;
+      }
+      .page-profile .app-nav-item:hover,
+      .page-profile .app-nav-item.is-active {
+        background: transparent;
+        color: #1a2340;
+        border-bottom-color: transparent;
+        opacity: 0.85;
+      }
+      .page-profile .app-nav-icon {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+      .page-profile .app-nav-icon i {
+        font-size: 1.2rem;
+      }
+      .page-profile .app-nav-icon--save {
+        background: #f3e8ff;
+        color: #8b5cf6;
+      }
+      .page-profile .app-nav-icon--block {
+        background: #fde8e8;
+        /* color: #dc3545; */
+        color: #c67179;
+      }
+      .page-profile .app-nav-icon--share {
+        background: #e7f6ea;
+        color: #2ea043;
+      }
+      .page-profile .app-nav-icon--profile {
+        background: #e8f1fb;
+        color: #2f6fdb;
+      }
+      .page-profile .app-nav-label {
+        white-space: nowrap;
+        text-align: center;
+      }
 
-      <div class="header-actions">
-        <a href="event-details.html" class="header-notice" aria-label="Upcoming event announcement">
-          <span class="header-notice-icon" aria-hidden="true">
-            <i class="fa-solid fa-bell"></i>
-          </span>
-          <span class="header-notice-track">
-            <span class="header-notice-marquee">
-              <span class="header-notice-text">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
-              <span class="header-notice-text" aria-hidden="true">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
-            </span>
+      /* Restore index.html footer look over ch-styles.css */
+      .page-profile .site-footer {
+        position: relative;
+        text-align: initial;
+        padding: 4.75rem 0 0;
+        color: rgba(255, 255, 255, 0.78);
+        font-size: inherit;
+        border-top: none;
+        background: transparent;
+        background-image: url("assets/images/foot.png");
+        overflow: hidden;
+      }
+
+      /* ---------- Other profile social icons ---------- */
+      .page-profile.other-profile-page .other-social-links {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border);
+      }
+      .page-profile.other-profile-page .other-social-label {
+        margin: 0 0 0.7rem;
+        font-family: var(--font-sans);
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .page-profile.other-profile-page .other-social-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.65rem;
+      }
+      .page-profile.other-profile-page .other-social-link {
+        width: 36px;
+        height: 36px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        background: var(--light);
+        color: var(--primary-mid);
+        font-size: 1.05rem;
+        text-decoration: none;
+        transition:
+          transform 0.22s var(--ease),
+          background 0.22s ease,
+          color 0.22s ease,
+          border-color 0.22s ease,
+          box-shadow 0.22s ease;
+      }
+      .page-profile.other-profile-page .other-social-link:hover,
+      .page-profile.other-profile-page .other-social-link:focus-visible {
+        transform: translateY(-3px);
+        color: var(--white);
+        outline: none;
+        box-shadow: 0 8px 18px rgba(11, 29, 54, 0.14);
+      }
+      .page-profile.other-profile-page .other-social-link--instagram:hover,
+      .page-profile.other-profile-page
+        .other-social-link--instagram:focus-visible {
+        background: linear-gradient(
+          135deg,
+          #f09433,
+          #e6683c,
+          #dc2743,
+          #cc2366,
+          #bc1888
+        );
+        border-color: transparent;
+      }
+      .page-profile.other-profile-page .other-social-link--facebook:hover,
+      .page-profile.other-profile-page
+        .other-social-link--facebook:focus-visible {
+        background: #1877f2;
+        border-color: #1877f2;
+      }
+      .page-profile.other-profile-page .other-social-link--youtube:hover,
+      .page-profile.other-profile-page
+        .other-social-link--youtube:focus-visible {
+        background: #ff0000;
+        border-color: #ff0000;
+      }
+      .page-profile.other-profile-page .other-social-link--x:hover,
+      .page-profile.other-profile-page .other-social-link--x:focus-visible {
+        background: #0f1419;
+        border-color: #0f1419;
+      }
+      @media (max-width: 480px) {
+        .page-profile.other-profile-page .other-social-link {
+          width: 40px;
+          height: 40px;
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="profile-page other-profile-page page-profile">
+    <header class="site-header" id="site-header">
+      <div class="header-inner">
+        <a href="index.html#home" class="brand" aria-label="IBNCC Home">
+          <span class="brand-text">
+            <img
+              src="assets/images/logo_full.png"
+              alt="IBNCC logo"
+              class="brand-logo"
+              width="52"
+              height="52"
+            />
+            <span class="brand-tagline"
+              >AN INITIATIVE OF CATHOLIC CONGRESS</span
+            >
           </span>
         </a>
-        <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-          <span class="menu-bar"></span>
-          <span class="menu-bar"></span>
-          <span class="menu-bar"></span>
-        </button>
-      </div>
-    </div>
 
-    <nav class="nav-mobile" id="mobile-menu" aria-label="Mobile" hidden>
-      <div class="nav-mobile-card">
-        <a href="event-details.html" class="header-notice header-notice--mobile" aria-label="Upcoming event announcement">
-          <span class="header-notice-icon" aria-hidden="true">
-            <i class="fa-solid fa-bell"></i>
-          </span>
-          <span class="header-notice-track">
-            <span class="header-notice-marquee">
-              <span class="header-notice-text">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
-              <span class="header-notice-text" aria-hidden="true">GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM — Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span>
+        <nav class="nav-desktop" aria-label="Primary">
+          <a href="index.html#home" class="nav-link" data-section="home"
+            ><span>Home</span></a
+          >
+          <a href="index.html#about" class="nav-link" data-section="about"
+            ><span>About</span></a
+          >
+          <a href="index.html#events" class="nav-link" data-section="events"
+            ><span>Events</span></a
+          >
+          <a href="networking.html" class="nav-link" data-section="networking"
+            ><span>Networking</span></a
+          >
+          <a href="ch-trading.html" class="nav-link" data-section="trading"
+            ><span>Trading</span></a
+          >
+        </nav>
+
+        <div class="header-actions">
+          <a
+            href="event-details.html"
+            class="header-notice"
+            aria-label="Upcoming event announcement"
+          >
+            <span class="header-notice-icon" aria-hidden="true">
+              <i class="fa-solid fa-bell"></i>
             </span>
-          </span>
-        </a>
-        <div class="nav-mobile-list">
-          <a href="index.html#home" class="nav-link" data-section="home">
-            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-house"></i></span>
-            <span class="nav-mobile-copy"><strong>Home</strong><em>Welcome to IBNCC</em></span>
-            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
+            <span class="header-notice-track">
+              <span class="header-notice-marquee">
+                <span class="header-notice-text"
+                  >GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM —
+                  Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span
+                >
+                <span class="header-notice-text" aria-hidden="true"
+                  >GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM —
+                  Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span
+                >
+              </span>
+            </span>
           </a>
-          <a href="index.html#about" class="nav-link" data-section="about">
-            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-circle-info"></i></span>
-            <span class="nav-mobile-copy"><strong>About</strong><em>Know more about us</em></span>
-            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
-          </a>
-          <a href="index.html#events" class="nav-link" data-section="events">
-            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-calendar-days"></i></span>
-            <span class="nav-mobile-copy"><strong>Events</strong><em>Upcoming gatherings</em></span>
-            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
-          </a>
-          <a href="networking.html" class="nav-link" data-section="networking">
-            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-handshake"></i></span>
-            <span class="nav-mobile-copy"><strong>Networking</strong><em>Build global connections</em></span>
-            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
-          </a>
-          <a href="ch-trading.html" class="nav-link" data-section="trading">
-            <span class="nav-mobile-icon" aria-hidden="true"><i class="fa-solid fa-arrow-right-arrow-left"></i></span>
-            <span class="nav-mobile-copy"><strong>Trading</strong><em>Collaborate and grow</em></span>
-            <i class="fa-solid fa-chevron-right nav-mobile-chevron" aria-hidden="true"></i>
-          </a>
+          <button
+            type="button"
+            class="menu-toggle"
+            id="menu-toggle"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+          >
+            <span class="menu-bar"></span>
+            <span class="menu-bar"></span>
+            <span class="menu-bar"></span>
+          </button>
         </div>
       </div>
-    </nav>
-  </header>
 
-  <nav class="app-nav" aria-label="Profile navigation">
-    <div class="app-nav-inner">
-      <a href="#save-profile" class="app-nav-item" aria-label="Save Profile" aria-haspopup="menu" aria-expanded="false">
-        <span class="app-nav-icon app-nav-icon--save">
-          <i class="fa-regular fa-bookmark" aria-hidden="true"></i>
-        </span>
-        <span class="app-nav-label">Save Profile</span>
-      </a>
-      <a href="#block-profile" class="app-nav-item" aria-label="Block Profile" aria-haspopup="menu" aria-expanded="false">
-        <span class="app-nav-icon app-nav-icon--block">
-          <i class="fa-solid fa-ban" aria-hidden="true"></i>
-        </span>
-        <span class="app-nav-label">Block Profile</span>
-      </a>
-      <a href="#share-profile" class="app-nav-item" id="openShareProfileBtn" aria-label="Share Profile" aria-controls="shareProfileDropdown" aria-haspopup="dialog" aria-expanded="false">
-        <span class="app-nav-icon app-nav-icon--share">
-          <i class="fa-solid fa-share-from-square" aria-hidden="true"></i>
-        </span>
-        <span class="app-nav-label">Share Profile</span>
-      </a>
-      <a href="ch-profile.html" class="app-nav-item" aria-label="Your profile" aria-haspopup="menu" aria-expanded="false">
-        <span class="app-nav-icon app-nav-icon--profile">
-          <i class="fa-regular fa-user" aria-hidden="true"></i>
-        </span>
-        <span class="app-nav-label">Your Profile</span>
-      </a>
-    </div>
-    <div class="app-nav-dropdown" id="appNavDropdown" hidden role="menu" aria-label="Account menu">
-      <a href="activity.html" class="app-nav-dropdown-item" role="menuitem" data-nav-action="activity">
-        <span class="app-nav-dropdown-icon" aria-hidden="true"><i class="fa-solid fa-clock-rotate-left"></i></span>
-        <span>Activity</span>
-      </a>
-      <a href="#logout" class="app-nav-dropdown-item app-nav-dropdown-item--logout" role="menuitem" data-nav-action="logout">
-        <span class="app-nav-dropdown-icon" aria-hidden="true"><i class="fa-solid fa-right-from-bracket"></i></span>
-        <span>Logout</span>
-      </a>
-    </div>
-
-    <div
-      class="share-profile-dropdown"
-      id="shareProfileDropdown"
-      hidden
-      role="dialog"
-      aria-labelledby="shareProfileTitle"
-      data-profile-path="ch-other-profile.html"
-      data-profile-name="George Mathew"
-    >
-      <header class="share-profile-header">
-        <div class="share-profile-heading">
-          <span class="share-profile-heading-icon" aria-hidden="true">
-            <i class="fa-solid fa-share-nodes"></i>
-          </span>
-          <div>
-            <h2 id="shareProfileTitle">Share Profile</h2>
-            <p class="share-profile-subtitle">Copy the link or find a saved profile</p>
+      <nav class="nav-mobile" id="mobile-menu" aria-label="Mobile" hidden>
+        <div class="nav-mobile-card">
+          <a
+            href="event-details.html"
+            class="header-notice header-notice--mobile"
+            aria-label="Upcoming event announcement"
+          >
+            <span class="header-notice-icon" aria-hidden="true">
+              <i class="fa-solid fa-bell"></i>
+            </span>
+            <span class="header-notice-track">
+              <span class="header-notice-marquee">
+                <span class="header-notice-text"
+                  >GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM —
+                  Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span
+                >
+                <span class="header-notice-text" aria-hidden="true"
+                  >GLOBAL BUSINESS CONCLAVE — 13th September, 9 AM to 8 PM —
+                  Monsoon Empress Hotel, NH Bypass, Palarivattom, Kochi</span
+                >
+              </span>
+            </span>
+          </a>
+          <div class="nav-mobile-list">
+            <a href="index.html#home" class="nav-link" data-section="home">
+              <span class="nav-mobile-icon" aria-hidden="true"
+                ><i class="fa-solid fa-house"></i
+              ></span>
+              <span class="nav-mobile-copy"
+                ><strong>Home</strong><em>Welcome to IBNCC</em></span
+              >
+              <i
+                class="fa-solid fa-chevron-right nav-mobile-chevron"
+                aria-hidden="true"
+              ></i>
+            </a>
+            <a href="index.html#about" class="nav-link" data-section="about">
+              <span class="nav-mobile-icon" aria-hidden="true"
+                ><i class="fa-solid fa-circle-info"></i
+              ></span>
+              <span class="nav-mobile-copy"
+                ><strong>About</strong><em>Know more about us</em></span
+              >
+              <i
+                class="fa-solid fa-chevron-right nav-mobile-chevron"
+                aria-hidden="true"
+              ></i>
+            </a>
+            <a href="index.html#events" class="nav-link" data-section="events">
+              <span class="nav-mobile-icon" aria-hidden="true"
+                ><i class="fa-solid fa-calendar-days"></i
+              ></span>
+              <span class="nav-mobile-copy"
+                ><strong>Events</strong><em>Upcoming gatherings</em></span
+              >
+              <i
+                class="fa-solid fa-chevron-right nav-mobile-chevron"
+                aria-hidden="true"
+              ></i>
+            </a>
+            <a
+              href="networking.html"
+              class="nav-link"
+              data-section="networking"
+            >
+              <span class="nav-mobile-icon" aria-hidden="true"
+                ><i class="fa-solid fa-handshake"></i
+              ></span>
+              <span class="nav-mobile-copy"
+                ><strong>Networking</strong
+                ><em>Build global connections</em></span
+              >
+              <i
+                class="fa-solid fa-chevron-right nav-mobile-chevron"
+                aria-hidden="true"
+              ></i>
+            </a>
+            <a href="ch-trading.html" class="nav-link" data-section="trading">
+              <span class="nav-mobile-icon" aria-hidden="true"
+                ><i class="fa-solid fa-arrow-right-arrow-left"></i
+              ></span>
+              <span class="nav-mobile-copy"
+                ><strong>Trading</strong><em>Collaborate and grow</em></span
+              >
+              <i
+                class="fa-solid fa-chevron-right nav-mobile-chevron"
+                aria-hidden="true"
+              ></i>
+            </a>
           </div>
         </div>
-      </header>
+      </nav>
+    </header>
 
-      <div class="share-profile-link-row">
-        <a href="ch-other-profile.html" class="share-profile-link" id="shareProfileLink" title="Open profile link">
-          <i class="fa-solid fa-link" aria-hidden="true"></i>
-          <span id="shareProfileLinkText">ch-other-profile.html</span>
+    <nav class="app-nav" aria-label="Profile navigation">
+      <div class="app-nav-inner">
+        <a
+          href="#save-profile"
+          class="app-nav-item"
+          aria-label="Save Profile"
+          aria-haspopup="menu"
+          aria-expanded="false"
+        >
+          <span class="app-nav-icon app-nav-icon--save">
+            <i class="fa-regular fa-bookmark" aria-hidden="true"></i>
+          </span>
+          <span class="app-nav-label">Save Profile</span>
         </a>
-        <button type="button" class="share-profile-copy" id="shareProfileCopyBtn" aria-label="Copy profile link" title="Copy link">
-          <i class="fa-regular fa-copy" aria-hidden="true"></i>
-        </button>
+        <a
+          href="#block-profile"
+          class="app-nav-item"
+          aria-label="Block Profile"
+          aria-haspopup="menu"
+          aria-expanded="false"
+        >
+          <span class="app-nav-icon app-nav-icon--block">
+            <i class="fa-solid fa-ban" aria-hidden="true"></i>
+          </span>
+          <span class="app-nav-label">Block Profile</span>
+        </a>
+        <a
+          href="#share-profile"
+          class="app-nav-item"
+          id="openShareProfileBtn"
+          aria-label="Share Profile"
+          aria-controls="shareProfileDropdown"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+        >
+          <span class="app-nav-icon app-nav-icon--share">
+            <i class="fa-solid fa-share-from-square" aria-hidden="true"></i>
+          </span>
+          <span class="app-nav-label">Share Profile</span>
+        </a>
+        <a
+          href="ch-profile.html"
+          class="app-nav-item"
+          aria-label="Your profile"
+          aria-haspopup="menu"
+          aria-expanded="false"
+        >
+          <span class="app-nav-icon app-nav-icon--profile">
+            <i class="fa-regular fa-user" aria-hidden="true"></i>
+          </span>
+          <span class="app-nav-label">Your Profile</span>
+        </a>
       </div>
-      <p class="share-profile-copy-status" id="shareProfileCopyStatus" hidden aria-live="polite">Link copied</p>
-
-      <div class="share-profile-search">
-        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-        <label class="visually-hidden" for="shareProfileSearch">Search saved profiles</label>
-        <input
-          type="search"
-          id="shareProfileSearch"
-          placeholder="Search saved profiles..."
-          autocomplete="off"
-        />
-      </div>
-
-      <ul class="share-profile-results" id="shareProfileResults" role="listbox" aria-label="Saved profiles">
-        <li class="share-profile-result" role="option" aria-selected="false" data-name="Vivek Chembra" data-role="Entrepreneur">
-          <img src="assets/images/cchub/tt2.jpg" alt="" width="36" height="36" />
-          <span class="share-profile-result-copy">
-            <strong>Vivek Chembra</strong>
-            <em>Entrepreneur · Kochi</em>
-          </span>
-          <button type="button" class="share-profile-send" hidden>Send</button>
-        </li>
-        <li class="share-profile-result" role="option" aria-selected="false" data-name="Jaleel Magalath" data-role="Business Consultant">
-          <img src="assets/images/cchub/tt3.webp" alt="" width="36" height="36" />
-          <span class="share-profile-result-copy">
-            <strong>Jaleel Magalath</strong>
-            <em>Business Consultant · Kozhikode</em>
-          </span>
-          <button type="button" class="share-profile-send" hidden>Send</button>
-        </li>
-        <li class="share-profile-result" role="option" aria-selected="false" data-name="Joseph Mathew" data-role="Architect">
-          <img src="assets/images/cchub/tt4.webp" alt="" width="36" height="36" />
-          <span class="share-profile-result-copy">
-            <strong>Joseph Mathew</strong>
-            <em>Architect · Thrissur</em>
-          </span>
-          <button type="button" class="share-profile-send" hidden>Send</button>
-        </li>
-        <li class="share-profile-result" role="option" aria-selected="false" data-name="Bejois T Balan" data-role="Event Coordinator">
-          <img src="assets/images/cchub/tt5.webp" alt="" width="36" height="36" />
-          <span class="share-profile-result-copy">
-            <strong>Bejois T Balan</strong>
-            <em>Event Coordinator · Ernakulam</em>
-          </span>
-          <button type="button" class="share-profile-send" hidden>Send</button>
-        </li>
-        <li class="share-profile-result" role="option" aria-selected="false" data-name="Anoop Kuriakose" data-role="Technology Lead">
-          <img src="assets/images/cchub/tt6.jpg" alt="" width="36" height="36" />
-          <span class="share-profile-result-copy">
-            <strong>Anoop Kuriakose</strong>
-            <em>Technology Lead · Bengaluru</em>
-          </span>
-          <button type="button" class="share-profile-send" hidden>Send</button>
-        </li>
-        <li class="share-profile-result" role="option" aria-selected="false" data-name="Maria Thomas" data-role="Marketing Strategist">
-          <img src="assets/images/cchub/pr1.jpg" alt="" width="36" height="36" />
-          <span class="share-profile-result-copy">
-            <strong>Maria Thomas</strong>
-            <em>Marketing Strategist · Kochi</em>
-          </span>
-          <button type="button" class="share-profile-send" hidden>Send</button>
-        </li>
-        <li class="share-profile-result" role="option" aria-selected="false" data-name="Rahul Jose" data-role="Trader">
-          <img src="assets/images/cchub/pr2.jpg" alt="" width="36" height="36" />
-          <span class="share-profile-result-copy">
-            <strong>Rahul Jose</strong>
-            <em>Trader · Alappuzha</em>
-          </span>
-          <button type="button" class="share-profile-send" hidden>Send</button>
-        </li>
-      </ul>
-      <p class="share-profile-empty" id="shareProfileEmpty" hidden>No saved profiles match your search.</p>
-    </div>
-  </nav>
-
-  <main class="profile-main">
-    <section class="profile-banner-card" aria-labelledby="profile-name">
-      <div class="profile-cover">
-        <img
-          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=80"
-          alt="Mountain landscape cover photo"
-        />
+      <div
+        class="app-nav-dropdown"
+        id="appNavDropdown"
+        hidden
+        role="menu"
+        aria-label="Account menu"
+      >
+        <a
+          href="activity.html"
+          class="app-nav-dropdown-item"
+          role="menuitem"
+          data-nav-action="activity"
+        >
+          <span class="app-nav-dropdown-icon" aria-hidden="true"
+            ><i class="fa-solid fa-clock-rotate-left"></i
+          ></span>
+          <span>Activity</span>
+        </a>
+        <a
+          href="#logout"
+          class="app-nav-dropdown-item app-nav-dropdown-item--logout"
+          role="menuitem"
+          data-nav-action="logout"
+        >
+          <span class="app-nav-dropdown-icon" aria-hidden="true"
+            ><i class="fa-solid fa-right-from-bracket"></i
+          ></span>
+          <span>Logout</span>
+        </a>
       </div>
 
-      <div class="profile-identity">
-        <div class="profile-photo-wrap">
-          <img
-            class="profile-photo"
-            src="assets/images/cchub/tt5.webp"
-            alt="Portrait of George Mathew"
-            width="120"
-            height="120"
+      <div
+        class="share-profile-dropdown"
+        id="shareProfileDropdown"
+        hidden
+        role="dialog"
+        aria-labelledby="shareProfileTitle"
+        data-profile-path="ch-other-profile.html"
+        data-profile-name="George Mathew"
+      >
+        <header class="share-profile-header">
+          <div class="share-profile-heading">
+            <span class="share-profile-heading-icon" aria-hidden="true">
+              <i class="fa-solid fa-share-nodes"></i>
+            </span>
+            <div>
+              <h2 id="shareProfileTitle">Share Profile</h2>
+              <p class="share-profile-subtitle">
+                Copy the link or find a saved profile
+              </p>
+            </div>
+          </div>
+        </header>
+
+        <div class="share-profile-link-row">
+          <a
+            href="ch-other-profile.html"
+            class="share-profile-link"
+            id="shareProfileLink"
+            title="Open profile link"
+          >
+            <i class="fa-solid fa-link" aria-hidden="true"></i>
+            <span id="shareProfileLinkText">ch-other-profile.html</span>
+          </a>
+          <button
+            type="button"
+            class="share-profile-copy"
+            id="shareProfileCopyBtn"
+            aria-label="Copy profile link"
+            title="Copy link"
+          >
+            <i class="fa-regular fa-copy" aria-hidden="true"></i>
+          </button>
+        </div>
+        <p
+          class="share-profile-copy-status"
+          id="shareProfileCopyStatus"
+          hidden
+          aria-live="polite"
+        >
+          Link copied
+        </p>
+
+        <div class="share-profile-search">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <label class="visually-hidden" for="shareProfileSearch"
+            >Search saved profiles</label
+          >
+          <input
+            type="search"
+            id="shareProfileSearch"
+            placeholder="Search saved profiles..."
+            autocomplete="off"
           />
         </div>
 
-        <div class="profile-identity-body">
-          <h1 id="profile-name" class="profile-display-name">
-            George Mathew
-            <i class="fa-solid fa-shield-halved" title="Verified member" aria-label="Verified member"></i>
-          </h1>
-          <p class="profile-profession">Civil Engineer</p>
-          <p class="profile-about">
-            Passionate about contributing to society through ethical and sustainable design.
-          </p>
-
-          <ul class="profile-meta-pills">
-            <li>
-              <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-              Kozhikode, Kerala
-            </li>
-            <li>
-              <i class="fa-solid fa-church" aria-hidden="true"></i>
-              Kozhikode Diocese
-            </li>
-            <li>
-              <i class="fa-regular fa-calendar" aria-hidden="true"></i>
-              Member since Jan 2024
-            </li>
-          </ul>
-        </div>
+        <ul
+          class="share-profile-results"
+          id="shareProfileResults"
+          role="listbox"
+          aria-label="Saved profiles"
+        >
+          <li
+            class="share-profile-result"
+            role="option"
+            aria-selected="false"
+            data-name="Vivek Chembra"
+            data-role="Entrepreneur"
+          >
+            <img
+              src="assets/images/cchub/tt2.jpg"
+              alt=""
+              width="36"
+              height="36"
+            />
+            <span class="share-profile-result-copy">
+              <strong>Vivek Chembra</strong>
+              <em>Entrepreneur · Kochi</em>
+            </span>
+            <button type="button" class="share-profile-send" hidden>
+              Send
+            </button>
+          </li>
+          <li
+            class="share-profile-result"
+            role="option"
+            aria-selected="false"
+            data-name="Jaleel Magalath"
+            data-role="Business Consultant"
+          >
+            <img
+              src="assets/images/cchub/tt3.webp"
+              alt=""
+              width="36"
+              height="36"
+            />
+            <span class="share-profile-result-copy">
+              <strong>Jaleel Magalath</strong>
+              <em>Business Consultant · Kozhikode</em>
+            </span>
+            <button type="button" class="share-profile-send" hidden>
+              Send
+            </button>
+          </li>
+          <li
+            class="share-profile-result"
+            role="option"
+            aria-selected="false"
+            data-name="Joseph Mathew"
+            data-role="Architect"
+          >
+            <img
+              src="assets/images/cchub/tt4.webp"
+              alt=""
+              width="36"
+              height="36"
+            />
+            <span class="share-profile-result-copy">
+              <strong>Joseph Mathew</strong>
+              <em>Architect · Thrissur</em>
+            </span>
+            <button type="button" class="share-profile-send" hidden>
+              Send
+            </button>
+          </li>
+          <li
+            class="share-profile-result"
+            role="option"
+            aria-selected="false"
+            data-name="Bejois T Balan"
+            data-role="Event Coordinator"
+          >
+            <img
+              src="assets/images/cchub/tt5.webp"
+              alt=""
+              width="36"
+              height="36"
+            />
+            <span class="share-profile-result-copy">
+              <strong>Bejois T Balan</strong>
+              <em>Event Coordinator · Ernakulam</em>
+            </span>
+            <button type="button" class="share-profile-send" hidden>
+              Send
+            </button>
+          </li>
+          <li
+            class="share-profile-result"
+            role="option"
+            aria-selected="false"
+            data-name="Anoop Kuriakose"
+            data-role="Technology Lead"
+          >
+            <img
+              src="assets/images/cchub/tt6.jpg"
+              alt=""
+              width="36"
+              height="36"
+            />
+            <span class="share-profile-result-copy">
+              <strong>Anoop Kuriakose</strong>
+              <em>Technology Lead · Bengaluru</em>
+            </span>
+            <button type="button" class="share-profile-send" hidden>
+              Send
+            </button>
+          </li>
+          <li
+            class="share-profile-result"
+            role="option"
+            aria-selected="false"
+            data-name="Maria Thomas"
+            data-role="Marketing Strategist"
+          >
+            <img
+              src="assets/images/cchub/pr1.jpg"
+              alt=""
+              width="36"
+              height="36"
+            />
+            <span class="share-profile-result-copy">
+              <strong>Maria Thomas</strong>
+              <em>Marketing Strategist · Kochi</em>
+            </span>
+            <button type="button" class="share-profile-send" hidden>
+              Send
+            </button>
+          </li>
+          <li
+            class="share-profile-result"
+            role="option"
+            aria-selected="false"
+            data-name="Rahul Jose"
+            data-role="Trader"
+          >
+            <img
+              src="assets/images/cchub/pr2.jpg"
+              alt=""
+              width="36"
+              height="36"
+            />
+            <span class="share-profile-result-copy">
+              <strong>Rahul Jose</strong>
+              <em>Trader · Alappuzha</em>
+            </span>
+            <button type="button" class="share-profile-send" hidden>
+              Send
+            </button>
+          </li>
+        </ul>
+        <p class="share-profile-empty" id="shareProfileEmpty" hidden>
+          No saved profiles match your search.
+        </p>
       </div>
-    </section>
+    </nav>
 
-    <div class="profile-details-row">
-      <section class="profile-panel" aria-labelledby="profile-details-heading">
-        <header class="profile-panel-header">
-          <h2 id="profile-details-heading">
-            <i class="fa-regular fa-user" aria-hidden="true"></i>
-            Profile Details
-          </h2>
-        </header>
+    <main class="profile-main">
+      <section class="profile-banner-card" aria-labelledby="profile-name">
+        <div class="profile-cover">
+          <img
+            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=80"
+            alt="Mountain landscape cover photo"
+          />
+        </div>
 
-        <div class="profile-accordion" data-accordion>
-        <details class="profile-detail-item">
-          <summary>
-            <span class="detail-left">
-              <span class="detail-icon"><i class="fa-solid fa-church" aria-hidden="true"></i></span>
-              <span class="detail-label">Church Details</span>
-            </span>
-            <span class="detail-actions">
-              <span class="detail-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
-            </span>
-          </summary>
-          <div class="detail-content">
-            <dl class="detail-grid">
-              <div><dt>Rite</dt><dd>Syro-Malabar</dd></div>
-              <div><dt>Diocese</dt><dd>Kozhikode</dd></div>
-              <div><dt>Forane</dt><dd>Kozhikode Forane</dd></div>
-              <div><dt>Parish</dt><dd>St. Mary&apos;s Cathedral</dd></div>
-            </dl>
+        <div class="profile-identity">
+          <div class="profile-photo-wrap">
+            <img
+              class="profile-photo"
+              src="assets/images/cchub/tt5.webp"
+              alt="Portrait of George Mathew"
+              width="120"
+              height="120"
+            />
           </div>
-        </details>
 
-        <details class="profile-detail-item">
-          <summary>
-            <span class="detail-left">
-              <span class="detail-icon"><i class="fa-regular fa-id-card" aria-hidden="true"></i></span>
-              <span class="detail-label">Personal Details</span>
-            </span>
-            <span class="detail-actions">
-              <span class="detail-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
-            </span>
-          </summary>
-          <div class="detail-content">
-            <dl class="detail-grid">
-              <div><dt>Full Name</dt><dd>George Mathew</dd></div>
-              <div><dt>Date of Birth</dt><dd>14 March 1990</dd></div>
-              <div><dt>Gender</dt><dd>Male</dd></div>
-              <div><dt>Blood Group</dt><dd>O+</dd></div>
-            </dl>
-          </div>
-        </details>
+          <div class="profile-identity-body">
+            <h1 id="profile-name" class="profile-display-name">
+              George Mathew
+              <i
+                class="fa-solid fa-shield-halved"
+                title="Verified member"
+                aria-label="Verified member"
+              ></i>
+            </h1>
+            <p class="profile-profession">Civil Engineer</p>
+            <p class="profile-about">
+              Passionate about contributing to society through ethical and
+              sustainable design.
+            </p>
 
-        <details class="profile-detail-item">
-          <summary>
-            <span class="detail-left">
-              <span class="detail-icon"><i class="fa-solid fa-address-book" aria-hidden="true"></i></span>
-              <span class="detail-label">Contact Information</span>
-            </span>
-            <span class="detail-actions">
-              <span class="detail-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
-            </span>
-          </summary>
-          <div class="detail-content">
-            <dl class="detail-grid">
-              <div><dt>Mobile</dt><dd>+91 98765 43210</dd></div>
-              <div><dt>Email</dt><dd>george.mathew@email.com</dd></div>
-              <div><dt>WhatsApp</dt><dd>+91 98765 43210</dd></div>
-              <div><dt>Preferred Contact</dt><dd>Phone / WhatsApp</dd></div>
-            </dl>
+            <ul class="profile-meta-pills">
+              <li>
+                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                Kozhikode, Kerala
+              </li>
+              <li>
+                <i class="fa-solid fa-church" aria-hidden="true"></i>
+                Kozhikode Diocese
+              </li>
+              <li>
+                <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                Member since Jan 2024
+              </li>
+            </ul>
           </div>
-        </details>
-
-        <details class="profile-detail-item">
-          <summary>
-            <span class="detail-left">
-              <span class="detail-icon"><i class="fa-solid fa-house" aria-hidden="true"></i></span>
-              <span class="detail-label">Permanent Address</span>
-            </span>
-            <span class="detail-actions">
-              <span class="detail-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
-            </span>
-          </summary>
-          <div class="detail-content">
-            <dl class="detail-grid">
-              <div><dt>House / Street</dt><dd>Rose Villa, Mission Road</dd></div>
-              <div><dt>City</dt><dd>Kozhikode</dd></div>
-              <div><dt>State</dt><dd>Kerala</dd></div>
-              <div><dt>PIN</dt><dd>673001</dd></div>
-            </dl>
-          </div>
-        </details>
-
-        <details class="profile-detail-item">
-          <summary>
-            <span class="detail-left">
-              <span class="detail-icon"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
-              <span class="detail-label">Present Address</span>
-            </span>
-            <span class="detail-actions">
-              <span class="detail-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
-            </span>
-          </summary>
-          <div class="detail-content">
-            <dl class="detail-grid">
-              <div><dt>House / Street</dt><dd>Flat 4B, Green Heights</dd></div>
-              <div><dt>City</dt><dd>Kozhikode</dd></div>
-              <div><dt>State</dt><dd>Kerala</dd></div>
-              <div><dt>PIN</dt><dd>673016</dd></div>
-            </dl>
-          </div>
-        </details>
-
-        <details class="profile-detail-item">
-          <summary>
-            <span class="detail-left">
-              <span class="detail-icon"><i class="fa-solid fa-briefcase" aria-hidden="true"></i></span>
-              <span class="detail-label">Employment Status</span>
-            </span>
-            <span class="detail-actions">
-              <span class="detail-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
-            </span>
-          </summary>
-          <div class="detail-content">
-            <dl class="detail-grid">
-              <div><dt>Status</dt><dd>Employed</dd></div>
-              <div><dt>Organization</dt><dd>Horizon Infra Pvt. Ltd.</dd></div>
-              <div><dt>Work Mode</dt><dd>Hybrid</dd></div>
-              <div><dt>Experience</dt><dd>12 years</dd></div>
-            </dl>
-          </div>
-        </details>
-
-        <details class="profile-detail-item">
-          <summary>
-            <span class="detail-left">
-              <span class="detail-icon"><i class="fa-solid fa-toolbox" aria-hidden="true"></i></span>
-              <span class="detail-label">Job Details</span>
-            </span>
-            <span class="detail-actions">
-              <span class="detail-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
-            </span>
-          </summary>
-          <div class="detail-content">
-            <dl class="detail-grid">
-              <div><dt>Profession</dt><dd>Civil Engineer</dd></div>
-              <div><dt>Specialization</dt><dd>Sustainable Infrastructure</dd></div>
-              <div><dt>Services</dt><dd>Design consultation, site planning</dd></div>
-              <div><dt>Availability</dt><dd>Weekday evenings &amp; weekends</dd></div>
-            </dl>
-          </div>
-        </details>
         </div>
       </section>
 
-      <aside class="profile-sidebar" aria-label="Profile sidebar">
-        <article class="sidebar-card profile-brief-card" id="profile-brief-card">
-          <header class="sidebar-card-header">
-            <h3>Connect</h3>
+      <div class="profile-details-row">
+        <section
+          class="profile-panel"
+          aria-labelledby="profile-details-heading"
+        >
+          <header class="profile-panel-header">
+            <h2 id="profile-details-heading">
+              <i class="fa-regular fa-user" aria-hidden="true"></i>
+              Profile Details
+            </h2>
           </header>
 
-          <div class="other-message-wrap">
-            <button
-              type="button"
-              class="sidebar-btn-primary other-message-btn"
-              id="sendMessageBtn"
-              aria-expanded="false"
-              aria-controls="otherChatBox"
-            >
-              <i class="fa-regular fa-comments" aria-hidden="true"></i>
-              Send a Message
-            </button>
-
-            <div class="other-chat-box" id="otherChatBox" hidden>
-              <header class="other-chat-head">
-                <div class="other-chat-head-info">
-                  <img src="assets/images/cchub/tt5.webp" alt="" width="36" height="36" />
+          <div class="profile-accordion" data-accordion>
+            <details class="profile-detail-item">
+              <summary>
+                <span class="detail-left">
+                  <span class="detail-icon"
+                    ><i class="fa-solid fa-church" aria-hidden="true"></i
+                  ></span>
+                  <span class="detail-label">Church Details</span>
+                </span>
+                <span class="detail-actions">
+                  <span class="detail-chevron" aria-hidden="true"
+                    ><i class="fa-solid fa-chevron-down"></i
+                  ></span>
+                </span>
+              </summary>
+              <div class="detail-content">
+                <dl class="detail-grid">
                   <div>
-                    <strong>George Mathew</strong>
-                    <span>Usually replies within a day</span>
+                    <dt>Rite</dt>
+                    <dd>Syro-Malabar</dd>
                   </div>
-                </div>
-                <button type="button" class="sidebar-icon-btn" id="closeChatBtn" aria-label="Close chat">
-                  <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-                </button>
-              </header>
-
-              <div class="other-chat-messages" id="otherChatMessages" role="log" aria-live="polite">
-                <p class="other-chat-empty" id="otherChatEmpty">Start a conversation with George.</p>
+                  <div>
+                    <dt>Diocese</dt>
+                    <dd>Kozhikode</dd>
+                  </div>
+                  <div>
+                    <dt>Forane</dt>
+                    <dd>Kozhikode Forane</dd>
+                  </div>
+                  <div>
+                    <dt>Parish</dt>
+                    <dd>St. Mary&apos;s Cathedral</dd>
+                  </div>
+                </dl>
               </div>
+            </details>
 
-              <form class="other-chat-compose" id="otherChatForm">
-                <label class="visually-hidden" for="otherChatInput">Message</label>
-                <textarea
-                  id="otherChatInput"
-                  name="message"
-                  rows="2"
-                  placeholder="Write a message…"
-                  required
-                ></textarea>
-                <button type="submit" class="sidebar-btn-primary other-chat-send" aria-label="Send message">
-                  <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-                </button>
-              </form>
-            </div>
+            <details class="profile-detail-item">
+              <summary>
+                <span class="detail-left">
+                  <span class="detail-icon"
+                    ><i class="fa-regular fa-id-card" aria-hidden="true"></i
+                  ></span>
+                  <span class="detail-label">Personal Details</span>
+                </span>
+                <span class="detail-actions">
+                  <span class="detail-chevron" aria-hidden="true"
+                    ><i class="fa-solid fa-chevron-down"></i
+                  ></span>
+                </span>
+              </summary>
+              <div class="detail-content">
+                <dl class="detail-grid">
+                  <div>
+                    <dt>Full Name</dt>
+                    <dd>George Mathew</dd>
+                  </div>
+                  <div>
+                    <dt>Date of Birth</dt>
+                    <dd>14 March 1990</dd>
+                  </div>
+                  <div>
+                    <dt>Gender</dt>
+                    <dd>Male</dd>
+                  </div>
+                  <div>
+                    <dt>Blood Group</dt>
+                    <dd>O+</dd>
+                  </div>
+                </dl>
+              </div>
+            </details>
+
+            <details class="profile-detail-item">
+              <summary>
+                <span class="detail-left">
+                  <span class="detail-icon"
+                    ><i class="fa-solid fa-address-book" aria-hidden="true"></i
+                  ></span>
+                  <span class="detail-label">Contact Information</span>
+                </span>
+                <span class="detail-actions">
+                  <span class="detail-chevron" aria-hidden="true"
+                    ><i class="fa-solid fa-chevron-down"></i
+                  ></span>
+                </span>
+              </summary>
+              <div class="detail-content">
+                <dl class="detail-grid">
+                  <div>
+                    <dt>Mobile</dt>
+                    <dd>+91 98765 43210</dd>
+                  </div>
+                  <div>
+                    <dt>Email</dt>
+                    <dd>george.mathew@email.com</dd>
+                  </div>
+                  <div>
+                    <dt>WhatsApp</dt>
+                    <dd>+91 98765 43210</dd>
+                  </div>
+                  <div>
+                    <dt>Preferred Contact</dt>
+                    <dd>Phone / WhatsApp</dd>
+                  </div>
+                </dl>
+              </div>
+            </details>
+
+            <details class="profile-detail-item">
+              <summary>
+                <span class="detail-left">
+                  <span class="detail-icon"
+                    ><i class="fa-solid fa-house" aria-hidden="true"></i
+                  ></span>
+                  <span class="detail-label">Permanent Address</span>
+                </span>
+                <span class="detail-actions">
+                  <span class="detail-chevron" aria-hidden="true"
+                    ><i class="fa-solid fa-chevron-down"></i
+                  ></span>
+                </span>
+              </summary>
+              <div class="detail-content">
+                <dl class="detail-grid">
+                  <div>
+                    <dt>House / Street</dt>
+                    <dd>Rose Villa, Mission Road</dd>
+                  </div>
+                  <div>
+                    <dt>City</dt>
+                    <dd>Kozhikode</dd>
+                  </div>
+                  <div>
+                    <dt>State</dt>
+                    <dd>Kerala</dd>
+                  </div>
+                  <div>
+                    <dt>PIN</dt>
+                    <dd>673001</dd>
+                  </div>
+                </dl>
+              </div>
+            </details>
+
+            <details class="profile-detail-item">
+              <summary>
+                <span class="detail-left">
+                  <span class="detail-icon"
+                    ><i class="fa-solid fa-location-dot" aria-hidden="true"></i
+                  ></span>
+                  <span class="detail-label">Present Address</span>
+                </span>
+                <span class="detail-actions">
+                  <span class="detail-chevron" aria-hidden="true"
+                    ><i class="fa-solid fa-chevron-down"></i
+                  ></span>
+                </span>
+              </summary>
+              <div class="detail-content">
+                <dl class="detail-grid">
+                  <div>
+                    <dt>House / Street</dt>
+                    <dd>Flat 4B, Green Heights</dd>
+                  </div>
+                  <div>
+                    <dt>City</dt>
+                    <dd>Kozhikode</dd>
+                  </div>
+                  <div>
+                    <dt>State</dt>
+                    <dd>Kerala</dd>
+                  </div>
+                  <div>
+                    <dt>PIN</dt>
+                    <dd>673016</dd>
+                  </div>
+                </dl>
+              </div>
+            </details>
+
+            <details class="profile-detail-item">
+              <summary>
+                <span class="detail-left">
+                  <span class="detail-icon"
+                    ><i class="fa-solid fa-briefcase" aria-hidden="true"></i
+                  ></span>
+                  <span class="detail-label">Employment Status</span>
+                </span>
+                <span class="detail-actions">
+                  <span class="detail-chevron" aria-hidden="true"
+                    ><i class="fa-solid fa-chevron-down"></i
+                  ></span>
+                </span>
+              </summary>
+              <div class="detail-content">
+                <dl class="detail-grid">
+                  <div>
+                    <dt>Status</dt>
+                    <dd>Employed</dd>
+                  </div>
+                  <div>
+                    <dt>Organization</dt>
+                    <dd>Horizon Infra Pvt. Ltd.</dd>
+                  </div>
+                  <div>
+                    <dt>Work Mode</dt>
+                    <dd>Hybrid</dd>
+                  </div>
+                  <div>
+                    <dt>Experience</dt>
+                    <dd>12 years</dd>
+                  </div>
+                </dl>
+              </div>
+            </details>
+
+            <details class="profile-detail-item">
+              <summary>
+                <span class="detail-left">
+                  <span class="detail-icon"
+                    ><i class="fa-solid fa-toolbox" aria-hidden="true"></i
+                  ></span>
+                  <span class="detail-label">Job Details</span>
+                </span>
+                <span class="detail-actions">
+                  <span class="detail-chevron" aria-hidden="true"
+                    ><i class="fa-solid fa-chevron-down"></i
+                  ></span>
+                </span>
+              </summary>
+              <div class="detail-content">
+                <dl class="detail-grid">
+                  <div>
+                    <dt>Profession</dt>
+                    <dd>Civil Engineer</dd>
+                  </div>
+                  <div>
+                    <dt>Specialization</dt>
+                    <dd>Sustainable Infrastructure</dd>
+                  </div>
+                  <div>
+                    <dt>Services</dt>
+                    <dd>Design consultation, site planning</dd>
+                  </div>
+                  <div>
+                    <dt>Availability</dt>
+                    <dd>Weekday evenings &amp; weekends</dd>
+                  </div>
+                </dl>
+              </div>
+            </details>
           </div>
+        </section>
 
-          <div class="other-social-links" aria-label="Social media profiles">
-            <p class="other-social-label">Social Media Links</p>
-            <ul class="other-social-list">
-              <li>
-                <a
-                  href="https://instagram.com/"
-                  class="other-social-link other-social-link--instagram"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Instagram"
-                >
-                  <i class="fa-brands fa-instagram" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://facebook.com/"
-                  class="other-social-link other-social-link--facebook"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Facebook"
-                >
-                  <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://youtube.com/"
-                  class="other-social-link other-social-link--youtube"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="YouTube"
-                >
-                  <i class="fa-brands fa-youtube" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://x.com/"
-                  class="other-social-link other-social-link--x"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="X (Twitter)"
-                >
-                  <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="similar-members" id="similar-members">
-            <header class="sidebar-card-header similar-members-header">
-              <h3>Similar Members</h3>
+        <aside class="profile-sidebar" aria-label="Profile sidebar">
+          <article
+            class="sidebar-card profile-brief-card"
+            id="profile-brief-card"
+          >
+            <header class="sidebar-card-header">
+              <h3>Connect</h3>
             </header>
 
-            <ul class="profile-list similar-members-list">
-              <li class="profile-card">
-                <div class="profile-main">
-                  <span class="profile-avatar-wrap">
+            <div class="other-message-wrap">
+              <button
+                type="button"
+                class="sidebar-btn-primary other-message-btn"
+                id="sendMessageBtn"
+                aria-expanded="false"
+                aria-controls="otherChatBox"
+              >
+                <i class="fa-regular fa-comments" aria-hidden="true"></i>
+                Send a Message
+              </button>
+
+              <div class="other-chat-box" id="otherChatBox" hidden>
+                <header class="other-chat-head">
+                  <div class="other-chat-head-info">
                     <img
-                      class="profile-avatar"
-                      src="assets/images/cchub/lr1.jpg"
-                      alt="Portrait of Dr. Meera Thomas"
-                      width="72"
-                      height="72"
+                      src="assets/images/cchub/tt5.webp"
+                      alt=""
+                      width="36"
+                      height="36"
                     />
-                  </span>
-                  <div class="profile-info">
-                    <h3 class="profile-name">
-                      Dr. Meera Thomas
-                      <i class="fa-solid fa-check" title="Verified" aria-label="Verified"></i>
-                    </h3>
-                    <p class="profile-role">Physician</p>
-                    <p class="profile-bio">
-                      Community health advocate offering family care and
-                      wellness guidance.
-                    </p>
-                    <p class="profile-status is-available">
-                      <span class="status-dot" aria-hidden="true"></span>
-                      Available
-                    </p>
-                  </div>
-                </div>
-                <div class="profile-card-meta">
-                  <div class="profile-location">
-                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
                     <div>
-                      <strong>Ernakulam, Kerala</strong>
-                      <span>Ernakulam District</span>
+                      <strong>George Mathew</strong>
+                      <span>Usually replies within a day</span>
                     </div>
                   </div>
-                  <div class="profile-contact">
-                    <a href="tel:+919812345678"
-                      ><i class="fa-solid fa-phone" aria-hidden="true"></i> +91
-                      98123 45678</a
-                    >
-                    <a href="mailto:meera.thomas@email.com"
-                      ><i class="fa-solid fa-envelope" aria-hidden="true"></i>
-                      meera.thomas@email.com</a
-                    >
-                    <button type="button" class="profile-appointment">
-                      <i class="fa-regular fa-calendar" aria-hidden="true"></i>
-                      Need an appointment
-                    </button>
-                  </div>
-                </div>
-                <a
-                  href="ch-other-profile.html"
-                  class="profile-open"
-                  aria-label="View Dr. Meera Thomas profile"
-                >
-                  <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-                </a>
-              </li>
+                  <button
+                    type="button"
+                    class="sidebar-icon-btn"
+                    id="closeChatBtn"
+                    aria-label="Close chat"
+                  >
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                  </button>
+                </header>
 
-              <li class="profile-card">
-                <div class="profile-main">
-                  <span class="profile-avatar-wrap">
-                    <img
-                      class="profile-avatar"
-                      src="assets/images/cchub/pr2.jpg"
-                      alt="Portrait of Joseph Kurian"
-                      width="72"
-                      height="72"
-                    />
-                  </span>
-                  <div class="profile-info">
-                    <h3 class="profile-name">
-                      Joseph Kurian
-                      <i class="fa-solid fa-check" title="Verified" aria-label="Verified"></i>
-                    </h3>
-                    <p class="profile-role">Entrepreneur</p>
-                    <p class="profile-bio">
-                      Builds local trade partnerships and mentors first-time
-                      founders.
-                    </p>
-                    <p class="profile-status is-busy">
-                      <span class="status-dot" aria-hidden="true"></span>
-                      Busy
-                    </p>
-                  </div>
+                <div
+                  class="other-chat-messages"
+                  id="otherChatMessages"
+                  role="log"
+                  aria-live="polite"
+                >
+                  <p class="other-chat-empty" id="otherChatEmpty">
+                    Start a conversation with George.
+                  </p>
                 </div>
-                <div class="profile-card-meta">
-                  <div class="profile-location">
-                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-                    <div>
-                      <strong>Thrissur, Kerala</strong>
-                      <span>Thrissur District</span>
+
+                <form class="other-chat-compose" id="otherChatForm">
+                  <label class="visually-hidden" for="otherChatInput"
+                    >Message</label
+                  >
+                  <textarea
+                    id="otherChatInput"
+                    name="message"
+                    rows="2"
+                    placeholder="Write a message…"
+                    required
+                  ></textarea>
+                  <button
+                    type="submit"
+                    class="sidebar-btn-primary other-chat-send"
+                    aria-label="Send message"
+                  >
+                    <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <div class="other-social-links" aria-label="Social media profiles">
+              <p class="other-social-label">Social Media Links</p>
+              <ul class="other-social-list">
+                <li>
+                  <a
+                    href="https://instagram.com/"
+                    class="other-social-link other-social-link--instagram"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                  >
+                    <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://facebook.com/"
+                    class="other-social-link other-social-link--facebook"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook"
+                  >
+                    <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://youtube.com/"
+                    class="other-social-link other-social-link--youtube"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="YouTube"
+                  >
+                    <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://x.com/"
+                    class="other-social-link other-social-link--x"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="X (Twitter)"
+                  >
+                    <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="similar-members" id="similar-members">
+              <header class="sidebar-card-header similar-members-header">
+                <h3>Similar Members</h3>
+              </header>
+
+              <ul class="profile-list similar-members-list">
+                <li class="profile-card">
+                  <div class="profile-main">
+                    <span class="profile-avatar-wrap">
+                      <img
+                        class="profile-avatar"
+                        src="assets/images/cchub/lr1.jpg"
+                        alt="Portrait of Dr. Meera Thomas"
+                        width="72"
+                        height="72"
+                      />
+                    </span>
+                    <div class="profile-info">
+                      <h3 class="profile-name">
+                        Dr. Meera Thomas
+                        <i
+                          class="fa-solid fa-check"
+                          title="Verified"
+                          aria-label="Verified"
+                        ></i>
+                      </h3>
+                      <p class="profile-role">Physician</p>
+                      <p class="profile-bio">
+                        Community health advocate offering family care and
+                        wellness guidance.
+                      </p>
+                      <p class="profile-status is-available">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        Available
+                      </p>
                     </div>
                   </div>
-                  <div class="profile-contact">
-                    <a href="tel:+919900112233"
-                      ><i class="fa-solid fa-phone" aria-hidden="true"></i> +91
-                      99001 12233</a
-                    >
-                    <a href="mailto:joseph.kurian@email.com"
-                      ><i class="fa-solid fa-envelope" aria-hidden="true"></i>
-                      joseph.kurian@email.com</a
-                    >
-                    <button type="button" class="profile-appointment">
-                      <i class="fa-regular fa-calendar" aria-hidden="true"></i>
-                      Need an appointment
-                    </button>
-                  </div>
-                </div>
-                <a
-                  href="ch-other-profile.html"
-                  class="profile-open"
-                  aria-label="View Joseph Kurian profile"
-                >
-                  <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-                </a>
-              </li>
-
-              <li class="profile-card">
-                <div class="profile-main">
-                  <span class="profile-avatar-wrap">
-                    <img
-                      class="profile-avatar"
-                      src="assets/images/cchub/lr3.jpg"
-                      alt="Portrait of Anitha George"
-                      width="72"
-                      height="72"
-                    />
-                  </span>
-                  <div class="profile-info">
-                    <h3 class="profile-name">
-                      Anitha George
-                      <i class="fa-solid fa-check" title="Verified" aria-label="Verified"></i>
-                    </h3>
-                    <p class="profile-role">Teacher</p>
-                    <p class="profile-bio">
-                      Educator focused on youth formation, literacy, and
-                      community tutoring.
-                    </p>
-                    <p class="profile-status is-available">
-                      <span class="status-dot" aria-hidden="true"></span>
-                      Available
-                    </p>
-                  </div>
-                </div>
-                <div class="profile-card-meta">
-                  <div class="profile-location">
-                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-                    <div>
-                      <strong>Kannur, Kerala</strong>
-                      <span>Kannur District</span>
+                  <div class="profile-card-meta">
+                    <div class="profile-location">
+                      <i
+                        class="fa-solid fa-location-dot"
+                        aria-hidden="true"
+                      ></i>
+                      <div>
+                        <strong>Ernakulam, Kerala</strong>
+                        <span>Ernakulam District</span>
+                      </div>
+                    </div>
+                    <div class="profile-contact">
+                      <a href="tel:+919812345678"
+                        ><i class="fa-solid fa-phone" aria-hidden="true"></i>
+                        +91 98123 45678</a
+                      >
+                      <a href="mailto:meera.thomas@email.com"
+                        ><i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                        meera.thomas@email.com</a
+                      >
+                      <button type="button" class="profile-appointment">
+                        <i
+                          class="fa-regular fa-calendar"
+                          aria-hidden="true"
+                        ></i>
+                        Need an appointment
+                      </button>
                     </div>
                   </div>
-                  <div class="profile-contact">
-                    <a href="tel:+919944556677"
-                      ><i class="fa-solid fa-phone" aria-hidden="true"></i> +91
-                      99445 56677</a
-                    >
-                    <a href="mailto:anitha.george@email.com"
-                      ><i class="fa-solid fa-envelope" aria-hidden="true"></i>
-                      anitha.george@email.com</a
-                    >
-                    <button type="button" class="profile-appointment">
-                      <i class="fa-regular fa-calendar" aria-hidden="true"></i>
-                      Need an appointment
-                    </button>
-                  </div>
-                </div>
-                <a
-                  href="ch-other-profile.html"
-                  class="profile-open"
-                  aria-label="View Anitha George profile"
-                >
-                  <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </article>
+                  <a
+                    href="ch-other-profile.html"
+                    class="profile-open"
+                    aria-label="View Dr. Meera Thomas profile"
+                  >
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                  </a>
+                </li>
 
-        <!-- <article class="sidebar-card work-details-card" id="work-details-card">
+                <li class="profile-card">
+                  <div class="profile-main">
+                    <span class="profile-avatar-wrap">
+                      <img
+                        class="profile-avatar"
+                        src="assets/images/cchub/pr2.jpg"
+                        alt="Portrait of Joseph Kurian"
+                        width="72"
+                        height="72"
+                      />
+                    </span>
+                    <div class="profile-info">
+                      <h3 class="profile-name">
+                        Joseph Kurian
+                        <i
+                          class="fa-solid fa-check"
+                          title="Verified"
+                          aria-label="Verified"
+                        ></i>
+                      </h3>
+                      <p class="profile-role">Entrepreneur</p>
+                      <p class="profile-bio">
+                        Builds local trade partnerships and mentors first-time
+                        founders.
+                      </p>
+                      <p class="profile-status is-busy">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        Busy
+                      </p>
+                    </div>
+                  </div>
+                  <div class="profile-card-meta">
+                    <div class="profile-location">
+                      <i
+                        class="fa-solid fa-location-dot"
+                        aria-hidden="true"
+                      ></i>
+                      <div>
+                        <strong>Thrissur, Kerala</strong>
+                        <span>Thrissur District</span>
+                      </div>
+                    </div>
+                    <div class="profile-contact">
+                      <a href="tel:+919900112233"
+                        ><i class="fa-solid fa-phone" aria-hidden="true"></i>
+                        +91 99001 12233</a
+                      >
+                      <a href="mailto:joseph.kurian@email.com"
+                        ><i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                        joseph.kurian@email.com</a
+                      >
+                      <button type="button" class="profile-appointment">
+                        <i
+                          class="fa-regular fa-calendar"
+                          aria-hidden="true"
+                        ></i>
+                        Need an appointment
+                      </button>
+                    </div>
+                  </div>
+                  <a
+                    href="ch-other-profile.html"
+                    class="profile-open"
+                    aria-label="View Joseph Kurian profile"
+                  >
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                  </a>
+                </li>
+
+                <li class="profile-card">
+                  <div class="profile-main">
+                    <span class="profile-avatar-wrap">
+                      <img
+                        class="profile-avatar"
+                        src="assets/images/cchub/lr3.jpg"
+                        alt="Portrait of Anitha George"
+                        width="72"
+                        height="72"
+                      />
+                    </span>
+                    <div class="profile-info">
+                      <h3 class="profile-name">
+                        Anitha George
+                        <i
+                          class="fa-solid fa-check"
+                          title="Verified"
+                          aria-label="Verified"
+                        ></i>
+                      </h3>
+                      <p class="profile-role">Teacher</p>
+                      <p class="profile-bio">
+                        Educator focused on youth formation, literacy, and
+                        community tutoring.
+                      </p>
+                      <p class="profile-status is-available">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        Available
+                      </p>
+                    </div>
+                  </div>
+                  <div class="profile-card-meta">
+                    <div class="profile-location">
+                      <i
+                        class="fa-solid fa-location-dot"
+                        aria-hidden="true"
+                      ></i>
+                      <div>
+                        <strong>Kannur, Kerala</strong>
+                        <span>Kannur District</span>
+                      </div>
+                    </div>
+                    <div class="profile-contact">
+                      <a href="tel:+919944556677"
+                        ><i class="fa-solid fa-phone" aria-hidden="true"></i>
+                        +91 99445 56677</a
+                      >
+                      <a href="mailto:anitha.george@email.com"
+                        ><i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                        anitha.george@email.com</a
+                      >
+                      <button type="button" class="profile-appointment">
+                        <i
+                          class="fa-regular fa-calendar"
+                          aria-hidden="true"
+                        ></i>
+                        Need an appointment
+                      </button>
+                    </div>
+                  </div>
+                  <a
+                    href="ch-other-profile.html"
+                    class="profile-open"
+                    aria-label="View Anitha George profile"
+                  >
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- <article class="sidebar-card work-details-card" id="work-details-card">
           <header class="sidebar-card-header">
             <h3>Work Details</h3>
             <button
@@ -1117,7 +1611,7 @@
           </div>
         </article> -->
 
-        <!-- <a href="#change-password" class="sidebar-settings-link" id="changePasswordLink">
+          <!-- <a href="#change-password" class="sidebar-settings-link" id="changePasswordLink">
           <span class="sidebar-settings-icon"><i class="fa-solid fa-key" aria-hidden="true"></i></span>
           <span class="sidebar-settings-copy">
             <strong>Change Password</strong>
@@ -1126,7 +1620,7 @@
           <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
         </a> -->
 
-        <!-- <article class="sidebar-card social-links-card" id="social-links-card">
+          <!-- <article class="sidebar-card social-links-card" id="social-links-card">
           <header class="sidebar-card-header">
             <h3>Social Media Links</h3>
             <button type="button" class="sidebar-add-btn" id="addSocialBtn">
@@ -1159,267 +1653,420 @@
             </div>
           </div>
         </article> -->
-      </aside>
-    </div>
-
-    <section class="profile-panel gallery-panel" aria-labelledby="gallery-heading">
-      <header class="profile-panel-header gallery-header">
-        <h2 id="gallery-heading">
-          <i class="fa-regular fa-image" aria-hidden="true"></i>
-          Gallery
-        </h2>
-        <button type="button" class="gallery-add-btn">
-          <i class="fa-solid fa-plus" aria-hidden="true"></i>
-          Add Image
-        </button>
-      </header>
-
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=80" alt="Mountain sunset landscape" />
-        </figure>
-        <figure class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&w=600&q=80" alt="Church building exterior" />
-        </figure>
-        <figure class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1519890239709-8bf4f9c2c0b0?auto=format&fit=crop&w=600&q=80" alt="Cross silhouette at sunset" />
-        </figure>
-        <figure class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" alt="Friends gathered outdoors" />
-        </figure>
-        <figure class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1466692476866-aef1dfb1e735?auto=format&fit=crop&w=600&q=80" alt="Young plant sprout in soil" />
-        </figure>
-        <figure class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=600&q=80" alt="Hands joined in a circle" />
-        </figure>
-        <figure class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=600&q=80" alt="Rosary resting on an open Bible" />
-        </figure>
-        <figure class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=600&q=80" alt="Community holding hands silhouette" />
-        </figure>
-        <figure class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Tropical beach at sunset" />
-        </figure>
-        <figure class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80" alt="Foggy forest hillside" />
-        </figure>
+        </aside>
       </div>
 
-      <button type="button" class="gallery-view-more">
-        View More
-        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-      </button>
-    </section>
-  </main>
+      <section
+        class="profile-panel gallery-panel"
+        aria-labelledby="gallery-heading"
+      >
+        <header class="profile-panel-header gallery-header">
+          <h2 id="gallery-heading">
+            <i class="fa-regular fa-image" aria-hidden="true"></i>
+            Gallery
+          </h2>
+          <button type="button" class="gallery-add-btn">
+            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+            Add Image
+          </button>
+        </header>
 
-  <div class="gallery-lightbox" id="galleryLightbox" hidden>
-    <div class="gallery-lightbox-backdrop" data-gallery-close tabindex="-1" aria-hidden="true"></div>
-    <div
-      class="gallery-lightbox-dialog"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Gallery image viewer"
-    >
-      <button type="button" class="gallery-lightbox-close" data-gallery-close aria-label="Close gallery">
-        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-      </button>
-
-      <div class="gallery-lightbox-frame">
-        <button type="button" class="gallery-lightbox-nav is-prev" id="galleryLightboxPrev" aria-label="Previous image">
-          <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-        </button>
-
-        <div class="gallery-lightbox-stage">
-          <img id="galleryLightboxImage" class="is-active" src="" alt="" />
+        <div class="gallery-grid">
+          <figure class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=80"
+              alt="Mountain sunset landscape"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&w=600&q=80"
+              alt="Church building exterior"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1519890239709-8bf4f9c2c0b0?auto=format&fit=crop&w=600&q=80"
+              alt="Cross silhouette at sunset"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80"
+              alt="Friends gathered outdoors"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1466692476866-aef1dfb1e735?auto=format&fit=crop&w=600&q=80"
+              alt="Young plant sprout in soil"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=600&q=80"
+              alt="Hands joined in a circle"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=600&q=80"
+              alt="Rosary resting on an open Bible"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=600&q=80"
+              alt="Community holding hands silhouette"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+              alt="Tropical beach at sunset"
+            />
+          </figure>
+          <figure class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80"
+              alt="Foggy forest hillside"
+            />
+          </figure>
         </div>
 
-        <button type="button" class="gallery-lightbox-nav is-next" id="galleryLightboxNext" aria-label="Next image">
-          <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+        <button type="button" class="gallery-view-more">
+          View More
+          <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
         </button>
-      </div>
+      </section>
+    </main>
 
-      <div class="gallery-lightbox-meta">
-        <p class="gallery-lightbox-caption" id="galleryLightboxCaption"></p>
-        <p class="gallery-lightbox-counter">
-          <span id="galleryLightboxIndex">1</span> / <span id="galleryLightboxTotal">0</span>
-        </p>
+    <div class="gallery-lightbox" id="galleryLightbox" hidden>
+      <div
+        class="gallery-lightbox-backdrop"
+        data-gallery-close
+        tabindex="-1"
+        aria-hidden="true"
+      ></div>
+      <div
+        class="gallery-lightbox-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Gallery image viewer"
+      >
+        <button
+          type="button"
+          class="gallery-lightbox-close"
+          data-gallery-close
+          aria-label="Close gallery"
+        >
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+
+        <div class="gallery-lightbox-frame">
+          <button
+            type="button"
+            class="gallery-lightbox-nav is-prev"
+            id="galleryLightboxPrev"
+            aria-label="Previous image"
+          >
+            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+          </button>
+
+          <div class="gallery-lightbox-stage">
+            <img id="galleryLightboxImage" class="is-active" src="" alt="" />
+          </div>
+
+          <button
+            type="button"
+            class="gallery-lightbox-nav is-next"
+            id="galleryLightboxNext"
+            aria-label="Next image"
+          >
+            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="gallery-lightbox-meta">
+          <p class="gallery-lightbox-caption" id="galleryLightboxCaption"></p>
+          <p class="gallery-lightbox-counter">
+            <span id="galleryLightboxIndex">1</span> /
+            <span id="galleryLightboxTotal">0</span>
+          </p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <footer class="site-footer" id="footer">
-    <div class="footer-card">
-      <div class="container footer-grid">
-        <div class="footer-brand">
-          <div class="footer-brand-inner">
-            <img src="assets/images/logo_full.png" alt="IBNCC" width="56" height="56" />
-            <div>
-              <strong class="footer-tagline">International Business Network <br> of Catholic Congress</strong>
-              <!-- <span>International Business Network</span> -->
-              <p>A global platform connecting Catholic entrepreneurs, professionals and organizations to collaborate,
-                trade and grow together.</p>
+    <footer class="site-footer" id="footer">
+      <div class="footer-card">
+        <div class="container footer-grid">
+          <div class="footer-brand">
+            <div class="footer-brand-inner">
+              <img
+                src="assets/images/logo_full.png"
+                alt="IBNCC"
+                width="56"
+                height="56"
+              />
+              <div>
+                <strong class="footer-tagline"
+                  >International Business Network <br />
+                  of Catholic Congress</strong
+                >
+                <!-- <span>International Business Network</span> -->
+                <p>
+                  A global platform connecting Catholic entrepreneurs,
+                  professionals and organizations to collaborate, trade and grow
+                  together.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- <div class="footer-nav">
+          <!-- <div class="footer-nav">
           <h3>Navigate</h3>
           <a href="#home"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
           <a href="#about"><i class="fa-solid fa-circle-info" aria-hidden="true"></i><span>About</span></a>
           <a href="#events"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i><span>Events</span></a>
           <a href="#networking"><i class="fa-solid fa-handshake" aria-hidden="true"></i><span>Networking</span></a>
-          <a href="#trading"><i class="fa-solid fa-arrow-right-arrow-left"
+          <a href="ch-trading.html"><i class="fa-solid fa-arrow-right-arrow-left"
               aria-hidden="true"></i><span>Trading</span></a>
         </div> -->
-        <div class="footer-nav">
-          <h3>Navigate</h3>
-          <a href="#home"><span>Home</span></a>
-          <a href="#about"><span>About</span></a>
-          <a href="#events"><span>Events</span></a>
-          <a href="#networking"><span>Networking</span></a>
-          <a href="#trading"><span>Trading</span></a>
-        </div>
+          <div class="footer-nav">
+            <h3>Navigate</h3>
+            <a href="#home"><span>Home</span></a>
+            <a href="#about"><span>About</span></a>
+            <a href="#events"><span>Events</span></a>
+            <a href="#networking"><span>Networking</span></a>
+            <a href="ch-trading.html"><span>Trading</span></a>
+          </div>
 
-        <div class="footer-connect">
-          <h3>Connect</h3>
-          <a href="mailto:ibncc26@gmail.com" class="footer-contact-link">
-            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-            <span>ibncc26@gmail.com</span>
-          </a>
-          <a href="tel:+10000000000" class="footer-contact-link">
-            <i class="fa-solid fa-phone" aria-hidden="true"></i>
-            <span>+91 9847030064</span>
-          </a>
-          <!-- <div class="footer-location">
+          <div class="footer-connect">
+            <h3>Connect</h3>
+            <a href="mailto:ibncc26@gmail.com" class="footer-contact-link">
+              <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+              <span>ibncc26@gmail.com</span>
+            </a>
+            <a href="tel:+10000000000" class="footer-contact-link">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              <span>+91 9847030064</span>
+            </a>
+            <!-- <div class="footer-location">
             <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
             <span>IBNCC Global Secretariat, Kochi, Kerala, India</span>
           </div> -->
 
-          <h3 class="footer-follow">Follow Us</h3>
-          <div class="socials" aria-label="Social links">
-            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
-            <a href="#" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+            <h3 class="footer-follow">Follow Us</h3>
+            <div class="socials" aria-label="Social links">
+              <a href="#" aria-label="LinkedIn"
+                ><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i
+              ></a>
+              <a href="#" aria-label="X / Twitter"
+                ><i class="fa-brands fa-x-twitter" aria-hidden="true"></i
+              ></a>
+              <a href="#" aria-label="Instagram"
+                ><i class="fa-brands fa-instagram" aria-hidden="true"></i
+              ></a>
+              <a href="#" aria-label="Facebook"
+                ><i class="fa-brands fa-facebook-f" aria-hidden="true"></i
+              ></a>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="container footer-bottom">
-        <p class="footer-copy">&copy; 2026 IBNCC. All rights reserved.</p>
-        <div class="footer-design">
-          <a href="#">Designed By : Astraz Software solutions</a>
-          <!-- <span aria-hidden="true">|</span>
+        <div class="container footer-bottom">
+          <p class="footer-copy">&copy; 2026 IBNCC. All rights reserved.</p>
+          <div class="footer-design">
+            <a href="#">Designed By : Astraz Software solutions</a>
+            <!-- <span aria-hidden="true">|</span>
           <a href="#">Terms of Service</a>
           <span aria-hidden="true">|</span>
           <a href="#">Sitemap</a> -->
+          </div>
         </div>
       </div>
-    </div>
-  </footer>
+    </footer>
 
-  <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top">
-    <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
-  </button>
+    <button
+      type="button"
+      class="back-to-top"
+      id="back-to-top"
+      aria-label="Back to top"
+    >
+      <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
+    </button>
 
-  <dialog class="password-dialog" id="changePasswordDialog" aria-labelledby="change-password-title">
-    <form method="dialog" class="password-dialog-form" id="changePasswordForm">
-      <header class="password-dialog-header">
-        <div class="password-dialog-heading">
-          <span class="password-dialog-badge" aria-hidden="true">
-            <i class="fa-solid fa-shield-halved"></i>
-          </span>
-          <div>
-            <h2 id="change-password-title">Change Password</h2>
-            <p class="password-dialog-subtitle">Keep your account secure by using a strong password</p>
-          </div>
-        </div>
-        <button type="button" class="password-dialog-close" id="closePasswordDialog" aria-label="Close">
-          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-        </button>
-      </header>
-
-      <div class="password-dialog-body">
-        <aside class="password-dialog-aside" aria-hidden="true">
-          <div class="password-hero">
-            <span class="password-hero-orbit"></span>
-            <span class="password-hero-orbit password-hero-orbit--inner"></span>
-            <span class="password-hero-float password-hero-float--shield">
-              <i class="fa-solid fa-shield"></i>
+    <dialog
+      class="password-dialog"
+      id="changePasswordDialog"
+      aria-labelledby="change-password-title"
+    >
+      <form
+        method="dialog"
+        class="password-dialog-form"
+        id="changePasswordForm"
+      >
+        <header class="password-dialog-header">
+          <div class="password-dialog-heading">
+            <span class="password-dialog-badge" aria-hidden="true">
+              <i class="fa-solid fa-shield-halved"></i>
             </span>
-            <span class="password-hero-float password-hero-float--lock">
-              <i class="fa-solid fa-lock"></i>
-            </span>
-            <div class="password-hero-lock">
-              <i class="fa-solid fa-lock"></i>
+            <div>
+              <h2 id="change-password-title">Change Password</h2>
+              <p class="password-dialog-subtitle">
+                Keep your account secure by using a strong password
+              </p>
             </div>
-            <div class="password-hero-mask" aria-hidden="true">* * * *</div>
           </div>
-          <div class="password-tips">
-            <strong>
-              <i class="fa-solid fa-lightbulb" aria-hidden="true"></i>
-              Password Tips
-            </strong>
-            <p>Use a combination of letters, numbers and special characters for stronger security.</p>
-          </div>
-        </aside>
+          <button
+            type="button"
+            class="password-dialog-close"
+            id="closePasswordDialog"
+            aria-label="Close"
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </header>
 
-        <div class="password-dialog-fields">
-          <label class="password-field">
-            <span>Current Password</span>
-            <span class="password-input-wrap">
-              <i class="fa-solid fa-lock password-input-icon password-input-icon--current" aria-hidden="true"></i>
-              <input type="password" name="current" id="pwCurrent" autocomplete="current-password" placeholder="Enter your current password" required />
-              <button type="button" class="password-toggle" data-toggle-password="pwCurrent" aria-label="Show current password">
-                <i class="fa-regular fa-eye" aria-hidden="true"></i>
-              </button>
-            </span>
-          </label>
-
-          <label class="password-field">
-            <span>New Password</span>
-            <span class="password-input-wrap">
-              <i class="fa-solid fa-lock password-input-icon password-input-icon--new" aria-hidden="true"></i>
-              <input type="password" name="new" id="pwNew" autocomplete="new-password" placeholder="Enter your new password" required />
-              <button type="button" class="password-toggle" data-toggle-password="pwNew" aria-label="Show new password">
-                <i class="fa-regular fa-eye" aria-hidden="true"></i>
-              </button>
-            </span>
-            <div class="password-strength" id="passwordStrength" aria-live="polite">
-              <div class="password-strength-bars" aria-hidden="true">
-                <span></span><span></span><span></span>
+        <div class="password-dialog-body">
+          <aside class="password-dialog-aside" aria-hidden="true">
+            <div class="password-hero">
+              <span class="password-hero-orbit"></span>
+              <span
+                class="password-hero-orbit password-hero-orbit--inner"
+              ></span>
+              <span class="password-hero-float password-hero-float--shield">
+                <i class="fa-solid fa-shield"></i>
+              </span>
+              <span class="password-hero-float password-hero-float--lock">
+                <i class="fa-solid fa-lock"></i>
+              </span>
+              <div class="password-hero-lock">
+                <i class="fa-solid fa-lock"></i>
               </div>
-              <em class="password-strength-label">Weak</em>
+              <div class="password-hero-mask" aria-hidden="true">* * * *</div>
             </div>
-          </label>
+            <div class="password-tips">
+              <strong>
+                <i class="fa-solid fa-lightbulb" aria-hidden="true"></i>
+                Password Tips
+              </strong>
+              <p>
+                Use a combination of letters, numbers and special characters for
+                stronger security.
+              </p>
+            </div>
+          </aside>
 
-          <label class="password-field">
-            <span>Confirm New Password</span>
-            <span class="password-input-wrap">
-              <i class="fa-solid fa-lock password-input-icon password-input-icon--confirm" aria-hidden="true"></i>
-              <input type="password" name="confirm" id="pwConfirm" autocomplete="new-password" placeholder="Re-enter your new password" required />
-              <button type="button" class="password-toggle" data-toggle-password="pwConfirm" aria-label="Show confirm password">
-                <i class="fa-regular fa-eye" aria-hidden="true"></i>
-              </button>
-            </span>
-          </label>
+          <div class="password-dialog-fields">
+            <label class="password-field">
+              <span>Current Password</span>
+              <span class="password-input-wrap">
+                <i
+                  class="fa-solid fa-lock password-input-icon password-input-icon--current"
+                  aria-hidden="true"
+                ></i>
+                <input
+                  type="password"
+                  name="current"
+                  id="pwCurrent"
+                  autocomplete="current-password"
+                  placeholder="Enter your current password"
+                  required
+                />
+                <button
+                  type="button"
+                  class="password-toggle"
+                  data-toggle-password="pwCurrent"
+                  aria-label="Show current password"
+                >
+                  <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                </button>
+              </span>
+            </label>
+
+            <label class="password-field">
+              <span>New Password</span>
+              <span class="password-input-wrap">
+                <i
+                  class="fa-solid fa-lock password-input-icon password-input-icon--new"
+                  aria-hidden="true"
+                ></i>
+                <input
+                  type="password"
+                  name="new"
+                  id="pwNew"
+                  autocomplete="new-password"
+                  placeholder="Enter your new password"
+                  required
+                />
+                <button
+                  type="button"
+                  class="password-toggle"
+                  data-toggle-password="pwNew"
+                  aria-label="Show new password"
+                >
+                  <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                </button>
+              </span>
+              <div
+                class="password-strength"
+                id="passwordStrength"
+                aria-live="polite"
+              >
+                <div class="password-strength-bars" aria-hidden="true">
+                  <span></span><span></span><span></span>
+                </div>
+                <em class="password-strength-label">Weak</em>
+              </div>
+            </label>
+
+            <label class="password-field">
+              <span>Confirm New Password</span>
+              <span class="password-input-wrap">
+                <i
+                  class="fa-solid fa-lock password-input-icon password-input-icon--confirm"
+                  aria-hidden="true"
+                ></i>
+                <input
+                  type="password"
+                  name="confirm"
+                  id="pwConfirm"
+                  autocomplete="new-password"
+                  placeholder="Re-enter your new password"
+                  required
+                />
+                <button
+                  type="button"
+                  class="password-toggle"
+                  data-toggle-password="pwConfirm"
+                  aria-label="Show confirm password"
+                >
+                  <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                </button>
+              </span>
+            </label>
+          </div>
         </div>
-      </div>
 
-      <div class="password-dialog-actions">
-        <button type="button" class="password-btn-cancel" id="cancelPasswordBtn">Cancel</button>
-        <button type="submit" class="password-btn-submit">
-          <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
-          Update Password
-        </button>
-      </div>
-    </form>
-  </dialog>
+        <div class="password-dialog-actions">
+          <button
+            type="button"
+            class="password-btn-cancel"
+            id="cancelPasswordBtn"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="password-btn-submit">
+            <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+            Update Password
+          </button>
+        </div>
+      </form>
+    </dialog>
 
-  <script src="js/script.js"></script>
-  <script src="js/cchub/ch-profile.js"></script>
-  <script src="js/cchub/ch-other-profile.js"></script>
-</body>
+    <script src="js/script.js"></script>
+    <script src="js/cchub/ch-profile.js"></script>
+    <script src="js/cchub/ch-other-profile.js"></script>
+  </body>
 </html>
