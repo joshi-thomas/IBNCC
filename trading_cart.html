@@ -2772,7 +2772,7 @@
             </div>
 
             <button type="button" class="btn-checkout" id="btnProceedCheckout">
-              Proceed to Checkout
+              Start Your Inquiry
             </button>
 
             <div class="cart-trust-note">
@@ -3457,14 +3457,15 @@
         }, true);
       }
 
+      // Start Your Inquiry → payment page
       if (checkoutBtn) {
         checkoutBtn.addEventListener("click", function () {
           const cards = document.querySelectorAll(".cart-item-card");
           if (cards.length === 0) {
-            alert("Your cart is empty. Please add products to checkout.");
+            alert("Your cart is empty. Please add products before starting an inquiry.");
             return;
           }
-          showToast("Redirecting to Payment & Checkout...");
+          showToast("Starting your inquiry...");
           setTimeout(function () {
             window.location.href = "payment.html";
           }, 600);
