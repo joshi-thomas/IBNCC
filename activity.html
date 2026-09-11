@@ -1417,9 +1417,21 @@
     }
 
     .activity-action-btn--remove:hover {
+      background: #e3eef8;
+      color: var(--secondary);
+      border-color: rgba(26, 79, 156, 0.35);
+    }
+
+    .activity-action-btn--unsave {
       background: #fef2f2;
-      color: #dc2626;
+      color: #b91c1c;
       border-color: #fecaca;
+    }
+
+    .activity-action-btn--unsave:hover {
+      background: #b91c1c;
+      color: #ffffff;
+      border-color: #b91c1c;
     }
 
     .activity-action-btn--share {
@@ -1811,9 +1823,13 @@
                     <a href="mailto:arun.mathew@email.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i>
                       arun.mathew@email.com</a>
                     <div class="activity-action-wrap">
-                      <button type="button" class="activity-action-btn activity-action-btn--remove" data-action="unsave"
+                      <button type="button" class="activity-action-btn activity-action-btn--remove"
+                        aria-pressed="true" title="Saved profile">
+                        <i class="fa-solid fa-bookmark" aria-hidden="true"></i> Saved
+                      </button>
+                      <button type="button" class="activity-action-btn activity-action-btn--unsave" data-action="unsave"
                         data-name="George Mathew" title="Remove from saved">
-                        <i class="fa-solid fa-bookmark"></i> Saved
+                        <i class="fa-solid fa-xmark" aria-hidden="true"></i> Unsave
                       </button>
                     </div>
                   </div>
@@ -1853,9 +1869,13 @@
                     <a href="mailto:meera.thomas@email.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i>
                       meera.thomas@email.com</a>
                     <div class="activity-action-wrap">
-                      <button type="button" class="activity-action-btn activity-action-btn--remove" data-action="unsave"
+                      <button type="button" class="activity-action-btn activity-action-btn--remove"
+                        aria-pressed="true" title="Saved profile">
+                        <i class="fa-solid fa-bookmark" aria-hidden="true"></i> Saved
+                      </button>
+                      <button type="button" class="activity-action-btn activity-action-btn--unsave" data-action="unsave"
                         data-name="Dr. Meera Thomas" title="Remove from saved">
-                        <i class="fa-solid fa-bookmark"></i> Saved
+                        <i class="fa-solid fa-xmark" aria-hidden="true"></i> Unsave
                       </button>
                     </div>
                   </div>
@@ -1895,9 +1915,13 @@
                     <a href="mailto:mathew.varghese@email.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i>
                       mathew.varghese@email.com</a>
                     <div class="activity-action-wrap">
-                      <button type="button" class="activity-action-btn activity-action-btn--remove" data-action="unsave"
+                      <button type="button" class="activity-action-btn activity-action-btn--remove"
+                        aria-pressed="true" title="Saved profile">
+                        <i class="fa-solid fa-bookmark" aria-hidden="true"></i> Saved
+                      </button>
+                      <button type="button" class="activity-action-btn activity-action-btn--unsave" data-action="unsave"
                         data-name="Mathew Varghese" title="Remove from saved">
-                        <i class="fa-solid fa-bookmark"></i> Saved
+                        <i class="fa-solid fa-xmark" aria-hidden="true"></i> Unsave
                       </button>
                     </div>
                   </div>
