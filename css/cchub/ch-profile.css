@@ -3069,15 +3069,28 @@
   z-index: 1;
 }
 
-@media (max-width: 1100px) {
+/* Stack similar-member cards before the sidebar gets too narrow (< 1271px) */
+@media (max-width: 1270px) {
   .other-profile-page .similar-members-list .profile-card {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: none;
+    gap: 0;
     padding: 16px;
+    align-items: start;
+  }
+
+  .other-profile-page .similar-members-list .profile-main,
+  .other-profile-page .similar-members-list .profile-card-meta,
+  .other-profile-page .similar-members-list .profile-open {
+    grid-area: auto;
   }
 
   .other-profile-page .similar-members-list .profile-main {
     flex-direction: row;
     align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    min-width: 0;
     padding-right: 0;
     padding-bottom: 14px;
     border-right: 0;
@@ -3085,8 +3098,18 @@
   }
 
   .other-profile-page .similar-members-list .profile-card-meta {
+    width: 100%;
+    min-width: 0;
     padding-left: 0;
     padding-top: 14px;
+    gap: 8px;
+  }
+
+  .other-profile-page .similar-members-list .profile-location,
+  .other-profile-page .similar-members-list .profile-contact {
+    width: 100%;
+    min-width: 0;
+    padding: 8px 10px;
   }
 
   .other-profile-page .similar-members-list .profile-avatar-wrap {
@@ -3097,6 +3120,80 @@
   .other-profile-page .similar-members-list .profile-avatar {
     width: 58px;
     height: 58px;
+  }
+
+  .other-profile-page .similar-members-list .profile-info {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .other-profile-page .similar-members-list .profile-name {
+    flex-wrap: wrap;
+    font-size: 0.98rem;
+  }
+
+  .other-profile-page .similar-members-list .profile-bio {
+    overflow-wrap: anywhere;
+  }
+
+  .other-profile-page .similar-members-list .profile-location > div,
+  .other-profile-page .similar-members-list .profile-location strong,
+  .other-profile-page .similar-members-list .profile-location span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .other-profile-page .similar-members-list .profile-contact a,
+  .other-profile-page .similar-members-list .profile-appointment {
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+}
+
+/* Keep stacked cards balanced while the profile sidebar is still beside main content */
+@media (max-width: 1270px) and (min-width: 901px) {
+  .other-profile-page .similar-members-list .profile-card {
+    padding: 15px 14px;
+  }
+
+  .other-profile-page .similar-members-list .profile-main {
+    gap: 10px;
+    padding-bottom: 12px;
+  }
+
+  .other-profile-page .similar-members-list .profile-card-meta {
+    padding-top: 12px;
+    gap: 6px;
+  }
+
+  .other-profile-page .similar-members-list .profile-location,
+  .other-profile-page .similar-members-list .profile-contact {
+    padding: 8px;
+  }
+
+  .other-profile-page .similar-members-list .profile-location > i,
+  .other-profile-page .similar-members-list .profile-contact a i,
+  .other-profile-page .similar-members-list .profile-appointment i {
+    width: 28px;
+    height: 28px;
+    font-size: 0.72rem;
+  }
+
+  .other-profile-page .similar-members-list .profile-contact a,
+  .other-profile-page .similar-members-list .profile-appointment {
+    gap: 8px;
+    padding: 7px 0;
+    font-size: 0.76rem;
+  }
+
+  .other-profile-page .similar-members-list .profile-location strong {
+    font-size: 0.8rem;
+  }
+
+  .other-profile-page .similar-members-list .profile-location span {
+    font-size: 0.72rem;
   }
 }
 
