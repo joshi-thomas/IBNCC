@@ -1676,18 +1676,18 @@
 #profile-brief-card .profile-location {
   grid-column: 1 / 2;
   min-width: 0;
-  padding: 14px 16px;
-  background: #f5f9fc;
-  border: 1px solid rgba(11, 42, 74, 0.08);
+  padding: 14px 0px;
+  /* background: #f5f9fc;
+  border: 1px solid rgba(11, 42, 74, 0.08); */
   border-radius: 12px;
 }
 
 #profile-brief-card .profile-contact {
   grid-column: 2 / 3;
   min-width: 0;
-  padding: 14px 16px;
-  background: #f5f9fc;
-  border: 1px solid rgba(11, 42, 74, 0.08);
+  padding: 14px 0px;
+  /* background: #f5f9fc;
+  border: 1px solid rgba(11, 42, 74, 0.08); */
   border-radius: 12px;
 }
 
@@ -2980,7 +2980,7 @@
 .other-profile-page .similar-members-list .profile-location {
   align-items: center;
   gap: 10px;
-  background: #eef5fb;
+  /* background: #eef5fb; */
 }
 
 .other-profile-page .similar-members-list .profile-location > i,
@@ -3007,7 +3007,7 @@
 }
 
 .other-profile-page .similar-members-list .profile-contact {
-  background: #fbf6e8;
+  /* background: #fbf6e8; */
   gap: 0;
 }
 
@@ -3035,7 +3035,7 @@
 
 .other-profile-page .similar-members-list .profile-contact a i,
 .other-profile-page .similar-members-list .profile-appointment i {
-  background: rgba(232, 185, 35, 0.2);
+  /* background: rgba(232, 185, 35, 0.2); */
   color: var(--navy);
   width: 32px;
 }
