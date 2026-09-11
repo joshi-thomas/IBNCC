@@ -2550,6 +2550,89 @@
     position: static;
   }
 
+  /* Other profile: message + social before gallery; similar members after */
+  .page-profile.other-profile-page .profile-main {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .page-profile.other-profile-page .profile-details-row,
+  .page-profile.other-profile-page .profile-sidebar,
+  .page-profile.other-profile-page #profile-brief-card {
+    display: contents;
+  }
+
+  .page-profile.other-profile-page .profile-banner-card {
+    order: 1;
+  }
+
+  .page-profile.other-profile-page .profile-details-row > .profile-panel {
+    order: 2;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .page-profile.other-profile-page #profile-brief-card > .sidebar-card-header {
+    order: 3;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 14px 16px 0;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-bottom: 0;
+    border-radius: 18px 18px 0 0;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .page-profile.other-profile-page .other-message-wrap {
+    order: 4;
+    width: 100%;
+    min-width: 0;
+    padding: 14px 16px;
+    background: var(--white);
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .page-profile.other-profile-page .other-social-links {
+    order: 5;
+    width: 100%;
+    min-width: 0;
+    margin-top: 0;
+    padding: 14px 16px 16px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 0;
+    border-radius: 0 0 18px 18px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .page-profile.other-profile-page .gallery-panel {
+    order: 6;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .page-profile.other-profile-page .similar-members {
+    order: 7;
+    width: 100%;
+    min-width: 0;
+    margin-top: 0;
+    padding: 16px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .page-profile.other-profile-page .similar-members-header {
+    margin-bottom: 12px;
+  }
+
   /* Sidebar brief card stacks nicely on narrower screens */
   #profile-brief-card .profile-card--sidebar {
     grid-template-columns: 1fr;
