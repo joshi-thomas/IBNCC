@@ -745,7 +745,7 @@ button {
   .category-item {
     width: 100%;
     min-width: 0;
-    min-height: 98px;
+    min-height: 0;
     padding: 12px 10px 10px;
     border-radius: 12px;
     background: var(--cream);
@@ -762,10 +762,7 @@ button {
   }
 
   .category-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 1.1rem;
-    border-radius: 50%;
+    display: none;
   }
 
   .category-label {
@@ -805,7 +802,7 @@ button {
   }
 
   .category-item {
-    min-height: 92px;
+    min-height: 0;
     padding: 10px 8px 9px;
   }
 
@@ -857,15 +854,13 @@ button {
   }
 
   .category-item {
-    min-height: 86px;
+    min-height: 0;
     padding: 9px 6px 8px;
     border-radius: 10px;
   }
 
   .category-icon {
-    width: 36px;
-    height: 36px;
-    font-size: 1rem;
+    display: none;
   }
 
   .category-label {
@@ -2835,7 +2830,7 @@ button {
 
   .category-item {
     min-width: 0;
-    min-height: 86px;
+    min-height: 0;
     padding: 9px 6px 8px;
   }
 
@@ -2845,7 +2840,7 @@ button {
 
   :root {
     --header-h: 144px;
-    --category-nav-h: 200px;
+    --category-nav-h: 140px;
     --hero-pad-top: 12px;
     --hero-pad-bottom: 28px;
   }
