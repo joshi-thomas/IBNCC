@@ -84,4 +84,25 @@
       });
     });
   }
+
+  /* In Trading mode, category nav + gallery cards open trading product list */
+  document.addEventListener("click", (e) => {
+    if (document.body.dataset.tradingMode !== "trading") return;
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+      return;
+    }
+
+    const link = e.target.closest(
+      "a.category-gallery-card, nav.category-nav a.category-item"
+    );
+    if (!link || !link.href) return;
+
+    e.preventDefault();
+    try {
+      const url = new URL(link.href, window.location.href);
+      window.location.href = `trading_product_list.html${url.search}${url.hash}`;
+    } catch {
+      window.location.href = "trading_product_list.html";
+    }
+  });
 })();
