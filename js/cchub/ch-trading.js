@@ -85,24 +85,39 @@
     });
   }
 
-  /* In Trading mode, category nav + gallery cards open trading product list */
+  /* In Trading mode, category / wishlist / cart links use trading pages */
   document.addEventListener("click", (e) => {
     if (document.body.dataset.tradingMode !== "trading") return;
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
       return;
     }
 
-    const link = e.target.closest(
+    const galleryOrCategory = e.target.closest(
       "a.category-gallery-card, nav.category-nav a.category-item"
     );
-    if (!link || !link.href) return;
+    if (galleryOrCategory?.href) {
+      e.preventDefault();
+      try {
+        const url = new URL(galleryOrCategory.href, window.location.href);
+        window.location.href = `trading_product_list.html${url.search}${url.hash}`;
+      } catch {
+        window.location.href = "trading_product_list.html";
+      }
+      return;
+    }
 
-    e.preventDefault();
-    try {
-      const url = new URL(link.href, window.location.href);
-      window.location.href = `trading_product_list.html${url.search}${url.hash}`;
-    } catch {
-      window.location.href = "trading_product_list.html";
+    const headerLink = e.target.closest(".header-actions a.icon-btn");
+    if (!headerLink) return;
+
+    const label = (headerLink.getAttribute("aria-label") || "").toLowerCase();
+    if (label.includes("wishlist")) {
+      e.preventDefault();
+      window.location.href = "trading_wishlist.html";
+      return;
+    }
+    if (label.includes("cart") || headerLink.classList.contains("cart-btn")) {
+      e.preventDefault();
+      window.location.href = "trading_cart.html";
     }
   });
 })();
