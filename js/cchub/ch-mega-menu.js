@@ -11,6 +11,7 @@
     const dropdowns = Array.from(inner.querySelectorAll(".category-dropdown"));
     if (!dropdowns.length) return;
 
+    const tabLayoutMq = window.matchMedia("(max-width: 1199px)");
     let closeTimer = null;
 
     function openDropdown(wrap) {
@@ -21,20 +22,48 @@
       wrap.classList.add("is-open");
     }
 
+    function closeDropdown(wrap) {
+      wrap.classList.remove("is-open");
+    }
+
+    function closeAll() {
+      dropdowns.forEach((el) => el.classList.remove("is-open"));
+    }
+
     function scheduleClose(wrap) {
       clearTimeout(closeTimer);
       closeTimer = window.setTimeout(() => {
-        wrap.classList.remove("is-open");
+        closeDropdown(wrap);
       }, 140);
     }
 
     dropdowns.forEach((wrap) => {
+      const trigger = wrap.querySelector(".category-item");
+
       wrap.addEventListener("mouseenter", () => openDropdown(wrap));
       wrap.addEventListener("mouseleave", () => scheduleClose(wrap));
       wrap.addEventListener("focusin", () => openDropdown(wrap));
       wrap.addEventListener("focusout", (e) => {
         if (!wrap.contains(e.relatedTarget)) scheduleClose(wrap);
       });
+
+      // Tab layout / touch: first click opens menu; second click follows link
+      trigger?.addEventListener("click", (e) => {
+        if (!tabLayoutMq.matches) return;
+        if (!wrap.classList.contains("is-open")) {
+          e.preventDefault();
+          openDropdown(wrap);
+        }
+      });
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!tabLayoutMq.matches) return;
+      if (!inner.contains(e.target)) closeAll();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeAll();
     });
   }
 
