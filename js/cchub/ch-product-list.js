@@ -304,6 +304,86 @@
     food: ["photo-1542838132-92c53300491e", "photo-1488459716781-31db52582fe9", "photo-1619566636858-adf3ef4644af", "photo-1556910103-1c02745aae4d"],
   };
 
+  /* Product-type gallery cards (mega-heading groups from reference menus) */
+  const GROUP_IMAGES = {
+    mobiles: ["photo-1511707171634-5f897ff02aa9", "photo-1592750475338-74b7b21085ab", "photo-1510557880182-3d4d3cba35a5", "photo-1592899677977-9c10ca588bbd"],
+    "smart wearable tech": ["photo-1579586337278-3befd40fd17a", "photo-1434494878577-86c23bcb06b9", "photo-1508685096489-7aacd43bd3b1", "photo-1523275335684-37898b6baf30"],
+    "health care": ["photo-1576092768241-dec231879fc3", "photo-1584308666744-24a5deb69501", "photo-1576092768241-dec231879fc3", "photo-1559757148-5c350d0d3c56"],
+    "health care appliances": ["photo-1576092768241-dec231879fc3", "photo-1584308666744-24a5deb69501", "photo-1559757148-5c350d0d3c56", "photo-1505751172876-fa1923c5c528"],
+    "mobile accessories": ["photo-1601784551446-20c9e07cdbdb", "photo-1609091839311-d5365f9ff1c5", "photo-1583863788434-e58a36338f18", "photo-1484704849700-f032a568e944"],
+    laptops: ["photo-1496181133206-80ce9b88a853", "photo-1603302576837-37561b2e2302", "photo-1525547719571-a2d4ac882e75", "photo-1517336714731-489689fd1ca8"],
+    "desktop pcs": ["photo-1527443224154-c4a3942d3acf", "photo-1593640408182-31c70c8268f5", "photo-1587831990711-23ca6441447b", "photo-1597872200969-2b65d56bd16b"],
+    "computer accessories": ["photo-1587829741301-dc798b83add3", "photo-1612815154858-60aa4c59eaa6", "photo-1527443224154-c4a3942d3acf", "photo-1498050108023-c5249f4df085"],
+    "computer peripherals": ["photo-1612815154858-60aa4c59eaa6", "photo-1587829741301-dc798b83add3", "photo-1563986768609-322da13575f3", "photo-1498050108023-c5249f4df085"],
+    tablets: ["photo-1544244015-0df4b3ffc6b0", "photo-1561154464-82e9adf32764", "photo-1585790050230-80dd2865511b", "photo-1611532736597-de2d4265fba3"],
+    televisions: ["photo-1593359677879-a4bb92f829d1", "photo-1461151304267-38535e780cf4", "photo-1593784991095-a205069470b6", "photo-1571415060716-baff5f980c0d"],
+    television: ["photo-1593359677879-a4bb92f829d1", "photo-1461151304267-38535e780cf4", "photo-1593784991095-a205069470b6", "photo-1571415060716-baff5f980c0d"],
+    speakers: ["photo-1608043152269-423dbba4e7e1", "photo-1545454675-3531b543be5d", "photo-1493225457124-a3eb161ffa5f", "photo-1484704849700-f032a568e944"],
+    camera: ["photo-1516035069371-29a1b244cc32", "photo-1502920917128-1aa500764cbd", "photo-1606983340126-99ab4feaa64a", "photo-1452780212940-6f5c0d14d848"],
+    cameras: ["photo-1516035069371-29a1b244cc32", "photo-1502920917128-1aa500764cbd", "photo-1606983340126-99ab4feaa64a", "photo-1452780212940-6f5c0d14d848"],
+    "camera accessories": ["photo-1606983340126-99ab4feaa64a", "photo-1478720568477-152d9b164e26", "photo-1516035069371-29a1b244cc32", "photo-1555617981-dac3880eac6e"],
+    "network components": ["photo-1544197150-b99a580bb7a2", "photo-1558618666-fcd25c85cd64", "photo-1551703599-6b3e8379aa8b", "photo-1597872200969-2b65d56bd16b"],
+    "washing machine": ["photo-1626806787461-74f1c9c3e4e5", "photo-1581578731548-c64695cc6952", "photo-1604335399340-0b706c533b37", "photo-1558618666-fcd25c85cd64"],
+    refrigerators: ["photo-1571175443880-49e1d25b2bc5", "photo-1574269909862-7e1d70bb8078", "photo-1585659722983-3a675dabf23d", "photo-1556911220-bff31c812dba"],
+    "small appliances": ["photo-1556910103-1c02745aae4d", "photo-1556911220-e15b29e8c240", "photo-1584622650111-993a426fbf0a", "photo-1548839140-29a749e1cf4d"],
+    "top brands": ["photo-1593359677879-a4bb92f829d1", "photo-1511707171634-5f897ff02aa9", "photo-1571175443880-49e1d25b2bc5", "photo-1461151304267-38535e780cf4"],
+    "air conditioners": ["photo-1581578731548-c64695cc6952", "photo-1558618666-fcd25c85cd64", "photo-1604335399340-0b706c533b37", "photo-1556911220-e15b29e8c240"],
+    "kitchen appliances": ["photo-1574269909862-7e1d70bb8078", "photo-1556910103-1c02745aae4d", "photo-1556911220-bff31c812dba", "photo-1585659722983-3a675dabf23d"],
+    "buying guides": ["photo-1512820790803-83ca734da794", "photo-1495446815901-a7297e633e8d", "photo-1544947950-fa07a98d237f", "photo-1519682337058-a94d519337bc"],
+    footwear: ["photo-1542291026-7eec264c27ff", "photo-1525966223011-a87e74561f32", "photo-1543163521-1bf560ef43f3", "photo-1606107557195-0e29a4b5b4aa"],
+    "men's grooming": ["photo-1541643600914-78b084683601", "photo-1621607512214-68297480165e", "photo-1556228578-0d85b1a4d571", "photo-1594035910387-fea47794261f"],
+    "top wear": ["photo-1521572163474-6864f9cf17ab", "photo-1596755094514-f87e34085b81", "photo-1598033129183-c4f50c736f10", "photo-1551028719-00167b16eac5"],
+    "bottom wear": ["photo-1542272454315-7ad9f8b4c3f6", "photo-1475178626620-a4d074967452", "photo-1591195853828-11db59a44f6b", "photo-1541099649105-f69ad21f3246"],
+    "ethnic wear": ["photo-1617137968427-85924c800a22", "photo-1594938298603-c8148c4dae35", "photo-1610030469983-98e550d6193c", "photo-1594633312681-425c7b97ccd1"],
+    "innerwear & loungewear": ["photo-1489987707025-941f354c7163", "photo-1521572163474-6864f9cf17ab", "photo-1551028719-00167b16eac5", "photo-1562157873-818bc0726f68"],
+    accessories: ["photo-1523275335684-37898b6baf30", "photo-1627123424574-724758594e93", "photo-1553062407-98eeb64c6a62", "photo-1572635196237-14b3f281503f"],
+    "featured brands": ["photo-1542291026-7eec264c27ff", "photo-1556906781-9a412961c28c", "photo-1542272454315-7ad9f8b4c3f6", "photo-1606107557195-0e29a4b5b4aa"],
+    "western wear": ["photo-1564257631407-4deb1f99d992", "photo-1595777457583-95e059d581b8", "photo-1485968579580-b6d095142e6e", "photo-1551488831-00ddcb6c6bd3"],
+    "beauty & jewellery": ["photo-1596462502278-27bfdc403348", "photo-1515562141207-7a88fb7ce338", "photo-1584917865442-de89df76afd3", "photo-1522335789203-aabd1fc54bc9"],
+    "lingerie & sleepwear": ["photo-1434389677669-e08b4cac3105", "photo-1515372039744-b8f02a3ae446", "photo-1489987707025-941f354c7163", "photo-1485968579580-b6d095142e6e"],
+    "ethnic bottoms": ["photo-1506629082955-511b1aa78293", "photo-1551488831-00ddcb6c6bd3", "photo-1594633312681-425c7b97ccd1", "photo-1541099649105-f69ad21f3246"],
+    watches: ["photo-1523275335684-37898b6baf30", "photo-1524592094714-0f0654e20314", "photo-1533139502658-0198f680c22f", "photo-1508685096489-7aacd43bd3b1"],
+    featured: ["photo-1610030469983-98e550d6193c", "photo-1596462502278-27bfdc403348", "photo-1523275335684-37898b6baf30", "photo-1485968579580-b6d095142e6e"],
+    "boys' clothing": ["photo-1521572163474-6864f9cf17ab", "photo-1503454537195-1dcabb73ffb9", "photo-1562157873-818bc0726f68", "photo-1591195853828-11db59a44f6b"],
+    "girls' clothing": ["photo-1515488042361-ee00e0ddd4e4", "photo-1595777457583-95e059d581b8", "photo-1503454537195-1dcabb73ffb9", "photo-1564257631407-4deb1f99d992"],
+    "kids' footwear": ["photo-1560769629-975ec94e6a86", "photo-1542291026-7eec264c27ff", "photo-1603487742131-4160ec999306", "photo-1606107557195-0e29a4b5b4aa"],
+    "winter wear": ["photo-1551028719-00167b16eac5", "photo-1544022613-e87ca75a784a", "photo-1591047139829-d91aecb6caea", "photo-1489987707025-941f354c7163"],
+    toys: ["photo-1566576912321-d58ddd7a6088", "photo-1587654780291-39c9404d746b", "photo-1558060370-d644479cb6f7", "photo-1515488042361-ee00e0ddd4e4"],
+    "school supplies": ["photo-14565130808-af694e2d0e0e", "photo-1580582932707-520aed937b7b", "photo-1503676260728-1c00da094a0b", "photo-1497633762265-9d179a990aa6"],
+    "baby care": ["photo-1515488042361-ee00e0ddd4e4", "photo-1503454537195-1dcabb73ffb9", "photo-1522771739844-6a9f6d5f14af", "photo-1587654780291-39c9404d746b"],
+    "kitchen & cookware": ["photo-1556910103-1c02745aae4d", "photo-1556911220-bff31c812dba", "photo-1574269909862-7e1d70bb8078", "photo-1585659722983-3a675dabf23d"],
+    "kitchen storage": ["photo-1556911220-bff31c812dba", "photo-1604719312566-8912e9227c6a", "photo-1584622650111-993a426fbf0a", "photo-1556910103-1c02745aae4d"],
+    "bedroom furniture": ["photo-1505693416388-ac5ce068fe85", "photo-1616594039964-ae9021a400a0", "photo-1522771739844-6a9f6d5f14af", "photo-1586023492125-27b2c045efd7"],
+    "living room": ["photo-1555041469-a586c61ea9bc", "photo-1586023492125-27b2c045efd7", "photo-1493663284031-b7e3aefcae8e", "photo-1567538096630-e0c55bd6374c"],
+    furnishing: ["photo-1616486338812-3dadae4b4ace", "photo-1586023492125-27b2c045efd7", "photo-1631679706909-1844bbd07221", "photo-1555041469-a586c61ea9bc"],
+    "home decor": ["photo-1513519245088-0e12902e35a6", "photo-1484101403633-562f891dc89a", "photo-1616046229478-9901c5536a45", "photo-1555041469-a586c61ea9bc"],
+    "smart home": ["photo-1558002038-1055907df827", "photo-1544197150-b99a580bb7a2", "photo-1558618666-fcd25c85cd64", "photo-1551703599-6b3e8379aa8b"],
+    sports: ["photo-1531415074968-036ba1b575da", "photo-1551958219-acbc608c6377", "photo-1461896836934-ffe607ba6850", "photo-1626224583764-f87db24ac4ea"],
+    "exercise fitness": ["photo-1517836357463-d25dfeac3438", "photo-1571019614242-c5c5dee9f50b", "photo-1534438327276-14e5300c3a48", "photo-1544367567-0f2fcb009e0b"],
+    "exercise & fitness": ["photo-1517836357463-d25dfeac3438", "photo-1571019614242-c5c5dee9f50b", "photo-1534438327276-14e5300c3a48", "photo-1544367567-0f2fcb009e0b"],
+    books: ["photo-1512820790803-83ca734da794", "photo-1544947950-fa07a98d237f", "photo-1495446815901-a7297e633e8d", "photo-1519682337058-a94d519337bc"],
+    stationery: ["photo-14565130808-af694e2d0e0e", "photo-1580582932707-520aed937b7b", "photo-1503676260728-1c00da094a0b", "photo-1497633762265-9d179a990aa6"],
+    "food essentials": ["photo-1542838132-92c53300491e", "photo-1447933601403-0c6688de566e", "photo-1599599810769-bcde5a160d32", "photo-1509440159596-0249088772ff"],
+    "health & nutrition": ["photo-1622597467836-f3285f2131b8", "photo-1556679343-c7306c1976bc", "photo-1512621776951-a57141f2eefd", "photo-1600271886742-f049cd451bba"],
+    "gaming & music": ["photo-1493225457124-a3eb161ffa5f", "photo-1606144042614-b2417e99c4e3", "photo-1545454675-3531b543be5d", "photo-1484704849700-f032a568e944"],
+    "auto accessories": ["photo-1449965408869-eaa3f722e40d", "photo-1492144534655-ae79c964c9d7", "photo-1503376780353-7e6692767b70", "photo-1486262715619-67b85e0b08d3"],
+    "seeds & saplings": ["photo-1464226184884-fa280b87c399", "photo-1416879595882-3373a0480b5b", "photo-1523348837708-15d4a09cfac2", "photo-1490750967868-88aa4486c946"],
+    "gardening tools": ["photo-1416879595882-3373a0480b5b", "photo-1592419044706-39796d40f98c", "photo-1466692476866-aef1dfb1e735", "photo-1464226184884-fa280b87c399"],
+    "plants & planters": ["photo-1466692476866-aef1dfb1e735", "photo-1485955900006-10f4d324d411", "photo-1459411621453-7b03977f4bfc", "photo-1509423350716-bf32f48c73f0"],
+    "pest & plant care": ["photo-1416879595882-3373a0480b5b", "photo-1464226184884-fa280b87c399", "photo-1466692476866-aef1dfb1e735", "photo-1592419044706-39796d40f98c"],
+    "soil & fertilizers": ["photo-1416879595882-3373a0480b5b", "photo-1464226184884-fa280b87c399", "photo-1523348837708-15d4a09cfac2", "photo-1592419044706-39796d40f98c"],
+    irrigation: ["photo-1416879595882-3373a0480b5b", "photo-1464226184884-fa280b87c399", "photo-1523362628745-0c10058bba0c", "photo-1548839140-29a749e1cf4d"],
+    "lawn care": ["photo-1558904541-efa843a96f01", "photo-1416879595882-3373a0480b5b", "photo-1464226184884-fa280b87c399", "photo-1523348837708-15d4a09cfac2"],
+    "fresh produce": ["photo-1619566636858-adf3ef4644af", "photo-1540420773420-3366772f4999", "photo-1512621776951-a57141f2eefd", "photo-1488459716781-31db52582fe9"],
+    "pantry staples": ["photo-1586201375761-83865001e31c", "photo-1574323347407-f5e1ad6d020b", "photo-1516684669134-de6f7c473a2a", "photo-1596040033229-a9821ebd058d"],
+    beverages: ["photo-1447933601403-0c6688de566e", "photo-1576092768241-dec231879fc3", "photo-1600271886742-f049cd451bba", "photo-1495474472287-4d71bcdd2085"],
+    "cooking essentials": ["photo-1474979266404-7eaacbcd87c5", "photo-1608571423902-eed4a5adb885", "photo-1556910103-1c02745aae4d", "photo-1551462147-3787040ec0f0"],
+    "dairy & eggs": ["photo-1563636619-e9143da7973b", "photo-1486297678162-eb2a19b0a32d", "photo-1582722872445-44dc5f7e3c8f", "photo-1488477181946-6428a0291777"],
+    "breakfast & spreads": ["photo-1509440159596-0249088772ff", "photo-1526318472351-c75fcf070305", "photo-1587049352846-4a222e784d38", "photo-1482049016688-2d3e1b311543"],
+    "snacks & sweets": ["photo-1558961363-fa8fdf82db35", "photo-1548907040-4baa42d10919", "photo-1599490659213-e2b9527bd087", "photo-1599599810769-bcde5a160d32"],
+    "featured stores": ["photo-1542838132-92c53300491e", "photo-1604719312566-8912e9227c6a", "photo-1563636619-e9143da7973b", "photo-1574323347407-f5e1ad6d020b"],
+  };
+
   function norm(s) {
     return (s || "").trim().toLowerCase();
   }
@@ -387,6 +467,7 @@
   function imagesForSubcat(name, cat, index) {
     const key = norm(name);
     const ids =
+      GROUP_IMAGES[key] ||
       SUBCAT_IMAGES[key] ||
       CATEGORY_FALLBACK_IMAGES[cat] ||
       CATEGORY_FALLBACK_IMAGES.electronics;
@@ -400,24 +481,18 @@
     );
     if (!dropdown) return [];
 
+    const generic = new Set(
+      [CATEGORY_LABELS[cat], "all", "products", "shop", "more"]
+        .filter(Boolean)
+        .map(norm)
+    );
+
     const seen = new Set();
     const items = [];
 
-    dropdown.querySelectorAll(".mega-group").forEach((group) => {
-      const links = [...group.querySelectorAll(".mega-list a")];
-      if (links.length) {
-        links.forEach((a) => {
-          const name = (a.textContent || "").replace(/\s+/g, " ").trim();
-          const href = a.getAttribute("href") || "";
-          if (!name || seen.has(norm(name))) return;
-          seen.add(norm(name));
-          items.push({ name, href });
-        });
-        return;
-      }
-
-      const heading = group.querySelector(".mega-heading");
-      if (!heading) return;
+    /* Use mega-heading product groups only (Mobiles, Laptops, Western Wear, …)
+       — not leaf brands/items and not the top-level category itself. */
+    dropdown.querySelectorAll(".mega-heading").forEach((heading) => {
       const name = (
         heading.querySelector(".mega-heading-text")?.textContent ||
         heading.textContent ||
@@ -426,8 +501,19 @@
         .replace(/\s+/g, " ")
         .trim();
       const href = heading.getAttribute("href") || "";
-      if (!name || seen.has(norm(name))) return;
-      seen.add(norm(name));
+      const key = norm(name);
+      if (!name || !href || generic.has(key) || seen.has(key)) return;
+
+      let group = "";
+      try {
+        group = new URL(href, window.location.href).searchParams.get("group") || "";
+      } catch {
+        group = "";
+      }
+      /* Require a concrete product group — skip generic category-only links */
+      if (!group) return;
+
+      seen.add(key);
       items.push({ name, href });
     });
 
