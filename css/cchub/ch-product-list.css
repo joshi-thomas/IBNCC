@@ -202,6 +202,125 @@
   font-weight: 600;
 }
 
+/* Subcategory gallery — mobile / tablet only (<1199px) */
+.pl-subcat-gallery {
+  display: none;
+}
+
+@media (max-width: 1198px) {
+  .pl-subcat-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin: 4px 0 18px;
+  }
+
+  .pl-subcat-gallery[hidden] {
+    display: none;
+  }
+
+  .pl-subcat-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    background: var(--card-bg, #eef4fa);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(11, 42, 74, 0.06);
+    box-shadow: var(--shadow-sm);
+    min-height: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .pl-subcat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .pl-subcat-card:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
+  }
+
+  .pl-subcat-media {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding: 10px 10px 6px;
+    flex: 1;
+  }
+
+  .pl-subcat-media img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.65);
+  }
+
+  .pl-subcat-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 8px 10px 10px;
+  }
+
+  .pl-subcat-footer strong {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.25;
+  }
+
+  .pl-subcat-footer span {
+    flex-shrink: 0;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--maroon);
+  }
+
+  .pl-subcat-footer i {
+    font-size: 0.58rem;
+    margin-left: 2px;
+  }
+}
+
+@media (max-width: 900px) {
+  .pl-subcat-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+}
+
+@media (max-width: 640px) {
+  .pl-subcat-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .pl-subcat-footer strong {
+    font-size: 0.74rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .pl-subcat-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .pl-subcat-media {
+    padding: 8px 8px 4px;
+    gap: 5px;
+  }
+
+  .pl-subcat-footer {
+    padding: 6px 8px 8px;
+  }
+}
+
 .pl-head h1 {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 2.5vw, 1.85rem);
