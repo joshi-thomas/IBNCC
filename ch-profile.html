@@ -1888,23 +1888,13 @@
                           size="5"
                           aria-label="Job options"
                         >
-                          <option value="Civil Engineer" selected>
-                            Civil Engineer
-                          </option>
-                          <option value="Mechanical Engineer">
-                            Mechanical Engineer
-                          </option>
-                          <option value="Electrical Engineer">
-                            Electrical Engineer
-                          </option>
+                          <option value="Civil Engineer" selected>Civil Engineer</option>
+                          <option value="Mechanical Engineer">Mechanical Engineer</option>
+                          <option value="Electrical Engineer">Electrical Engineer</option>
+                          <option value="Software Engineer">Software Engineer</option>
                           <option value="Architect">Architect</option>
-                          <option value="Quantity Surveyor">
-                            Quantity Surveyor
-                          </option>
-                          <option value="Site Engineer">Site Engineer</option>
-                          <option value="Project Engineer">
-                            Project Engineer
-                          </option>
+                          <option value="Surveyor">Surveyor</option>
+                          <option value="Technician">Technician</option>
                         </select>
                       </div>
                     </label>
@@ -3138,5 +3128,126 @@ Passionate about contributing to society through ethical and sustainable design.
 
     <script src="js/script.js"></script>
     <script src="js/cchub/ch-profile.js"></script>
+  
+    <!-- Profile field option sources (content for dependent Job options) -->
+    <div id="profileFieldOptionSources" hidden>
+        <select data-job-category="Hospitality &amp; Personal Services" aria-hidden="true">
+          <option value="Hotel Manager">Hotel Manager</option>
+          <option value="Receptionist">Receptionist</option>
+          <option value="Beautician">Beautician</option>
+          <option value="Hair Stylist">Hair Stylist</option>
+          <option value="Tour Guide">Tour Guide</option>
+          <option value="Housekeeper">Housekeeper</option>
+          <option value="Event Manager">Event Manager</option>
+          <option value="Chef">Chef</option>
+        </select>
+
+        <select data-job-category="Healthcare &amp; Medical" aria-hidden="true">
+          <option value="Doctor">Doctor</option>
+          <option value="Nurse">Nurse</option>
+          <option value="Dentist">Dentist</option>
+          <option value="Pharmacist">Pharmacist</option>
+          <option value="Surgeon">Surgeon</option>
+          <option value="Physiotherapist">Physiotherapist</option>
+          <option value="Lab Technician">Lab Technician</option>
+          <option value="Psychologist">Psychologist</option>
+        </select>
+
+        <select data-job-category="Engineering &amp; Technical" aria-hidden="true">
+          <option value="Civil Engineer">Civil Engineer</option>
+          <option value="Mechanical Engineer">Mechanical Engineer</option>
+          <option value="Electrical Engineer">Electrical Engineer</option>
+          <option value="Software Engineer">Software Engineer</option>
+          <option value="Architect">Architect</option>
+          <option value="Surveyor">Surveyor</option>
+          <option value="Technician">Technician</option>
+        </select>
+
+        <select data-job-category="Education &amp; Research" aria-hidden="true">
+          <option value="Teacher">Teacher</option>
+          <option value="Professor">Professor</option>
+          <option value="Lecturer">Lecturer</option>
+          <option value="Tutor">Tutor</option>
+          <option value="Researcher">Researcher</option>
+          <option value="Librarian">Librarian</option>
+        </select>
+
+        <select data-job-category="Business &amp; Finance" aria-hidden="true">
+          <option value="Accountant">Accountant</option>
+          <option value="Banker">Banker</option>
+          <option value="Financial Analyst">Financial Analyst</option>
+          <option value="Auditor">Auditor</option>
+          <option value="Insurance Agent">Insurance Agent</option>
+          <option value="Investment Advisor">Investment Advisor</option>
+        </select>
+
+        <select data-job-category="Information Technology (IT)" aria-hidden="true">
+          <option value="Web Developer">Web Developer</option>
+          <option value="App Developer">App Developer</option>
+          <option value="UI/UX Designer">UI/UX Designer</option>
+          <option value="Data Scientist">Data Scientist</option>
+          <option value="Cybersecurity Expert">Cybersecurity Expert</option>
+          <option value="Network Engineer">Network Engineer</option>
+        </select>
+
+        <select data-job-category="Construction &amp; Skilled Trades" aria-hidden="true">
+          <option value="Electrician">Electrician</option>
+          <option value="Plumber">Plumber</option>
+          <option value="Carpenter">Carpenter</option>
+          <option value="Mason">Mason</option>
+          <option value="Welder">Welder</option>
+          <option value="Painter">Painter</option>
+          <option value="HVAC Technician">HVAC Technician</option>
+        </select>
+
+        <select data-job-category="Agriculture &amp; Food" aria-hidden="true">
+          <option value="Farmer">Farmer</option>
+          <option value="Gardener">Gardener</option>
+          <option value="Dairy Farmer">Dairy Farmer</option>
+          <option value="Fisherman">Fisherman</option>
+          <option value="Food Technologist">Food Technologist</option>
+          <option value="Chef">Chef</option>
+          <option value="Baker">Baker</option>
+        </select>
+
+        <select data-job-category="Business, Sales &amp; Marketing" aria-hidden="true">
+          <option value="Sales Executive">Sales Executive</option>
+          <option value="Marketing Manager">Marketing Manager</option>
+          <option value="Business Development Officer">Business Development Officer</option>
+          <option value="Retail Manager">Retail Manager</option>
+          <option value="Customer Support">Customer Support</option>
+        </select>
+
+        <select data-job-category="Government, Legal &amp; Public Service" aria-hidden="true">
+          <option value="Police Officer">Police Officer</option>
+          <option value="Lawyer">Lawyer</option>
+          <option value="Judge">Judge</option>
+          <option value="Army Officer">Army Officer</option>
+          <option value="Firefighter">Firefighter</option>
+          <option value="Government Officer">Government Officer</option>
+          <option value="Social Worker">Social Worker</option>
+        </select>
+
+        <select data-job-category="Arts, Media &amp; Design" aria-hidden="true">
+          <option value="Graphic Designer">Graphic Designer</option>
+          <option value="Photographer">Photographer</option>
+          <option value="Musician">Musician</option>
+          <option value="Actor">Actor</option>
+          <option value="Writer">Writer</option>
+          <option value="Video Editor">Video Editor</option>
+          <option value="Animator">Animator</option>
+          <option value="Fashion Designer">Fashion Designer</option>
+        </select>
+
+        <select data-job-category="Transportation &amp; Logistics" aria-hidden="true">
+          <option value="Driver">Driver</option>
+          <option value="Pilot">Pilot</option>
+          <option value="Train Operator">Train Operator</option>
+          <option value="Delivery Executive">Delivery Executive</option>
+          <option value="Logistics Manager">Logistics Manager</option>
+          <option value="Warehouse Supervisor">Warehouse Supervisor</option>
+        </select>
+    </div>
+
   </body>
 </html>

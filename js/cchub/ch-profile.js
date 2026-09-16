@@ -25,207 +25,6 @@
     });
   });
 
-  function escapeAttr(value) {
-    return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/"/g, "&quot;")
-      .replace(/</g, "&lt;");
-  }
-
-  function fieldTypeFor(label) {
-    const key = label.toLowerCase();
-    if (key.includes("email")) return "email";
-    if (key.includes("mobile") || key.includes("phone") || key.includes("whatsapp")) return "tel";
-    return "text";
-  }
-
-  const DETAIL_FIELD_OPTIONS = {
-    "Church Details": {
-      Rite: ["Latin", "Syro-Malabar", "Syro-Malankara"],
-      Diocese: ["Kozhikode", "Kannur", "Thrissur", "Ernakulam-Angamaly", "Palakkad", "Thamarassery"],
-      Forane: ["Kozhikode Forane", "Thamarassery Forane", "Kalpetta Forane", "Perambra Forane"],
-      Parish: ["St. Mary's Cathedral", "St. Joseph's Church", "Holy Family Church", "Little Flower Church"],
-    },
-    "Personal Details": {
-      Gender: ["Male", "Female", "Other", "Prefer not to say"],
-      "Blood Group": ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
-    },
-    "Permanent Address": {
-      District: ["Kozhikode", "Kannur", "Wayanad", "Malappuram", "Thrissur", "Ernakulam"],
-      State: ["Kerala", "Tamil Nadu", "Karnataka", "Goa", "Maharashtra"],
-    },
-    "Present Address": {
-      District: ["Kozhikode", "Kannur", "Wayanad", "Malappuram", "Thrissur", "Ernakulam"],
-      State: ["Kerala", "Tamil Nadu", "Karnataka", "Goa", "Maharashtra"],
-    },
-    "Employment Status": {
-      Status: ["Employed", "Self-Employed", "Business", "Student", "Freelancer", "Seeking Opportunities"],
-      "Work Mode": ["On-site", "Remote", "Hybrid", "Field Work", "Flexible"],
-      Experience: ["0-2 years", "3-5 years", "6-10 years", "11-15 years", "16+ years"],
-    },
-    "Job Details": {
-      Category: [
-        "Hospitality & Personal Services",
-        "Healthcare & Medical",
-        "Engineering & Technical",
-        "Education & Research",
-        "Business & Finance",
-        "Information Technology (IT)",
-        "Construction & Skilled Trades",
-        "Agriculture & Food",
-        "Business, Sales & Marketing",
-        "Government, Legal & Public Service",
-        "Arts, Media & Design",
-        "Transportation & Logistics",
-      ],
-    },
-  };
-
-  const JOB_CATEGORY_MAP = {
-    "Hospitality & Personal Services": [
-      "Hotel Manager",
-      "Receptionist",
-      "Beautician",
-      "Hair Stylist",
-      "Tour Guide",
-      "Housekeeper",
-      "Event Manager",
-      "Chef",
-    ],
-    "Healthcare & Medical": [
-      "Doctor",
-      "Nurse",
-      "Dentist",
-      "Pharmacist",
-      "Surgeon",
-      "Physiotherapist",
-      "Lab Technician",
-      "Psychologist",
-    ],
-    "Engineering & Technical": [
-      "Civil Engineer",
-      "Mechanical Engineer",
-      "Electrical Engineer",
-      "Software Engineer",
-      "Architect",
-      "Surveyor",
-      "Technician",
-    ],
-    "Education & Research": [
-      "Teacher",
-      "Professor",
-      "Lecturer",
-      "Tutor",
-      "Researcher",
-      "Librarian",
-    ],
-    "Business & Finance": [
-      "Accountant",
-      "Banker",
-      "Financial Analyst",
-      "Auditor",
-      "Insurance Agent",
-      "Investment Advisor",
-    ],
-    "Information Technology (IT)": [
-      "Web Developer",
-      "App Developer",
-      "UI/UX Designer",
-      "Data Scientist",
-      "Cybersecurity Expert",
-      "Network Engineer",
-    ],
-    "Construction & Skilled Trades": [
-      "Electrician",
-      "Plumber",
-      "Carpenter",
-      "Mason",
-      "Welder",
-      "Painter",
-      "HVAC Technician",
-    ],
-    "Agriculture & Food": [
-      "Farmer",
-      "Gardener",
-      "Dairy Farmer",
-      "Fisherman",
-      "Food Technologist",
-      "Chef",
-      "Baker",
-    ],
-    "Business, Sales & Marketing": [
-      "Sales Executive",
-      "Marketing Manager",
-      "Business Development Officer",
-      "Retail Manager",
-      "Customer Support",
-    ],
-    "Government, Legal & Public Service": [
-      "Police Officer",
-      "Lawyer",
-      "Judge",
-      "Army Officer",
-      "Firefighter",
-      "Government Officer",
-      "Social Worker",
-    ],
-    "Arts, Media & Design": [
-      "Graphic Designer",
-      "Photographer",
-      "Musician",
-      "Actor",
-      "Writer",
-      "Video Editor",
-      "Animator",
-      "Fashion Designer",
-    ],
-    "Transportation & Logistics": [
-      "Driver",
-      "Pilot",
-      "Train Operator",
-      "Delivery Executive",
-      "Logistics Manager",
-      "Warehouse Supervisor",
-    ],
-  };
-
-  function optionListFor(sectionLabel, fieldLabel) {
-    if (sectionLabel === "Job Details" && fieldLabel === "Job") {
-      return [];
-    }
-    return DETAIL_FIELD_OPTIONS[sectionLabel]?.[fieldLabel] || [];
-  }
-
-  function buildOptionPicker(sectionLabel, fieldLabel, fieldId, value) {
-    const options = optionListFor(sectionLabel, fieldLabel);
-    if (!options.length) return "";
-
-    const optionRole = sectionLabel === "Job Details" && fieldLabel === "Category" ? "category" : "field";
-
-    return `
-      <div class="detail-option-picker" hidden>
-        <select class="detail-option-select" data-option-target="${fieldId}" data-option-role="${optionRole}" size="${Math.min(options.length, 5)}" aria-label="${escapeAttr(fieldLabel)} options">
-          ${options
-            .map(
-              (option) =>
-                `<option value="${escapeAttr(option)}"${option === value ? " selected" : ""}>${escapeAttr(option)}</option>`
-            )
-            .join("")}
-        </select>
-      </div>`;
-  }
-
-  function renderSelectOptions(select, options, value) {
-    if (!select) return;
-    select.size = Math.min(Math.max(options.length, 1), 5);
-    select.innerHTML = options
-      .map(
-        (option) =>
-          `<option value="${escapeAttr(option)}"${option === value ? " selected" : ""}>${escapeAttr(option)}</option>`
-      )
-      .join("");
-  }
-
   function closeAllOptionDropdowns(scope = document) {
     scope.querySelectorAll(".detail-edit-field.has-options.is-open").forEach((field) => {
       field.classList.remove("is-open");
@@ -261,18 +60,30 @@
   function updateJobOptions(form, selectedCategory, currentJob) {
     const jobSelect = form.querySelector('[data-option-role="job"]');
     const jobInput = form.querySelector('[name="detail-1"]');
-    const jobs = JOB_CATEGORY_MAP[selectedCategory] || [];
-
     if (!jobSelect || !jobInput) return;
 
-    renderSelectOptions(jobSelect, jobs, currentJob);
-    if (!jobs.length) return;
+    const sources = document.querySelectorAll(
+      "#profileFieldOptionSources select[data-job-category]"
+    );
+    const source = [...sources].find(
+      (el) => el.getAttribute("data-job-category") === selectedCategory
+    );
 
-    if (!jobs.includes(jobInput.value.trim())) {
-      jobInput.value = currentJob && jobs.includes(currentJob) ? currentJob : jobs[0];
+    if (!source) {
+      jobSelect.innerHTML = "";
+      return;
     }
 
-    renderSelectOptions(jobSelect, jobs, jobInput.value.trim());
+    const preferred = (currentJob || jobInput.value || "").trim();
+    jobSelect.innerHTML = source.innerHTML;
+    const jobs = [...jobSelect.options].map((option) => option.value);
+    const nextValue = jobs.includes(preferred) ? preferred : jobs[0] || "";
+
+    [...jobSelect.options].forEach((option) => {
+      option.selected = option.value === nextValue;
+    });
+    jobSelect.size = Math.min(Math.max(jobs.length, 1), 5);
+    if (nextValue) jobInput.value = nextValue;
   }
 
   function closeDetailEditor(item) {
@@ -382,84 +193,18 @@
     document.querySelectorAll(".profile-detail-item.is-editing").forEach(closeDetailEditor);
 
     const grid = item.querySelector(".detail-grid");
-    const content = item.querySelector(".detail-content");
     const existingForm = item.querySelector(".detail-edit-form");
-    if (!grid || !content) return;
+    if (!grid || !existingForm) return;
 
     item.open = true;
     item.classList.add("is-editing");
     item.querySelector('[data-action="edit"]')?.setAttribute("aria-pressed", "true");
     grid.hidden = true;
 
-    // Prefer static markup from ch-profile.html when present
-    if (existingForm) {
-      syncDetailFormFromGrid(item, existingForm);
-      bindDetailEditForm(existingForm, item);
-      existingForm.hidden = false;
-      existingForm.querySelector("input")?.focus();
-      return;
-    }
-
-    // Fallback for pages without pre-baked edit forms
-    const rows = [...(grid.querySelectorAll(":scope > div") || [])];
-    const sectionLabel = item.querySelector(".detail-label")?.textContent.trim() || "";
-    if (!rows.length) return;
-
-    const form = document.createElement("form");
-    form.className = "detail-edit-form";
-    form.innerHTML = `
-      <div class="detail-edit-grid">
-        ${rows
-          .map((row, index) => {
-            const label = row.querySelector("dt")?.textContent.trim() || `Field ${index + 1}`;
-            const value = row.querySelector("dd")?.textContent.trim() || "";
-            const type = fieldTypeFor(label);
-            const fieldId = `detail-${index}`;
-            const hasOptions = optionListFor(sectionLabel, label).length > 0 || (sectionLabel === "Job Details" && label === "Job");
-            return `
-              <label class="detail-edit-field${hasOptions ? " has-options" : ""}">
-                <span>${escapeAttr(label)}</span>
-                <span class="detail-input-wrap">
-                  <input type="${type}" name="${fieldId}" value="${escapeAttr(value)}" />
-                  ${
-                    hasOptions
-                      ? `<button type="button" class="detail-option-toggle" data-option-target="${fieldId}" aria-label="Show ${escapeAttr(label)} options" aria-expanded="false">
-                  <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-                </button>`
-                      : ""
-                  }
-                </span>
-                ${buildOptionPicker(sectionLabel, label, fieldId, value)}
-              </label>`;
-          })
-          .join("")}
-      </div>
-      <div class="detail-edit-actions">
-        <button type="button" class="sidebar-btn-secondary" data-edit-cancel>Cancel</button>
-        <button type="submit" class="sidebar-btn-primary">Save</button>
-      </div>
-    `;
-
-    if (sectionLabel === "Job Details") {
-      const jobField = form.querySelector('[name="detail-1"]')?.closest("label");
-      const jobInput = form.querySelector('[name="detail-1"]');
-      const categoryInput = form.querySelector('[name="detail-0"]');
-      if (jobField && jobInput) {
-        jobField.insertAdjacentHTML(
-          "beforeend",
-          `
-            <div class="detail-option-picker" hidden>
-              <select class="detail-option-select" data-option-target="detail-1" data-option-role="job" size="5" aria-label="Job options"></select>
-            </div>
-          `
-        );
-      }
-      updateJobOptions(form, categoryInput?.value.trim() || "", jobInput?.value.trim() || "");
-    }
-
-    content.appendChild(form);
-    bindDetailEditForm(form, item);
-    form.querySelector("input")?.focus();
+    syncDetailFormFromGrid(item, existingForm);
+    bindDetailEditForm(existingForm, item);
+    existingForm.hidden = false;
+    existingForm.querySelector("input")?.focus();
   }
 
   document.querySelectorAll("[data-action]").forEach((btn) => {
