@@ -38,6 +38,7 @@
 
   const openMenu = () => {
     if (!menuToggle || !mobileMenu) return;
+    setActiveNav();
     menuToggle.setAttribute("aria-expanded", "true");
     menuToggle.setAttribute("aria-label", "Close menu");
     mobileMenu.hidden = false;
@@ -82,7 +83,61 @@
   });
 
   /* ---------- Active nav indicator ---------- */
-  const setActiveNav = () => {
+  const SECTION_TO_NAV = {
+    home: "home",
+    about: "about",
+    objectives: "about",
+    activities: "about",
+    trading: "trading",
+    events: "events",
+    benefits: "events",
+    networking: "networking",
+    knowledge: "networking",
+    growth: "networking",
+    highlights: "events",
+    cta: "home",
+  };
+
+  const PAGE_TO_NAV = {
+    "networking.html": "networking",
+    "activity.html": "networking",
+    "ch-profile.html": "networking",
+    "ch-other-profile.html": "networking",
+    "ch-trading.html": "trading",
+    "ch-home.html": "trading",
+    "ch-product-list.html": "trading",
+    "ch-product-details.html": "trading",
+    "trading_product_list.html": "trading",
+    "trading_product_details.html": "trading",
+    "cart.html": "trading",
+    "trading_cart.html": "trading",
+    "wish-list.html": "trading",
+    "trading_wishlist.html": "trading",
+    "payment.html": "trading",
+    "my-account.html": "trading",
+    "order-details.html": "trading",
+    "event-details.html": "events",
+  };
+
+  function currentPageFile() {
+    const parts = window.location.pathname.split("/").filter(Boolean);
+    const file = (parts[parts.length - 1] || "index.html").toLowerCase();
+    return file.includes(".") ? file : "index.html";
+  }
+
+  function activeKeyFromPage() {
+    const file = currentPageFile();
+    if (PAGE_TO_NAV[file]) return PAGE_TO_NAV[file];
+
+    const isIndex = file === "index.html";
+    if (!isIndex) return null;
+
+    const hash = (window.location.hash || "").replace(/^#/, "").toLowerCase();
+    if (hash) return SECTION_TO_NAV[hash] || hash;
+    return null;
+  }
+
+  function activeKeyFromScroll() {
     let current = "home";
     const offset = window.scrollY + 120;
 
@@ -92,31 +147,29 @@
       }
     });
 
-    // Map content sections to nav items
-    const map = {
-      home: "home",
-      about: "about",
-      objectives: "about",
-      activities: "about",
-      trading: "trading",
-      events: "events",
-      benefits: "events",
-      networking: "networking",
-      knowledge: "networking",
-      growth: "networking",
-      highlights: "events",
-      cta: "home",
-    };
+    return SECTION_TO_NAV[current] || current;
+  }
 
-    const activeKey = map[current] || current;
+  const setActiveNav = () => {
+    const activeKey = activeKeyFromPage() || activeKeyFromScroll();
 
-    document.querySelectorAll(".nav-desktop .nav-link, .nav-mobile .nav-link").forEach((link) => {
-      const section = link.getAttribute("data-section");
-      link.classList.toggle("active", section === activeKey);
-    });
+    document
+      .querySelectorAll(".nav-desktop .nav-link, .nav-mobile .nav-link")
+      .forEach((link) => {
+        const section = link.getAttribute("data-section");
+        const href = (link.getAttribute("href") || "").toLowerCase();
+        const hrefFile = href.split("#")[0].split("/").pop();
+        const matchBySection = section === activeKey;
+        const matchByHref =
+          Boolean(hrefFile) &&
+          PAGE_TO_NAV[hrefFile] === activeKey &&
+          currentPageFile() === hrefFile;
+        link.classList.toggle("active", matchBySection || matchByHref);
+      });
   };
 
   window.addEventListener("scroll", setActiveNav, { passive: true });
+  window.addEventListener("hashchange", setActiveNav);
   setActiveNav();
 
   /* ---------- Scroll reveal ---------- */

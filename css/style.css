@@ -323,7 +323,7 @@ button {
 }
 
 .nav-link i {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: var(--secondary);
   opacity: 0.85;
 }
@@ -600,7 +600,7 @@ button {
 
 .nav-mobile .nav-link.active .nav-mobile-icon,
 .nav-mobile .nav-link:hover .nav-mobile-icon {
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.72);
   color: #fff;
 }
 
