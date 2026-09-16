@@ -10986,17 +10986,7 @@
     </dialog>
 
     <script src="js/cchub/ch-login.js"></script>
-    <script>
-      /* tradingPdDefault */
-      (function () {
-        var params = new URLSearchParams(window.location.search);
-        if (!params.get("product")) {
-          var next =
-            window.location.pathname + "?product=foam-hat-inserts&cat=home";
-          history.replaceState(null, "", next);
-        }
-      })();
-    </script>
+    <script src="js/cchub/trading-product-details.js"></script>
     <script src="js/cchub/ch-product-details.js"></script>
   </body>
 </html>
