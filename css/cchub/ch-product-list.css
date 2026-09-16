@@ -209,13 +209,21 @@
 
 @media (max-width: 1198px) {
   .pl-subcat-gallery {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 12px;
+    display: block;
     margin: 4px 0 18px;
   }
 
   .pl-subcat-gallery[hidden] {
+    display: none;
+  }
+
+  .pl-subcat-set {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .pl-subcat-set[hidden] {
     display: none;
   }
 
@@ -288,14 +296,14 @@
 }
 
 @media (max-width: 900px) {
-  .pl-subcat-gallery {
+  .pl-subcat-set {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
   }
 }
 
 @media (max-width: 640px) {
-  .pl-subcat-gallery {
+  .pl-subcat-set {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
@@ -306,7 +314,7 @@
 }
 
 @media (max-width: 380px) {
-  .pl-subcat-gallery {
+  .pl-subcat-set {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
   }
