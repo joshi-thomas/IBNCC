@@ -1,56 +1,12 @@
 /**
  * CC Hub — Product list page
- * Product cards and subcategory gallery markup live in ch-product-list.html;
+ * Product cards, subcategory gallery, category labels, sort options, and
+ * filter field options/presets live in ch-product-list.html;
  * this file only filters, sorts, toggles UI, and handles interactions.
  */
 
 (() => {
   "use strict";
-
-  const CATEGORY_LABELS = {
-    electronics: "Electronics",
-    appliances: "TVs & Appliances",
-    men: "Men",
-    women: "Women",
-    kids: "Baby & Kids",
-    home: "Home & Furniture",
-    sports: "Sports, Books & More",
-    farm: "Farm & Garden",
-    food: "Food Items",
-  };
-
-  const SORT_LABELS = {
-    relevance: "Relevance",
-    popularity: "Popularity",
-    "price-asc": "Price — Low to High",
-    "price-desc": "Price — High to Low",
-    rating: "Customer Rating",
-    newest: "Newest",
-  };
-
-  const ITEM_FILTER_MAP = {
-    "power banks": "powerBanks",
-    cases: "mobileCases",
-    "mobile cases": "mobileCases",
-    headphones: "headphones",
-    "headphones and headsets": "headphones",
-    "smart watches": "smartWatches",
-    "smart bands": "smartWatches",
-    "smart glasses": "smartWatches",
-    "gaming laptops": "laptops",
-    "thin & light": "laptops",
-    "2-in-1 laptops": "laptops",
-    laptops: "laptops",
-  };
-
-  const GROUP_FILTER_MAP = {
-    mobiles: "mobiles",
-    "mobile accessories": "mobileCases",
-    "smart wearable tech": "smartWatches",
-    "health care appliances": "default",
-    laptops: "laptops",
-    "desktop pcs": "default",
-  };
 
   const params = new URLSearchParams(window.location.search);
   const state = {
@@ -89,25 +45,67 @@
     return `₹${Number(n).toLocaleString("en-IN")}`;
   }
 
+  function splitList(value) {
+    return String(value || "")
+      .split(",")
+      .map((part) => norm(part))
+      .filter(Boolean);
+  }
+
+  /* Category labels come from category-nav markup in the HTML */
+  function categoryLabel(cat) {
+    const label = document.querySelector(
+      `.category-nav .category-dropdown[data-mega="${cat}"] .category-label`
+    );
+    return label?.textContent.replace(/\s+/g, " ").trim() || cat;
+  }
+
+  /* Sort option labels come from sort tab buttons in the HTML */
+  function sortLabel(sort) {
+    const tab = els.sortTabs?.querySelector(`[data-sort="${sort}"]`);
+    return tab?.textContent.replace(/\s+/g, " ").trim() || sort;
+  }
+
   function pageTitle() {
     if (state.item) return state.item;
     if (state.group) return state.group;
-    return CATEGORY_LABELS[state.cat] || "Products";
+    return categoryLabel(state.cat) || "Products";
   }
 
+  /* Filter preset selection rules are declared on .pl-filter-set in HTML */
   function resolveFilterPreset() {
+    const sets = [...(els.filters?.querySelectorAll(".pl-filter-set[data-preset]") || [])];
     const itemKey = norm(state.item);
     const groupKey = norm(state.group);
+    const catKey = norm(state.cat);
 
-    if (itemKey && ITEM_FILTER_MAP[itemKey]) return ITEM_FILTER_MAP[itemKey];
-    if (itemKey.includes("power bank")) return "powerBanks";
-    if (itemKey.includes("case")) return "mobileCases";
-    if (groupKey && GROUP_FILTER_MAP[groupKey]) return GROUP_FILTER_MAP[groupKey];
-    if (state.cat === "men" || state.cat === "women") return "men";
-    if (state.cat === "farm") return "farm";
-    if (state.cat === "food") return "food";
-    if (state.cat === "electronics" && !state.group) return "mobiles";
-    return "default";
+    if (itemKey) {
+      const byItem = sets.find((set) => splitList(set.dataset.matchItems).includes(itemKey));
+      if (byItem) return byItem.dataset.preset;
+
+      const byContains = sets.find((set) =>
+        splitList(set.dataset.matchItemContains).some((frag) => itemKey.includes(frag))
+      );
+      if (byContains) return byContains.dataset.preset;
+    }
+
+    if (groupKey) {
+      const byGroup = sets.find((set) => splitList(set.dataset.matchGroups).includes(groupKey));
+      if (byGroup) return byGroup.dataset.preset;
+    }
+
+    if (!state.group) {
+      const byCatDefault = sets.find((set) =>
+        splitList(set.dataset.matchCatsDefault).includes(catKey)
+      );
+      if (byCatDefault) return byCatDefault.dataset.preset;
+    }
+
+    const byCat = sets.find((set) => splitList(set.dataset.matchCats).includes(catKey));
+    if (byCat) return byCat.dataset.preset;
+
+    const fallback = sets.find((set) => set.dataset.isFallback === "true");
+    return fallback?.dataset.preset || "default";
   }
 
   function activeFilterSet() {
@@ -125,7 +123,7 @@
     const parts = [
       { label: "Home", href: "ch-trading.html" },
       {
-        label: CATEGORY_LABELS[state.cat] || state.cat,
+        label: categoryLabel(state.cat) || state.cat,
         href: `product-list.html?cat=${encodeURIComponent(state.cat)}`,
       },
     ];
@@ -262,9 +260,9 @@
 
   function renderApplied(filters) {
     const chips = [];
-    const sortLabel = SORT_LABELS[state.sort];
-    if (sortLabel && state.sort !== "relevance") {
-      chips.push({ key: "__sort", label: `Sort: ${sortLabel}` });
+    const activeSortLabel = sortLabel(state.sort);
+    if (activeSortLabel && state.sort !== "relevance") {
+      chips.push({ key: "__sort", label: `Sort: ${activeSortLabel}` });
     }
     Object.entries(filters).forEach(([id, val]) => {
       if (Array.isArray(val)) {
