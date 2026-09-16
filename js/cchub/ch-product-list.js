@@ -119,18 +119,27 @@
     });
   }
 
+  function listPagePath() {
+    const file = (window.location.pathname.split("/").pop() || "").toLowerCase();
+    if (file.includes("trading_product_list")) return "trading_product_list.html";
+    return "ch-product-list.html";
+  }
+
   function renderBreadcrumb() {
+    if (!els.breadcrumb) return;
+
+    const listPage = listPagePath();
     const parts = [
       { label: "Home", href: "ch-trading.html" },
       {
         label: categoryLabel(state.cat) || state.cat,
-        href: `product-list.html?cat=${encodeURIComponent(state.cat)}`,
+        href: `${listPage}?cat=${encodeURIComponent(state.cat)}`,
       },
     ];
     if (state.group) {
       parts.push({
         label: state.group,
-        href: `product-list.html?cat=${encodeURIComponent(state.cat)}&group=${encodeURIComponent(state.group)}`,
+        href: `${listPage}?cat=${encodeURIComponent(state.cat)}&group=${encodeURIComponent(state.group)}`,
       });
     }
     if (state.item) parts.push({ label: state.item, href: null });
