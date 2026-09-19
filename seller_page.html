@@ -405,13 +405,13 @@
                     </ul>
                   </div>
                 </div>
-                <div class="seller-field">
+                <!-- <div class="seller-field">
                   <label for="productUnit"
                     >Unit
                     <span class="hint">piece, pair, carton, kg…</span></label
                   >
                   <input id="productUnit" name="unit" type="text" value="pair" />
-                </div>
+                </div> -->
                 <div class="seller-field">
                   <label for="productSku">product code</label>
                   <input id="productSku" name="code" type="text" value="RST-SFJ-BLK-L" />
@@ -688,6 +688,18 @@ Slim-fit denim jeans with stretch comfort. Mid-rise waist, tapered leg, and dura
                 <div class="seller-field">
                   <label for="moqUnit">Unit</label>
                   <input id="moqUnit" type="text" value="pieces" />
+                </div>
+                <div class="seller-field">
+                  <label for="bulkPricePerUnit">Bulk Price per Unit (₹)</label>
+                  <input
+                    id="bulkPricePerUnit"
+                    name="bulkPricePerUnit"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    value="24.52"
+                    placeholder="e.g. 24.52"
+                  />
                 </div>
                 <div class="seller-field full">
                   <label for="bulkNote">Buyer-facing note</label>
