@@ -610,7 +610,7 @@ Slim-fit denim jeans with stretch comfort. Mid-rise waist, tapered leg, and dura
             <div class="seller-panel-head">
               <div>
                 <h2>Pricing</h2>
-                <p>Retail price for single units and bulk price per unit for wholesale.</p>
+                <p>Retail price for single units and the product unit for listing.</p>
               </div>
               <span class="seller-panel-badge" data-mode-badge>Marketplace</span>
             </div>
@@ -648,13 +648,50 @@ Slim-fit denim jeans with stretch comfort. Mid-rise waist, tapered leg, and dura
                   </div>
                 </div>
                 <div class="seller-price-card">
-                  <h3>Bulk price (per unit)</h3>
+                  <h3>Product Unit</h3>
                   <div class="seller-field">
-                    <label for="bulkPrice">Amount (₹)</label>
-                    <input id="bulkPrice" type="number" min="0" step="0.01" value="24.52" />
+                    <label for="productPricingUnit">Unit</label>
+                    <div class="seller-combo" data-combo>
+                      <input
+                        id="productPricingUnit"
+                        name="productUnit"
+                        type="text"
+                        value="Pair"
+                        autocomplete="off"
+                        placeholder="Select or type a unit"
+                        role="combobox"
+                        aria-expanded="false"
+                        aria-controls="productUnitListbox"
+                        aria-autocomplete="list"
+                      />
+                      <button
+                        type="button"
+                        class="seller-combo-toggle"
+                        aria-label="Show unit options"
+                        tabindex="-1"
+                      >
+                        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                      </button>
+                      <ul
+                        class="seller-combo-list"
+                        id="productUnitListbox"
+                        role="listbox"
+                        hidden
+                      >
+                        <li role="option" data-value="Piece">Piece</li>
+                        <li role="option" data-value="Kg">Kg</li>
+                        <li role="option" data-value="Gram">Gram</li>
+                        <li role="option" data-value="Litre">Litre</li>
+                        <li role="option" data-value="Meter">Meter</li>
+                        <li role="option" data-value="Box">Box</li>
+                        <li role="option" data-value="Set">Set</li>
+                        <li role="option" data-value="Pair" aria-selected="true">Pair</li>
+                        <li role="option" data-value="Pack">Pack</li>
+                      </ul>
+                    </div>
                   </div>
                   <p class="hint" style="margin-top: 12px">
-                    Used when buyers meet your bulk rule / MOQ in Trading mode.
+                    Choose a common unit or type a custom one (e.g. carton, dozen).
                   </p>
                 </div>
               </div>

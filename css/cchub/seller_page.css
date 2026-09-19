@@ -30,7 +30,7 @@
 .seller-banner {
   position: relative;
   overflow: hidden;
-  border-radius: 28px;
+  /* border-radius: 28px; */
   min-height: 220px;
   color: #fff;
   background:
