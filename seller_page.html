@@ -619,12 +619,32 @@ Slim-fit denim jeans with stretch comfort. Mid-rise waist, tapered leg, and dura
                 <div class="seller-price-card">
                   <h3>Retail price (single unit)</h3>
                   <div class="seller-field">
-                    <label for="retailPrice">Amount (₹)</label>
-                    <input id="retailPrice" type="number" min="0" step="0.01" value="1199" />
+                    <label for="actualPrice">Actual Price / MRP (₹)</label>
+                    <input
+                      id="actualPrice"
+                      name="actualPrice"
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      value="2499"
+                      placeholder="e.g. 2499"
+                      required
+                    />
                   </div>
                   <div class="seller-field" style="margin-top: 12px">
-                    <label for="mrpPrice">MRP / compare-at (₹)</label>
-                    <input id="mrpPrice" type="number" min="0" step="0.01" value="2499" />
+                    <label for="currentPrice"
+                      >Current Price (₹)
+                      <span class="hint">Optional — leave blank if Actual Price / MRP is the selling price</span></label
+                    >
+                    <input
+                      id="currentPrice"
+                      name="currentPrice"
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      value="1199"
+                      placeholder="Optional — e.g. 1199"
+                    />
                   </div>
                 </div>
                 <div class="seller-price-card">
