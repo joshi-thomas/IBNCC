@@ -1,0 +1,1032 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seller Hub — CC Hub</title>
+    <meta
+      name="description"
+      content="Manage products, pricing, stock and orders on CC Hub Seller Page."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Manrope:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/cchub/ch-styles.css" />
+    <link rel="stylesheet" href="css/cchub/seller_page.css" />
+  </head>
+  <body class="seller-page" data-seller-mode="marketplace">
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="index.html#home" class="brand" aria-label="IBNCC Home">
+          <span class="brand-text">
+            <img
+              src="assets/images/logo_full.png"
+              alt="IBNCC logo"
+              class="brand-logo"
+              width="52"
+              height="52"
+            />
+            <span class="brand-tagline"
+              ><span class="brand-tagline-line">AN INITIATIVE OF</span
+              ><span class="brand-tagline-line">CATHOLIC CONGRESS</span></span
+            >
+          </span>
+        </a>
+
+        <form class="search-bar" role="search" action="#" method="get">
+          <input
+            type="search"
+            name="q"
+            placeholder="Search for products, brands and more..."
+            aria-label="Search"
+          />
+          <button type="submit" class="search-btn" aria-label="Submit search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+
+        <div class="header-actions">
+          <a href="#login" class="btn-login">Login</a>
+          <a href="wish-list.html" class="icon-btn" aria-label="Wishlist">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+          <a
+            href="cart.html"
+            class="icon-btn cart-btn"
+            aria-label="Shopping cart"
+          >
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-badge">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="seller-main">
+      <!-- Section 1: Motivational banner -->
+      <section class="seller-banner" aria-labelledby="seller-banner-title">
+        <a
+          href="ch-trading.html"
+          class="seller-banner-back"
+          aria-label="Back to Trading page"
+          title="Back to Trading"
+        >
+          <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+        </a>
+        <div class="seller-banner-inner">
+          <div>
+            <p class="seller-banner-eyebrow">
+              <i class="fa-solid fa-store" aria-hidden="true"></i>
+              Seller Hub
+            </p>
+            <h1 id="seller-banner-title">Turn your craft into community commerce</h1>
+            <p class="seller-banner-copy">
+              List products for marketplace shoppers or wholesale trading buyers.
+              Set prices, stock, and fulfill orders from one calm workspace.
+            </p>
+            <a href="#seller-workspace" class="seller-banner-cta">
+              Start listing
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+          <div class="seller-banner-stats" aria-label="Seller highlights">
+            <div class="seller-stat">
+              <strong>2.4k+</strong>
+              <span>Active sellers</span>
+            </div>
+            <div class="seller-stat">
+              <strong>₹18L</strong>
+              <span>Monthly GMV</span>
+            </div>
+            <div class="seller-stat">
+              <strong>48h</strong>
+              <span>Avg. payout</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Marketplace / Trading tabs -->
+      <section class="seller-mode-section" aria-label="Selling mode">
+        <p class="seller-mode-label">Selling channel</p>
+        <div class="seller-mode-tabs" role="tablist" aria-label="Marketplace or Trading">
+          <button
+            type="button"
+            class="seller-mode-tab is-active"
+            role="tab"
+            id="modeMarketplace"
+            data-mode="marketplace"
+            aria-selected="true"
+          >
+            <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+            Marketplace
+          </button>
+          <button
+            type="button"
+            class="seller-mode-tab"
+            role="tab"
+            id="modeTrading"
+            data-mode="trading"
+            aria-selected="false"
+          >
+            <i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i>
+            Trading
+          </button>
+        </div>
+        <p class="seller-mode-hint" data-mode-hint="marketplace">
+          Marketplace focuses on single-unit retail pricing, instant checkout, and consumer-ready listings.
+        </p>
+        <p class="seller-mode-hint" data-mode-hint="trading" hidden>
+          Trading focuses on MOQ, bulk rules, volume price tiers, and seller-confirmed wholesale orders.
+        </p>
+      </section>
+
+      <!-- Section 3: Sidebar + content panels -->
+      <section class="seller-workspace" id="seller-workspace" aria-label="Seller workspace">
+        <aside class="seller-nav" aria-label="Seller sections">
+          <div class="seller-nav-group">
+            <p class="seller-nav-title">
+              <i class="fa-solid fa-box" aria-hidden="true"></i>
+              Products
+            </p>
+            <div class="seller-nav-list" role="tablist" aria-orientation="vertical">
+              <button
+                type="button"
+                class="seller-nav-item is-active"
+                role="tab"
+                data-panel="add-edit"
+                aria-selected="true"
+              >
+                <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+                Add / edit product
+              </button>
+              <button
+                type="button"
+                class="seller-nav-item"
+                role="tab"
+                data-panel="product-details"
+                aria-selected="false"
+              >
+                <i class="fa-solid fa-table-list" aria-hidden="true"></i>
+                Product details
+              </button>
+              <button
+                type="button"
+                class="seller-nav-item"
+                role="tab"
+                data-panel="pricing"
+                aria-selected="false"
+              >
+                <i class="fa-solid fa-tags" aria-hidden="true"></i>
+                Pricing
+              </button>
+              <button
+                type="button"
+                class="seller-nav-item"
+                role="tab"
+                data-panel="bulk-rule"
+                aria-selected="false"
+              >
+                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+                Bulk rule
+              </button>
+              <button
+                type="button"
+                class="seller-nav-item"
+                role="tab"
+                data-panel="price-tiers"
+                aria-selected="false"
+              >
+                <i class="fa-solid fa-chart-simple" aria-hidden="true"></i>
+                Price tiers
+              </button>
+              <button
+                type="button"
+                class="seller-nav-item"
+                role="tab"
+                data-panel="stock"
+                aria-selected="false"
+              >
+                <i class="fa-solid fa-warehouse" aria-hidden="true"></i>
+                Stock
+              </button>
+            </div>
+          </div>
+
+          <div class="seller-nav-group">
+            <p class="seller-nav-title">
+              <i class="fa-solid fa-receipt" aria-hidden="true"></i>
+              Orders
+            </p>
+            <div class="seller-nav-list" role="tablist" aria-orientation="vertical">
+              <button
+                type="button"
+                class="seller-nav-item"
+                role="tab"
+                data-panel="retail-orders"
+                aria-selected="false"
+              >
+                <i class="fa-solid fa-basket-shopping" aria-hidden="true"></i>
+                Retail orders
+              </button>
+              <button
+                type="button"
+                class="seller-nav-item"
+                role="tab"
+                data-panel="bulk-orders"
+                aria-selected="false"
+              >
+                <i class="fa-solid fa-boxes-stacked" aria-hidden="true"></i>
+                Bulk orders
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <div class="seller-panels">
+          <!-- Add / edit product -->
+          <article
+            class="seller-panel is-active"
+            id="panel-add-edit"
+            role="tabpanel"
+            data-panel="add-edit"
+          >
+            <div class="seller-panel-head">
+              <div>
+                <h2>Add / edit product</h2>
+                <p>Name, category, unit, images, and description for your listing.</p>
+              </div>
+              <span class="seller-panel-badge" data-mode-badge>Marketplace</span>
+            </div>
+
+            <form class="seller-form" id="formAddEdit" onsubmit="return false;">
+              <div class="seller-form-grid">
+                <div class="seller-field">
+                  <label for="productName">Product name</label>
+                  <input
+                    id="productName"
+                    name="name"
+                    type="text"
+                    value="Roadster Slim Fit Jeans"
+                    required
+                  />
+                </div>
+                
+                <!-- ---------- -->
+                 <div class="seller-field">
+                  <label for="productCategory">Category</label>
+                  <div class="seller-combo" data-combo>
+                    <input
+                      id="productCategory"
+                      name="category"
+                      type="text"
+                      value="Apparel / Bottom wear"
+                      autocomplete="off"
+                      placeholder="Select or type a category"
+                      role="combobox"
+                      aria-expanded="false"
+                      aria-controls="categoryListbox"
+                      aria-autocomplete="list"
+                    />
+                    <button
+                      type="button"
+                      class="seller-combo-toggle"
+                      aria-label="Show category options"
+                      tabindex="-1"
+                    >
+                      <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                    <ul
+                      class="seller-combo-list"
+                      id="categoryListbox"
+                      role="listbox"
+                      hidden
+                    >
+                      <li role="option" data-value="electronics">electronics</li>
+                      <li role="option" data-value="Apparel / Bottom wear" aria-selected="true">
+                        Apparel / Bottom wear
+                      </li>
+                      <li role="option" data-value="Tv &amp; Appliances">Tv &amp; Appliances</li>
+                      <li role="option" data-value="men">men</li>
+                      <li role="option" data-value="women">women</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="seller-field">
+                  <label for="productSubcategory">Subcategory</label>
+                  <div class="seller-combo" data-combo>
+                    <input
+                      id="productSubcategory"
+                      name="subcategory"
+                      type="text"
+                      value="Apparel / Bottom wear"
+                      autocomplete="off"
+                      placeholder="Select or type a subcategory"
+                      role="combobox"
+                      aria-expanded="false"
+                      aria-controls="subcategoryListbox"
+                      aria-autocomplete="list"
+                    />
+                    <button
+                      type="button"
+                      class="seller-combo-toggle"
+                      aria-label="Show subcategory options"
+                      tabindex="-1"
+                    >
+                      <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                    <ul
+                      class="seller-combo-list"
+                      id="subcategoryListbox"
+                      role="listbox"
+                      hidden
+                    >
+                      <li role="option" data-value="Fashion">Fashion</li>
+                      <li role="option" data-value="Apparel / Bottom wear" aria-selected="true">
+                        Apparel / Bottom wear
+                      </li>
+                      <li role="option" data-value="Home &amp; Furniture">Home &amp; Furniture</li>
+                      <li role="option" data-value="Electronics">Electronics</li>
+                      <li role="option" data-value="Packaging &amp; Bulk Supplies">
+                        Packaging &amp; Bulk Supplies
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="seller-field">
+                  <label for="productSubSubcategory">Sub-subcategory</label>
+                  <div class="seller-combo" data-combo>
+                    <input
+                      id="productSubSubcategory"
+                      name="subSubcategory"
+                      type="text"
+                      value="Apparel / Bottom wear"
+                      autocomplete="off"
+                      placeholder="Select or type a sub-subcategory"
+                      role="combobox"
+                      aria-expanded="false"
+                      aria-controls="subSubcategoryListbox"
+                      aria-autocomplete="list"
+                    />
+                    <button
+                      type="button"
+                      class="seller-combo-toggle"
+                      aria-label="Show sub-subcategory options"
+                      tabindex="-1"
+                    >
+                      <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                    <ul
+                      class="seller-combo-list"
+                      id="subSubcategoryListbox"
+                      role="listbox"
+                      hidden
+                    >
+                      <li role="option" data-value="Fashion">Fashion</li>
+                      <li role="option" data-value="Apparel / Bottom wear" aria-selected="true">
+                        Apparel / Bottom wear
+                      </li>
+                      <li role="option" data-value="Home &amp; Furniture">Home &amp; Furniture</li>
+                      <li role="option" data-value="Electronics">Electronics</li>
+                      <li role="option" data-value="Packaging &amp; Bulk Supplies">
+                        Packaging &amp; Bulk Supplies
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="seller-field">
+                  <label for="productUnit"
+                    >Unit
+                    <span class="hint">piece, pair, carton, kg…</span></label
+                  >
+                  <input id="productUnit" name="unit" type="text" value="pair" />
+                </div>
+                <div class="seller-field">
+                  <label for="productSku">product code</label>
+                  <input id="productSku" name="code" type="text" value="RST-SFJ-BLK-L" />
+                </div>
+                <div class="seller-field full">
+                  <label>Images</label>
+                  <input
+                    type="file"
+                    id="productImageInput"
+                    accept="image/*"
+                    multiple
+                    hidden
+                  />
+                  <div class="seller-image-uploader" id="productImages">
+                    <div class="seller-thumb is-active">
+                      <img
+                        src="https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&amp;fit=crop&amp;w=400&amp;q=80"
+                        alt="Product image 1"
+                      />
+                      <button
+                        type="button"
+                        class="seller-thumb-remove"
+                        aria-label="Remove image"
+                      >
+                        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <div class="seller-thumb">
+                      <img
+                        src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&amp;fit=crop&amp;w=400&amp;q=80"
+                        alt="Product image 2"
+                      />
+                      <button
+                        type="button"
+                        class="seller-thumb-remove"
+                        aria-label="Remove image"
+                      >
+                        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <div class="seller-thumb">
+                      <img
+                        src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&amp;fit=crop&amp;w=400&amp;q=80"
+                        alt="Product image 3"
+                      />
+                      <button
+                        type="button"
+                        class="seller-thumb-remove"
+                        aria-label="Remove image"
+                      >
+                        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <button type="button" class="seller-upload-slot" id="addImageSlot">
+                      <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                      Add image
+                    </button>
+                  </div>
+                </div>
+                <div class="seller-field full">
+                  <label for="productDescription">Description</label>
+                  <textarea id="productDescription" name="description">
+Slim-fit denim jeans with stretch comfort. Mid-rise waist, tapered leg, and durable stitching — ready for marketplace retail or trading cartons.</textarea
+                  >
+                </div>
+              </div>
+              <div class="seller-actions">
+                <button type="submit" class="seller-btn seller-btn-primary">
+                  <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
+                  Save product
+                </button>
+                <button type="button" class="seller-btn seller-btn-ghost" id="resetAddEdit">
+                  Reset
+                </button>
+              </div>
+            </form>
+          </article>
+
+          <!-- Product details -->
+          <article
+            class="seller-panel"
+            id="panel-product-details"
+            role="tabpanel"
+            data-panel="product-details"
+            hidden
+          >
+            <div class="seller-panel-head">
+              <div>
+                <h2>Product details</h2>
+                <p>
+                  Two-column property and value pairs — as buyers see them on the product page.
+                </p>
+              </div>
+              <span class="seller-panel-badge" data-mode-badge>Marketplace</span>
+            </div>
+
+            <div class="seller-details-layout">
+              <div class="seller-preview-card" aria-label="Gallery preview">
+                <div class="seller-preview-main">
+                  <img
+                    id="detailsMainImage"
+                    src="https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&amp;fit=crop&amp;w=900&amp;q=80"
+                    alt="Selected product preview"
+                  />
+                </div>
+                <div class="seller-preview-thumbs">
+                  <button type="button" class="seller-thumb-nav" id="thumbPrev" aria-label="Previous image">
+                    <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                  </button>
+                  <div class="seller-preview-thumbs-track" id="detailsThumbs">
+                    <button type="button" class="seller-thumb is-active" data-src="https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&amp;fit=crop&amp;w=900&amp;q=80">
+                      <img src="https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&amp;fit=crop&amp;w=200&amp;q=80" alt="" />
+                    </button>
+                    <button type="button" class="seller-thumb" data-src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&amp;fit=crop&amp;w=900&amp;q=80">
+                      <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&amp;fit=crop&amp;w=200&amp;q=80" alt="" />
+                    </button>
+                    <button type="button" class="seller-thumb" data-src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&amp;fit=crop&amp;w=900&amp;q=80">
+                      <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&amp;fit=crop&amp;w=200&amp;q=80" alt="" />
+                    </button>
+                    <button type="button" class="seller-thumb" data-src="https://images.unsplash.com/photo-1523381216712-3a366ebb9acb?auto=format&amp;fit=crop&amp;w=900&amp;q=80">
+                      <img src="https://images.unsplash.com/photo-1523381216712-3a366ebb9acb?auto=format&amp;fit=crop&amp;w=200&amp;q=80" alt="" />
+                    </button>
+                  </div>
+                  <button type="button" class="seller-thumb-nav" id="thumbNext" aria-label="Next image">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <div class="seller-spec-card" id="propertyRows">
+                  <div class="seller-prop-row">
+                    <input type="text" name="property" value="Brand" aria-label="Property" />
+                    <input type="text" name="value" value="Roadster" aria-label="Value" />
+                    <button type="button" class="seller-row-remove" aria-label="Remove row">
+                      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  <div class="seller-prop-row">
+                    <input type="text" name="property" value="Type" aria-label="Property" />
+                    <input type="text" name="value" value="Bottom wear" aria-label="Value" />
+                    <button type="button" class="seller-row-remove" aria-label="Remove row">
+                      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  <div class="seller-prop-row">
+                    <input type="text" name="property" value="Model" aria-label="Property" />
+                    <input type="text" name="value" value="Jeans" aria-label="Value" />
+                    <button type="button" class="seller-row-remove" aria-label="Remove row">
+                      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  <div class="seller-prop-row">
+                    <input type="text" name="property" value="Color" aria-label="Property" />
+                    <input type="text" name="value" value="Black" aria-label="Value" />
+                    <button type="button" class="seller-row-remove" aria-label="Remove row">
+                      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  <div class="seller-prop-row">
+                    <input type="text" name="property" value="Material" aria-label="Property" />
+                    <input type="text" name="value" value="Denim" aria-label="Value" />
+                    <button type="button" class="seller-row-remove" aria-label="Remove row">
+                      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  <div class="seller-prop-row">
+                    <input type="text" name="property" value="Size" aria-label="Property" />
+                    <input type="text" name="value" value="L" aria-label="Value" />
+                    <button type="button" class="seller-row-remove" aria-label="Remove row">
+                      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <button type="button" class="seller-btn seller-btn-secondary seller-add-row" id="addPropertyRow">
+                  <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                  Add property
+                </button>
+                <div class="seller-actions">
+                  <button type="button" class="seller-btn seller-btn-primary" id="saveDetails">
+                    Save details
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Pricing -->
+          <article
+            class="seller-panel"
+            id="panel-pricing"
+            role="tabpanel"
+            data-panel="pricing"
+            hidden
+          >
+            <div class="seller-panel-head">
+              <div>
+                <h2>Pricing</h2>
+                <p>Retail price for single units and bulk price per unit for wholesale.</p>
+              </div>
+              <span class="seller-panel-badge" data-mode-badge>Marketplace</span>
+            </div>
+            <form class="seller-form" onsubmit="return false;">
+              <div class="seller-price-cards">
+                <div class="seller-price-card">
+                  <h3>Retail price (single unit)</h3>
+                  <div class="seller-field">
+                    <label for="retailPrice">Amount (₹)</label>
+                    <input id="retailPrice" type="number" min="0" step="0.01" value="1199" />
+                  </div>
+                  <div class="seller-field" style="margin-top: 12px">
+                    <label for="mrpPrice">MRP / compare-at (₹)</label>
+                    <input id="mrpPrice" type="number" min="0" step="0.01" value="2499" />
+                  </div>
+                </div>
+                <div class="seller-price-card">
+                  <h3>Bulk price (per unit)</h3>
+                  <div class="seller-field">
+                    <label for="bulkPrice">Amount (₹)</label>
+                    <input id="bulkPrice" type="number" min="0" step="0.01" value="24.52" />
+                  </div>
+                  <p class="hint" style="margin-top: 12px">
+                    Used when buyers meet your bulk rule / MOQ in Trading mode.
+                  </p>
+                </div>
+              </div>
+              <div class="seller-actions">
+                <button type="submit" class="seller-btn seller-btn-primary">Save pricing</button>
+              </div>
+            </form>
+          </article>
+
+          <!-- Bulk rule -->
+          <article
+            class="seller-panel"
+            id="panel-bulk-rule"
+            role="tabpanel"
+            data-panel="bulk-rule"
+            hidden
+          >
+            <div class="seller-panel-head">
+              <div>
+                <h2>Bulk rule</h2>
+                <p>Minimum bulk quantity that unlocks the bulk price.</p>
+              </div>
+              <span class="seller-panel-badge" data-mode-badge>Marketplace</span>
+            </div>
+            <form class="seller-form" onsubmit="return false;">
+              <div class="seller-form-grid">
+                <div class="seller-field">
+                  <label for="moqQty">Minimum order quantity (MOQ)</label>
+                  <input id="moqQty" type="number" min="1" value="5000" />
+                </div>
+                <div class="seller-field">
+                  <label for="moqUnit">Unit</label>
+                  <input id="moqUnit" type="text" value="pieces" />
+                </div>
+                <div class="seller-field full">
+                  <label for="bulkNote">Buyer-facing note</label>
+                  <textarea id="bulkNote">
+Wholesale pricing • MOQ 5,000 pieces • Volume discounts apply</textarea
+                  >
+                </div>
+              </div>
+              <div class="seller-actions">
+                <button type="submit" class="seller-btn seller-btn-warm">
+                  <i class="fa-solid fa-unlock" aria-hidden="true"></i>
+                  Save bulk rule
+                </button>
+              </div>
+            </form>
+          </article>
+
+          <!-- Price tiers -->
+          <article
+            class="seller-panel"
+            id="panel-price-tiers"
+            role="tabpanel"
+            data-panel="price-tiers"
+            hidden
+          >
+            <div class="seller-panel-head">
+              <div>
+                <h2>Price tiers</h2>
+                <p>Quantity ranges with different per-unit prices.</p>
+              </div>
+              <span class="seller-panel-badge" data-mode-badge>Marketplace</span>
+            </div>
+            <div class="seller-tier-list" id="tierList">
+              <div class="seller-tier-row">
+                <label
+                  >From
+                  <input type="number" name="from" value="5000" min="1" />
+                </label>
+                <label
+                  >To
+                  <input type="number" name="to" value="9999" min="1" />
+                </label>
+                <label
+                  >Price / unit (₹)
+                  <input type="number" name="price" value="24.52" min="0" step="0.01" />
+                </label>
+                <button type="button" class="seller-row-remove" aria-label="Remove tier">
+                  <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="seller-tier-row">
+                <label
+                  >From
+                  <input type="number" name="from" value="10000" min="1" />
+                </label>
+                <label
+                  >To
+                  <input type="number" name="to" value="24999" min="1" />
+                </label>
+                <label
+                  >Price / unit (₹)
+                  <input type="number" name="price" value="12.79" min="0" step="0.01" />
+                </label>
+                <button type="button" class="seller-row-remove" aria-label="Remove tier">
+                  <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="seller-tier-row">
+                <label
+                  >From
+                  <input type="number" name="from" value="25000" min="1" />
+                </label>
+                <label
+                  >To
+                  <input type="number" name="to" value="" placeholder="∞" min="1" />
+                </label>
+                <label
+                  >Price / unit (₹)
+                  <input type="number" name="price" value="10.66" min="0" step="0.01" />
+                </label>
+                <button type="button" class="seller-row-remove" aria-label="Remove tier">
+                  <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            <button type="button" class="seller-btn seller-btn-secondary seller-add-row" id="addTierRow">
+              <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              Add tier
+            </button>
+            <div class="seller-actions">
+              <button type="button" class="seller-btn seller-btn-primary" id="saveTiers">
+                Save tiers
+              </button>
+            </div>
+          </article>
+
+          <!-- Stock -->
+          <article
+            class="seller-panel"
+            id="panel-stock"
+            role="tabpanel"
+            data-panel="stock"
+            hidden
+          >
+            <div class="seller-panel-head">
+              <div>
+                <h2>Stock</h2>
+                <p>Available quantity and low-stock threshold alerts.</p>
+              </div>
+              <span class="seller-panel-badge" data-mode-badge>Marketplace</span>
+            </div>
+            <form class="seller-form" onsubmit="return false;">
+              <div class="seller-form-grid">
+                <div class="seller-field">
+                  <label for="stockQty">Available quantity</label>
+                  <input id="stockQty" type="number" min="0" value="842" />
+                </div>
+                <div class="seller-field">
+                  <label for="stockThreshold">Low-stock threshold</label>
+                  <input id="stockThreshold" type="number" min="0" value="100" />
+                </div>
+              </div>
+              <div class="seller-stock-meter" id="stockMeter">
+                <strong>Inventory health</strong>
+                <p class="hint" id="stockMeterLabel">842 units available — above threshold</p>
+                <div class="bar" aria-hidden="true"><span></span></div>
+              </div>
+              <div class="seller-actions">
+                <button type="submit" class="seller-btn seller-btn-primary">Update stock</button>
+              </div>
+            </form>
+          </article>
+
+          <!-- Retail orders -->
+          <article
+            class="seller-panel"
+            id="panel-retail-orders"
+            role="tabpanel"
+            data-panel="retail-orders"
+            hidden
+          >
+            <div class="seller-panel-head">
+              <div>
+                <h2>Retail orders</h2>
+                <p>Single buyer, fixed price, instant checkout.</p>
+              </div>
+              <span class="seller-panel-badge" data-mode-badge>Marketplace</span>
+            </div>
+            <div class="seller-order-intro">
+              <div class="seller-order-chip">
+                <strong>18</strong>
+                <span>Open orders</span>
+              </div>
+              <div class="seller-order-chip">
+                <strong>₹46,280</strong>
+                <span>Today’s sales</span>
+              </div>
+              <div class="seller-order-chip">
+                <strong>Instant</strong>
+                <span>Checkout type</span>
+              </div>
+            </div>
+            <div class="seller-table-wrap">
+              <table class="seller-table">
+                <thead>
+                  <tr>
+                    <th>Order</th>
+                    <th>Buyer</th>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>#R-10482</td>
+                    <td>Anita Joseph</td>
+                    <td>Slim Fit Jeans</td>
+                    <td>1</td>
+                    <td>₹1,199</td>
+                    <td><span class="seller-status is-paid">Paid</span></td>
+                  </tr>
+                  <tr>
+                    <td>#R-10479</td>
+                    <td>Maria Thomas</td>
+                    <td>Slim Fit Jeans</td>
+                    <td>2</td>
+                    <td>₹2,398</td>
+                    <td><span class="seller-status is-shipped">Shipped</span></td>
+                  </tr>
+                  <tr>
+                    <td>#R-10471</td>
+                    <td>George Mathew</td>
+                    <td>Slim Fit Jeans</td>
+                    <td>1</td>
+                    <td>₹1,199</td>
+                    <td><span class="seller-status is-pending">Packing</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <!-- Bulk orders -->
+          <article
+            class="seller-panel"
+            id="panel-bulk-orders"
+            role="tabpanel"
+            data-panel="bulk-orders"
+            hidden
+          >
+            <div class="seller-panel-head">
+              <div>
+                <h2>Bulk orders</h2>
+                <p>Buyer requests quantity; seller confirms price before payment.</p>
+              </div>
+              <span class="seller-panel-badge" data-mode-badge>Marketplace</span>
+            </div>
+            <div class="seller-order-intro">
+              <div class="seller-order-chip">
+                <strong>5</strong>
+                <span>Awaiting confirm</span>
+              </div>
+              <div class="seller-order-chip">
+                <strong>62k</strong>
+                <span>Units requested</span>
+              </div>
+              <div class="seller-order-chip">
+                <strong>Confirm</strong>
+                <span>Seller action</span>
+              </div>
+            </div>
+            <div class="seller-table-wrap">
+              <table class="seller-table">
+                <thead>
+                  <tr>
+                    <th>Request</th>
+                    <th>Buyer</th>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Quoted / unit</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>#B-2201</td>
+                    <td>TradePro Supplies</td>
+                    <td>EVA Foam Hat Inserts</td>
+                    <td>12,000</td>
+                    <td>₹12.79</td>
+                    <td>
+                      <button type="button" class="seller-btn seller-btn-warm" style="padding: 8px 12px">
+                        Confirm
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#B-2198</td>
+                    <td>Coastal Cartons</td>
+                    <td>EVA Foam Hat Inserts</td>
+                    <td>5,500</td>
+                    <td>₹24.52</td>
+                    <td>
+                      <button type="button" class="seller-btn seller-btn-warm" style="padding: 8px 12px">
+                        Confirm
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#B-2194</td>
+                    <td>Parish Stores Co-op</td>
+                    <td>Roadster Jeans carton</td>
+                    <td>80</td>
+                    <td>₹890</td>
+                    <td><span class="seller-status is-pending">Quoted</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="footer">
+      <div class="footer-card">
+        <div class="container footer-grid">
+          <div class="footer-brand">
+            <div class="footer-brand-inner">
+              <img
+                src="assets/images/logo_full.png"
+                alt="IBNCC"
+                width="56"
+                height="56"
+              />
+              <div>
+                <strong class="footer-tagline"
+                  >International Business Network <br />
+                  of Catholic Congress</strong
+                >
+                <p>
+                  A global platform connecting Catholic entrepreneurs,
+                  professionals and organizations to collaborate, trade and grow
+                  together.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-nav">
+            <h3>Navigate</h3>
+            <a href="#home"><span>Home</span></a>
+            <a href="#about"><span>About</span></a>
+            <a href="#events"><span>Events</span></a>
+            <a href="#networking"><span>Networking</span></a>
+            <a href="ch-trading.html"><span>Trading</span></a>
+          </div>
+
+          <div class="footer-connect">
+            <h3>Connect</h3>
+            <a href="mailto:ibncc26@gmail.com" class="footer-contact-link">
+              <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+              <span>ibncc26@gmail.com</span>
+            </a>
+            <a href="tel:+10000000000" class="footer-contact-link">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              <span>+91 9847030064</span>
+            </a>
+
+            <h3 class="footer-follow">Follow Us</h3>
+            <div class="socials" aria-label="Social links">
+              <a href="#" aria-label="LinkedIn"
+                ><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i
+              ></a>
+              <a href="#" aria-label="X / Twitter"
+                ><i class="fa-brands fa-x-twitter" aria-hidden="true"></i
+              ></a>
+              <a href="#" aria-label="Instagram"
+                ><i class="fa-brands fa-instagram" aria-hidden="true"></i
+              ></a>
+              <a href="#" aria-label="Facebook"
+                ><i class="fa-brands fa-facebook-f" aria-hidden="true"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="container footer-bottom">
+          <p class="footer-copy">&copy; 2026 IBNCC. All rights reserved.</p>
+          <div class="footer-design">
+            <a href="#">Designed By : Astraz Software solutions</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/cchub/ch-login.js"></script>
+    <script src="js/cchub/seller_page.js"></script>
+  </body>
+</html>
