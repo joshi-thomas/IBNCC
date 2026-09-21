@@ -333,6 +333,36 @@
   color: var(--cyan);
 }
 
+.seller-nav-store {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 18px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(26, 166, 214, 0.28);
+  background: linear-gradient(145deg, var(--cyan), var(--navy));
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 8px 18px rgba(26, 166, 214, 0.22);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.seller-nav-store:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(26, 166, 214, 0.3);
+  color: #fff;
+}
+
+.seller-nav-store:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
 .seller-panels {
   min-width: 0;
 }
