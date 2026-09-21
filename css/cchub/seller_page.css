@@ -310,6 +310,10 @@
   transition: background var(--transition), color var(--transition), transform var(--transition);
 }
 
+.seller-nav-item[hidden] {
+  display: none !important;
+}
+
 .seller-nav-item i {
   width: 1.1em;
   text-align: center;

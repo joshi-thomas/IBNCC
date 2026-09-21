@@ -177,12 +177,52 @@
       badge.dataset.mode = next;
     });
 
-    // Prefer bulk-focused panels when switching into Trading
-    if (next === "trading") {
-      const activePanel = document.querySelector(".seller-nav-item.is-active")?.dataset.panel;
-      if (activePanel === "retail-orders" || activePanel === "pricing") {
-        showPanel(activePanel === "retail-orders" ? "bulk-orders" : "bulk-rule");
+    syncNavForMode(next);
+  }
+
+  function syncNavForMode(mode) {
+    const productNavItems = [
+      ...document.querySelectorAll(".seller-nav-item[data-panel][data-seller-modes]"),
+    ];
+
+    productNavItems.forEach((item) => {
+      const modes = (item.dataset.sellerModes || "")
+        .split(/\s+/)
+        .map((part) => part.trim())
+        .filter(Boolean);
+      const visible = modes.includes(mode);
+      item.hidden = !visible;
+      if (!visible) {
+        item.classList.remove("is-active");
+        item.setAttribute("aria-selected", "false");
       }
+    });
+
+    const activePanel = document.querySelector(".seller-panel.is-active")?.dataset.panel;
+    const activeNav = productNavItems.find((item) => item.dataset.panel === activePanel);
+    const activeStillVisible = Boolean(activeNav && !activeNav.hidden);
+
+    // Orders panels and shared product panels stay as-is when still available
+    const orderPanels = new Set(["retail-orders", "bulk-orders"]);
+    if (orderPanels.has(activePanel)) {
+      if (mode === "trading" && activePanel === "retail-orders") showPanel("bulk-orders");
+      else if (mode === "marketplace" && activePanel === "bulk-orders") showPanel("retail-orders");
+      return;
+    }
+
+    if (!activeStillVisible) {
+      const fallback =
+        mode === "trading"
+          ? activePanel === "pricing" || activePanel === "bulk-rule"
+            ? "price-tiers"
+            : "add-edit"
+          : activePanel === "price-tiers"
+            ? "pricing"
+            : "add-edit";
+      const fallbackItem = productNavItems.find(
+        (item) => item.dataset.panel === fallback && !item.hidden
+      );
+      showPanel(fallbackItem?.dataset.panel || "add-edit");
     }
   }
 
