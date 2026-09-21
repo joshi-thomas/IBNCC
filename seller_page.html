@@ -769,6 +769,47 @@ Wholesale pricing • MOQ 5,000 pieces • Volume discounts apply</textarea
               </div>
               <span class="seller-panel-badge" data-mode-badge>Marketplace</span>
             </div>
+            <div class="seller-field seller-tier-unit-field">
+              <label for="tierProductUnit">Product Unit</label>
+              <div class="seller-combo" data-combo>
+                <input
+                  id="tierProductUnit"
+                  name="tierProductUnit"
+                  type="text"
+                  value="Piece"
+                  autocomplete="off"
+                  placeholder="Select or type a unit"
+                  role="combobox"
+                  aria-expanded="false"
+                  aria-controls="tierProductUnitListbox"
+                  aria-autocomplete="list"
+                />
+                <button
+                  type="button"
+                  class="seller-combo-toggle"
+                  aria-label="Show unit options"
+                  tabindex="-1"
+                >
+                  <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                </button>
+                <ul
+                  class="seller-combo-list"
+                  id="tierProductUnitListbox"
+                  role="listbox"
+                  hidden
+                >
+                  <li role="option" data-value="Piece" aria-selected="true">Piece</li>
+                  <li role="option" data-value="Kg">Kg</li>
+                  <li role="option" data-value="Gram">Gram</li>
+                  <li role="option" data-value="Litre">Litre</li>
+                  <li role="option" data-value="Meter">Meter</li>
+                  <li role="option" data-value="Box">Box</li>
+                  <li role="option" data-value="Set">Set</li>
+                  <li role="option" data-value="Pair">Pair</li>
+                  <li role="option" data-value="Pack">Pack</li>
+                </ul>
+              </div>
+            </div>
             <div class="seller-tier-list" id="tierList">
               <div class="seller-tier-row">
                 <label
