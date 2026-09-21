@@ -978,6 +978,59 @@
   border-bottom: 0;
 }
 
+.seller-order-retention {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--seller-line, rgba(11, 42, 74, 0.1));
+  background: #f5f9fc;
+}
+
+.seller-order-retention label {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--ink, #0e1a28);
+}
+
+.seller-order-retention select {
+  min-width: min(220px, 100%);
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--seller-line, rgba(11, 42, 74, 0.1));
+  background: #fff;
+  color: var(--ink, #0e1a28);
+  font: inherit;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.seller-order-retention select:focus {
+  outline: none;
+  border-color: var(--cyan, #1aa6d6);
+  box-shadow: 0 0 0 3px rgba(26, 166, 214, 0.16);
+}
+
+.seller-order-empty {
+  margin-top: 8px;
+  padding: 18px 16px;
+  border-radius: 12px;
+  border: 1px dashed rgba(11, 42, 74, 0.16);
+  background: rgba(255, 255, 255, 0.75);
+  color: var(--ink-muted, #7a8a9a);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.seller-order-empty[hidden],
+.seller-table[hidden] {
+  display: none !important;
+}
+
 .seller-status {
   display: inline-flex;
   align-items: center;

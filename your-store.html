@@ -668,7 +668,19 @@
           </div>
         </div> -->
         <div class="seller-table-wrap">
-          <table class="seller-table">
+          <div class="seller-order-retention">
+            <label for="storeRetailOrderRetention">Auto-remove old orders</label>
+            <select
+              id="storeRetailOrderRetention"
+              data-order-retention="storeRetailOrdersTable"
+              aria-label="Automatically remove old retail orders"
+            >
+              <option value="30">Remove after 30 days</option>
+              <option value="45">Remove after 45 days</option>
+              <option value="60" selected>Remove after 60 days</option>
+            </select>
+          </div>
+          <table class="seller-table" id="storeRetailOrdersTable" data-order-table>
             <thead>
               <tr>
                 <th>Order</th>
@@ -681,7 +693,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr data-order-date="2026-09-18">
                 <td>#R-10482</td>
                 <td>18 Sep 2026</td>
                 <td>Anita Joseph</td>
@@ -710,9 +722,9 @@
                   </div>
                 </td>
               </tr>
-              <tr>
+              <tr data-order-date="2026-08-05">
                 <td>#R-10479</td>
-                <td>17 Sep 2026</td>
+                <td>5 Aug 2026</td>
                 <td>Maria Thomas</td>
                 <td>Slim Fit Jeans</td>
                 <td>2</td>
@@ -739,9 +751,9 @@
                   </div>
                 </td>
               </tr>
-              <tr>
+              <tr data-order-date="2026-07-10">
                 <td>#R-10471</td>
-                <td>16 Sep 2026</td>
+                <td>10 Jul 2026</td>
                 <td>George Mathew</td>
                 <td>Slim Fit Jeans</td>
                 <td>1</td>
@@ -803,7 +815,19 @@
           </div>
         </div> -->
         <div class="seller-table-wrap">
-          <table class="seller-table">
+          <div class="seller-order-retention">
+            <label for="storeBulkOrderRetention">Auto-remove old orders</label>
+            <select
+              id="storeBulkOrderRetention"
+              data-order-retention="storeBulkOrdersTable"
+              aria-label="Automatically remove old bulk orders"
+            >
+              <option value="30">Remove after 30 days</option>
+              <option value="45">Remove after 45 days</option>
+              <option value="60" selected>Remove after 60 days</option>
+            </select>
+          </div>
+          <table class="seller-table" id="storeBulkOrdersTable" data-order-table>
             <thead>
               <tr>
                 <th>Request</th>
@@ -816,7 +840,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr data-order-date="2026-09-19">
                 <td>#B-2201</td>
                 <td>19 Sep 2026</td>
                 <td>TradePro Supplies</td>
@@ -846,9 +870,9 @@
                   </div>
                 </td>
               </tr>
-              <tr>
+              <tr data-order-date="2026-08-05">
                 <td>#B-2198</td>
-                <td>18 Sep 2026</td>
+                <td>5 Aug 2026</td>
                 <td>Coastal Cartons</td>
                 <td>EVA Foam Hat Inserts</td>
                 <td>5,500</td>
@@ -876,9 +900,9 @@
                   </div>
                 </td>
               </tr>
-              <tr>
+              <tr data-order-date="2026-07-12">
                 <td>#B-2194</td>
-                <td>15 Sep 2026</td>
+                <td>12 Jul 2026</td>
                 <td>Parish Stores Co-op</td>
                 <td>Roadster Jeans carton</td>
                 <td>80</td>
@@ -985,6 +1009,7 @@
     </footer>
 
     <script src="js/cchub/ch-login.js"></script>
+    <script src="js/cchub/seller-order-retention.js"></script>
     <script src="js/cchub/your-store.js"></script>
   </body>
 </html>
