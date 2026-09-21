@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -76,6 +76,7 @@
     <main class="seller-main">
       <!-- Section 1: Motivational banner -->
       <section class="seller-banner" aria-labelledby="seller-banner-title">
+        <div class="seller-banner-media" aria-hidden="true"></div>
         <a
           href="ch-trading.html"
           class="seller-banner-back"
@@ -85,12 +86,15 @@
           <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
         </a>
         <div class="seller-banner-inner">
-          <div>
+          <div class="seller-banner-copy-block">
             <p class="seller-banner-eyebrow">
               <i class="fa-solid fa-store" aria-hidden="true"></i>
               Seller Hub
             </p>
-            <h1 id="seller-banner-title">Turn your craft into community commerce</h1>
+            <h1 id="seller-banner-title">
+              Turn your craft into
+              <span class="seller-banner-accent">community commerce</span>
+            </h1>
             <p class="seller-banner-copy">
               List products for marketplace shoppers or wholesale trading buyers.
               Set prices, stock, and fulfill orders from one calm workspace.
@@ -100,21 +104,27 @@
               <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </a>
           </div>
-          <div class="seller-banner-stats" aria-label="Seller highlights">
+          <!-- <div class="seller-banner-stats" aria-label="Seller highlights">
             <div class="seller-stat">
+              <i class="fa-solid fa-users" aria-hidden="true"></i>
               <strong>2.4k+</strong>
               <span>Active sellers</span>
             </div>
             <div class="seller-stat">
+              <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
               <strong>₹18L</strong>
               <span>Monthly GMV</span>
             </div>
             <div class="seller-stat">
+              <i class="fa-regular fa-clock" aria-hidden="true"></i>
               <strong>48h</strong>
               <span>Avg. payout</span>
             </div>
-          </div>
+          </div> -->
         </div>
+        <!-- <p class="seller-banner-slogan" aria-hidden="true">
+          Sell<br />Connect<br /><span>Grow</span>
+        </p> -->
       </section>
 
       <!-- Section 2: Marketplace / Trading tabs -->
