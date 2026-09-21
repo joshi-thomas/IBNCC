@@ -181,11 +181,11 @@
   }
 
   function syncNavForMode(mode) {
-    const productNavItems = [
+    const modeNavItems = [
       ...document.querySelectorAll(".seller-nav-item[data-panel][data-seller-modes]"),
     ];
 
-    productNavItems.forEach((item) => {
+    modeNavItems.forEach((item) => {
       const modes = (item.dataset.sellerModes || "")
         .split(/\s+/)
         .map((part) => part.trim())
@@ -199,31 +199,25 @@
     });
 
     const activePanel = document.querySelector(".seller-panel.is-active")?.dataset.panel;
-    const activeNav = productNavItems.find((item) => item.dataset.panel === activePanel);
+    const activeNav = modeNavItems.find((item) => item.dataset.panel === activePanel);
     const activeStillVisible = Boolean(activeNav && !activeNav.hidden);
 
-    // Orders panels and shared product panels stay as-is when still available
-    const orderPanels = new Set(["retail-orders", "bulk-orders"]);
-    if (orderPanels.has(activePanel)) {
-      if (mode === "trading" && activePanel === "retail-orders") showPanel("bulk-orders");
-      else if (mode === "marketplace" && activePanel === "bulk-orders") showPanel("retail-orders");
-      return;
+    if (activeStillVisible) return;
+
+    let fallback = "add-edit";
+    if (activePanel === "retail-orders" || activePanel === "bulk-orders") {
+      fallback = mode === "trading" ? "bulk-orders" : "retail-orders";
+    } else if (mode === "trading") {
+      fallback =
+        activePanel === "pricing" || activePanel === "bulk-rule" ? "price-tiers" : "add-edit";
+    } else if (activePanel === "price-tiers") {
+      fallback = "pricing";
     }
 
-    if (!activeStillVisible) {
-      const fallback =
-        mode === "trading"
-          ? activePanel === "pricing" || activePanel === "bulk-rule"
-            ? "price-tiers"
-            : "add-edit"
-          : activePanel === "price-tiers"
-            ? "pricing"
-            : "add-edit";
-      const fallbackItem = productNavItems.find(
-        (item) => item.dataset.panel === fallback && !item.hidden
-      );
-      showPanel(fallbackItem?.dataset.panel || "add-edit");
-    }
+    const fallbackItem = modeNavItems.find(
+      (item) => item.dataset.panel === fallback && !item.hidden
+    );
+    showPanel(fallbackItem?.dataset.panel || "add-edit");
   }
 
   function showPanel(panelId) {
