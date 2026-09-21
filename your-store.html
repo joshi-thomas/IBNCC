@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Store — CC Hub</title>
+    <meta
+      name="description"
+      content="Manage your Marketplace and Trading store listings and orders on CC Hub."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Manrope:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/cchub/ch-styles.css" />
+    <link rel="stylesheet" href="css/cchub/ch-product-list.css" />
+    <link rel="stylesheet" href="css/cchub/trading-product-list.css" />
+    <link rel="stylesheet" href="css/cchub/seller_page.css" />
+    <link rel="stylesheet" href="css/cchub/your-store.css" />
+  </head>
+  <body
+    class="your-store-page product-list-page"
+    data-store-mode="marketplace"
+    data-store-view="gallery"
+  >
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="index.html#home" class="brand" aria-label="IBNCC Home">
+          <span class="brand-text">
+            <img
+              src="assets/images/logo_full.png"
+              alt="IBNCC logo"
+              class="brand-logo"
+              width="52"
+              height="52"
+            />
+            <span class="brand-tagline"
+              ><span class="brand-tagline-line">AN INITIATIVE OF</span
+              ><span class="brand-tagline-line">CATHOLIC CONGRESS</span></span
+            >
+          </span>
+        </a>
+
+        <form class="search-bar" role="search" action="#" method="get">
+          <input
+            type="search"
+            name="q"
+            placeholder="Search for products, brands and more..."
+            aria-label="Search"
+          />
+          <button type="submit" class="search-btn" aria-label="Submit search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+
+        <div class="header-actions">
+          <a href="#login" class="btn-login">Login</a>
+          <a href="wish-list.html" class="icon-btn" aria-label="Wishlist">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+          <a
+            href="cart.html"
+            class="icon-btn cart-btn"
+            aria-label="Shopping cart"
+          >
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-badge">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="your-store-main">
+      <header>
+        <h1 class="your-store-title">Your Store</h1>
+        <p class="your-store-title-sub">
+          Review marketplace and trading listings, edit products, and track retail or bulk orders.
+        </p>
+      </header>
+
+      <div
+        class="your-store-mode-tabs"
+        role="tablist"
+        aria-label="Store channel"
+      >
+        <button
+          type="button"
+          class="your-store-mode-tab is-active"
+          role="tab"
+          data-store-mode-tab="marketplace"
+          aria-selected="true"
+        >
+          <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+          Marketplace
+        </button>
+        <button
+          type="button"
+          class="your-store-mode-tab"
+          role="tab"
+          data-store-mode-tab="trading"
+          aria-selected="false"
+        >
+          <i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i>
+          Trading
+        </button>
+      </div>
+
+      <div
+        class="your-store-sub-tabs"
+        role="tablist"
+        aria-label="Store content"
+      >
+        <button
+          type="button"
+          class="your-store-sub-tab is-active"
+          role="tab"
+          data-store-view-tab="gallery"
+          aria-selected="true"
+        >
+          <i class="fa-solid fa-images" aria-hidden="true"></i>
+          Product Gallery
+        </button>
+        <button
+          type="button"
+          class="your-store-sub-tab"
+          role="tab"
+          data-store-view-tab="orders"
+          aria-selected="false"
+        >
+          <i class="fa-solid fa-receipt" aria-hidden="true"></i>
+          Order Details
+        </button>
+      </div>
+
+      <!-- Marketplace → Product Gallery -->
+      <section
+        class="your-store-pane"
+        id="storeMarketplaceGallery"
+        aria-label="Marketplace product gallery"
+      >
+        <div class="your-store-gallery-head">
+          <h2>Marketplace products</h2>
+          <p>Retail listings in your store</p>
+        </div>
+        <div class="pl-grid" aria-live="polite">
+          <article
+            class="pl-card"
+            data-id="oneplus-nord-ce6"
+            data-cat="electronics"
+            data-group="Mobiles"
+            data-item="OnePlus"
+            data-brand="OnePlus"
+            data-price="17999"
+            data-mrp="24999"
+            data-discount="28"
+            data-rating="4.6"
+            data-reviews="128680"
+            data-availability="In Stock"
+          >
+            <button
+              type="button"
+              class="pl-wishlist"
+              data-wish="oneplus-nord-ce6"
+              aria-label="Add to wishlist"
+            >
+              <i class="fa-regular fa-heart"></i>
+            </button>
+            <div class="pl-card-img-wrap">
+              <img
+                src="assets/images/mb.jpg"
+                alt="OnePlus Nord CE6 8GB+128GB Fresh Blue"
+                loading="lazy"
+              />
+            </div>
+            <h3 class="pl-card-title">
+              <a href="seller_page.html">OnePlus Nord CE6 8GB+128GB Fresh Blue</a>
+            </h3>
+            <p class="pl-card-specs">
+              OnePlus, Fresh Blue, 8GB RAM, 128GB, Snapdragon 7s Gen 4
+            </p>
+            <div class="pl-rating-row">
+              <span class="pl-rating-badge"
+                >4.6 <i class="fa-solid fa-star"></i
+              ></span>
+              <span class="pl-reviews">(1,28,680)</span>
+            </div>
+            <div class="pl-price-row">
+              <span class="pl-price">₹17,999</span>
+              <span class="pl-mrp">₹24,999</span>
+              <span class="pl-discount">28% off</span>
+            </div>
+            <p class="pl-stock is-in">In Stock</p>
+            <div class="pl-card-actions">
+              <a href="seller_page.html" class="pl-btn-edit">Edit</a>
+              <button
+                type="button"
+                class="pl-btn-remove"
+                aria-label="Remove product"
+                title="Remove"
+              >
+                <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+              </button>
+            </div>
+          </article>
+
+          <article
+            class="pl-card"
+            data-id="samsung-s24"
+            data-cat="electronics"
+            data-group="Mobiles"
+            data-item="Samsung"
+            data-brand="Samsung"
+            data-price="54999"
+            data-mrp="79999"
+            data-discount="31"
+            data-rating="4.5"
+            data-reviews="98021"
+            data-availability="In Stock"
+          >
+            <button
+              type="button"
+              class="pl-wishlist"
+              data-wish="samsung-s24"
+              aria-label="Add to wishlist"
+            >
+              <i class="fa-regular fa-heart"></i>
+            </button>
+            <div class="pl-card-img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&amp;fit=crop&amp;w=400&amp;q=80"
+                alt="Samsung Galaxy S24 8GB+256GB"
+                loading="lazy"
+              />
+            </div>
+            <h3 class="pl-card-title">
+              <a href="seller_page.html">Samsung Galaxy S24 8GB+256GB</a>
+            </h3>
+            <p class="pl-card-specs">Samsung, Black, 8GB RAM, 256GB, Exynos</p>
+            <div class="pl-rating-row">
+              <span class="pl-rating-badge"
+                >4.5 <i class="fa-solid fa-star"></i
+              ></span>
+              <span class="pl-reviews">(98,021)</span>
+            </div>
+            <div class="pl-price-row">
+              <span class="pl-price">₹54,999</span>
+              <span class="pl-mrp">₹79,999</span>
+              <span class="pl-discount">31% off</span>
+            </div>
+            <p class="pl-stock is-in">In Stock</p>
+            <div class="pl-card-actions">
+              <a href="seller_page.html" class="pl-btn-edit">Edit</a>
+              <button
+                type="button"
+                class="pl-btn-remove"
+                aria-label="Remove product"
+                title="Remove"
+              >
+                <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+              </button>
+            </div>
+          </article>
+
+          <article
+            class="pl-card"
+            data-id="roadster-jeans"
+            data-cat="fashion"
+            data-group="Bottom wear"
+            data-item="Jeans"
+            data-brand="Roadster"
+            data-price="1199"
+            data-mrp="2499"
+            data-discount="52"
+            data-rating="4.1"
+            data-reviews="22110"
+            data-availability="In Stock"
+          >
+            <button
+              type="button"
+              class="pl-wishlist"
+              data-wish="roadster-jeans"
+              aria-label="Add to wishlist"
+            >
+              <i class="fa-regular fa-heart"></i>
+            </button>
+            <div class="pl-card-img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&amp;fit=crop&amp;w=400&amp;q=80"
+                alt="Roadster Slim Fit Jeans"
+                loading="lazy"
+              />
+            </div>
+            <h3 class="pl-card-title">
+              <a href="seller_page.html">Roadster Slim Fit Jeans</a>
+            </h3>
+            <p class="pl-card-specs">Roadster, Black, Denim, Size L</p>
+            <div class="pl-rating-row">
+              <span class="pl-rating-badge"
+                >4.1 <i class="fa-solid fa-star"></i
+              ></span>
+              <span class="pl-reviews">(22,110)</span>
+            </div>
+            <div class="pl-price-row">
+              <span class="pl-price">₹1,199</span>
+              <span class="pl-mrp">₹2,499</span>
+              <span class="pl-discount">52% off</span>
+            </div>
+            <p class="pl-stock is-in">In Stock</p>
+            <div class="pl-card-actions">
+              <a href="seller_page.html" class="pl-btn-edit">Edit</a>
+              <button
+                type="button"
+                class="pl-btn-remove"
+                aria-label="Remove product"
+                title="Remove"
+              >
+                <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+              </button>
+            </div>
+          </article>
+
+          <article
+            class="pl-card"
+            data-id="sony-headphones"
+            data-cat="electronics"
+            data-group="Audio"
+            data-item="Headphones"
+            data-brand="Sony"
+            data-price="7990"
+            data-mrp="12990"
+            data-discount="38"
+            data-rating="4.4"
+            data-reviews="15420"
+            data-availability="In Stock"
+          >
+            <button
+              type="button"
+              class="pl-wishlist"
+              data-wish="sony-headphones"
+              aria-label="Add to wishlist"
+            >
+              <i class="fa-regular fa-heart"></i>
+            </button>
+            <div class="pl-card-img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&amp;fit=crop&amp;w=400&amp;q=80"
+                alt="Sony WH-CH520 Wireless Headphones"
+                loading="lazy"
+              />
+            </div>
+            <h3 class="pl-card-title">
+              <a href="seller_page.html">Sony WH-CH520 Wireless Headphones</a>
+            </h3>
+            <p class="pl-card-specs">Sony, Black, Bluetooth, 50hr battery</p>
+            <div class="pl-rating-row">
+              <span class="pl-rating-badge"
+                >4.4 <i class="fa-solid fa-star"></i
+              ></span>
+              <span class="pl-reviews">(15,420)</span>
+            </div>
+            <div class="pl-price-row">
+              <span class="pl-price">₹7,990</span>
+              <span class="pl-mrp">₹12,990</span>
+              <span class="pl-discount">38% off</span>
+            </div>
+            <p class="pl-stock is-in">In Stock</p>
+            <div class="pl-card-actions">
+              <a href="seller_page.html" class="pl-btn-edit">Edit</a>
+              <button
+                type="button"
+                class="pl-btn-remove"
+                aria-label="Remove product"
+                title="Remove"
+              >
+                <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Trading → Product Gallery -->
+      <section
+        class="your-store-pane trading-product-list-page"
+        id="storeTradingGallery"
+        aria-label="Trading product gallery"
+        hidden
+      >
+        <div class="your-store-gallery-head">
+          <h2>Trading products</h2>
+          <p>Wholesale listings with MOQ pricing</p>
+        </div>
+        <div class="pl-grid" aria-live="polite">
+          <article
+            class="pl-card"
+            data-id="foam-hat-inserts"
+            data-cat="home"
+            data-group="Home Furnishing"
+            data-item="Cushions"
+            data-brand="TradePro"
+            data-price="10.66"
+            data-moq="5000"
+            data-rating="4.5"
+            data-reviews="1240"
+            data-availability="In Stock"
+          >
+            <button
+              type="button"
+              class="pl-wishlist"
+              data-wish="foam-hat-inserts"
+              aria-label="Add to wishlist"
+            >
+              <i class="fa-regular fa-heart"></i>
+            </button>
+            <div class="pl-card-img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&amp;fit=crop&amp;w=400&amp;q=80"
+                alt="Wholesale EVA Foam Hat Inserts Soft Padding Filler Bulk Pack"
+                loading="lazy"
+              />
+            </div>
+            <h3 class="pl-card-title">
+              <a href="seller_page.html"
+                ><span class="pl-super-badge" aria-label="Super"
+                  ><i class="fa-solid fa-bolt" aria-hidden="true"></i>
+                  Super</span
+                >
+                Wholesale EVA Foam Hat Inserts Soft Padding Filler Bulk
+                Pack</a
+              >
+            </h3>
+            <p class="pl-card-specs">EVA foam, Soft padding, Bulk carton, White</p>
+            <div class="pl-rating-row">
+              <span class="pl-rating-badge"
+                >4.5 <i class="fa-solid fa-star"></i
+              ></span>
+              <span class="pl-reviews">(1,240)</span>
+            </div>
+            <div class="pl-price-row">
+              <span class="pl-price">₹10.66</span>
+              <span class="pl-moq">MOQ: 5000</span>
+            </div>
+            <div class="pl-card-actions">
+              <a href="seller_page.html" class="pl-btn-edit">Edit</a>
+              <button
+                type="button"
+                class="pl-btn-remove"
+                aria-label="Remove product"
+                title="Remove"
+              >
+                <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+              </button>
+            </div>
+          </article>
+
+          <article
+            class="pl-card"
+            data-id="metal-snap-buttons"
+            data-cat="home"
+            data-group="Home Furnishing"
+            data-item="Cushions"
+            data-brand="FastenCo"
+            data-price="11.62"
+            data-moq="500"
+            data-rating="4.7"
+            data-reviews="892"
+            data-availability="In Stock"
+          >
+            <button
+              type="button"
+              class="pl-wishlist"
+              data-wish="metal-snap-buttons"
+              aria-label="Add to wishlist"
+            >
+              <i class="fa-regular fa-heart"></i>
+            </button>
+            <div class="pl-card-img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&amp;fit=crop&amp;w=400&amp;q=80"
+                alt="Metal Snap Buttons Press Studs Assorted Hardware Pack"
+                loading="lazy"
+              />
+            </div>
+            <h3 class="pl-card-title">
+              <a href="seller_page.html"
+                >Metal Snap Buttons Press Studs Assorted Hardware Pack</a
+              >
+            </h3>
+            <p class="pl-card-specs">Metal alloy, Nickel finish, Assorted sizes</p>
+            <div class="pl-rating-row">
+              <span class="pl-rating-badge"
+                >4.7 <i class="fa-solid fa-star"></i
+              ></span>
+              <span class="pl-reviews">(892)</span>
+            </div>
+            <div class="pl-price-row">
+              <span class="pl-price">₹11.62-19.37</span>
+              <span class="pl-moq">MOQ: 500</span>
+            </div>
+            <div class="pl-card-actions">
+              <a href="seller_page.html" class="pl-btn-edit">Edit</a>
+              <button
+                type="button"
+                class="pl-btn-remove"
+                aria-label="Remove product"
+                title="Remove"
+              >
+                <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+              </button>
+            </div>
+          </article>
+
+          <article
+            class="pl-card"
+            data-id="kraft-mailer-boxes"
+            data-cat="packaging"
+            data-group="Cartons"
+            data-item="Mailers"
+            data-brand="PackRight"
+            data-price="8.4"
+            data-moq="1000"
+            data-rating="4.3"
+            data-reviews="640"
+            data-availability="In Stock"
+          >
+            <button
+              type="button"
+              class="pl-wishlist"
+              data-wish="kraft-mailer-boxes"
+              aria-label="Add to wishlist"
+            >
+              <i class="fa-regular fa-heart"></i>
+            </button>
+            <div class="pl-card-img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1607345366928-199ea26cfe3e?auto=format&amp;fit=crop&amp;w=400&amp;q=80"
+                alt="Kraft Mailer Boxes Wholesale Shipping Cartons"
+                loading="lazy"
+              />
+            </div>
+            <h3 class="pl-card-title">
+              <a href="seller_page.html"
+                ><span class="pl-super-badge" aria-label="Super"
+                  ><i class="fa-solid fa-bolt" aria-hidden="true"></i>
+                  Super</span
+                >
+                Kraft Mailer Boxes Wholesale Shipping Cartons</a
+              >
+            </h3>
+            <p class="pl-card-specs">Kraft board, Recyclable, Bulk pack</p>
+            <div class="pl-rating-row">
+              <span class="pl-rating-badge"
+                >4.3 <i class="fa-solid fa-star"></i
+              ></span>
+              <span class="pl-reviews">(640)</span>
+            </div>
+            <div class="pl-price-row">
+              <span class="pl-price">₹8.40</span>
+              <span class="pl-moq">MOQ: 1000</span>
+            </div>
+            <div class="pl-card-actions">
+              <a href="seller_page.html" class="pl-btn-edit">Edit</a>
+              <button
+                type="button"
+                class="pl-btn-remove"
+                aria-label="Remove product"
+                title="Remove"
+              >
+                <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+              </button>
+            </div>
+          </article>
+
+          <article
+            class="pl-card"
+            data-id="cotton-tote-bulk"
+            data-cat="apparel"
+            data-group="Bags"
+            data-item="Totes"
+            data-brand="LoomCo"
+            data-price="42"
+            data-moq="200"
+            data-rating="4.6"
+            data-reviews="318"
+            data-availability="In Stock"
+          >
+            <button
+              type="button"
+              class="pl-wishlist"
+              data-wish="cotton-tote-bulk"
+              aria-label="Add to wishlist"
+            >
+              <i class="fa-regular fa-heart"></i>
+            </button>
+            <div class="pl-card-img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&amp;fit=crop&amp;w=400&amp;q=80"
+                alt="Organic Cotton Tote Bags Bulk Carton"
+                loading="lazy"
+              />
+            </div>
+            <h3 class="pl-card-title">
+              <a href="seller_page.html">Organic Cotton Tote Bags Bulk Carton</a>
+            </h3>
+            <p class="pl-card-specs">100% cotton, Natural dye, Carton of 50</p>
+            <div class="pl-rating-row">
+              <span class="pl-rating-badge"
+                >4.6 <i class="fa-solid fa-star"></i
+              ></span>
+              <span class="pl-reviews">(318)</span>
+            </div>
+            <div class="pl-price-row">
+              <span class="pl-price">₹42.00</span>
+              <span class="pl-moq">MOQ: 200</span>
+            </div>
+            <div class="pl-card-actions">
+              <a href="seller_page.html" class="pl-btn-edit">Edit</a>
+              <button
+                type="button"
+                class="pl-btn-remove"
+                aria-label="Remove product"
+                title="Remove"
+              >
+                <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Marketplace → Order Details -->
+      <article
+        class="seller-panel your-store-pane"
+        id="panel-retail-orders"
+        role="tabpanel"
+        data-panel="retail-orders"
+        hidden
+      >
+        <div class="seller-panel-head">
+          <div>
+            <h2>Retail orders</h2>
+            <p>Single buyer, fixed price, instant checkout.</p>
+          </div>
+          <span class="seller-panel-badge" data-mode="marketplace">Marketplace</span>
+        </div>
+        <div class="seller-order-intro">
+          <div class="seller-order-chip">
+            <strong>18</strong>
+            <span>Open orders</span>
+          </div>
+          <div class="seller-order-chip">
+            <strong>₹46,280</strong>
+            <span>Today’s sales</span>
+          </div>
+          <div class="seller-order-chip">
+            <strong>Instant</strong>
+            <span>Checkout type</span>
+          </div>
+        </div>
+        <div class="seller-table-wrap">
+          <table class="seller-table">
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th>Buyer</th>
+                <th>Item</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#R-10482</td>
+                <td>Anita Joseph</td>
+                <td>Slim Fit Jeans</td>
+                <td>1</td>
+                <td>₹1,199</td>
+                <td><span class="seller-status is-paid">Paid</span></td>
+              </tr>
+              <tr>
+                <td>#R-10479</td>
+                <td>Maria Thomas</td>
+                <td>Slim Fit Jeans</td>
+                <td>2</td>
+                <td>₹2,398</td>
+                <td><span class="seller-status is-shipped">Shipped</span></td>
+              </tr>
+              <tr>
+                <td>#R-10471</td>
+                <td>George Mathew</td>
+                <td>Slim Fit Jeans</td>
+                <td>1</td>
+                <td>₹1,199</td>
+                <td><span class="seller-status is-pending">Packing</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <!-- Trading → Order Details -->
+      <article
+        class="seller-panel your-store-pane"
+        id="panel-bulk-orders"
+        role="tabpanel"
+        data-panel="bulk-orders"
+        hidden
+      >
+        <div class="seller-panel-head">
+          <div>
+            <h2>Bulk orders</h2>
+            <p>Buyer requests quantity; seller confirms price before payment.</p>
+          </div>
+          <span class="seller-panel-badge" data-mode="trading">Trading</span>
+        </div>
+        <div class="seller-order-intro">
+          <div class="seller-order-chip">
+            <strong>5</strong>
+            <span>Awaiting confirm</span>
+          </div>
+          <div class="seller-order-chip">
+            <strong>62k</strong>
+            <span>Units requested</span>
+          </div>
+          <div class="seller-order-chip">
+            <strong>Confirm</strong>
+            <span>Seller action</span>
+          </div>
+        </div>
+        <div class="seller-table-wrap">
+          <table class="seller-table">
+            <thead>
+              <tr>
+                <th>Request</th>
+                <th>Buyer</th>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Quoted / unit</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#B-2201</td>
+                <td>TradePro Supplies</td>
+                <td>EVA Foam Hat Inserts</td>
+                <td>12,000</td>
+                <td>₹12.79</td>
+                <td>
+                  <button
+                    type="button"
+                    class="seller-btn seller-btn-warm"
+                    style="padding: 8px 12px"
+                  >
+                    Confirm
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>#B-2198</td>
+                <td>Coastal Cartons</td>
+                <td>EVA Foam Hat Inserts</td>
+                <td>5,500</td>
+                <td>₹24.52</td>
+                <td>
+                  <button
+                    type="button"
+                    class="seller-btn seller-btn-warm"
+                    style="padding: 8px 12px"
+                  >
+                    Confirm
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>#B-2194</td>
+                <td>Parish Stores Co-op</td>
+                <td>Roadster Jeans carton</td>
+                <td>80</td>
+                <td>₹890</td>
+                <td><span class="seller-status is-pending">Quoted</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer" id="footer">
+      <div class="footer-card">
+        <div class="container footer-grid">
+          <div class="footer-brand">
+            <div class="footer-brand-inner">
+              <img
+                src="assets/images/logo_full.png"
+                alt="IBNCC"
+                width="56"
+                height="56"
+              />
+              <div>
+                <strong class="footer-tagline"
+                  >International Business Network <br />
+                  of Catholic Congress</strong
+                >
+                <p>
+                  A global platform connecting Catholic entrepreneurs,
+                  professionals and organizations to collaborate, trade and grow
+                  together.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-nav">
+            <h3>Navigate</h3>
+            <a href="#home"><span>Home</span></a>
+            <a href="#about"><span>About</span></a>
+            <a href="#events"><span>Events</span></a>
+            <a href="#networking"><span>Networking</span></a>
+            <a href="ch-trading.html"><span>Trading</span></a>
+          </div>
+
+          <div class="footer-connect">
+            <h3>Connect</h3>
+            <a href="mailto:ibncc26@gmail.com" class="footer-contact-link">
+              <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+              <span>ibncc26@gmail.com</span>
+            </a>
+            <a href="tel:+10000000000" class="footer-contact-link">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              <span>+91 9847030064</span>
+            </a>
+
+            <h3 class="footer-follow">Follow Us</h3>
+            <div class="socials" aria-label="Social links">
+              <a href="#" aria-label="LinkedIn"
+                ><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i
+              ></a>
+              <a href="#" aria-label="X / Twitter"
+                ><i class="fa-brands fa-x-twitter" aria-hidden="true"></i
+              ></a>
+              <a href="#" aria-label="Instagram"
+                ><i class="fa-brands fa-instagram" aria-hidden="true"></i
+              ></a>
+              <a href="#" aria-label="Facebook"
+                ><i class="fa-brands fa-facebook-f" aria-hidden="true"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="container footer-bottom">
+          <p class="footer-copy">&copy; 2026 IBNCC. All rights reserved.</p>
+          <div class="footer-design">
+            <a href="#">Designed By : Astraz Software solutions</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/cchub/ch-login.js"></script>
+    <script src="js/cchub/your-store.js"></script>
+  </body>
+</html>
