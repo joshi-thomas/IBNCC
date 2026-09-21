@@ -71,18 +71,33 @@
 
   document.addEventListener("click", (e) => {
     const removeBtn = e.target.closest(".pl-btn-remove");
-    if (!removeBtn) return;
-    const card = removeBtn.closest(".pl-card");
-    if (!card) return;
-    card.remove();
+    if (removeBtn) {
+      const card = removeBtn.closest(".pl-card");
+      if (!card) return;
+      card.remove();
 
-    const grid = removeBtn.closest(".pl-grid") || document.querySelector(".your-store-pane:not([hidden]) .pl-grid");
-    if (grid && !grid.querySelector(".pl-card")) {
-      const empty = document.createElement("p");
-      empty.className = "your-store-empty";
-      empty.textContent = "No products in this gallery yet.";
-      grid.replaceWith(empty);
+      const grid =
+        removeBtn.closest(".pl-grid") ||
+        document.querySelector(".your-store-pane:not([hidden]) .pl-grid");
+      if (grid && !grid.querySelector(".pl-card")) {
+        const empty = document.createElement("p");
+        empty.className = "your-store-empty";
+        empty.textContent = "No products in this gallery yet.";
+        grid.replaceWith(empty);
+      }
+      return;
     }
+
+    const buyerToggle = e.target.closest(".store-buyer-toggle");
+    if (!buyerToggle) return;
+    e.preventDefault();
+    const detailId = buyerToggle.getAttribute("aria-controls");
+    const detail = detailId ? document.getElementById(detailId) : null;
+    if (!detail) return;
+
+    const willOpen = detail.hidden;
+    detail.hidden = !willOpen;
+    buyerToggle.setAttribute("aria-expanded", willOpen ? "true" : "false");
   });
 
   setMode(body.dataset.storeMode || "marketplace");
