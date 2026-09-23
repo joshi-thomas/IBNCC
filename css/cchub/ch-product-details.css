@@ -187,6 +187,48 @@
   gap: 10px;
 }
 
+.product-details-page .cart-qty-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 2px 0 4px;
+}
+
+.product-details-page .cart-qty-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: #ffffff;
+  color: var(--navy);
+  display: grid;
+  place-items: center;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  padding: 0;
+}
+
+.product-details-page .cart-qty-btn:hover {
+  background: var(--cream);
+  border-color: var(--gold);
+  color: var(--gold-deep);
+}
+
+.product-details-page .cart-qty-btn:active {
+  transform: scale(0.92);
+}
+
+.product-details-page .cart-qty-number {
+  font-family: var(--font-body, "Outfit", sans-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--navy);
+  min-width: 18px;
+  text-align: center;
+}
+
 .pd-price {
   font-size: clamp(1.9rem, 4vw, 2.35rem);
   font-weight: 700;

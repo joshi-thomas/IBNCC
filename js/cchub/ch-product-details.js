@@ -99,7 +99,24 @@
   }
 
   function bindEvents() {
+    const MAX_QTY = 20;
+
     document.querySelector(".pd-main")?.addEventListener("click", (e) => {
+      const minusBtn = e.target.closest(".cart-qty-control .btn-qty-minus");
+      const plusBtn = e.target.closest(".cart-qty-control .btn-qty-plus");
+      if (minusBtn || plusBtn) {
+        const control = (minusBtn || plusBtn).closest(".cart-qty-control");
+        const qtyNum = control?.querySelector(".cart-qty-number");
+        if (!qtyNum) return;
+        let currentQty = parseInt(qtyNum.textContent.trim(), 10) || 1;
+        if (minusBtn && currentQty > 1) {
+          qtyNum.textContent = String(currentQty - 1);
+        } else if (plusBtn && currentQty < MAX_QTY) {
+          qtyNum.textContent = String(currentQty + 1);
+        }
+        return;
+      }
+
       const thumb = e.target.closest(".pd-thumb");
       if (thumb) {
         const product = thumb.closest(".pd-product");
