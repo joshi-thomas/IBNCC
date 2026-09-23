@@ -55,9 +55,14 @@
   }
 
   function getTierWrap(control) {
-    return control.previousElementSibling?.classList?.contains("pd-tier-prices")
-      ? control.previousElementSibling
-      : control.parentElement?.querySelector(".pd-price-wrap.pd-tier-prices");
+    let node = control.previousElementSibling;
+    while (node && !node.classList.contains("pd-tier-prices")) {
+      node = node.previousElementSibling;
+    }
+    return (
+      node ||
+      control.parentElement?.querySelector(".pd-price-wrap.pd-tier-prices")
+    );
   }
 
   function selectTierForQty(control, qty) {
