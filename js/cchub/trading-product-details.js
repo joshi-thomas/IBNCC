@@ -55,13 +55,16 @@
   }
 
   function getTierWrap(control) {
-    let node = control.previousElementSibling;
+    const row = control.closest(".pd-qty-row");
+    let node = (row || control).previousElementSibling;
     while (node && !node.classList.contains("pd-tier-prices")) {
       node = node.previousElementSibling;
     }
     return (
       node ||
-      control.parentElement?.querySelector(".pd-price-wrap.pd-tier-prices")
+      (row || control).parentElement?.querySelector(
+        ".pd-price-wrap.pd-tier-prices"
+      )
     );
   }
 

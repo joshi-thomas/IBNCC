@@ -83,11 +83,18 @@
   font-weight: 500;
 }
 
+.trading-product-details-page .pd-qty-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 2px 0 4px;
+  vertical-align: middle;
+}
+
 .trading-product-details-page .pd-qty-label {
   display: inline-flex;
   align-items: center;
-  margin: 2px 4px 4px 0;
-  vertical-align: middle;
+  margin: 0;
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--ink, #0e1a28);
@@ -97,8 +104,7 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin: 2px 0 4px;
-  vertical-align: middle;
+  margin: 0;
 }
 
 .trading-product-details-page .cart-qty-btn {
