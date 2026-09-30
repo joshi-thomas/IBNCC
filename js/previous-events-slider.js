@@ -81,9 +81,10 @@
   }
 
   gallery.addEventListener("click", (e) => {
-    if (e.target.closest(".previous-card-btn")) return;
     const card = e.target.closest(".previous-card");
-    if (card) openForCard(card);
+    if (!card) return;
+    if (e.target.closest(".previous-card-btn")) e.preventDefault();
+    openForCard(card);
   });
 
   gallery.addEventListener("keydown", (e) => {
