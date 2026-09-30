@@ -7,7 +7,135 @@
 
   const ACCOUNTS_KEY = "ccHubAccounts";
   const OTP_KEY = "ccHubOtp";
+  const SESSION_KEY = "ccHubSession";
   const RESEND_SECONDS = 30;
+
+  /* ---------- Signed-in session + header profile icon ---------- */
+  function readSession() {
+    for (const store of [localStorage, sessionStorage]) {
+      try {
+        const session = JSON.parse(store.getItem(SESSION_KEY) || "null");
+        if (session && typeof session === "object") return session;
+      } catch {
+        store.removeItem(SESSION_KEY);
+      }
+    }
+    return null;
+  }
+
+  function writeSession(user, remember) {
+    const session = { name: String(user.name || "").trim(), phone: user.phone || "" };
+    localStorage.removeItem(SESSION_KEY);
+    sessionStorage.removeItem(SESSION_KEY);
+    (remember ? localStorage : sessionStorage).setItem(SESSION_KEY, JSON.stringify(session));
+    renderHeaderAuth();
+  }
+
+  function logout() {
+    localStorage.removeItem(SESSION_KEY);
+    sessionStorage.removeItem(SESSION_KEY);
+    renderHeaderAuth();
+  }
+
+  function initialOf(name) {
+    const first = Array.from(String(name || "").trim())[0];
+    return first ? first.toLocaleUpperCase() : "";
+  }
+
+  function closeProfileMenus(except) {
+    document.querySelectorAll(".header-profile").forEach((profile) => {
+      if (profile === except) return;
+      const menu = profile.querySelector(".header-profile-menu");
+      const btn = profile.querySelector(".header-profile-btn");
+      if (menu) menu.hidden = true;
+      btn?.setAttribute("aria-expanded", "false");
+    });
+  }
+
+  function buildProfile() {
+    const profile = document.createElement("div");
+    profile.className = "header-profile";
+    profile.innerHTML = `
+      <button type="button" class="header-profile-btn" aria-haspopup="menu" aria-expanded="false">
+        <span class="header-profile-initial" aria-hidden="true"></span>
+      </button>
+      <div class="header-profile-menu" role="menu" hidden>
+        <p class="header-profile-name"></p>
+        <a href="my-account.html" class="header-profile-item" role="menuitem">
+          <i class="fa-regular fa-user" aria-hidden="true"></i> My Account
+        </a>
+        <button type="button" class="header-profile-item" role="menuitem" data-auth-logout>
+          <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Logout
+        </button>
+      </div>`;
+
+    const btn = profile.querySelector(".header-profile-btn");
+    const menu = profile.querySelector(".header-profile-menu");
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const opening = menu.hidden;
+      closeProfileMenus(profile);
+      menu.hidden = !opening;
+      btn.setAttribute("aria-expanded", String(opening));
+    });
+
+    profile.querySelector("[data-auth-logout]").addEventListener("click", () => {
+      logout();
+      document.querySelector(".header-actions .btn-login")?.focus();
+    });
+
+    return profile;
+  }
+
+  function renderHeaderAuth() {
+    const session = readSession();
+    document.querySelectorAll(".header-actions .btn-login").forEach((loginLink) => {
+      let profile = loginLink.nextElementSibling?.classList.contains("header-profile")
+        ? loginLink.nextElementSibling
+        : null;
+
+      if (!session) {
+        loginLink.hidden = false;
+        profile?.remove();
+        return;
+      }
+
+      if (!profile) {
+        profile = buildProfile();
+        loginLink.after(profile);
+      }
+
+      const name = session.name || "Member";
+      const initial = initialOf(session.name);
+      const initialEl = profile.querySelector(".header-profile-initial");
+      initialEl.textContent = initial;
+      initialEl.classList.toggle("is-fallback", !initial);
+      if (!initial) initialEl.innerHTML = '<i class="fa-solid fa-user"></i>';
+      profile.querySelector(".header-profile-btn").setAttribute("aria-label", `Account menu for ${name}`);
+      profile.querySelector(".header-profile-name").textContent = name;
+      loginLink.hidden = true;
+    });
+  }
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".header-profile")) closeProfileMenus();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    const open = document.querySelector(".header-profile-menu:not([hidden])");
+    if (!open) return;
+    closeProfileMenus();
+    open.closest(".header-profile")?.querySelector(".header-profile-btn")?.focus();
+  });
+
+  window.addEventListener("storage", (e) => {
+    if (e.key === SESSION_KEY || e.key === null) renderHeaderAuth();
+  });
+
+  window.ccHubAuth = { getSession: readSession, logout };
+  renderHeaderAuth();
 
   const loginModal = document.getElementById("loginModal");
   const registerModal = document.getElementById("registerModal");
@@ -394,8 +522,31 @@
     bindPasswordToggle(loginToggle);
   }
 
+  document.getElementById("loginPassword")?.addEventListener("input", () => {
+    document.getElementById("loginPassword").setCustomValidity("");
+  });
+
   document.getElementById("loginForm")?.addEventListener("submit", (e) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    const phoneInput = document.getElementById("loginPhone");
+    const passwordInput = document.getElementById("loginPassword");
+    const account = findAccount(phoneInput?.value);
+
+    if (!account) {
+      phoneInput?.setCustomValidity("This mobile number is not registered. Please sign up first.");
+      phoneInput?.reportValidity();
+      return;
+    }
+
+    if (account.password && account.password !== passwordInput?.value) {
+      passwordInput?.setCustomValidity("Incorrect password. Please try again.");
+      passwordInput?.reportValidity();
+      return;
+    }
+
+    writeSession(account, Boolean(form.elements.remember?.checked));
+    form.reset();
     closeDialog(loginModal);
   });
 
@@ -425,12 +576,14 @@
       return;
     }
 
-    saveAccount({
-      name: document.getElementById("registerName")?.value || "",
+    const account = {
+      name: document.getElementById("registerName")?.value.trim() || "",
       phone: document.getElementById("registerPhone")?.value || "",
       email: emailValue,
       password,
-    });
+    };
+    saveAccount(account);
+    writeSession(account, true);
     closeDialog(registerModal);
   });
 

@@ -309,6 +309,7 @@
                 "Are you sure you want to log out of your CC Hub account?",
               )
             ) {
+              window.ccHubAuth?.logout();
               showToast("Logging out...");
               setTimeout(() => {
                 window.location.href = "ch-trading.html";

@@ -292,6 +292,112 @@ button {
   border: 2px solid var(--ivory);
 }
 
+.header-actions .btn-login[hidden] {
+  display: none;
+}
+
+.header-profile {
+  position: relative;
+  display: flex;
+}
+
+.header-profile-btn {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--navy-soft), var(--navy));
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.header-profile-btn:hover,
+.header-profile-btn[aria-expanded="true"] {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(11, 42, 74, 0.28);
+}
+
+.header-profile-btn:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+.header-profile-initial.is-fallback {
+  font-size: 0.9em;
+}
+
+.header-profile-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 60;
+  min-width: 190px;
+  padding: 6px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+
+.header-profile-name {
+  margin: 0 0 4px;
+  padding: 8px 10px 10px;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink);
+  font-size: 0.88rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-profile-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.86rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.header-profile-item i {
+  width: 16px;
+  color: var(--navy);
+  text-align: center;
+}
+
+.header-profile-item:hover,
+.header-profile-item:focus-visible {
+  background: var(--navy-muted);
+  color: var(--navy);
+  outline: none;
+}
+
+@media (max-width: 399px) {
+  .header-profile-btn {
+    width: clamp(28px, 8vw, 32px);
+    height: clamp(28px, 8vw, 32px);
+    font-size: clamp(0.8rem, 3.6vw, 0.9rem);
+    border-width: 1.5px;
+  }
+}
+
 /* ---------- Category Nav ---------- */
 
 .category-nav {
