@@ -5391,32 +5391,19 @@
             </div>
           </div>
 
-          <div class="register-field">
-            <i class="fa-solid fa-church" aria-hidden="true"></i>
+          <div class="register-field register-combo">
+            <i class="fa-solid fa-cross" aria-hidden="true"></i>
             <div class="register-field-body">
-              <label for="registerParish">Parish</label>
-              <input
-                id="registerParish"
-                type="text"
-                name="parish"
-                placeholder="Enter your parish"
+              <label for="registerRite">Rite</label>
+              <select
+                id="registerRite"
+                name="rite"
                 required
-              />
-            </div>
-          </div>
-
-          <div class="register-field">
-            <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
-            <div class="register-field-body">
-              <label for="registerDiocese">Diocese</label>
-              <select id="registerDiocese" name="diocese" required>
-                <option value="" disabled selected>Select your diocese</option>
-                <option value="kozhikode">Kozhikode</option>
-                <option value="ernakulam">Ernakulam-Angamaly</option>
-                <option value="thrissur">Thrissur</option>
-                <option value="kannur">Kannur</option>
-                <option value="palakkad">Palakkad</option>
-                <option value="thamarassery">Thamarassery</option>
+              >
+                <option value="" disabled selected>Select your rite</option>
+                <option value="syro-malabar">Syro-Malabar</option>
+                <option value="syro-malankara">Syro-Malankara</option>
+                <option value="latin">Latin</option>
               </select>
             </div>
             <i
@@ -5425,15 +5412,88 @@
             ></i>
           </div>
 
-          <div class="register-field">
-            <i class="fa-solid fa-cross" aria-hidden="true"></i>
+          <div class="register-field register-combo">
+            <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
             <div class="register-field-body">
-              <label for="registerRite">Rite</label>
-              <select id="registerRite" name="rite" required>
-                <option value="" disabled selected>Select your rite</option>
-                <option value="syro-malabar">Syro-Malabar</option>
-                <option value="syro-malankara">Syro-Malankara</option>
-                <option value="latin">Latin</option>
+              <label for="registerDiocese">Diocese</label>
+              <select
+                id="registerDiocese"
+                name="diocese"
+                data-depends-on="registerRite"
+                required
+              >
+                <option value="" disabled selected>Select your diocese</option>
+                <option value="ernakulam" data-parent="syro-malabar">Ernakulam-Angamaly</option>
+                <option value="thrissur" data-parent="syro-malabar">Thrissur</option>
+                <option value="palakkad" data-parent="syro-malabar">Palakkad</option>
+                <option value="thamarassery" data-parent="syro-malabar">Thamarassery</option>
+                <option value="thalassery" data-parent="syro-malabar">Thalassery</option>
+                <option value="trivandrum-malankara" data-parent="syro-malankara">Trivandrum</option>
+                <option value="mavelikara" data-parent="syro-malankara">Mavelikara</option>
+                <option value="pathanamthitta" data-parent="syro-malankara">Pathanamthitta</option>
+                <option value="bathery" data-parent="syro-malankara">Bathery</option>
+                <option value="kozhikode" data-parent="latin">Kozhikode</option>
+                <option value="kannur" data-parent="latin">Kannur</option>
+                <option value="verapoly" data-parent="latin">Verapoly</option>
+                <option value="kollam" data-parent="latin">Kollam</option>
+              </select>
+            </div>
+            <i
+              class="fa-solid fa-chevron-down register-chevron"
+              aria-hidden="true"
+            ></i>
+          </div>
+
+          <div class="register-field register-combo">
+            <i class="fa-solid fa-church" aria-hidden="true"></i>
+            <div class="register-field-body">
+              <label for="registerParish">Parish</label>
+              <select
+                id="registerParish"
+                name="parish"
+                data-depends-on="registerDiocese"
+                required
+              >
+                <option value="" disabled selected>Select your parish</option>
+                <option value="st-marys-basilica-ernakulam" data-parent="ernakulam">St. Mary's Cathedral Basilica, Ernakulam</option>
+                <option value="st-george-edappally" data-parent="ernakulam">St. George Forane Church, Edappally</option>
+                <option value="holy-family-kakkanad" data-parent="ernakulam">Holy Family Church, Kakkanad</option>
+                <option value="our-lady-dolours-thrissur" data-parent="thrissur">Our Lady of Dolours Basilica, Thrissur</option>
+                <option value="st-thomas-palayur" data-parent="thrissur">St. Thomas Church, Palayur</option>
+                <option value="st-antony-ollur" data-parent="thrissur">St. Antony's Forane Church, Ollur</option>
+                <option value="st-raphael-palakkad" data-parent="palakkad">St. Raphael's Cathedral, Palakkad</option>
+                <option value="sacred-heart-chittur" data-parent="palakkad">Sacred Heart Church, Chittur</option>
+                <option value="st-marys-mannarkkad" data-parent="palakkad">St. Mary's Church, Mannarkkad</option>
+                <option value="mary-matha-thamarassery" data-parent="thamarassery">Mary Matha Cathedral, Thamarassery</option>
+                <option value="st-george-kodenchery" data-parent="thamarassery">St. George Forane Church, Kodenchery</option>
+                <option value="holy-cross-thiruvambady" data-parent="thamarassery">Holy Cross Church, Thiruvambady</option>
+                <option value="st-josephs-thalassery" data-parent="thalassery">St. Joseph's Cathedral, Thalassery</option>
+                <option value="st-sebastian-iritty" data-parent="thalassery">St. Sebastian's Church, Iritty</option>
+                <option value="little-flower-alakode" data-parent="thalassery">Little Flower Church, Alakode</option>
+                <option value="st-marys-pattom" data-parent="trivandrum-malankara">St. Mary's Cathedral, Pattom</option>
+                <option value="st-george-nalanchira" data-parent="trivandrum-malankara">St. George Church, Nalanchira</option>
+                <option value="mar-baselios-kattakkada" data-parent="trivandrum-malankara">Mar Baselios Church, Kattakkada</option>
+                <option value="st-marys-mavelikara" data-parent="mavelikara">St. Mary's Cathedral, Mavelikara</option>
+                <option value="st-thomas-chengannur" data-parent="mavelikara">St. Thomas Church, Chengannur</option>
+                <option value="st-george-haripad" data-parent="mavelikara">St. George Church, Haripad</option>
+                <option value="st-peters-pathanamthitta" data-parent="pathanamthitta">St. Peter's Cathedral, Pathanamthitta</option>
+                <option value="st-marys-adoor" data-parent="pathanamthitta">St. Mary's Church, Adoor</option>
+                <option value="st-thomas-ranni" data-parent="pathanamthitta">St. Thomas Church, Ranni</option>
+                <option value="st-thomas-sulthan-bathery" data-parent="bathery">St. Thomas Cathedral, Sulthan Bathery</option>
+                <option value="st-marys-kalpetta" data-parent="bathery">St. Mary's Church, Kalpetta</option>
+                <option value="holy-cross-meenangadi" data-parent="bathery">Holy Cross Church, Meenangadi</option>
+                <option value="mother-of-god-kozhikode" data-parent="kozhikode">Mother of God Cathedral, Kozhikode</option>
+                <option value="st-josephs-kozhikode" data-parent="kozhikode">St. Joseph's Church, Kozhikode Beach</option>
+                <option value="holy-redeemer-vadakara" data-parent="kozhikode">Holy Redeemer Church, Vadakara</option>
+                <option value="holy-trinity-burnassery" data-parent="kannur">Holy Trinity Cathedral, Burnassery</option>
+                <option value="st-antony-thalap" data-parent="kannur">St. Antony's Church, Thalap</option>
+                <option value="our-lady-lourdes-payyambalam" data-parent="kannur">Our Lady of Lourdes Church, Payyambalam</option>
+                <option value="st-francis-assisi-ernakulam" data-parent="verapoly">St. Francis of Assisi Cathedral, Ernakulam</option>
+                <option value="mount-carmel-varapuzha" data-parent="verapoly">Our Lady of Mount Carmel Church, Varapuzha</option>
+                <option value="st-sebastian-kadavanthra" data-parent="verapoly">St. Sebastian's Church, Kadavanthra</option>
+                <option value="infant-jesus-kollam" data-parent="kollam">Infant Jesus Cathedral, Kollam</option>
+                <option value="st-antony-thangassery" data-parent="kollam">St. Antony's Church, Thangassery</option>
+                <option value="our-lady-velankanni-kollam" data-parent="kollam">Our Lady of Velankanni Church, Kollam</option>
               </select>
             </div>
             <i

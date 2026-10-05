@@ -436,6 +436,163 @@
   flex-shrink: 0;
 }
 
+.register-combo {
+  cursor: pointer;
+}
+
+.register-combo .register-field-body select {
+  position: absolute;
+  left: 46px;
+  bottom: 12px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.register-combo-trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.86rem;
+  line-height: 1.4;
+  color: #9aa6b4;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  outline: none;
+}
+
+.register-combo-trigger.has-value {
+  color: var(--navy);
+}
+
+.register-combo.is-disabled {
+  cursor: not-allowed;
+  background: #f7f9fb;
+}
+
+.register-combo.is-disabled .register-combo-trigger {
+  cursor: not-allowed;
+}
+
+.register-combo.is-disabled .register-chevron {
+  opacity: 0.55;
+}
+
+.register-combo .register-chevron {
+  transition: transform var(--transition, 0.25s ease);
+}
+
+.register-combo.is-open {
+  z-index: 3;
+  border-color: var(--cyan, #1aa6d6);
+  box-shadow: 0 0 0 3px rgba(26, 166, 214, 0.14);
+}
+
+.register-combo.is-open .register-chevron {
+  transform: rotate(180deg);
+}
+
+.register-combo-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: -1.5px;
+  right: -1.5px;
+  z-index: 5;
+  padding: 8px;
+  background: var(--white, #fff);
+  border: 1.5px solid #d5dde6;
+  border-radius: 12px;
+  box-shadow: 0 14px 30px rgba(11, 42, 74, 0.16);
+  cursor: default;
+}
+
+.register-combo-panel[hidden] {
+  display: none;
+}
+
+.register-combo-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 10px;
+  background: #f7f9fb;
+  border: 1.5px solid #d5dde6;
+  border-radius: 9px;
+  transition: border-color var(--transition, 0.25s ease), background var(--transition, 0.25s ease);
+}
+
+.register-combo-search:focus-within {
+  background: var(--white, #fff);
+  border-color: var(--cyan, #1aa6d6);
+}
+
+.register-combo-search i {
+  color: #9aa6b4;
+  font-size: 0.78rem;
+}
+
+.register-combo-search input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.82rem;
+  color: var(--navy);
+  outline: none;
+}
+
+.register-combo-search input::placeholder {
+  color: #9aa6b4;
+}
+
+.register-combo-list {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.register-combo-option {
+  padding: 9px 10px;
+  border-radius: 8px;
+  font-size: 0.84rem;
+  line-height: 1.35;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.register-combo-option:hover,
+.register-combo-option.is-active {
+  background: rgba(26, 166, 214, 0.1);
+}
+
+.register-combo-option.is-selected {
+  font-weight: 700;
+}
+
+.register-combo-empty {
+  margin: 10px 4px 4px;
+  font-size: 0.8rem;
+  color: #9aa6b4;
+  text-align: center;
+}
+
+.register-combo-empty[hidden] {
+  display: none;
+}
+
 .register-field .login-password-toggle {
   position: static;
   transform: none;

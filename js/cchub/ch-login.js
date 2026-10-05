@@ -587,6 +587,275 @@
     closeDialog(registerModal);
   });
 
+  /* ---------- Searchable dependent dropdowns (register form: Rite → Diocese → Parish) ---------- */
+  function setupRegisterCombos(form) {
+    const combos = [];
+    let escapeHandled = false;
+
+    function closeAll(except) {
+      combos.forEach((combo) => {
+        if (combo !== except) combo.close(false);
+      });
+    }
+
+    form.querySelectorAll(".register-combo select").forEach((select, index) => {
+      const field = select.closest(".register-combo");
+      const label = field.querySelector("label");
+      const uid = select.id || `registerCombo${index}`;
+      const placeholder =
+        select.querySelector('option[value=""]')?.textContent.trim() || "Select an option";
+      const labelText = label?.textContent.trim() || "";
+
+      if (label && !label.id) label.id = `${uid}Label`;
+
+      const trigger = document.createElement("button");
+      trigger.type = "button";
+      trigger.className = "register-combo-trigger";
+      trigger.id = `${uid}Trigger`;
+      trigger.setAttribute("aria-haspopup", "listbox");
+      trigger.setAttribute("aria-expanded", "false");
+      trigger.setAttribute("aria-controls", `${uid}Panel`);
+      if (label) trigger.setAttribute("aria-labelledby", `${label.id} ${trigger.id}`);
+
+      const panel = document.createElement("div");
+      panel.className = "register-combo-panel";
+      panel.id = `${uid}Panel`;
+      panel.hidden = true;
+
+      const searchWrap = document.createElement("div");
+      searchWrap.className = "register-combo-search";
+      searchWrap.innerHTML = '<i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>';
+
+      const search = document.createElement("input");
+      search.type = "text";
+      search.autocomplete = "off";
+      search.spellcheck = false;
+      search.placeholder = labelText ? `Search ${labelText.toLowerCase()}` : "Search";
+      search.setAttribute("role", "combobox");
+      search.setAttribute("aria-label", labelText ? `Search ${labelText}` : "Search");
+      search.setAttribute("aria-autocomplete", "list");
+      search.setAttribute("aria-expanded", "true");
+      search.setAttribute("aria-controls", `${uid}List`);
+      searchWrap.appendChild(search);
+
+      const list = document.createElement("ul");
+      list.className = "register-combo-list";
+      list.id = `${uid}List`;
+      list.setAttribute("role", "listbox");
+      if (label) list.setAttribute("aria-labelledby", label.id);
+
+      const empty = document.createElement("p");
+      empty.className = "register-combo-empty";
+      empty.textContent = "No matches found";
+      empty.hidden = true;
+
+      panel.append(searchWrap, list, empty);
+      select.tabIndex = -1;
+      select.setAttribute("aria-hidden", "true");
+      select.insertAdjacentElement("afterend", trigger);
+      field.appendChild(panel);
+
+      let items = [];
+      let activeIndex = -1;
+
+      function setActive(nextIndex) {
+        activeIndex = nextIndex;
+        items.forEach((item, i) => item.classList.toggle("is-active", i === nextIndex));
+        const active = items[nextIndex];
+        if (active) {
+          search.setAttribute("aria-activedescendant", active.id);
+          active.scrollIntoView({ block: "nearest" });
+        } else {
+          search.removeAttribute("aria-activedescendant");
+        }
+      }
+
+      function render() {
+        const query = search.value.trim().toLowerCase();
+        list.innerHTML = "";
+        items = [];
+
+        Array.from(select.options).forEach((option) => {
+          if (!option.value || option.disabled || option.hidden) return;
+          const text = option.textContent.trim();
+          if (query && !text.toLowerCase().includes(query)) return;
+
+          const item = document.createElement("li");
+          const selected = option.value === select.value;
+          item.className = "register-combo-option";
+          item.id = `${uid}Option${items.length}`;
+          item.setAttribute("role", "option");
+          item.setAttribute("aria-selected", String(selected));
+          item.classList.toggle("is-selected", selected);
+          item.dataset.value = option.value;
+          item.textContent = text;
+          list.appendChild(item);
+          items.push(item);
+        });
+
+        empty.hidden = items.length > 0;
+        const selectedIndex = items.findIndex((item) => item.classList.contains("is-selected"));
+        setActive(selectedIndex >= 0 ? selectedIndex : items.length ? 0 : -1);
+      }
+
+      function sync() {
+        const hasValue = Boolean(select.value);
+        const parent = select.dataset.dependsOn && document.getElementById(select.dataset.dependsOn);
+        const parentLabel = parent && form.querySelector(`label[for="${parent.id}"]`);
+
+        if (hasValue) {
+          trigger.textContent = select.selectedOptions[0]?.textContent.trim() || "";
+        } else if (select.disabled && parentLabel) {
+          trigger.textContent = `Select ${parentLabel.textContent.trim().toLowerCase()} first`;
+        } else {
+          trigger.textContent = placeholder;
+        }
+
+        trigger.classList.toggle("has-value", hasValue);
+        trigger.disabled = select.disabled;
+        field.classList.toggle("is-disabled", select.disabled);
+      }
+
+      function isOpen() {
+        return !panel.hidden;
+      }
+
+      function open() {
+        if (select.disabled || isOpen()) return;
+        closeAll(combo);
+        search.value = "";
+        render();
+        panel.hidden = false;
+        field.classList.add("is-open");
+        trigger.setAttribute("aria-expanded", "true");
+        search.focus();
+        panel.scrollIntoView({ block: "nearest" });
+      }
+
+      function close(restoreFocus) {
+        if (!isOpen()) return;
+        panel.hidden = true;
+        field.classList.remove("is-open");
+        trigger.setAttribute("aria-expanded", "false");
+        if (restoreFocus) trigger.focus();
+      }
+
+      function choose(value) {
+        if (select.value !== value) {
+          select.value = value;
+          select.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+        close(true);
+      }
+
+      field.addEventListener("mousedown", (e) => {
+        if (e.target !== search) e.preventDefault();
+      });
+
+      field.addEventListener("click", (e) => {
+        if (panel.contains(e.target)) {
+          const item = e.target.closest(".register-combo-option");
+          if (item) choose(item.dataset.value);
+          return;
+        }
+        if (e.target.closest("label")) e.preventDefault();
+        if (isOpen()) close(true);
+        else open();
+      });
+
+      field.addEventListener("focusout", (e) => {
+        if (!field.contains(e.relatedTarget)) close(false);
+      });
+
+      trigger.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+          e.preventDefault();
+          open();
+        }
+      });
+
+      search.addEventListener("input", render);
+
+      search.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+          e.preventDefault();
+          if (!items.length) return;
+          const step = e.key === "ArrowDown" ? 1 : -1;
+          setActive((activeIndex + step + items.length) % items.length);
+        } else if (e.key === "Enter") {
+          e.preventDefault();
+          if (items[activeIndex]) choose(items[activeIndex].dataset.value);
+        } else if (e.key === "Escape") {
+          e.preventDefault();
+          e.stopPropagation();
+          escapeHandled = true;
+          window.setTimeout(() => {
+            escapeHandled = false;
+          }, 0);
+          close(true);
+        } else if (e.key === "Tab") {
+          close(false);
+        }
+      });
+
+      select.addEventListener("change", sync);
+
+      const combo = { select, sync, close, isOpen, filter: null };
+      combos.push(combo);
+    });
+
+    combos.forEach((child) => {
+      const parent = child.select.dataset.dependsOn && document.getElementById(child.select.dataset.dependsOn);
+      if (!parent) {
+        child.sync();
+        return;
+      }
+
+      child.filter = () => {
+        const parentValue = parent.value;
+        Array.from(child.select.options).forEach((option) => {
+          if (!option.value) return;
+          const match = Boolean(parentValue) && option.dataset.parent === parentValue;
+          option.hidden = !match;
+          option.disabled = !match;
+        });
+
+        let reset = false;
+        if (child.select.value && child.select.selectedOptions[0]?.disabled) {
+          child.select.value = "";
+          reset = true;
+        }
+
+        child.select.disabled = !parentValue;
+        if (!parentValue) child.close(false);
+        child.sync();
+        if (reset) child.select.dispatchEvent(new Event("change", { bubbles: true }));
+      };
+
+      parent.addEventListener("change", child.filter);
+      child.filter();
+    });
+
+    form.addEventListener("reset", () => {
+      window.setTimeout(() => {
+        combos.forEach((combo) => (combo.filter ? combo.filter() : combo.sync()));
+      }, 0);
+    });
+
+    const dialog = form.closest("dialog");
+    dialog?.addEventListener("cancel", (e) => {
+      const openCombo = combos.find((combo) => combo.isOpen());
+      if (escapeHandled || openCombo) {
+        e.preventDefault();
+        openCombo?.close(true);
+      }
+    });
+    dialog?.addEventListener("close", () => closeAll());
+  }
+
+  const registerFormEl = document.getElementById("registerForm");
+  if (registerFormEl) setupRegisterCombos(registerFormEl);
+
   /* ---------- Inline phone / email OTP verification (register form) ---------- */
   function setupRegisterContactVerification(options) {
     const {
